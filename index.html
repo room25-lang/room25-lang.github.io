@@ -426,8 +426,8 @@ button[data-pm]{min-height:0!important;padding:10px 4px!important;font-size:15px
 .cubg::after{content:"";position:absolute;inset:0;background:radial-gradient(rgba(255,255,255,.12) 1.2px,transparent 1.5px) 0 0/8px 8px}
 .culine{position:absolute;left:-10%;right:-10%;top:58%;height:70px;background:var(--cc);transform:rotate(-8deg);opacity:.9;animation:culn .5s ease-out both}
 @keyframes culn{from{transform:rotate(-8deg) translateX(-100%)}}
-.cuimg{position:absolute;left:50%;top:2%;height:132%;transform:translateX(-50%);object-fit:contain;filter:drop-shadow(0 0 0 #fff) drop-shadow(6px 6px 0 rgba(0,0,0,.6));animation:cuzoom .9s cubic-bezier(.2,.8,.2,1) both}
-@keyframes cuzoom{from{transform:translateX(-50%) scale(.75) translateY(18%);opacity:0}to{transform:translateX(-50%) scale(1) translateY(0);opacity:1}}
+.cuimg{position:absolute;left:50%;top:2%;height:132%;transform:translateX(var(--cx,-50%));object-fit:contain;filter:drop-shadow(0 0 0 #fff) drop-shadow(6px 6px 0 rgba(0,0,0,.6));animation:cuzoom .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes cuzoom{from{transform:translateX(var(--cx,-50%)) scale(.75) translateY(18%);opacity:0}to{transform:translateX(var(--cx,-50%)) scale(1) translateY(0);opacity:1}}
 .cutitle{position:absolute;top:calc(env(safe-area-inset-top,0px) + 14px);left:12px;right:12px;text-align:center;background:rgba(0,0,0,.7);color:#fff;font-weight:900;padding:6px;border-radius:6px;z-index:3}
 .cuinfo{position:absolute;left:0;right:0;bottom:0;padding:16px 16px calc(env(safe-area-inset-bottom,0px) + 44px);background:linear-gradient(transparent,rgba(0,0,0,.92) 30%);z-index:3;text-align:left;animation:cuup .5s .3s ease-out both}
 @keyframes cuup{from{transform:translateY(40px);opacity:0}}
@@ -1096,6 +1096,15 @@ body.learnon #bgmF{display:none!important}
 .pgrid .pc.shine{box-shadow:none}.pgrid .pc.shine::before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(255,212,0,.45))}
 .pgrid .pc.rbw::before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(255,59,212,.5))}
 .pgrid .pc.back i{inset:22% 26%;border-radius:0;transform:skewX(-10deg);border-width:2px}
+
+/* v1.20 */
+.rmt{display:inline-flex;flex-direction:column;line-height:1.2;white-space:nowrap}.bossmk{display:block;color:#ff3b5a;font-size:11px;line-height:1.2}
+#shareBtn{padding-left:10px!important;padding-right:10px!important;min-width:0}
+/* 画面の切り替えで中身がずれないように：動きは透明度だけ、幅は固定 */
+.view.vin{animation:vin .18s ease-out!important}
+@keyframes vin{from{opacity:.4}}
+#learn,#test,#gacha,#rec{contain:layout paint}
+.tabs button,#tL,#tT,#tG,#tR{transition:background-color .15s,color .15s!important}
 </style>
 </head>
 <body class="dopa">
@@ -1118,7 +1127,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   </div>
 
   <div id="appV" hidden>
-    <div class="topr"><button id="bgmBtn" aria-label="BGM">♪ON</button><button id="gear" aria-label="設定"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.3"/><circle cx="10" cy="17" r="2.3"/></svg></button><button id="shareBtn" aria-label="共有"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg><b>共有</b></button><button id="ntfBtn" aria-label="お知らせ"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13l3-8h12l3 8"/><path d="M3 13v6h18v-6h-5l-1.5 2.5h-5L8 13z"/></svg><i id="ntfDot" hidden></i></button><span id="stg"></span><button id="stones">◆ 0</button></div>
+    <div class="topr"><button id="bgmBtn" aria-label="BGM">♪ON</button><button id="gear" aria-label="設定"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2.3"/><circle cx="10" cy="17" r="2.3"/></svg></button><button id="shareBtn" aria-label="共有"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button><button id="ntfBtn" aria-label="お知らせ"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13l3-8h12l3 8"/><path d="M3 13v6h18v-6h-5l-1.5 2.5h-5L8 13z"/></svg><i id="ntfDot" hidden></i></button><span id="stg"></span><button id="stones">◆ 0</button></div>
     <div class="tabs">
       <button class="tab on" id="tL">学習</button>
       <button class="tab" id="tT">テスト</button>
@@ -1979,7 +1988,7 @@ var CGI=0,CGV='grid';try{CGV=localStorage.getItem('dopa:cgv2')==='card'?'card':'
 function cgHtml(){
   var own=CHARS.filter(function(c){return lvOf(c.id)}),lk=CHARS.filter(function(c){return !lvOf(c.id)}),L=own.concat(lk);
   CGI=Math.min(CGI,L.length-1);
-  var sl=L.map(function(c){var id=c.id,lv=lvOf(id),eq=G.party.indexOf(id)>=0,n=cplN(lv),t=CTH[id],no=("0"+(CHARS.indexOf(c)+1)).slice(-2),seg="";
+  var sl=CGV!=='card'?'':L.map(function(c){var id=c.id,lv=lvOf(id),eq=G.party.indexOf(id)>=0,n=cplN(lv),t=CTH[id],no=("0"+(CHARS.indexOf(c)+1)).slice(-2),seg="";
     for(var q=1;q<=5;q++)seg+='<i'+(q<=lv?' class="f"':'')+'></i>';
     return '<div class="cgs zz'+(lv?'':' lk')+'" data-id="'+id+'" style="--zc:'+t.bg[1]+';--zd:'+t.bg[2]+'"><div class="zbg"><span class="zno">'+no+'</span><i class="zht"></i></div>'+
      '<div class="cgc'+(lv?'':' lk')+'" data-talk="'+(lv?id:'')+'">'+cardSVG(id,cImg(id),c.s,{uid:"g"+id,lock:!lv})+'<div class="cpbub"></div>'+(lv?'':'<div class="cglk"><b>？？？</b></div>')+'</div>'+
@@ -3437,7 +3446,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.19",VLOG=[
+var VERSION="1.20",VLOG=[
+ ["1.20","2026-11-12",["ガチャのキャラ紹介で、キャラの体が画面の真ん中に来るように","画面の切り替えでUIがブレることがあるのを修正","共有ボタンをアイコンだけに","「全体テスト（ボス戦あり）」と表示。選ぶと出題数が自動で「全部」になります"]],
  ["1.19","2026-11-12",["カードを、斜めのひし形（平行四辺形）のデザインに作り直し","キャラ画面は「編成」が先、キャラ一覧は「一覧」が先に出るように","ガチャの演出を一新（古いテレビの砂嵐→信号の色でレア度→画面が消えて結果へ）。タップですぐ結果へ飛べるのは今までどおり"]],
  ["1.18","2026-11-12",["編成のカードを、傾けずにカードごと斜めに切り取るデザインに","キャラ一覧に「一覧」表示を追加（ひし形のタイルで全員を一度に見られます。タップでそのキャラのカードへ）"]],
  ["1.17","2026-11-12",["顔だけのアップをやめて、腰から上が見える形に","編成画面：上に編成（SQUAD）、下にキャラ一覧（MEMBERS）"]],
@@ -4516,7 +4526,7 @@ function showPull(res,title,fx){
       $("pullbody").innerHTML=head+'<img class="pimg hzimg pop1" src="'+IMT(r.h.id)+'" alt=""><div class="pbig">ハズレ…</div><div class="pbig" style="font-size:18px">'+esc(r.h.name)+(r.nw?'　NEW':'')+'</div><div class="hint" style="text-align:center;font-size:14px">◆'+HAZ_REF+' 返還されました。'+(r.nw?'<br>ハズレ図鑑に登録しました（'+hzOwn()+' / '+HZ.length+'）':'')+'</div>'+skipBox+'<button class="main" id="pullok">OK</button>';
     }else if(res.length===1){
       var c=res[0].c;
-      $("pullbody").innerHTML=head+'<img class="pimg cimg" src="'+IMF(c.id)+'" alt=""><div class="pbig">'+esc(c.name)+'</div><div class="pbig" style="font-size:18px">'+c.star+'　'+res[0].out+'</div><div class="hint" style="text-align:center;font-size:13px">'+esc(cSk(c))+'：'+esc(cDesc(c,lvOf(c.id)))+'</div>'+skipBox+'<button class="main" id="pullok">OK</button>';
+      $("pullbody").innerHTML=head+'<img class="pimg cimg" src="'+IMF(c.id)+'" alt="" style="transform:translateX('+((.5-(CCX[c.id]||.5))*100).toFixed(1)+'%)"><div class="pbig">'+esc(c.name)+'</div><div class="pbig" style="font-size:18px">'+c.star+'　'+res[0].out+'</div><div class="hint" style="text-align:center;font-size:13px">'+esc(cSk(c))+'：'+esc(cDesc(c,lvOf(c.id)))+'</div>'+skipBox+'<button class="main" id="pullok">OK</button>';
     }else{
       window.__pullSkip=null;$("pullbody").innerHTML=head+'<div class="pbig" style="font-size:18px">'+res.length+'回の結果</div><div class="pgrid'+gcls+'">'+res.map(cell).join("")+'</div><div class="hint" style="text-align:center;font-size:13px">'+sumTxt+(cs.length?'<br>キャラをタップすると、もう一度紹介します':'')+'</div>'+skipBox+'<button class="main" id="pullok">OK</button>';
       Array.prototype.forEach.call($("pullbody").querySelectorAll("[data-cu]"),function(d){d.onclick=function(){var id=d.getAttribute("data-cu");var k=0;ups.forEach(function(u,j){if(u.c.id===id)k=j});closeup(k,true)}});
@@ -4528,7 +4538,7 @@ function showPull(res,title,fx){
     if(i>=ups.length){summary();return}
     var r=ups[i],c=r.c,tg=resTag(r),last=one||i>=ups.length-1;
     $("pull").classList.add("cu");
-    $("pullbody").innerHTML='<div class="cuw r'+c.s+'" id="cuw"><div class="cubg"></div><div class="curay"></div><div class="culine"></div>'+(tg==="NEW"?'<div class="cunew">NEW!</div>':'')+'<img class="cuimg" src="'+IMF(c.id)+'" alt="">'+
+    $("pullbody").innerHTML='<div class="cuw r'+c.s+'" id="cuw"><div class="cubg"></div><div class="curay"></div><div class="culine"></div>'+(tg==="NEW"?'<div class="cunew">NEW!</div>':'')+'<img class="cuimg" src="'+IMF(c.id)+'" alt="" style="--cx:-'+(((CCX[c.id]||.5))*100).toFixed(1)+'%">'+
       (title?'<div class="cutitle">'+title+'</div>':'')+
       '<div class="cuinfo"><div class="cust">'+Array(c.s+1).join('<s>★</s>')+(tg?'<i>'+tg+'</i>':'')+'</div><div class="cunm">'+esc(c.name)+'</div><div class="cusk"><b>'+esc(cSk(c))+'</b>　'+esc(cDesc(c,lvOf(c.id)))+'</div><div class="cuv">声：VOICEVOX '+esc(vname(cvoice(c.id)))+'</div></div>'+
       '<div class="cuhint">タップで'+(last?'結果へ':'次のキャラへ（'+(i+1)+' / '+ups.length+'）')+'</div></div>';
@@ -4698,7 +4708,7 @@ function setup(msg){
    '<div id="rp" class="rp"></div>'+
    chipsHtml(TS)+'<div class="modes">'+
    '<label class="rad"><input type="radio" name="mode" value="new" checked> 未習得だけ</label>'+
-   '<label class="rad"><input type="radio" name="mode" value="all"> 全体テスト</label>'+
+   '<label class="rad"><input type="radio" name="mode" value="all"> <span class="rmt">全体テスト'+(BOSSON?'<b class="bossmk">（ボス戦あり）</b>':'')+'</span></label>'+
    '</div>'+
    '<details class="dt" id="adv"><summary>くわしい設定（出題数・範囲・演出）</summary>'+
    '<div class="pair" id="regsel" style="flex:0 0 auto"><button class="sm" data-reg="0">標準</button><button class="sm" data-reg="1">高音特化</button><button class="sm" data-reg="2">低音特化</button></div>'+
@@ -4717,7 +4727,7 @@ function setup(msg){
   bindStages();
   ["cat","lim","pick"].forEach(function(k){$(k).onchange=rangeProg;$(k).oninput=rangeProg});
   ["from","to"].forEach(function(k){$(k).onchange=$(k).oninput=function(){if(setKeys(TS).length){var f=$("from").value,t=$("to").value;TS.set={};chipsMark($("test"),TS);$("from").value=f;$("to").value=t}rangeProg()}});
-  Array.prototype.forEach.call($("test").querySelectorAll('input[name=mode]'),function(r){r.onchange=rangeProg});
+  Array.prototype.forEach.call($("test").querySelectorAll('input[name=mode]'),function(r){r.onchange=function(){if(r.checked&&r.value==="all"&&$("lim")){$("lim").value="0";try{localStorage.setItem("dopa:lim",JSON.stringify({l:0,p:$("pick").value}))}catch(e){}}rangeProg()}});
   rangeProg();
   var rb=$("regsel").querySelectorAll("button");
   var markR=function(){Array.prototype.forEach.call(rb,function(b){b.classList.toggle("on",parseInt(b.getAttribute("data-reg"))===REG)})};
@@ -4727,7 +4737,7 @@ function setup(msg){
   markR();
   try{$("autosay").checked=localStorage.getItem("dopa:autosay")==="1"}catch(e){}
   $("nxChk").checked=NXT;$("nxChk").onchange=function(){nxtSet($("nxChk").checked)};
-  $("bossChk").checked=BOSSON;$("bossChk").onchange=function(){bossSet($("bossChk").checked)};
+  $("bossChk").checked=BOSSON;$("bossChk").onchange=function(){bossSet($("bossChk").checked);var m=document.querySelector('input[name=mode]:checked');setup("");if(m){var r=document.querySelector('input[name=mode][value="'+m.value+'"]');if(r)r.checked=true}$("adv").open=true};
   $("autosay").onchange=function(){try{localStorage.setItem("dopa:autosay",$("autosay").checked?"1":"0")}catch(e){}};
   $("set").onclick=function(){$("iomsg").textContent="";$("addmsg").textContent="";$("ov").classList.remove("inv")};
   uiEnhance($("test"));
