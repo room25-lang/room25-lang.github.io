@@ -7,6 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <title>どぱたん</title>
 <meta name="theme-color" content="#0b0c0e">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="どぱたん">
 <meta name="description" content="NGSL 2809語をガチャとキャラで覚える英単語アプリ">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/favicon-48.png" sizes="48x48">
@@ -645,9 +647,65 @@ body.noanim .hslash,body.noanim .hscan{display:none}
 
 .dlall{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;border:2px solid var(--acc);border-radius:var(--rc)}
 #dlcAllB{width:100%}
+
+/* ---- ロゴ用フォント（Dela Gothic One・OFL。使う文字だけを同梱：ネットがなくても同じ見た目） ---- */
+@font-face{font-family:"DopaLogo";src:url(data:font/woff2;base64,d09GMgABAAAAAARkAA8AAAAAB2wAAAQQAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGyAcMAZgAEwRCAqFIIRTATYCJAMMCwwABCAFg2YHIBckGAwbEgYIjtFjVxhJ8mRYIwxZhh88T3rfnzuTp2RhZPeDyvuSKrACUUpsWSkLcpp2oPiRvAqOePdCU6dqIhaQbMWI7tF53geLdg7CArZP3SDB8pqWC1CHWc2tKWT3GKvZGHKomPQqPgKYpJCGNG3u6Am0GADuPwAAx6KEMnR6nIPy0hNBeHRYZjII96Cs1vqGrAIqUEuQ3QHa+KTSF3VRBPDICOreaiPHwRlM7RDVJj3eLQeMRYgMQABUiiIDGWhAgafHoBF4n0FNwMSPQtn9VONU01Sb3H9AkmAGMR2YRkwaCExOEHrE5H2GWZ/7C0DqAQAGAKDQGEhqHDV1WgEjo1U5zZP4zHnypP75026mdzcJhlLB8xacM1jB3eYST9LTGkTn5CP6JdpPssDn7Gl+N6Ub1qzHTtdzCWJat1+UkhiW+vQ/AlohH5PJXVcnRZCCTwcFH97V7ZBbZb2fkM+1pIUgOuKzYh1W+wgTz0AdMJ+o6QX0L05B6U6S9y7Irjn6EfNJXg55qJ02OgIbpnSiiPhDHGcL9IncGczeF/VsNZ84T192GzBtEx+VnGuEBPO7E9opzVe/9dTn+mMr01vgF9m40NOvt5yjQ0RrEy238riwQMTpTAy/s7NFUZOmLY6tzhHAkb3zbObWnqOx90ke9G0dk+gNkxeM0A164g7kwXFbI9hkDWSg6k8/sI608GRga2R3mFRejrUR2MabU7OOpfd/eCHhxDuq03nYy7s3Jk/NLusnG+JQ3XslRkk5Q8h/qjGdof0c2li7XaZahYsN13m9t7bVPpINHcf2DAkNrh2QxaTWrV0mGJcLqBZrVDaSllA8zJY4LJFQULdMNEfgZ4a3d6YKd6ZZROhIZLuSsBviuEdjXL5MVoetZ+BAwkPOu46LS6RjeBAvIg31vgv5r24dGpoQ4+lFz1eNSfAvB9/ELZnt+7TrWH1AYM7UR5PW1Oefgc+zkndjNI+WNXezMuDJivaioAskJfMH0Ae3SeU0AwAQQKTFjuxQoRAWw9+0DPobwKsyFgeAr3xbZ6Fwv/SLPgCADwWAgLHo7wH0NzSG/oRgFCGUZOyqIwpEIYCHNlACICjS8AKDAQDAR08oECMAHAaIcCGNw7gijFu4piFXuEGZ8OMeksQ2npciCceCFFLJI504YoglE1EqsetcBk4DjaI3JYpEwpQWfUpmMxdHBKAdSSeFeKKIYEKhEVmUktJWMhQUMJxMhaeSgT7llDOMOJXhQTjKDEIuCRVsyiOMBLLIJ4pkVBaXn73J7UPvQDJRuBdiyCJ/PR01yrCxqUYdGuGJA84YzOendFBCPSs7iaLgTdTXx8WRQjKiWzRqsUeB4XRXUCcqEcivP0aKbyVl9wQm6mwA+V1gCWTCwKn9AQA=) format("woff2");unicode-range:U+305F,U+3069,U+3071,U+3093;font-display:block}
+@font-face{font-family:"DopaLogo";src:url(data:font/woff2;base64,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) format("woff2");unicode-range:U+0020-004D,U+004F-007E;font-display:block}
+@font-face{font-family:"DopaLogo";src:url(data:font/woff2;base64,d09GMgABAAAAAAJUABAAAAAABRgAAAIAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhQbIBwwBmAAPBEICkBaATYCJAMMCwgABCAFg2YHIBckGAgbGQQIrgbshmxDJKwNp9UnzggT+YUeb6gaD/3vR7vzZsW0rSMhmVWXpE28WSgakofMEjlUmid+xer+qzXdC7CM4pVhKgE8o7IVvkZ3fLkfAiFR1aR8h8DQ7sr/WkTLHdLBL8VEozR88Za1oOCXQgJJCzBpHgUaIGc7K6m+MZMzOdkagQ5AKEIItJlQQLbt2D2FmAaoATDFkobgvfRZTxehcPHJlKHw0geZHyONlMflEth7HhgndKIGaAQgAGDzvp19WIT2U62j4WEgEFAmyjdmBFGQGBAUGBAyBzRpEIoZ+zVk0/qnBCBETRtI0IRADzAOQAOA6Ln16f7+jvvjqZ/wQOfdicHPTa9+sMaF3/TORnT15fLBq+1ZDyAQsfOauOBk9+x/S3tW8OUBp4Bfo783B/JK+UKzAoKGh2s/yMqcUioIACCzMu6DfGIOQepBQCimRHAOAJodERQNrXjHDWHKO4oun5A2+UeDlcig0VhszjVZiGcrFCqPjsNgmVBHS9egUywKWkURPUEbFCYW5wU6pFPwKC9MaIkFzSl0BlTCMplUhommJgYHNi3PGl4oJC01eJ4Ivo8ia5LTqCvvoQdklGNmWODruraGlpa+qSWnduybzpsRoZ45TAmTz1G/RxyFDK0oRXZBRVtvozB6kH9rHVn5kBeupwoEAIisPO7tGwA=) format("woff2");unicode-range:U+004E;font-display:block}
+
+.homev h1.logo,.homev .pkS{font-family:"DopaLogo","Dela Gothic One","Hiragino Sans","Noto Sans JP",sans-serif!important}
+/* 読み込みが終わるまでホームを隠す（古い色の画面が一瞬見えるのを防ぐ。4秒たてば必ず表示） */
+body.anim .homev:not(.intro){visibility:hidden;animation:dpshow 0s 4s forwards}
+@keyframes dpshow{to{visibility:visible}}
+/* ---- 新しいロゴ（スタイリッシュ）：斜体のブロック文字＋シアンのずれ影＋下のライン ---- */
+body.th-sty .homev h1.logo{flex-direction:row!important;gap:0;font-size:clamp(52px,21vw,104px)!important;line-height:1;letter-spacing:-.04em;filter:none}
+body.th-sty .logo span{color:#d4ff00!important;transform:skewX(-11deg)!important;filter:drop-shadow(0 0 18px rgba(212,255,0,.35))!important}
+body.th-sty .logo span::before{-webkit-text-stroke:.16em #00e5ff!important;color:#00e5ff!important;-webkit-text-fill-color:#00e5ff!important;transform:translate(.075em,.07em);z-index:-2}
+body.th-sty .logo span::after{-webkit-text-stroke:.13em #000!important;color:#000!important;-webkit-text-fill-color:#000!important;z-index:-1}
+body.th-sty .logo span:nth-child(2){transform:skewX(-11deg) translateY(-.06em)!important}
+body.th-sty .logo span:nth-child(4){transform:skewX(-11deg) translateY(.04em)!important}
+body.th-sty .hmid::after{content:"DOPATAN // VOCAB GACHA";display:block;margin:10px auto 0;width:max-content;font:clamp(9px,3.1vw,12px)/1 "DopaLogo",sans-serif;letter-spacing:.28em;max-width:92%;white-space:nowrap;color:#0b0c0e;background:linear-gradient(90deg,#d4ff00,#00e5ff);padding:5px 10px 5px 14px;transform:skewX(-11deg)}
+body.lite.th-sty .logo span{filter:none!important}
+/* ---- 公式リンク（ホーム） ---- */
+.hsns{display:flex;justify-content:center;gap:10px;margin-top:2px}
+.hsns button{white-space:nowrap}
+@media (max-width:360px){.hsns{gap:6px}.hsns button{padding:0 9px;font-size:12px}}
+.hsns button,.shsns button{min-height:0;height:40px;padding:0 14px;border-radius:20px;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px}
+.hsns button i,.shsns button i{font-style:normal;font-size:15px}
+body.th-sty .hsns button{border-radius:0;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);background:#000!important;color:#f4f4f2!important;border:1px solid #00e5ff!important}
+body.anim .homev.intro .hsns{animation:fadein .6s 1.4s both}
+/* ---- 上部バナーの共有ボタン ---- */
+.topr #shareBtn{width:44px;padding:0;font-size:17px}
+#shr .sheet{gap:10px}
+.shsns{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.shsns button{flex:1 1 30%}
+/* ---- ガチャ結果：スクロールしなくても閉じられる ---- */
+#pull:not(.cu) #pullok{position:sticky;bottom:calc(env(safe-area-inset-bottom,0px) + 6px);z-index:5;box-shadow:0 -10px 24px 6px var(--bg)}
+.pclose{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;z-index:30;min-height:0;height:40px;padding:0 14px;font-size:14px;border-radius:20px;background:rgba(0,0,0,.6)!important;color:#fff!important;border:1px solid rgba(255,255,255,.5)!important}
+#pull.inv .pclose{display:none}
+/* ---- スタイリッシュに2色目（シアン）：ガチャ以外の画面 ---- */
+body.dopa.th-sty{--acc2:#00e5ff;background:radial-gradient(circle at 105% 108%,rgba(0,229,255,.16),transparent 46%),radial-gradient(circle at -8% -6%,rgba(212,255,0,.10),transparent 38%),repeating-linear-gradient(115deg,rgba(255,255,255,.022) 0 2px,transparent 2px 26px),radial-gradient(ellipse at 50% -10%,var(--g1) 0%,var(--g2) 45%,var(--g3) 100%) fixed}
+body.th-sty #learn .card,body.th-sty #test .card,body.th-sty #rec .card,body.th-sty #ov .sheet>.dop{border-top-color:var(--acc2)!important}
+body.th-sty #learn .card,body.th-sty #test .card,body.th-sty #rec .card{box-shadow:6px 6px 0 #000,inset 0 3px 0 rgba(0,229,255,.55),0 0 calc(24px*var(--pulse,0)) var(--Tglow)!important}
+body.th-sty .tab:not(.on){border-color:rgba(0,229,255,.55)!important}
+body.th-sty .tab:not(.on):nth-child(odd){box-shadow:inset 0 -3px 0 rgba(0,229,255,.6)}
+body.th-sty .tab:not(.on):nth-child(even){box-shadow:inset 0 -3px 0 rgba(212,255,0,.35)}
+body.th-sty #learn .stat,body.th-sty #test .stat,body.th-sty #rec .stat,body.th-sty .lbl,body.th-sty .scard>.hint:first-child{color:var(--acc2)}
+body.th-sty .stgb:not(.on),body.th-sty .bkb:not(.on){border-color:rgba(0,229,255,.45)!important}
+body.th-sty .stgb:not(.on) b,body.th-sty .bkb:not(.on) b{color:#7ff3ff}
+body.th-sty #learn input[type=number],body.th-sty #test input[type=number],body.th-sty .numb{border-color:var(--acc2)!important}
+body.th-sty details.dt>summary{border-left:4px solid var(--acc2)}
+body.th-sty #ov .sheet>.dop>h3,body.th-sty #ov .sheet>h3{border-left-color:var(--acc2)!important}
+body.th-sty .head #count{color:var(--acc2)}
+body.th-sty .topr #gear,body.th-sty .topr #shareBtn{border-color:var(--acc2)!important;color:var(--acc2)!important}
+/* ---- アプリ版の初回：全データDLの選択 ---- */
+#appdl .sheet{justify-content:center;gap:14px;text-align:center}
 </style>
 </head>
 <body class="dopa">
+<script>(function(){var P={std:["#8a0a2a","#3a0014","#12000a","#240010","#14000a"],sty:["#1b2125","#101316","#060708","#1b1d21","#0e0f11"],chn:["#c0161f","#640b10","#250405","#45080b","#260405"],sak:["#d4558a","#6e2346","#2a0c1a","#4a1a30","#2c0e1c"],sea:["#0b4f8a","#062849","#020c1a","#062038","#030f1e"]};
+try{var k=localStorage.getItem("dopa:skin");if(!P[k])k="sty";var an=localStorage.getItem("dopa:anim")!=="0",li=localStorage.getItem("dopa:lite")==="1",c="dopa";if(k!=="std")c+=" thx th-"+k;c+=(an&&!li)?" anim":" noanim";if(li)c+=" lite";document.body.className=c;
+var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function(p,j){st.setProperty(p,P[k][j])})}catch(e){document.body.className="dopa thx th-sty anim"}})();</script>
 <main>
   <div class="homev" id="homeV">
     <div class="hbg"></div><div class="hray"></div><div class="hslash"></div><div class="hscan"></div><i class="hc tl"></i><i class="hc tr"></i><i class="hc bl"></i><i class="hc br"></i><div class="hdots"><i style="left:4%;animation-delay:0.0s;animation-duration:6s"></i><i style="left:12%;animation-delay:0.7s;animation-duration:7s"></i><i style="left:20%;animation-delay:1.4s;animation-duration:8s"></i><i style="left:28%;animation-delay:2.1s;animation-duration:9s"></i><i style="left:36%;animation-delay:2.8s;animation-duration:6s"></i><i style="left:44%;animation-delay:3.5s;animation-duration:7s"></i><i style="left:52%;animation-delay:4.2s;animation-duration:8s"></i><i style="left:60%;animation-delay:4.9s;animation-duration:9s"></i><i style="left:68%;animation-delay:5.6s;animation-duration:6s"></i><i style="left:76%;animation-delay:0.3s;animation-duration:7s"></i><i style="left:84%;animation-delay:1.0s;animation-duration:8s"></i><i style="left:92%;animation-delay:1.7s;animation-duration:9s"></i></div>
@@ -659,11 +717,12 @@ body.noanim .hslash,body.noanim .hscan{display:none}
     <div class="hbot">
       <button class="pk pkS" id="pickStart">Start</button>
       <div class="hint" id="homeNote" style="text-align:center"></div><div class="hint" id="homeInfo" style="text-align:center"></div><div class="hver" id="hver"></div>
+      <div class="hsns"><button data-sns="x" aria-label="公式X"><i>𝕏</i>公式</button><button data-sns="yt" aria-label="公式YouTube"><i>▶</i>YouTube</button><button data-sns="dc" aria-label="公式Discord"><i>💬</i>Discord</button></div>
     </div>
   </div>
 
   <div id="appV" hidden>
-    <div class="topr"><button id="bgmBtn">♪BGM ON</button><button id="gear" aria-label="設定">⚙</button><span id="stg"></span><button id="stones">◆ 0</button></div>
+    <div class="topr"><button id="bgmBtn">♪BGM ON</button><button id="gear" aria-label="設定">⚙</button><button id="shareBtn" aria-label="共有">⤴</button><span id="stg"></span><button id="stones">◆ 0</button></div>
     <div class="tabs">
       <button class="tab on" id="tL">学習</button>
       <button class="tab" id="tT">テスト</button>
@@ -816,6 +875,10 @@ body.noanim .hslash,body.noanim .hscan{display:none}
   <div class="hint">音声はVOICEVOXの各キャラクターの声です。使っている声は、上の「音声についての説明・クレジット」に「VOICEVOX:キャラクター名」の形で表示します。</div>
   <div class="hint">【規約の要約】VOICEVOX公式の音声ライブラリ利用規約（2026年11月に確認）より<br>・ソフト本体は商用・非商用とも無料。作った音声には、声（キャラクター）ごとの規約が適用されます。<br>・このアプリで使う19人の声は、いずれも「VOICEVOX:キャラクター名」のクレジットを書けば、商用・非商用で利用できます（後鬼は、企業が携わる利用のみ事前確認が必要）。<br>・音声は、このアプリの中で使うためだけに収録しています。音声ファイルを取り出して、素材として再配布することはできません。<br>・各キャラクターの詳しい規約：https://voicevox.hiroshiba.jp/ の各キャラクターのページ</div>
   </details>
+  <h3>管理者コマンド</h3>
+  <div class="row2"><input type="password" id="devIn" placeholder="パスワード" autocomplete="off" spellcheck="false" style="flex:1;min-width:0"><button class="sm" id="devGo">認証</button></div>
+  <div id="devPanel" hidden><div class="pair"><button class="sm" data-dv="inf">◆無制限 ON/OFF</button><button class="sm" data-dv="stones">◆+100万</button></div><div class="pair"><button class="sm" data-dv="chars">全キャラ解放</button><button class="sm" data-dv="max">全キャラLv5</button></div><div class="pair"><button class="sm" data-dv="slots">編成枠を6に</button><button class="sm" data-dv="hz">ハズレ図鑑を全部</button></div><div class="pair"><button class="sm" data-dv="unlock">テストのロック解除</button><button class="sm" data-dv="off">管理者モードを終了</button></div></div>
+  <div class="hint" id="devMsg"></div>
   <h3>ゲームデータの初期化</h3>
   <div class="hint">キャラクター・◆・編成枠を、はじめの状態に戻します（単語の進捗は変わりません）。</div>
   <button id="gRst">キャラ・◆を初期化</button>
@@ -827,7 +890,24 @@ body.noanim .hslash,body.noanim .hscan{display:none}
 <div class="ov inv" id="ngc" style="z-index:13"><div class="sheet"><div class="pbig" style="font-size:20px">はじめる前に</div><div class="hint" style="text-align:left;font-size:14px;line-height:1.7">掛け声やキャラクターの声は、アプリに収録しています（VOICEVOX）。最初に、よく使う声だけを、すぐ鳴らせる形に準備します（数秒）。BGMは、20ステージ分を裏で少しずつ作って保存します。<br>・音声は VOICEVOX（各キャラクターの声）を利用しています。クレジットは設定の「全体」タブにあります。</div><div class="hint" style="text-align:left;font-size:13px;line-height:1.6">「すべての声を準備」を選ぶと、全キャラの自己紹介・スキルの声と、全部の掛け声を最初にまとめて準備します（1分ほど）。</div><button class="main" id="ngok">よく使う声だけ準備して始める</button><button id="ngall">すべての声を準備して始める（1分ほど）</button><button id="ngno">やめる</button></div></div>
 <div class="ov inv" id="tut" style="z-index:14"><div class="sheet" style="min-height:100%;justify-content:space-between"><div class="row2" style="justify-content:space-between"><span class="hint" id="tutn"></span><button class="sm" id="tutskip">スキップ</button></div><div id="tutbody" style="display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;flex:1;justify-content:center"></div><div class="hint" id="tutst" style="text-align:center"></div><div class="pair"><button id="tutprev">戻る</button><button class="main" id="tutnext">次へ</button></div></div></div>
 <div class="ov inv" id="vdl" style="z-index:12"><div class="sheet" id="vdlbody"></div></div>
-<div class="ov inv" id="pull"><div class="sheet" id="pullbody"></div></div>
+<div class="ov inv" id="pull"><button class="pclose" id="pullx">✕ 閉じる</button><div class="sheet" id="pullbody"></div></div>
+<div class="ov inv" id="shr" style="z-index:15"><div class="sheet">
+  <div class="pbig" style="font-size:20px">どぱたんをシェア</div>
+  <div class="hint" id="shrTxt" style="text-align:center"></div>
+  <button class="main" id="shrX">𝕏　Xに投稿</button>
+  <button id="shrAny">LINE・ほかのアプリで共有</button>
+  <button id="shrCopy">リンクをコピー</button>
+  <div class="hint" id="shrMsg" style="text-align:center"></div>
+  <div class="pbig" style="font-size:16px;margin-top:6px">公式アカウント</div>
+  <div class="shsns"><button data-sns="x"><i>𝕏</i>公式X</button><button data-sns="yt"><i>▶</i>YouTube</button><button data-sns="dc"><i>💬</i>Discord</button></div>
+  <button id="shrCls">閉じる</button>
+</div></div>
+<div class="ov inv" id="appdl" style="z-index:16"><div class="sheet">
+  <div class="pbig" style="font-size:22px">アプリ版へようこそ</div>
+  <div class="hint" style="font-size:14px;line-height:1.7">すべてのデータ（全20種類の声・全テーマのBGM）を、いまこの端末にダウンロードしますか？<br>ダウンロードすると、ネットがなくても全部の声と曲が使えます（Wi-Fi推奨・数分かかります）。</div>
+  <button class="main" id="appdlYes">すべてダウンロードする</button>
+  <button id="appdlNo">あとで（設定の「DLC」からいつでもできます）</button>
+</div></div>
 <div class="ov inv" id="verov" style="z-index:15"><div class="sheet" id="verbody"></div></div>
 <div class="ov inv" id="pkov" style="z-index:16"></div>
 <div id="banner"></div><div id="skb"></div><div id="fxflash"></div><div id="gfx" class="inv"></div>
@@ -1633,7 +1713,7 @@ function hslHex(h,s,l){h=((h%360)+360)%360;var c=(1-Math.abs(2*l-1))*s,x=c*(1-Ma
 function heatCol(hex,lv){var a=hexHsl(hex);return hslHex(a[0]+lv*38,Math.min(1,a[1]+lv*0.06),Math.min(0.55,a[2]*(1+lv*0.22)+lv*0.015))}
 /* 演出（連続正解）が出るたびに背景の色が移り変わり、明るく鮮やかになる */
 var SKN={std:{n:"標準（ドパ）"},
- sty:{n:"スタイリッシュ（黒×ライム）",pal:[["#3b3f45","#16181b","#060708","#1b1d21","#0e0f11"],["#2f3a33","#131815","#050706","#171d19","#0c0f0d"],["#30343f","#12151b","#05060a","#171a21","#0c0e12"],["#3d3438","#181316","#070506","#1d171a","#0f0c0d"]]},
+ sty:{n:"スタイリッシュ（黒×ライム）",pal:[["#1b2125","#101316","#060708","#1b1d21","#0e0f11"],["#1a231e","#0f1311","#050706","#171d19","#0c0f0d"],["#1a1e27","#0f1116","#05060a","#171a21","#0c0e12"],["#231d20","#121012","#070506","#1d171a","#0f0c0d"]]},
  chn:{n:"中華（朱×金）",pal:[["#c0161f","#640b10","#250405","#45080b","#260405"],["#b3361a","#5c1708","#220703","#401009","#230704"],["#a01236","#55081d","#20030b","#3a0613","#20030a"],["#a8261a","#58130a","#200603","#3d0e07","#210604"]]},
  sak:{n:"さくら（桜色×白）",pal:[["#d4558a","#6e2346","#2a0c1a","#4a1a30","#2c0e1c"],["#c25a9a","#62244c","#26091d","#45193a","#280c1f"],["#d4687a","#6e2a36","#2a0e14","#4a1e26","#2c1015"],["#b85aa8","#5c2456","#240b22","#41193d","#270d24"]]},
  sea:{n:"深海（紺×シアン）",pal:[["#0b4f8a","#062849","#020c1a","#062038","#030f1e"],["#0b6a7a","#05333c","#011316","#04272e","#021518"],["#2a3f9a","#141f4e","#05081c","#10183b","#070b20"],["#0a5a6a","#052c34","#011014","#04222a","#021216"]]}};
@@ -1642,7 +1722,7 @@ var BST=SKC;
 var ANIM=true;try{ANIM=localStorage.getItem("dopa:anim")!=="0"}catch(e){}
 var LITE=false;try{LITE=localStorage.getItem("dopa:lite")==="1"}catch(e){}
 function IMF(id){return LITE?IMT(id):IMGS[id]}
-function skinApply(){var cl=document.body.classList;cl.toggle("anim",ANIM&&!LITE);cl.toggle("noanim",!ANIM||LITE);cl.toggle("lite",LITE);Object.keys(SKN).forEach(function(k){cl.remove("th-"+k)});cl.remove("thx");if(SKC!=="std"){cl.add("thx");cl.add("th-"+SKC)}try{applyBg(T?T.stage:-1,T?T.heat:0)}catch(e){}}
+function skinApply(){var cl=document.body.classList;cl.toggle("anim",ANIM&&!LITE);cl.toggle("noanim",!ANIM||LITE);cl.toggle("lite",LITE);Object.keys(SKN).forEach(function(k){cl.remove("th-"+k)});cl.remove("thx");if(SKC!=="std"){cl.add("thx");cl.add("th-"+SKC)}try{applyBg(T?T.stage:-1,T?T.heat:0)}catch(e){}try{themeMeta()}catch(e){}}
 function applyBg(k,h){var s=document.body.style,c=(SKN[SKC]&&SKN[SKC].pal)?SKN[SKC].pal[bookOf(k>=0?k:0)%4]:STGCOL[k>=0?bookOf(k):0],lv=h||0;["--g1","--g2","--g3","--c1","--c2"].forEach(function(p,j){s.setProperty(p,lv?heatCol(c[j],lv):c[j])})}
 function stgIdx(i){var no=i+1,k=0;for(var j=0;j<STAGES.length;j++)if(STAGES[j].s<=no)k=j;return k}
 var PO_MAJ=[0,2,4,7,9],PO_MIN=[0,3,5,7,10];
@@ -1868,7 +1948,7 @@ function chillStep(n,t){
    スタイリッシュ：フューチャーハウス／中華：祭り囃子（太鼓・銅鑼・古箏・二胡・笛）
    さくら：和楽器ロック（都節音階・琴・尺八・太鼓）／深海：アンビエント・テクノ（ソナー・泡・リース・ベース） */
 var BSTN={sty:"スタイリッシュ",chn:"中華",sak:"和",sea:"深海"};
-function bstF(){return {sty:0.86,chn:0.72,sak:0.86,sea:0.5}[BST]||1}
+function bstF(){return {sty:0.8,chn:0.72,sak:0.86,sea:0.5}[BST]||1}
 function thName(k){return THEMES[k].n+(BST!=="std"&&BSTN[BST]?"（"+BSTN[BST]+"アレンジ）":"")}
 var MIYA=[0,1,5,7,8];
 function scl(k,m){var P=m==="sak"?MIYA:PENT,q=Math.floor(k/5),r=((k%5)+5)%5;return Math.pow(2,(q*12+P[r])/12)}
@@ -1925,28 +2005,18 @@ function swell(f,t,d,g,b,type,fc){if(!vOK(t,t+d+0.05,80))return;var a=AC,v=a.cre
 function shami(f,t,g,b){fTone(f,t,0.32,"sawtooth",g,b,2600,5);fTone(f*2,t,0.12,"square",g*0.4,b,4000,2);nzHit(t,0.025,g*1.4,b,3500,4)}
 function kane(t,f,g,b){tone(f,t,0.35,"square",g,b);tone(f*1.41,t,0.25,"sine",g*0.7,b);tone(f*2.3,t,0.2,"sine",g*0.4,b)}
 var TSTEP={
- /* スタイリッシュ（v2）：ミッドテンポのハード系ベースミュージック。キックでほかの音が沈む本物のサイドチェイン、
-    ひしゃげたワブルベース、ボーカルチョップ風の刻み、グリッチのスタッター、リバースシンバルのフィル */
+ /* スタイリッシュ：フューチャーベース。4つ打ち＋サイドチェイン風のうねるコード、808、ボーカルチョップ風リード */
  sty:function(n,t){
-  var s=n%16,bar=Math.floor(n/16)%4,b=bgm.bus,arr=bgm.arr||0,f=Math.pow(2,KSH/12),CH=TH.min?CH_MIN:CH_MAJ,R=TH.min?ROOTS_MIN:ROOTS_MAJ,c=CH[bar],i,base=349.23*f,M=tmel(THK),pb=pumpBus(),drop=bar>=2||arr>=2;
-  var kk=drop?(s===0||s===10||(bar===3&&s===14)):(s%4===0);
-  if(kk){kickBig(t,b,true);pump(t,0.85,SD*3.2)}
-  if(drop?s===8:(s===4||s===12)){nzHit(t,0.22,0.7,b,1200,2);dTone(190,t,0.1,"square",0.14,b);clatter(t+0.012,0.08,0.3,b,2400)}
-  if(s%2===1)clatter(t,0.016,s%4===3?0.09:0.05,pb,11000);
-  if(s%4===2&&!drop)nzHit(t,0.09,0.15,pb,8500,1.4);
-  if(arr>=1&&s%8===6)wood(t,0.05,pb,2400);
-  if(drop){
-    if(s===0||s===6||s===10)wub(R[bar]*f,t,SD*(s===6?4:6),0.32,pb,[1/(SD*2),1/(SD*1.5),1/SD][bar%3===0?0:(s===10?2:1)]);
-    if(s===0)sub808(t,R[bar]*f/2,SD*8,0.5,b);
-  }else{
-    if(s===0||s===3||s===6||s===10||s===13)sub808(t,R[bar]*f*(s===6||s===13?1.5:1),0.24,0.5,b);
-    if(s%4===0)for(i=0;i<3;i++)swell(base*Math.pow(2,c[i]/12),t,SD*3.6,0.045,pb,"sawtooth",1600+arr*700);
-  }
-  M[bar].forEach(function(m){if(m[0]===s){var fr=base*2*pn(m[1]);fTone(fr,t,0.08,"square",0.07,pb,2400,9);fTone(fr,t+SD*0.5,0.06,"square",0.05,pb,3200,9);if(drop)fTone(fr*1.5,t+SD,0.07,"sawtooth",0.04,pb,4200,6)}});
-  if(arr>=2&&!drop&&s%2===0)fTone(base*4*Math.pow(2,c[ARP[(s/2)%8]]/12),t,0.06,"square",0.025,pb,7000,1);
-  if(bar===3&&s>=12)for(i=0;i<2;i++){nzHit(t+i*SD/2,0.04,0.3+(s-12)*0.1,b,1500,2);if(arr>=2)fTone(base*(1+(s-12)*0.25),t+i*SD/2,0.05,"square",0.05,b,3000,6)}
-  if(bar===3&&s===8)revCym(t,SD*8,0.5,b);
-  if(arr>=3&&bar===1&&s===8)riser(t,b,SD*8);
+  var s=n%16,bar=Math.floor(n/16)%4,b=bgm.bus,arr=bgm.arr||0,f=Math.pow(2,KSH/12),CH=TH.min?CH_MIN:CH_MAJ,R=TH.min?ROOTS_MIN:ROOTS_MAJ,c=CH[bar],i,base=349.23*f,M=tmel(THK);
+  if(s%4===0)kickBig(t,b,false);
+  if(s===4||s===12){nzHit(t,0.18,0.55,b,1300,2);clatter(t+0.01,0.08,0.3,b,2200)}
+  if(arr>=1&&bar===3&&s>=12)nzHit(t,0.06,0.25+(s-12)*0.08,b,1800,2);
+  if(s%4===2)nzHit(t,0.1,0.18,b,8000,1.3);else if(s%2===1)clatter(t,0.018,0.07,b,10000);
+  if(s===0||s===6||s===10||(arr>=2&&s===14))sub808(t,R[bar]*f*(s===6?1.5:1),s===0?0.5:0.26,0.55,b);
+  if(s%4===0)for(i=0;i<3;i++)swell(base*Math.pow(2,c[i]/12),t,SD*3.6,0.04,b,"sawtooth",1400+arr*600);
+  M[bar].forEach(function(m){if(m[0]===s){var fr=base*2*pn(m[1]);fTone(fr,t,0.12,"square",0.06,b,2600,6);fTone(fr*1.5,t+0.03,0.08,"square",0.025,b,3500,6);if(arr>=1)fTone(fr*2,t+SD*2,0.1,"triangle",0.03,b,5000,1)}});
+  if(arr>=2&&s%2===0)fTone(base*4*Math.pow(2,c[ARP[(s/2)%8]]/12),t,0.07,"square",0.025,b,7000,1);
+  if(arr>=3&&bar===3&&s===8)riser(t,b,SD*8);
  },
  /* 中華：鑼鼓（太鼓・小鑼・鈸）のリズム、琵琶のトレモロ、二胡のこぶしの効いた旋律、古箏のグリッサンド。西洋のキックは使わない */
  chn:function(n,t){
@@ -1988,22 +2058,15 @@ var TSTEP={
 };
 /* --- ホーム・暗記用 --- */
 var CSTEP={
- sty:function(n,t,C){var s=n%16,bar=Math.floor(n/16)%4,ch=C.prog[bar],f=Math.pow(2,C.sh/12),b=bgm.bus,base=130.81*f,st=C.kind==="s",pb=pumpBus(),i;
-  /* ホーム：ダークなテックハウス（4つ打ち＋サイドチェイン、アシッドベース）。暗記：グリッチ混じりのミニマル */
-  if(!st){
-   if(s%4===0){softKick(t,0.55);pump(t,0.7,SD*3)}
-   if(s===4||s===12)clatter(t,0.09,0.12,b,2600);
-   if(s%4===2)nzHit(t,0.08,0.09,pb,8500,1.4);else if(s%2===1)clatter(t,0.012,0.035,pb,11000);
-   if(s%8===7)wood(t,0.03,pb,2200);
-   var ap=[0,0,12,0,7,0,12,3,0,0,12,0,10,0,7,12][s];if(s%2===0||ap===12)acid(base/2*Math.pow(2,(ch[0]+ap)/12),t,SD*0.9,0.11,pb,s%4===2);
-   if(s===2||s===10)ch.forEach(function(x,j){fTone(base*2*Math.pow(2,x/12),t+j*0.008,0.25,"sawtooth",0.03,pb,1300,4)});
-  }else{
-   if(s%8===0)tone(base/2*Math.pow(2,ch[0]/12),t,1.2,"sine",0.22,b);
-   if(s===0)ch.forEach(function(x){fTone(base*2*Math.pow(2,x/12),t,3.0,"triangle",0.06,b,1200,1)});
-   if(s%4===3)clatter(t,0.01,0.03,b,12000);
-   if(s===14&&bar%2===1)for(i=0;i<4;i++)clatter(t+i*SD/4,0.008,0.04,b,9000);
-  }
-  C.mel[bar].forEach(function(m){if(m[0]===s){var fr=base*4*pn(m[1]);fTone(fr,t,0.3,"square",st?0.045:0.028,pb,2200,5);fTone(fr,t+SD*3,0.25,"square",st?0.022:0.013,pb,1600,5);if(st)fTone(fr,t+SD*6,0.2,"square",0.012,pb,1200,5)}});
+ sty:function(n,t,C){var s=n%16,bar=Math.floor(n/16)%4,ch=C.prog[bar],f=Math.pow(2,C.sh/12),b=bgm.bus,base=130.81*f,st=C.kind==="s";
+  if(!st&&s%4===0)softKick(t,0.36);
+  if(!st&&(s===4||s===12))clatter(t,0.1,0.09,b,2500);
+  if(!st&&s%4===2)clatter(t,0.05,0.045,b,8000);
+  if(st&&s%8===4)clatter(t,0.02,0.02,b,9000);
+  if(s===0||(!st&&s===8))ch.forEach(function(x,j){fTone(base*2*Math.pow(2,x/12),t+j*0.01,st?2.6:1.0,"triangle",st?0.075:0.038,b,1400,1);tone(base*4*Math.pow(2,x/12),t,0.5,"sine",st?0.025:0.012,b)});
+  if(s===0)tone(base/2*Math.pow(2,ch[0]/12),t,1.2,"sine",st?0.18:0.26,b);
+  if(s===11&&!st)tone(base/2*Math.pow(2,ch[0]/12),t,0.4,"sine",0.16,b);
+  C.mel[bar].forEach(function(m){if(m[0]===s){var fr=base*4*pn(m[1]);fTone(fr,t,0.4,"square",st?0.05:0.028,b,2200,2);fTone(fr,t+SD*3,0.35,"square",st?0.025:0.013,b,1600,2);if(st)fTone(fr,t+SD*6,0.3,"square",0.014,b,1200,2)}});
  },
  chn:function(n,t,C){var s=n%16,bar=Math.floor(n/16)%4,f=Math.pow(2,C.sh/12),b=bgm.bus,base=261.63*f,st=C.kind==="s";
   if(s===0&&bar===0)gong(t,base/2,st?0.07:0.12,b);
@@ -2117,7 +2180,7 @@ var PREH={},PRES={},MP={on:0,i:0,n:0,prio:[]};
 function musicPrio(k){if(k<0||PREH[k])return;if(MP.prio.indexOf(k)<0)MP.prio.push(k);if(!MP.on)musicPrepare(false)}
 try{PRES=JSON.parse(localStorage.getItem("dopa:preS5")||"{}")||{}}catch(e){}
 var LM=[1,1.035,1.07,1.105],LK=[0,0,2,4],LPB=[1,1.02,1.05,1.08];
-function tver(th){return th==="sty"?2:0}
+function tver(th){return th==="sty"?3:0}
 function preKeyT(th,reg,k,l){return "pre5:"+th+(tver(th)?"v"+tver(th):"")+":"+(reg?"r"+reg+":":"")+k+":"+l}
 function preKey(k,l){return preKeyT(BST,REG,k,l)}
 function prk(k){return BST+(REG?"r"+REG:"")+":"+k}
@@ -2235,13 +2298,16 @@ function renderCh(C,cb){
   try{var p=oc.startRendering();if(p&&p.then)p.then(done,function(){cb(null)});else oc.oncomplete=function(e){done(e.renderedBuffer)}}catch(e){cb(null)}
 }
 function chEnsure(C,cb){trackGet(chKey(C),function(b){if(b)return cb(true,b);renderCh(C,function(bl){if(!bl)return cb(false);trackPut(chKey(C),bl,function(ok){cb(ok,bl)})})})}
-function loopBuf(buf){
-  var now=AC.currentTime;
-  try{if(bgm.src){var og=bgm.sg;if(og){og.gain.cancelScheduledValues(now);og.gain.setValueAtTime(og.gain.value,now);og.gain.linearRampToValueAtTime(0,now+1.2)}bgm.src.stop(now+1.3)}}catch(e){}
+var XFC={};
+function xfCurve(up){var k=up?"u":"d";if(XFC[k])return XFC[k];var n=64,c=new Float32Array(n);for(var i=0;i<n;i++){var x=i/(n-1);c[i]=up?Math.sin(x*Math.PI/2):Math.cos(x*Math.PI/2)}c[0]=up?0.0001:1;c[n-1]=up?1:0.0001;return XFC[k]=c}
+function loopBuf(buf,xf){
+  var now=AC.currentTime+0.03,d=xf||5;
+  try{if(bgm.src){var og=bgm.sg,os=bgm.src;if(og){og.gain.cancelScheduledValues(now);og.gain.setValueAtTime(Math.max(0.0001,og.gain.value),now);try{og.gain.setValueCurveAtTime(xfCurve(false),now,d)}catch(e){og.gain.linearRampToValueAtTime(0.0001,now+d)}}os.stop(now+d+0.1)}}catch(e){}
   var s=AC.createBufferSource(),sg=AC.createGain();s.buffer=buf;s.loop=true;s.connect(sg);sg.connect(bgm.bus);
-  sg.gain.setValueAtTime(bgm.src?0:1,now);if(bgm.src)sg.gain.linearRampToValueAtTime(1,now+1.2);
+  if(bgm.src){sg.gain.setValueAtTime(0.0001,now);try{sg.gain.setValueCurveAtTime(xfCurve(true),now,d)}catch(e){sg.gain.linearRampToValueAtTime(1,now+d)}}else sg.gain.setValueAtTime(1,now);
   s.start(now);bgm.src=s;bgm.sg=sg;bgm.ready=1;
 }
+function chPeek(){var st=bgm.mode==="study",L=st?studyL():homeL(),v=st?-1:parseInt($("chillSel").value);return L[isNaN(v)||v<0?(chillIdx+1)%L.length:v]}
 function chPlay(C){
   var mode=bgm.mode;
   chEnsure(C,function(ok,blob){
@@ -2250,10 +2316,15 @@ function chPlay(C){
     blob.arrayBuffer().then(function(ab){
       var done=function(buf){
         if(!bgm.on||bgm.mode!==mode||CT!==C)return;
-        loopBuf(buf);
-        clearTimeout(bgm.rotT);
+        loopBuf(buf,5);
+        clearTimeout(bgm.rotT);clearTimeout(bgm.peekT);
         var auto=mode==="study"||$("chillSel").value==="-1";
-        if(auto)bgm.rotT=setTimeout(function(){if(!bgm.on||bgm.mode!==mode)return;chillNext();chPlay(CT)},Math.max(60,buf.duration*8)*1000);
+        if(auto){
+          var nx=chPeek();if(nx&&nx!==C)bgm.peekT=setTimeout(function(){if(bgm.on&&bgm.mode===mode)chEnsure(nx,function(){})},15000);
+          /* 曲の切れ目（ループのつなぎ目）に合わせて、次の曲へ重ねる */
+          var loops=Math.max(1,Math.round(Math.max(60,buf.duration*8)/buf.duration)),wait=loops*buf.duration-2.5;
+          bgm.rotT=setTimeout(function(){if(!bgm.on||bgm.mode!==mode)return;chillNext();chPlay(CT)},Math.max(20,wait)*1000);
+        }
       };
       var p=AC.decodeAudioData(ab,done,function(){});if(p&&p.then)p.then(done,function(){});
     }).catch(function(){});
@@ -2283,8 +2354,9 @@ function bgmStart(mode){
 function bgmStop(){
   if(!bgm.on)return;
   bgm.on=false;clearInterval(bgm.timer);if(bgm.rot){clearInterval(bgm.rot);bgm.rot=0}if(bgm.lfo){bgm.lfo.forEach(function(o){try{o.stop(AC.currentTime+0.2)}catch(e){}});bgm.lfo=null}clearTimeout(bgm.rotT);bgm.rhy=false;
-  try{if(bgm.src)bgm.src.stop()}catch(e){}bgm.src=null;bgm.sg=null;bgm.pdur=0;
-  try{bgm.bus.gain.cancelScheduledValues(AC.currentTime);bgm.bus.gain.setTargetAtTime(0,AC.currentTime,0.04)}catch(e){}
+  var nw=AC?AC.currentTime:0;clearTimeout(bgm.peekT);
+  try{if(bgm.src)bgm.src.stop(nw+0.9)}catch(e){try{bgm.src.stop()}catch(x){}}bgm.src=null;bgm.sg=null;bgm.pdur=0;
+  try{bgm.bus.gain.cancelScheduledValues(nw);bgm.bus.gain.setValueAtTime(bgm.bus.gain.value,nw);bgm.bus.gain.setTargetAtTime(0,nw,0.18)}catch(e){}
 }
 function lvSound(a){
   if(!AC||a<1||bgm.quiet)return;
@@ -2309,6 +2381,15 @@ function bgmSync(){
   var want=(T&&!$("test").hidden)?"test":(!$("learn").hidden?"study":"chill"),st=T?T.stage:0;
   var lapA=bgLevel();
   if(bgm.on&&bgm.mode===want&&(want!=="test"||bgm.stage===st)){if(want==="test")bgmArr(lapA);return}
+  /* ホーム⇔暗記：止めずに、次の曲へそのまま重ねる */
+  if(bgm.on&&bgm.custom&&!bgm.pre&&!bgm.rhy&&(bgm.mode==="chill"||bgm.mode==="study")&&(want==="chill"||want==="study")&&!(UT.home&&(want==="chill"||bgm.mode==="chill"))&&OCOK()){
+    if(bgm.mode==="chill")bgm.lastChill=chillIdx;
+    bgm.mode=want;clearTimeout(bgm.rotT);clearTimeout(bgm.peekT);
+    if(want==="study"){chillIdx=Math.floor(Math.random()*studyL().length)-1;chillNext()}
+    else if(bgm.lastChill!=null&&$("chillSel").value==="-1"){CHL=homeL();setChill(Math.min(bgm.lastChill,CHL.length-1))}
+    else chillNext();
+    chPlay(CT);return;
+  }
   if(bgm.on)bgmStop();
   bgmStart(want);
   if(want==="test")setTimeout(function(){bgm.quiet=1;try{bgmArr(lapA)}finally{bgm.quiet=0}},0);
@@ -2506,7 +2587,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.4",VLOG=[
+var VERSION="1.5",VLOG=[
+ ["1.5","2026-11-11",["上のバナーに共有ボタンを追加（Xに投稿・LINEなどで共有・リンクのコピー）","公式X・YouTube・Discordへのボタンを、ホーム画面と共有画面に追加","タイトルのロゴを新しいデザインに（文字をアプリに同梱して、ネットがなくても同じ見た目に）","ガチャの結果を、スクロールしなくてもすぐ閉じられるように（右上の「閉じる」と、下に固定のOK）","ホームの曲の切り替えを、気づかないくらい自然に（5秒かけて重ねる／ホームと暗記の行き来で音を止めない）","スタイリッシュのBGMを、1.2のときの曲に戻しました","iPhoneで上のバナーが白っぽく見える問題を修正","開いたとき、まれに古い色の画面が一瞬出る問題を修正","スタイリッシュに2色目（シアン）を追加して、ガチャ以外の画面もにぎやかに","アプリ版で最初に開いたとき、全データをダウンロードするか選べるように","管理者コマンドを追加（データタブ）"]],
  ["1.4","2026-11-11",["声をアプリに収録しました（ネットから取得しなくなり、すぐ鳴ります）","利用規約に合わせて、2人の声を変更（結衣：東北ずん子、エルナ：東北イタコ）","掛け声の声は、収録した20種類から選ぶ形にしました","スマホのホーム画面に追加して、アプリとして使えるようにしました（オフラインでも動きます）","全解放パック（Google Play版のみ・買い切り）を追加。すべてのコンテンツは今までどおり無料で遊べます","設定の「全体」タブに、クレジットとプライバシーポリシーを追加"]],
  ["1.3","2026-11-11",["学習モードで「隠す／意味を見る」ボタンが下のボタンと重なる問題を修正（画面が短い端末でも重ならないように）","アプリやブラウザを切り替えて戻ったときに、音が大きく鳴ることがある問題を修正（声が音量設定を通らずに鳴っていたのを止め、戻ったときは音をゆっくり大きくします）","最初の画面に、オープニングのアニメーションを追加","スタイリッシュのBGMを、より尖った音に作り直し（ワブルベース、サイドチェインのうねり、グリッチ）","DLCに「残りをまとめてインストール」を追加"]],
  ["1.2","2026-11-11",["重さの原因を調べて対策：BGM・効果音・声を、プレイ中にその場で作らないようにしました（保存したものを鳴らすだけ）","DLC（追加コンテンツ）画面を追加：BGMパック（テーマ別）・ボイスパックを選んでインストール／削除できます","正解・不正解の色分けを修正（正解はタップした所が色付き、不正解はタップした所が赤・正解が緑。テーマごとの色）","テーマごとのテスト曲を、メロディーとリズムから作り直して、違いをはっきりさせました","軽量モードを追加（全体タブ）","出題範囲などの数字を、数字キーで直接入力できるようにしました","立体音響を見直して正式版に（標準は「マイルド」）","設定のタブと中身の間に空白ができる問題を修正"]],
@@ -2937,6 +3019,78 @@ function dlcDelete(id,b){
   setTimeout(iapInit,800);
   if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
 })();
+
+/* ---- 共有と公式リンク ---- */
+var APP_URL="https://room25-lang.github.io/",SNS={x:"https://x.com/unlockbuster",yt:"https://youtube.com/channel/UCV8gdlDl7aqnsZ88DIA8KMA",dc:"https://discord.gg/sVujPMhCR"};
+function openExt(u){try{var w=window.open(u,"_blank","noopener");if(!w)location.href=u}catch(e){location.href=u}}
+function shareText(){var m=0;try{for(var i=0;i<WORDS.length;i++)if(passes(i)>=2)m++}catch(e){}
+  return m?"英単語ガチャ「どぱたん」で、英単語を"+m+"語マスターしました！ #どぱたん":"英単語をガチャとキャラで覚える「どぱたん」をやってます！ #どぱたん"}
+function shrOpen(){$("shrTxt").textContent=shareText();$("shrMsg").textContent="";$("shr").classList.remove("inv")}
+$("shareBtn").onclick=shrOpen;
+$("shrCls").onclick=function(){$("shr").classList.add("inv")};
+$("shrX").onclick=function(){openExt("https://x.com/intent/post?text="+encodeURIComponent(shareText()+" @unlockbuster")+"&url="+encodeURIComponent(APP_URL))};
+$("shrAny").onclick=function(){
+  if(navigator.share){navigator.share({title:"どぱたん",text:shareText(),url:APP_URL}).catch(function(){});return}
+  $("shrCopy").onclick();
+};
+$("shrCopy").onclick=function(){
+  var t=shareText()+" "+APP_URL,ok=function(){$("shrMsg").textContent="コピーしました。貼り付けて送れます。"};
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){$("shrMsg").textContent=t});return}}catch(e){}
+  $("shrMsg").textContent=t;
+};
+Array.prototype.forEach.call(document.querySelectorAll("[data-sns]"),function(b){b.onclick=function(e){e.stopPropagation();var u=SNS[b.getAttribute("data-sns")];if(u)openExt(u)}});
+/* ---- ガチャ結果：いつでも閉じられるボタン ---- */
+$("pullx").onclick=function(){
+  var p=$("pull");if(p.classList.contains("inv"))return;
+  try{if(window.__pullSkip){window.__pullSkip();return}}catch(e){}
+  p.classList.add("inv");p.classList.remove("cu");
+};
+/* ---- テーマの色を、スマホ上部（ステータスバー）にも ---- */
+function themeMeta(){try{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",getComputedStyle(document.body).getPropertyValue("--bg").trim()||"#0b0c0e")}catch(e){}}
+setTimeout(themeMeta,0);
+/* ---- アプリ版（ホーム画面・Google Play）：最初に開いたとき、全データDLを選べる ---- */
+function isApp(){try{return (window.matchMedia&&(matchMedia("(display-mode: standalone)").matches||matchMedia("(display-mode: fullscreen)").matches))||navigator.standalone===true||(document.referrer||"").indexOf("android-app://")===0}catch(e){return false}}
+function cacheAllVoices(){try{Object.keys(PACKIDS).concat(["c"]).forEach(function(p,i){setTimeout(function(){try{fetch("voices/v"+p+".mp3").catch(function(){})}catch(e){}},i*150)})}catch(e){}}
+function appdlCheck(){
+  if(!isApp())return;
+  try{if(localStorage.getItem("dopa:appdl"))return}catch(e){return}
+  setTimeout(function(){if(!$("homeV").hidden||!$("appV").hidden)$("appdl").classList.remove("inv")},1600);
+}
+$("appdlNo").onclick=function(){try{localStorage.setItem("dopa:appdl","later")}catch(e){}$("appdl").classList.add("inv")};
+$("appdlYes").onclick=function(){
+  try{localStorage.setItem("dopa:appdl","all")}catch(e){}
+  $("appdl").classList.add("inv");try{ac()}catch(e){}
+  if(VOX.mode==="off"){VOX.mode="web";voxSave()}
+  cacheAllVoices();VOXALL=1;
+  try{dlcAll()}catch(e){}
+};
+appdlCheck();
+/* ---- 管理者コマンド ---- */
+var DEVH="e4cb0e5ec3655de08798464a820f46a4f8322aac5d6c1635c62df01b5b8b40d7",DEVON=false;
+function sha256(str){var b=unescape(encodeURIComponent(str)),K=[],H=[],i,j,p=function(n){for(var f=2;f*f<=n;f++)if(n%f===0)return false;return true},fr=function(x){return ((x-Math.floor(x))*4294967296)|0};
+  for(var n=2,c=0;c<64;n++)if(p(n)){if(c<8)H[c]=fr(Math.pow(n,1/2));K[c++]=fr(Math.pow(n,1/3))}
+  var w=[],l=b.length*8;for(i=0;i<b.length;i++)w[i>>2]|=b.charCodeAt(i)<<((3-i%4)*8);w[l>>5]|=0x80<<(24-l%32);w[((l+64>>9)<<4)+15]=l;
+  var r=function(x,n){return (x>>>n)|(x<<(32-n))};
+  for(j=0;j<w.length;j+=16){var a=H.slice(0),W=[];for(i=0;i<64;i++){if(i<16)W[i]=w[j+i]|0;else{var s0=r(W[i-15],7)^r(W[i-15],18)^(W[i-15]>>>3),s1=r(W[i-2],17)^r(W[i-2],19)^(W[i-2]>>>10);W[i]=(W[i-16]+s0+W[i-7]+s1)|0}
+    var t1=(a[7]+(r(a[4],6)^r(a[4],11)^r(a[4],25))+((a[4]&a[5])^(~a[4]&a[6]))+K[i]+W[i])|0,t2=((r(a[0],2)^r(a[0],13)^r(a[0],22))+((a[0]&a[1])^(a[0]&a[2])^(a[1]&a[2])))|0;
+    a=[(t1+t2)|0].concat(a.slice(0,7));a[4]=(a[4]+t1)|0}
+    for(i=0;i<8;i++)H[i]=(H[i]+a[i])|0}
+  return H.map(function(x){return ("00000000"+(x>>>0).toString(16)).slice(-8)}).join("")}
+$("devGo").onclick=function(){var v=($("devIn").value||"").trim();$("devIn").value="";
+  if(v&&sha256(v)===DEVH){DEVON=true;$("devPanel").hidden=false;$("devMsg").textContent="認証しました（管理者モード）。"+(G.inf?"◆無制限：ON":"")}
+  else{$("devPanel").hidden=true;$("devMsg").textContent="パスワードが違います。"}};
+$("devPanel").onclick=function(e){
+  var b=e.target.closest?e.target.closest("button"):null;if(!b||!DEVON)return;var k=b.getAttribute("data-dv"),m="";
+  if(k==="inf"){G.inf=G.inf?0:1;if(G.inf){G.stones=Math.max(G.stones,99999999);G.total=Math.max(G.total,G.stones)}else{G.stones=Math.min(G.stones,3000)}m="◆無制限："+(G.inf?"ON":"OFF")}
+  else if(k==="stones"){G.stones+=1000000;G.total+=1000000;m="◆を100万増やしました。"}
+  else if(k==="chars"){CHARS.forEach(function(c){if(!G.chars[c.id]){G.chars[c.id]=1;if(G.party.length<PMAX())G.party.push(c.id)}});if(!G.first)G.first=G.party[0]||"c01";G.starter=1;m="全キャラを解放しました。"}
+  else if(k==="max"){CHARS.forEach(function(c){G.chars[c.id]=5});G.starter=1;m="全キャラをLv5にしました。"}
+  else if(k==="slots"){G.slots=6;m="編成枠を6にしました。"}
+  else if(k==="hz"){HZ.forEach(function(h){if(!G.hz[h.id])G.hz[h.id]=1});m="ハズレ図鑑をすべて登録しました。"}
+  else if(k==="unlock"){G.lock={};m="テストのロックを解除しました。"}
+  else if(k==="off"){DEVON=false;$("devPanel").hidden=true;$("devMsg").textContent="管理者モードを終了しました。";return}
+  saveG();updStones();try{renderG("")}catch(x){}$("devMsg").textContent=m;
+};
 function homeInfo(){
   var cs=catStats(),parts=[];
   CATS.forEach(function(c){if(cs[c].n)parts.push(c+" "+cs[c].n)});
@@ -3114,7 +3268,7 @@ function cById(id){return CHARS.filter(function(c){return c.id===id})[0]}
 function cSk(c){return ABIL[c.ab].sk}
 function cDesc(c,l){return ABIL[c.ab].d(l)}
 var HZ=[{id:"h1",name:"黒猫のノラ"},{id:"h2",name:"おばけ"},{id:"h3",name:"ロボ01"},{id:"h4",name:"青いクマ"},{id:"h5",name:"茶色いクマ"}];
-var G={stones:0,total:0,name:"",lock:{},chars:{},party:[],starter:0,first:"",clear:{},perf:{},login:{last:"",n:0},seenPH:0,slots:3,hz:{}};
+var G={stones:0,total:0,name:"",lock:{},chars:{},party:[],starter:0,first:"",clear:{},perf:{},login:{last:"",n:0},seenPH:0,slots:3,hz:{},inf:0};
 function PMAX(){return Math.max(3,Math.min(6,(G&&G.slots)||3))}
 var SLOTC={4:1500,5:3000,6:6000};
 function fixG(g){
@@ -3132,7 +3286,7 @@ function fixG(g){
   r.first=(g.first&&r.chars[g.first])?g.first:(r.party[0]||Object.keys(r.chars)[0]||"");
   r.login=(g.login&&typeof g.login.last==="string")?{last:g.login.last.slice(0,10),n:Math.max(1,Math.min(9999,parseInt(g.login.n)||1))}:{last:"",n:0};
   HZ.forEach(function(h){var v=parseInt((g.hz||{})[h.id]);if(v>0)r.hz[h.id]=Math.min(v,999999)});
-  r.seenPH=g.seenPH?1:0;if(g.inf){r.stones=Math.min(r.stones,3000);r.total=r.stones}
+  r.seenPH=g.seenPH?1:0;r.inf=g.inf?1:0;
   return r;
 }
 function saveG(){try{localStorage.setItem("dopa:game2",JSON.stringify(G))}catch(e){}}
@@ -3148,7 +3302,7 @@ try{
     }
   }
 }catch(e){}
-function updStones(){$("stones").innerHTML="◆ "+G.stones+' <small style="font-size:11px;font-weight:400">累計 '+G.total+"</small>"}
+function updStones(){if(G.inf&&G.stones<50000000){G.stones=99999999;if(G.total<G.stones)G.total=G.stones;saveG()}$("stones").innerHTML="◆ "+G.stones+' <small style="font-size:11px;font-weight:400">累計 '+G.total+"</small>"}
 updStones();
 function lvOf(id){return G.chars[id]||0}
 function effects(){
@@ -3396,13 +3550,13 @@ function showPull(res,title,fx){
   var head=title?'<div class="pbig" style="font-size:18px">'+title+'</div>':'';
   var sumTxt=cs.length+"体入手"+(hz?"　ハズレ "+hz+"（◆"+(HAZ_REF*hz)+"返還）":"");
   var show=function(){$("pull").classList.remove("inv")};
-  var close=function(){$("pull").classList.add("inv");$("pull").classList.remove("cu")};
+  var close=function(){window.__pullSkip=null;$("pull").classList.add("inv");$("pull").classList.remove("cu")};
   var skipBox=isG?'<label class="rad gskip"><input type="checkbox" id="gskipc"'+(GSKIP?' checked':'')+'> 次回から演出と自己紹介をスキップ</label>':'';
   var bindEnd=function(){$("pullok").onclick=close;var c=$("gskipc");if(c)c.onchange=function(){gskipSet(c.checked);try{renderG("")}catch(e){}}};
   var cell=function(r){return r.c?'<div class="pc on r'+r.c.s+'" data-cu="'+r.c.id+'"><img src="'+IMT(r.c.id)+'" alt=""><span>'+esc(r.c.name)+'</span><em>'+r.c.star+(resTag(r)?' '+resTag(r):'')+'</em></div>':'<div class="pc on miss"><img src="'+IMT(r.h.id)+'" alt=""><span>'+esc(r.h.name)+'</span><em>◆'+HAZ_REF+(r.nw?' NEW':'')+'</em></div>'};
   /* 最後の一覧（OKで閉じる） */
   var summary=function(){
-    $("pull").classList.remove("cu");
+    $("pull").classList.remove("cu");window.__pullSkip=null;
     if(res.length===1&&!res[0].c){
       var r=res[0];
       $("pullbody").innerHTML=head+'<img class="pimg hzimg pop1" src="'+IMT(r.h.id)+'" alt=""><div class="pbig">ハズレ…</div><div class="pbig" style="font-size:18px">'+esc(r.h.name)+(r.nw?'　NEW':'')+'</div><div class="hint" style="text-align:center;font-size:14px">◆'+HAZ_REF+' 返還されました。'+(r.nw?'<br>ハズレ図鑑に登録しました（'+hzOwn()+' / '+HZ.length+'）':'')+'</div>'+skipBox+'<button class="main" id="pullok">OK</button>';
@@ -3410,7 +3564,7 @@ function showPull(res,title,fx){
       var c=res[0].c;
       $("pullbody").innerHTML=head+'<img class="pimg cimg" src="'+IMF(c.id)+'" alt=""><div class="pbig">'+esc(c.name)+'</div><div class="pbig" style="font-size:18px">'+c.star+'　'+res[0].out+'</div><div class="hint" style="text-align:center;font-size:13px">'+esc(cSk(c))+'：'+esc(cDesc(c,lvOf(c.id)))+'</div>'+skipBox+'<button class="main" id="pullok">OK</button>';
     }else{
-      $("pullbody").innerHTML=head+'<div class="pbig" style="font-size:18px">'+res.length+'回の結果</div><div class="pgrid">'+res.map(cell).join("")+'</div><div class="hint" style="text-align:center;font-size:13px">'+sumTxt+(cs.length?'<br>キャラをタップすると、もう一度紹介します':'')+'</div>'+skipBox+'<button class="main" id="pullok">OK</button>';
+      window.__pullSkip=null;$("pullbody").innerHTML=head+'<div class="pbig" style="font-size:18px">'+res.length+'回の結果</div><div class="pgrid">'+res.map(cell).join("")+'</div><div class="hint" style="text-align:center;font-size:13px">'+sumTxt+(cs.length?'<br>キャラをタップすると、もう一度紹介します':'')+'</div>'+skipBox+'<button class="main" id="pullok">OK</button>';
       Array.prototype.forEach.call($("pullbody").querySelectorAll("[data-cu]"),function(d){d.onclick=function(){var id=d.getAttribute("data-cu");var k=0;ups.forEach(function(u,j){if(u.c.id===id)k=j});closeup(k,true)}});
     }
     bindEnd();show();
@@ -3455,6 +3609,7 @@ function showPull(res,title,fx){
       },300+i*65));
     });
   };
+  window.__pullSkip=function(){if($("pull").classList.contains("cu")||$("pgrid")){summary();return}close()};
   var go=function(){
     if(isG&&GSKIP){summary();if(cs.length)gachaSound(rare);else if(ac())failSound();return}
     if(res.length===1){if(cs.length){gachaSound(rare);closeup(0)}else{summary();if(ac())failSound()}}
@@ -4083,6 +4238,7 @@ function bgmDest(){
 
 homeInfo();homeIntro();
 uiEnhance($("ov"));
+setTimeout(function(){try{if(localStorage.getItem("dopa:cln15"))return;localStorage.setItem("dopa:cln15","1")}catch(e){return}var ks=[];for(var k=0;k<STAGES.length;k++)for(var l=0;l<4;l++){ks.push("pre5:styv2:"+k+":"+l);ks.push("pre5:styv2:r1:"+k+":"+l);ks.push("pre5:styv2:r2:"+k+":"+l)}THL.sty.h.concat(THL.sty.s).forEach(function(C){ks.push("pch5:"+C.id+"v2")});ks.forEach(function(kk){try{trackDel(kk,function(){})}catch(e){}})},20000);
 setTimeout(function(){try{if(localStorage.getItem("dopa:cln13"))return;localStorage.setItem("dopa:cln13","1")}catch(e){return}var ks=[];for(var k=0;k<STAGES.length;k++)for(var l=0;l<4;l++){ks.push("pre5:sty:"+k+":"+l);ks.push("pre5:sty:r1:"+k+":"+l);ks.push("pre5:sty:r2:"+k+":"+l)}THL.sty.h.concat(THL.sty.s).forEach(function(C){ks.push("pch5:"+C.id)});ks.forEach(function(x){trackDel(x,function(){})})},8000);
 /* 開いた時点で、編成キャラの掛け声を先読み */
 setTimeout(function(){voxLoadSaved(function(){try{voxPrefetch()}catch(e){}})},1500);
