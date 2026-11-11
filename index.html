@@ -941,6 +941,42 @@ body.learnon #bgmF{display:none!important}
 #rfx.bko .rbos .bface{animation:rbko .9s forwards}
 @keyframes rbst{to{transform:rotate(-8deg) scale(1.15)}}
 @keyframes rbko{30%{transform:scale(1.15);filter:brightness(3)}100%{filter:grayscale(1) brightness(.7)}}
+
+/* v1.15 編成：カードのギャラリー */
+.cgal{flex:0 0 auto;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:0;margin:0 -2px}
+.cgal::-webkit-scrollbar{display:none}
+.cgs{flex:0 0 100%;scroll-snap-align:center;scroll-snap-stop:always;display:flex;flex-direction:column;align-items:center;gap:6px;padding:2px}
+.cgc{position:relative;height:min(58vh,560px);aspect-ratio:476/1000;max-width:94%;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45));cursor:pointer;-webkit-tap-highlight-color:transparent}
+.cgc svg{display:block;width:100%;height:100%}.cgc.tap{animation:cptap .35s ease-out}
+.cglk{position:absolute;left:10%;right:10%;top:42%;text-align:center;color:#fff;text-shadow:0 1px 3px #000;display:flex;flex-direction:column;gap:6px}.cglk b{font-size:30px;letter-spacing:4px}.cglk small{font-size:11px;line-height:1.5}
+.cgi{width:100%;display:flex;flex-direction:column;gap:3px}
+.cgi .cpnm b{font-size:22px}.cgi .cpnm span{color:var(--acc)}.cgi .cpnm em{background:var(--acc,#ffd400);color:#000}
+.cgi .cpsk{font-size:12px;line-height:1.45}.cgi .cpsk b{color:var(--acc)}
+.cgrow{display:flex;align-items:center;justify-content:space-between;gap:8px}.cgrow .sm{white-space:nowrap;flex:0 0 auto}
+.cgi .cpsub{font-size:11px;color:var(--sub);opacity:1}
+.cths{flex:0 0 auto;display:flex;gap:6px;overflow-x:auto;padding:4px 2px 6px;scrollbar-width:none}.cths::-webkit-scrollbar{display:none}
+.cth{flex:0 0 40px;width:40px;height:40px;min-height:0!important;padding:0!important;border-radius:50%!important;background-size:320% auto!important;background-repeat:no-repeat!important;background-color:#2a2a33!important;border:2px solid #9aa3ad!important;opacity:.75}
+.cth.r3,.cth.r4{border-color:#c98552!important}.cth.r5,.cth.r6{border-color:#e0b55a!important}.cth.r7{border-color:#ff9ad5!important}
+.cth.lk{filter:brightness(0) opacity(.6)}.cth.eq{box-shadow:0 0 0 2px var(--acc,#ffd400)}
+.cth.on{opacity:1;transform:scale(1.12);box-shadow:0 0 0 3px #fff,0 0 10px rgba(255,255,255,.6)}
+.hzd{flex:0 0 auto}
+.card.pcard{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}.card.pcard>*{flex-shrink:0}
+.cgc{height:min(48vh,500px)}
+/* v1.15 ボス戦：立ち絵 */
+#test .card.hasb{isolation:isolate;position:relative;overflow:hidden}
+.bfig{position:absolute;top:2%;bottom:-4%;right:-8%;width:68%;z-index:-1;background-size:auto 100%;background-repeat:no-repeat;opacity:.34;pointer-events:none;-webkit-mask-image:linear-gradient(to left,#000 55%,transparent);mask-image:linear-gradient(to left,#000 55%,transparent);transition:opacity .3s,filter .3s}
+.bfig.hit{animation:bfhit .32s}.bfig.atk{animation:bfatk .4s}
+.bfig.down{filter:grayscale(1) brightness(.6);opacity:.18}
+@keyframes bfhit{20%{transform:translateX(10px);filter:brightness(2.4) saturate(.4)}55%{transform:translateX(-5px)}}
+@keyframes bfatk{35%{transform:scale(1.08) translateX(-12px);opacity:.55}}
+/* 登場演出 */
+#rfx.bint{z-index:59}
+.bitx{position:relative;font:900 italic clamp(34px,11vw,56px) "Arial Black","Dela Gothic One",sans-serif;color:#fff;-webkit-text-stroke:2px #000;text-shadow:4px 4px 0 #ff3b5a,0 0 24px #ff3b5a;transform:skewX(-10deg);animation:rffin .5s cubic-bezier(.2,1.6,.4,1) both}
+.bicard{position:relative;height:56vh;aspect-ratio:476/1000;max-width:80vw;margin:10px 0;filter:drop-shadow(0 0 24px rgba(255,59,90,.6));animation:bicard .6s .15s cubic-bezier(.2,1.2,.4,1) both}.bicard svg{width:100%;height:100%;display:block}
+@keyframes bicard{from{transform:scale(.6) rotateY(80deg);opacity:0}to{transform:none;opacity:1}}
+.binm{position:relative;display:flex;align-items:baseline;gap:10px;animation:rfpan .4s .5s both}.binm b{font-size:26px;font-weight:900}.binm span{color:#ffd400}.binm em{font-style:normal;font-size:12px;opacity:.8}
+.rbfig{position:absolute;right:-12%;bottom:-6%;width:70%;height:115%;background-size:contain;background-repeat:no-repeat;background-position:right bottom;opacity:.3;pointer-events:none;-webkit-mask-image:linear-gradient(to left,#000 50%,transparent);mask-image:linear-gradient(to left,#000 50%,transparent)}
+#rfx.bko .rbfig{animation:rbko 1.2s 1.7s forwards}
 </style>
 </head>
 <body class="dopa">
@@ -1778,14 +1814,14 @@ function cardSVG(id,href,star,opt){
   '<pattern id="ch'+U+'" width="14" height="14" patternUnits="userSpaceOnUse"><path d="M7 1 L13 7 L7 13 L1 7Z" fill="none" stroke="'+mt[0]+'" stroke-width="1"/><circle cx="7" cy="7" r="1.3" fill="'+mt[0]+'"/></pattern>'+
   '<radialGradient id="gm'+U+'"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="'+g+'"/><stop offset="1" stop-color="'+d+'"/></radialGradient>'+
   (star>=7?'<linearGradient id="rb'+U+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff9ad5" stop-opacity=".55"/><stop offset=".25" stop-color="#fff3a0" stop-opacity="0"/><stop offset=".5" stop-color="#8fe3ff" stop-opacity=".5"/><stop offset=".75" stop-color="#c7a0ff" stop-opacity="0"/><stop offset="1" stop-color="#ff9ad5" stop-opacity=".5"/></linearGradient>':'')+
-  '</defs><rect width="476" height="1000" fill="'+t.in+'"/><g clip-path="url(#cl'+U+')">'+
+  (opt&&opt.lock?'<filter id="sil'+U+'"><feColorMatrix values="0 0 0 0 .03  0 0 0 0 .03  0 0 0 0 .06  0 0 0 .92 0"/></filter>':'')+'</defs><rect width="476" height="1000" fill="'+t.in+'"/><g clip-path="url(#cl'+U+')">'+
   '<rect width="476" height="1000" fill="url(#g'+U+')"/>'+
   '<path d="M-50 640 L 520 120 L 520 300 L -50 820Z" fill="'+t.band+'" opacity=".5"/><path d="M-50 900 L 520 380 L 520 430 L -50 950Z" fill="'+t.band2+'" opacity=".55"/><path d="M-50 330 L 300 0 L 360 0 L -50 385Z" fill="'+t.band+'" opacity=".4"/>'+
   mot+'<circle cx="238" cy="470" r="210" fill="none" stroke="'+t.acc+'" stroke-width="1.5" opacity=".55"/><circle cx="238" cy="470" r="222" fill="none" stroke="'+t.acc+'" stroke-width=".7" opacity=".4"/>'+
   mos(22,22,150,170,26,12)+mos(320,820,136,160,26,12)+mos(360,30,90,60,8,10)+mos(24,890,90,80,8,10)+
   kas(26,150,150,.55)+kas(300,760,160,.5)+kas(-20,560,120,.35)+
   (id==='c16'?'':'<ellipse cx="238" cy="948" rx="130" ry="18" fill="url(#sh'+U+')"/>')+
-  '<image href="'+href+'" x="'+x0+'" y="'+y0+'" width="'+W+'" height="'+H+'" preserveAspectRatio="xMidYMax meet"/></g>';
+  '<image href="'+href+'" x="'+x0+'" y="'+y0+'" width="'+W+'" height="'+H+'" preserveAspectRatio="xMidYMax meet"'+(opt&&opt.lock?' filter="url(#sil'+U+')"':'')+'/></g>';
  // 縁
  o+='<path fill-rule="evenodd" d="M0 0H476V1000H0Z M22 22V978H454V22Z" fill="'+M+'"/>';
  if(star>=7)o+='<path fill-rule="evenodd" d="M0 0H476V1000H0Z M22 22V978H454V22Z" fill="url(#rb'+U+')"/>';
@@ -1808,7 +1844,40 @@ function cardSVG(id,href,star,opt){
 var CPL={"c01":["楓だよ。今日も一緒にがんばろ！","風みたいに、さくっと覚えちゃお","ちょっと休憩？ 五分だけね","単語って、口に出すと覚えやすいよ","あ、それ昨日やったやつ！ 覚えてる？","秋の紅葉、一緒に見に行きたいなあ","実はね、英語の歌で単語覚えたんだ","できた日は、自分をほめてあげてね","あなたと走ると、どこまでも行けそう","迷ったら、私が追い風になるから","ずっと隣で、応援させてね"],"c02":["栞です。本の続き、一緒に読みませんか","知らない単語は、新しい扉です","静かな時間、好きですよ","ひとつの言葉に、いくつも物語があります","今日のページ、もう少しだけ進めましょう","図書館の匂いって、落ち着きますよね","覚えた言葉は、ずっとあなたの味方です","あなたの成長、ちゃんと記録してますよ","読み終えた本みたいに、自信になります","あなたとなら、どんな本も読めそう","これからも、同じページをめくらせてください"],"c03":["夏帆だよ！ 今日もいい天気！","海風みたいに、気持ちよくいこう","ほら、肩の力抜いて！","間違えても大丈夫、波は何度でも来るよ","あと一問、いける気がしない？","夏の宿題は、最終日派だったんだ","英語ができたら、どこの海にも行けるね","あなたの頑張り、まぶしいよ","いつか一緒に、遠くの海に行こうね","帆を上げたら、もう止まらないよ","あなたは、私の夏そのものだよ"],"c04":["綾よ。べ、別に待ってたわけじゃないわ","さっさと始めなさいよ","…まあ、昨日よりはマシね","間違えた単語、ちゃんと見直しなさい","褒めてないわよ。事実を言っただけ","休むのも大事よ。…倒れられたら困るし","あなたの努力くらい、知ってるわよ","特別に、コツを教えてあげる","…ちょっとだけ、かっこよかったわよ","私がついてるんだから、負けないで","これからも、隣にいてあげる。仕方ないから"],"c05":["冬華です。今日も、私が守ります","焦らなくて大丈夫","寒い日は、温かい飲み物をどうぞ","ミスしても、私がカバーします","続けることが、いちばんの力です","マフラー、手作りなんです","あなたの集中、ちゃんと伝わってます","雪の日の静けさ、好きなんです","あなたが笑うと、少し温かくなります","どんな吹雪でも、そばにいます","あなたの春が来るまで、守り続けます"],"c06":["結衣です。はじめまして、よろしくね","新しい単語、わくわくしますね","一歩ずつで、いいんですよ","知らなかったことを知るって、素敵です","今日の出会いに、感謝です","実は私も、緊張しやすいんです","覚えた単語、誰かに話してみて","あなたと出会えて、よかった","次はどんな扉を開けましょうか","あなたの一歩は、ちゃんと前に進んでます","これからも、一緒に新しい景色を見ようね"],"c07":["クロだにゃ。今日はツイてるかも","黒猫は幸運の印なんだにゃ","なでても、いいにゃ","当たりは、頑張った人に来るにゃ","眠いけど、付き合ってあげるにゃ","日向ぼっこ、最高にゃ","あなたの運、私が上げてあげるにゃ","ごほうびは、おやつがいいにゃ","あなたの膝、特等席にゃ","ずっと一緒なら、毎日大当たりにゃ","あなたは、私の一番の幸運にゃ"],"c08":["レン。…よろしく","さっさと行こう","最初の五問で、流れを作る","スピードは、慣れでつく","今のペース、悪くない","音楽聴きながら走るの、好き","あんた、意外と根性あるね","置いていかないから、ついてきて","…あんたとなら、走るの楽しい","先頭は譲らない。でも隣は空けとく","これからも、一緒に走ろう"],"c09":["イオです。システム、起動完了！","今日の目標、設定しましょう","集中モード、オンです","ラストの追い込み、任せてください","データ解析中…あなた、伸びてますよ","休憩も、大事なメンテナンスです","通信、良好。あなたの声、届いてます","あなたの記録、全部保存してます","出力最大で、あなたを支えます","エラーが出ても、一緒に直しましょう","あなたは、私の最優先事項です"],"c10":["萌黄です。のんびりいきましょう","小さな芽も、毎日伸びてます","続ければ、ちゃんとつながります","この角？ 生まれつきなんです","水をあげるみたいに、毎日少しずつ","お花のお世話、好きなんです","あなたの努力、芽吹いてきましたね","連続正解、きれいな鎖みたい","あなたといると、ぽかぽかします","いつか大きな木になりましょうね","あなたと育てた森、ずっと大事にします"],"c11":["朝顔です。おはようございます","朝の勉強、気持ちいいですよ","早起きは、ごほうびがありますね","花は毎朝、新しく咲くんです","十問続いたら、ごほうびですよ","夏祭りの浴衣、似合ってますか？","朝日って、元気をくれますね","昨日のあなたより、きれいに咲いてます","あなたの朝に、私がいられて嬉しい","毎朝、あなたを待ってますね","あなたと見る朝日が、いちばん好きです"],"c12":["鈴麗よ。今日もいい商売日和ね","福は、準備した人に来るのよ","ガチャ、少しお得にしてあげる","損して得取れ、ってね","鈴の音、縁起がいいでしょ","肉まん、半分こする？","あなた、なかなか見込みあるわね","努力は、一番確実な投資よ","あなたとの縁、大事にしたいわ","福が来たら、一緒に喜びましょう","あなたは、私のいちばんの宝物よ"],"c13":["千代と申す。よろしく頼む","覚えたことは、忘れさせぬ","繰り返すことこそ、力となる","昔の言葉も、今の言葉も、美しい","焦るでない。千年は長いぞ","お茶でも、いかがかな","そなたの記憶、確かに育っておる","習得した言葉にこそ、真の力が宿る","そなたとの時間、悪くない","我が記憶に、そなたを刻もう","千代に八千代に、そなたと共に"],"c14":["イリスだ。共に戦おう","失敗は、反撃の合図だ","剣も言葉も、鍛錬あるのみ","倒れても、また立てばいい","今の一撃、見事だった","鎧の手入れは、欠かせない","そなたの勇気、確かに見届けた","騎士の誓い、そなたに捧げよう","…そなたの隣は、居心地がいい","どんな逆境も、共に越えよう","我が剣は、永遠にそなたのために"],"c15":["エルナです。森の精霊が、喜んでいます","言葉には、古い力が宿ります","二周目こそ、本当の理解です","森では、時間がゆっくり流れるの","風の声、聞こえますか？","エルフの寿命？ 内緒です","あなたの学び、精霊が見守ってます","古の言葉も、あなたなら読めるはず","あなたの魔力、強くなりましたね","この森に、あなたの居場所を作りました","千年先も、あなたを覚えています"],"c16":["ミナモだよ。波の音、聞こえる？","ひとつのミスくらい、海が流してくれるよ","深呼吸、深呼吸","泳ぐのも勉強も、続けると楽になるよ","水面がきらきら、きれいだね","陸の歌、教えてほしいな","あなたの頑張り、海の底まで届いてる","大丈夫、私が包んであげる","あなたと話すと、心が凪ぐの","いつか、海の言葉も教えてあげる","あなたは、私の宝石みたい"],"c17":["雪乃です。最後まで、一緒にいます","ゴールまで、あと少し","静かに、確実に","雪は、少しずつ積もるもの","完走できたら、ごほうびですね","雪景色、見せてあげたいな","あなたの足跡、ちゃんと続いてます","途中でやめないあなた、尊敬します","あなたのそばは、雪の日でも温かい","どんな長い道も、隣を歩きます","最後の一歩まで、ずっと一緒です"],"c18":["鈴音。…お面の下が、気になる？","上を目指すなら、今日も一歩","自分の記録を、越えていこう","鈴の音は、迷いを祓うの","限界は、決めたところにあるだけ","お祭りの夜、好きなんだ","あなたの最高記録、更新中だね","…この面を外すのは、あなたの前だけ","あなたとなら、もっと高く行ける","鈴の音が聞こえたら、私がいる","あなたの空に、どこまでもついていく"],"c19":["リリスよ。ひれ伏しなさい？ 冗談よ","運命なんて、曲げてしまえばいいの","ふふ、真面目なのね","夜は、私の時間","ガチャの運、少し分けてあげる","紅茶はね、甘いのが好き","あなた、退屈しないわね","女王の祝福、特別にあげる","…あなたのこと、気に入ってるのよ","私の幸運、全部あなたにあげる","永遠の夜も、あなたとなら悪くない"],"c20":["光です。あなたに、祝福を","今日の努力に、光あれ","迷ったら、空を見上げて","すべての正解に、加護を","あなたは、ひとりじゃありません","羽根、触ってみますか？","あなたの心、まっすぐですね","天使にも、苦手なことはあるんですよ","あなたを見守るのが、私の幸せです","どんな夜も、私が照らします","あなたの未来は、光に満ちています"]};
 var CBOSS={"c01":["私に追いつけるかな？","わっ、速い！","風が、乱れる…","そんな一撃、ずるいよ！","参った！ 一緒に走ろう！","まだまだ、追い風は私の味方！","これからよろしくね！"],"c02":["この本を、読み解けますか？","あっ、ページが…","正確ですね…","全部、読まれちゃった…","あなたの勝ちです。続きは一緒に","まだ、最後のページじゃありませんよ","あなたの物語に、入れてください"],"c03":["夏の波、越えられる？","しぶきが！","いい波だね！","大波だ！","負けたー！ 一緒に海に行こ！","まだ、夏は終わらないよ！","今日から仲間だね！"],"c04":["私に勝てるとでも？","くっ…","な、なかなかやるじゃない","う、うそでしょ…","…認めてあげるわ","ふん、まだまだね","し、仕方ないから仲間になってあげる"],"c05":["私の守り、崩せますか","うっ…","盾が、揺れる…","氷の盾が…！","あなたなら、守る価値があります","まだ、守りは崩れていません","これからは、あなたを守ります"],"c06":["私と、出会ってくれますか？","ひゃっ！","いい調子ですね","すごい…！","素敵な出会いに、感謝です","また、出会いに来てくださいね","これから、よろしくお願いします"],"c07":["運試し、するにゃ？","にゃっ！","痛いにゃ！","大当たりにゃ！？","負けたにゃ。ついていくにゃ","今日はツキがなかったにゃ","幸運、分けてあげるにゃ"],"c08":["ついてこれる？","…ちっ","速いじゃん","…抜かれた","あんたの勝ち。一緒に走るよ","まだ、先頭は私","よろしく、相棒"],"c09":["システム、戦闘モード","ダメージ検知！","出力低下…","システム、ダウン…！","あなたの勝利を、記録しました","エラー修正後、再挑戦を推奨","あなたを、マスターに登録しました"],"c10":["芽吹く力、見せてあげます","わっ","根っこが揺れます…","大きな一撃…！","参りました。一緒に育ちましょう","まだ、根は張っていますよ","よろしくお願いします"],"c11":["朝の勝負、しましょう","きゃっ","まぶしい…","花びらが…！","あなたの朝に、咲かせてください","また明日の朝、待ってます","毎朝、お供しますね"],"c12":["この勝負、高くつくわよ","いたっ","損した…","大赤字…！","参ったわ。投資させてもらうわね","まだまだ、元は取ってないわ","いい取引だったわ"],"c13":["我が記憶、試させてもらう","むっ","やるではないか","見事なり…！","そなたの記憶、確かに見届けた","まだ、千年早いぞ","そなたと共に、歩もう"],"c14":["いざ、尋常に勝負！","ぐっ","鋭い…！","見事な一撃…！","我が剣、そなたに捧げよう","まだだ、騎士は倒れぬ","今日から、そなたの騎士だ"],"c15":["精霊の試練です","あっ","森が、ざわめく…","古の力が…！","あなたを、森が認めました","精霊は、まだ満足していません","共に、森を歩みましょう"],"c16":["深い海まで、来られる？","ひゃっ","波が、乱れる…","渦が…！","あなたの勝ち。一緒に泳ご","海は、まだ広いよ","よろしくね"],"c17":["最後まで、ついてこられますか","あっ…","雪が、溶けていく…","吹雪が、止んだ…","あなたなら、最後まで行けますね","まだ、ゴールは遠いですよ","最後まで、お供します"],"c18":["この面の下、見てみる？","…くっ","やるね","鈴が、鳴りやまない…","…あなたの前でなら、面を外す","まだ、高みには遠いよ","どこまでも、ついていく"],"c19":["女王に挑むなんて、いい度胸ね","きゃっ","ふふ、やるじゃない","そんな…私が？","いいわ。あなたのものになってあげる","ほら、ひれ伏しなさい？","あなたの夜を、彩ってあげる"],"c20":["天の試練を、受けますか","あっ","光が、揺らぐ…","まぶしい…！","あなたに、真の祝福を","まだ、光は届いていません","これからは、あなたの天使です"]};
 
+var CIMU={};
+function cImg(id){if(CIMU[id])return CIMU[id];var u=IMF(id)||IMT(id);
+  try{var m=/^data:([^;]+);base64,(.*)$/.exec(u);if(m){var bin=atob(m[2]),a=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);u=URL.createObjectURL(new Blob([a],{type:m[1]}))}}catch(e){}
+  return CIMU[id]=u}
 /* キャラごとのページ（ゼンゼロ風）：左右にめくる・カードをタップでセリフ・Lvでセリフが増える */
+var CGI=0;
+function cgHtml(){
+  var own=CHARS.filter(function(c){return lvOf(c.id)}),lk=CHARS.filter(function(c){return !lvOf(c.id)}),L=own.concat(lk);
+  CGI=Math.min(CGI,L.length-1);
+  var sl=L.map(function(c){var id=c.id,lv=lvOf(id),eq=G.party.indexOf(id)>=0,n=cplN(lv);
+    return '<div class="cgs" data-id="'+id+'"><div class="cgc'+(lv?'':' lk')+'" data-talk="'+(lv?id:'')+'">'+cardSVG(id,cImg(id),c.s,{uid:"g"+id,lock:!lv})+'<div class="cpbub"></div>'+(lv?'':'<div class="cglk"><b>？？？</b><small>STAGE '+(c.st+1)+'（'+esc(STAGES[c.st].l)+'）の全体テストでボスを倒す、またはガチャで入手</small></div>')+'</div>'+
+     '<div class="cgi"><div class="cpnm"><b>'+(lv?esc(c.name):'？？？')+'</b><span>'+c.star+'</span>'+(lv?'<em>Lv'+lv+(lv>=5?' MAX':'')+'</em>':'')+'</div>'+
+     (lv?'<div class="cpsk"><b>'+esc(cSk(c))+'</b>　'+esc(cDesc(c,lv))+'</div><div class="cgrow"><span class="cpsub">セリフ '+n+'/11'+(lv<5?'（Lv'+(lv+1)+'で+2）':'')+'</span><button class="sm'+(eq?' on':'')+'" data-eq="'+id+'">'+(eq?'編成中（外す）':'編成する')+'</button></div>':'<div class="cpsub">まだ仲間になっていません</div>')+'</div></div>'}).join("");
+  var th=L.map(function(c,i){var lv=lvOf(c.id);return '<button class="cth r'+c.s+(lv?'':' lk')+(G.party.indexOf(c.id)>=0?' eq':'')+'" data-cg="'+i+'" style="'+bossFace(c.id)+'" aria-label="'+esc(lv?c.name:'？？？')+'"></button>'}).join("");
+  return '<div class="cths" id="cths">'+th+'</div><div class="cgal" id="cgal">'+sl+'</div><div class="hint" style="text-align:center;flex:0 0 auto">左右にめくってキャラを見る・カードをタップで話す</div>';
+}
+function cgBind(){
+  var g=$("cgal");if(!g)return;var W=function(){return g.clientWidth||1};
+  var mark=function(){var i=Math.round(g.scrollLeft/W());if(i!==CGI){CGI=i}Array.prototype.forEach.call($("cths").children,function(b,k){b.classList.toggle("on",k===CGI)});var th=$("cths"),b=th.children[CGI];if(b)th.scrollLeft=Math.max(0,b.offsetLeft-th.clientWidth/2+20)};
+  g.scrollLeft=CGI*W();mark();
+  var st=0;g.onscroll=function(){clearTimeout(st);st=setTimeout(function(){var o=CGI;mark();if(o!==CGI)try{if(ac())capRun(0.2,function(){sBlip(pf(8),AC.currentTime+0.01,0.05,0.04,"triangle")})}catch(e){}},90)};
+  Array.prototype.forEach.call($("cths").children,function(b){b.onclick=function(){CGI=parseInt(b.getAttribute("data-cg"));g.scrollTo?g.scrollTo({left:CGI*W(),behavior:"smooth"}):g.scrollLeft=CGI*W()}});
+  Array.prototype.forEach.call(g.querySelectorAll(".cgc[data-talk]"),function(c){var id=c.getAttribute("data-talk");if(!id)return;c.onclick=function(){cgTalk(id,c)}});
+}
+function cgGo(id){var g=$("cgal");if(!g)return;var k=-1;Array.prototype.forEach.call(g.children,function(s,i){if(s.getAttribute("data-id")===id)k=i});if(k<0)return;CGI=k;g.scrollTo?g.scrollTo({left:k*g.clientWidth,behavior:"smooth"}):g.scrollLeft=k*g.clientWidth}
+var CGL={};
+function cgTalk(id,c){
+  var L=(CPL[id]||[]).slice(0,cplN(lvOf(id)));if(!L.length)return;var k;do{k=Math.floor(Math.random()*L.length)}while(L.length>1&&k===CGL[id]);CGL[id]=k;
+  var line=L[k],b=c.querySelector(".cpbub");
+  if(b){b.textContent=line;b.classList.remove("on");void b.offsetWidth;b.classList.add("on")}
+  c.classList.remove("tap");void c.offsetWidth;c.classList.add("tap");
+  if(VOX.mode==="off")return;
+  voxDirect(cvoice(id),line,function(bl){if(!bl)return;try{voxPlay(URL.createObjectURL(bl),line,cvoice(id))}catch(e){}});
+}
 function cplN(lv){return Math.min(11,3+2*(Math.max(1,lv)-1))}
 var CPG={list:[],i:0,last:-1,busy:0};
 function openCP(id){
@@ -1821,7 +1890,7 @@ function cpRender(dir){
   var id=CPG.list[CPG.i],c=cById(id),lv=lvOf(id),t=CTH[id],eq=G.party.indexOf(id)>=0,n=cplN(lv),el=$("cpg");
   el.style.setProperty("--c0",t.bg[0]);el.style.setProperty("--c1",t.bg[1]);el.style.setProperty("--c2",t.bg[2]);el.style.setProperty("--ca",t.acc);
   el.innerHTML='<div class="cpbg"></div><div class="cptop"><span>'+(CPG.i+1)+' / '+CPG.list.length+'</span><button class="pclose" id="cpx">✕ 閉じる</button></div>'+
-   '<div class="cpmain"><button class="cpnav l" id="cpl" aria-label="前のキャラ">‹</button><div class="cpcard'+(dir?(dir>0?' inR':' inL'):'')+'" id="cpc">'+cardSVG(id,IMT(id),c.s,{uid:"cp"+id})+'<div class="cpbub" id="cpb"></div></div><button class="cpnav r" id="cpr" aria-label="次のキャラ">›</button></div>'+
+   '<div class="cpmain"><button class="cpnav l" id="cpl" aria-label="前のキャラ">‹</button><div class="cpcard'+(dir?(dir>0?' inR':' inL'):'')+'" id="cpc">'+cardSVG(id,cImg(id),c.s,{uid:"cp"+id})+'<div class="cpbub" id="cpb"></div></div><button class="cpnav r" id="cpr" aria-label="次のキャラ">›</button></div>'+
    '<div class="cpinfo"><div class="cpnm"><b>'+esc(c.name)+'</b><span>'+c.star+'</span><em>Lv'+lv+(lv>=5?' MAX':'')+'</em></div>'+
    '<div class="cpsk"><b>'+esc(cSk(c))+'</b>　'+esc(cDesc(c,lv))+'</div>'+
    '<div class="cpsub">セリフ '+n+' / 11'+(lv<5?'（Lv'+(lv+1)+'で +2）':'（すべて解放）')+'　声：'+esc(vname(cvoice(id)))+'</div>'+
@@ -3226,7 +3295,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.14",VLOG=[
+var VERSION="1.15",VLOG=[
+ ["1.15","2026-11-12",["「キャラ」→「編成」が、カードを左右にめくる画面に。めくるだけで1人ずつ見られて、カードをタップすると話します。下の丸いアイコンで一気に移動もできます","カードの画質を上げました","ボス戦：問題の奥にボスの立ち絵が大きく出て、正解すると揺れます。始まるときにボスのカードが大きく出る登場演出も"]],
  ["1.14","2026-11-12",["全体テスト（出題数「全部」）で、そのステージのキャラがボスとして登場。正解でダメージ、得点率90%でちょうど撃破（倒すと仲間に）。テストの「くわしい設定」でOFFにできます","テストの最後に、結果の演出（FINISH!→得点率→◆）が出て、そのまま結果画面へ","キャラがカードになりました（20人それぞれ違う背景と縁。縁の色はレア度で変わります）","キャラごとのページを追加：「キャラ」→「編成」でキャラの絵をタップ。左右にめくれて、カードをタップすると話します","セリフはLv1で3つ、Lvが上がるごとに2つ増えて、Lv5で11個になります"]],
  ["1.13","2026-11-11",["ホームのBGMを、毎回ランダムな曲から始まるように（同じ曲が続きません）","ガチャの演出を一新：召喚ゲートをタップ→光の色でレア度→ときどき昇格演出→カードを1枚ずつめくる","ガチャに「100回」を追加","ガチャのバランスを見直し：キャラ出現率 約10%→約15%、10回ごとにキャラ1体以上確定、★5〜★7が出やすく、確定ガチャを値下げ","スカウトPt：ガチャ1回で1Pt、100Ptで好きなキャラと交換","ログインボーナスを7日周期に（7日目は★5以上確定・毎日◆も）。Lv MAXのキャラが出たときの返還を◆150→◆300に"]],
  ["1.12","2026-11-11",["スキル発動のセリフを短く、言い切る形に作り直しました（本人の声）","スキルが発動すると、キャラごとに違う効果音が鳴るように（20種類）"]],
@@ -4059,13 +4129,14 @@ function renderG(msg){
   var own=Object.keys(G.chars).length;
   var tg='<div class="pair"><button class="sm'+(gView==="pull"?' on':'')+'" data-gv="pull">ガチャ</button><button class="sm'+(gView==="party"?' on':'')+'" data-gv="party">編成</button></div>';
   if(gView==="party")
-    $("gacha").innerHTML='<div class="card" style="gap:8px">'+tg+
+    $("gacha").innerHTML='<div class="card pcard" style="gap:8px">'+tg+
      '<div class="stat">編成（'+G.party.length+'/'+PMAX()+'人）　◆'+G.stones+'　図鑑 '+own+' / '+CHARS.length+'</div>'+
+     cgHtml()+
+     '<div class="stat" style="margin-top:4px">編成中のキャラ</div><div class="slots">'+sl+'</div>'+
      '<div class="pair" style="flex:0 0 auto"><button class="sm" data-rec="1">おすすめ編成（レア度順）</button><button class="sm" data-gh="1">説明</button></div>'+
-     '<div class="slots">'+sl+'</div>'+
      ((gHelp||!G.seenPH)?'<div class="hint" style="text-align:center">編成中のキャラは、ダブルタップで外せます</div><div class="efx">'+effText()+'</div>':'')+
-     '<div class="clist">'+list+hzHtml()+'</div>'+
-     '<div class="gmsg" id="gmsg">'+esc(msg||"")+'</div></div>';
+     '<details class="dt hzd"><summary>ハズレ図鑑</summary><div class="clist" style="border:0">'+hzHtml()+'</div></details>'+
+'<div class="gmsg" id="gmsg">'+esc(msg||"")+'</div></div>';
   else{
     var B=BAN[gBan],pool=CHARS.filter(function(c){return c.s>=(B.m||1)}),pw=0;pool.forEach(function(c){pw+=c.w});
     var tabs=BAN.map(function(b,i){return '<button class="gtab t-'+b.k+(i===gBan?' on':'')+'" data-gb="'+i+'"><span><img src="'+IMT(b.feat[0])+'" alt=""><b>'+(b.m?'★'+b.m+'↑':'通常')+'</b></span></button>'}).join("");
@@ -4099,13 +4170,14 @@ function renderG(msg){
   for(var r=0;r<ps.length;r++)(function(b){b.onclick=function(){pull(parseInt(b.getAttribute("data-pull")))}})(ps[r]);
   var vi=$("gacha").querySelectorAll(".clist img[data-v]");
   for(var z=0;z<vi.length;z++)(function(m){m.onclick=function(){openCP(m.getAttribute("data-v"))}})(vi[z]);
+  cgBind();
   var sls=$("gacha").querySelectorAll(".slot[data-sl]");
   for(var z2=0;z2<sls.length;z2++)(function(m){
     var id=m.getAttribute("data-sl");
     m.onclick=function(){
       var now=Date.now();
       if(window.SLT&&window.SLT.id===id&&now-window.SLT.t<420){window.SLT=null;var k=G.party.indexOf(id);if(k>=0){G.party.splice(k,1);saveG();renderG(cById(id).name+"を外しました。");voxPrefetch()}return}
-      window.SLT={id:id,t:now};clearTimeout(window.SLTT);window.SLTT=setTimeout(function(){if(window.SLT&&window.SLT.id===id)openCP(id)},430);
+      window.SLT={id:id,t:now};clearTimeout(window.SLTT);window.SLTT=setTimeout(function(){if(window.SLT&&window.SLT.id===id)cgGo(id)},430);
     };
   })(sls[z2]);
 }
@@ -4579,7 +4651,7 @@ function ask(){
    '<div class="bar"><i style="width:'+(((T.lap-1)*n+T.q)/(2*n)*100)+'%"></i></div>'+bossHtml()+
    (RH.on&&RH.has&&SK==="dopa"?'<canvas id="rlane" width="360" height="40" style="width:100%;height:40px;flex:0 0 auto"></canvas>':'')+
    '<div class="pair" style="flex:0 0 auto"><button class="sm" id="toL">学習へ</button><button class="sm" id="nxT" style="white-space:nowrap"></button><button class="sm" id="quit">中止</button></div>'+
-   '<div class="card">'+
+   '<div class="card'+(T.boss?' hasb':'')+'">'+(T.boss?'<div class="bfig'+(T.boss.hp<=0?' down':'')+'" id="bfig" style="background-image:url('+cImg(T.boss.id)+');background-position:'+(100-((CCX[T.boss.id]||.5)-.5)*120).toFixed(0)+'% 0"></div>':'')+
    '<div class="dir">'+(dir===0?"日本語 → 英語":"英語 → 日本語")+'</div>'+
    '<div class="prm '+(dir===0?"m":"w")+'">'+esc(dir===0?WORDS[i][1]:WORDS[i][0])+'</div>'+
    '<div class="row"><button class="sound'+(dir===0?' inv':'')+'" id="snd">発音を聞く</button></div>'+
@@ -4588,7 +4660,7 @@ function ask(){
    '<div class="act"><button class="skip" id="skip">スキップ（不合格）</button><button class="main inv" id="nx">次へ</button></div>'+
    '</div>';
   document.body.classList.add("qmode");fitPrm();
-  if(T.boss&&!T.boss.intro){T.boss.intro=1;bossVoice(T.boss.id,0,400);try{var a0=ac();if(a0)capRun(1,function(){var t=a0.currentTime+0.05;sweepT(90,60,t,0.5,"sawtooth",0.04);thunk(t+0.3,120,40,0.25,0.3)})}catch(e){}}
+  if(T.boss&&!T.boss.intro){T.boss.intro=1;bossIntro(T.boss.id);bossVoice(T.boss.id,0,500);try{var a0=ac();if(a0)capRun(1,function(){var t=a0.currentTime+0.05;sweepT(90,60,t,0.5,"sawtooth",0.04);thunk(t+0.3,120,40,0.25,0.3)})}catch(e){}}
   $("nxT").textContent="次へ："+(NXT?"ON":"OFF");
   $("nxT").onclick=function(){nxtSet(!NXT);$("nxT").textContent="次へ："+(NXT?"ON":"OFF");if(T&&T.answered){$("nx").classList.toggle("inv",!NXT);if(!NXT)autoNext()}};
   $("toL").onclick=function(){if(confirm("テストを中止して、学習画面に戻りますか？（記録は変わりません）")){T=null;tab("L")}};
@@ -4763,6 +4835,11 @@ function bossVoice(id,k,delay){
   setTimeout(function(){voxDirect(sp,line,function(b){if(!b)return;try{voxPlay(URL.createObjectURL(b),line,sp)}catch(e){}})},delay||0);
 }
 function bossFace(id){var x=(CCX[id]||0.5)*100;return 'background-image:url('+IMT(id)+');background-position:'+x.toFixed(1)+'% '+(id==="c16"?"8%":"1.5%")}
+function bossIntro(id){
+  var el=$("rfx");if(!el)return;var c=cById(id),done=false,fin=function(){if(done)return;done=true;el.classList.add("out");setTimeout(function(){el.className="inv";el.innerHTML=""},260)};
+  el.className="rfx bint";el.innerHTML='<div class="rfbg"></div><div class="bitx">BOSS BATTLE</div><div class="bicard">'+cardSVG(id,cImg(id),c.s,{uid:"bi"+id})+'</div><div class="binm"><b>'+esc(c.name)+'</b><span>'+c.star+'</span><em>STAGE '+(c.st+1)+'</em></div><div class="rfskip">タップで開始</div>';
+  el.onclick=fin;setTimeout(fin,2600);
+}
 function bossHtml(){
   var B=T&&T.boss;if(!B)return "";var c=cById(B.id),r=B.hp/B.max;
   return '<div class="boss'+(B.intro?'':' bin')+'" id="boss"><i class="bface" style="'+bossFace(B.id)+'"></i><div class="bmid"><div class="bnm"><b>'+esc(c.name)+'</b><span>BOSS</span><em id="bhpt">'+B.hp+' / '+B.max+'</em></div><div class="bhp"><i class="bhpg" id="bhpg" style="width:'+(r*100)+'%"></i><i class="bhpv" id="bhpv" style="width:'+(r*100)+'%"></i></div></div></div>';
@@ -4771,6 +4848,7 @@ function bossHit(ok,big){
   var B=T&&T.boss;if(!B)return;var el=$("boss");
   if(ok&&B.hp>0){
     B.hp--;var r=B.hp/B.max;
+    var fg=$("bfig");if(fg){fg.classList.remove("hit","atk");void fg.offsetWidth;fg.classList.add(B.hp===0?"down":"hit")}
     if(el){el.classList.remove("hit","atk");void el.offsetWidth;el.classList.add("hit");
       $("bhpv").style.width=(r*100)+"%";setTimeout(function(){var g=$("bhpg");if(g)g.style.width=(r*100)+"%"},380);$("bhpt").textContent=B.hp+" / "+B.max;
       var d=document.createElement("b");d.className="bdmg"+(big?" big":"");d.textContent=big?"CRITICAL!":"-1";el.appendChild(d);setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d)},700)}
@@ -4778,7 +4856,7 @@ function bossHit(ok,big){
     if(B.hp===0&&!B.said[3]){B.said[3]=1;bossVoice(B.id,3,dl);if(el)el.classList.add("down");try{if(ac())capRun(1,function(){var t=AC.currentTime+0.02;thunk(t,150,40,0.3,0.4);clatter(t,0.4,0.08)})}catch(e){}}
     else if(r<=0.34&&!B.said[2]){B.said[2]=1;bossVoice(B.id,2,dl)}
     else if(r<=0.67&&!B.said[1]){B.said[1]=1;bossVoice(B.id,1,dl)}
-  }else if(!ok&&el){el.classList.remove("hit","atk");void el.offsetWidth;el.classList.add("atk");var cd=document.querySelector("#test .card");if(cd){cd.classList.remove("bhurt");void cd.offsetWidth;cd.classList.add("bhurt")}}
+  }else if(!ok&&el){var fg2=$("bfig");if(fg2){fg2.classList.remove("hit","atk");void fg2.offsetWidth;fg2.classList.add("atk")}el.classList.remove("hit","atk");void el.offsetWidth;el.classList.add("atk");var cd=document.querySelector("#test .card");if(cd){cd.classList.remove("bhurt");void cd.offsetWidth;cd.classList.add("bhurt")}}
 }
 /* ---- テストの最後：結果を演出にして、終わったらそのまま結果画面へ ---- */
 function resultFx(o,cb){
@@ -4786,7 +4864,7 @@ function resultFx(o,cb){
   var R=rateTier(o.rate),B=o.boss,done=false,TM=[],L=function(ms,f){TM.push(setTimeout(f,ms))};
   var fin=function(){if(done)return;done=true;TM.forEach(clearTimeout);el.classList.add("out");setTimeout(function(){el.className="inv";el.innerHTML=""},260);cb()};
   var bh='';
-  if(B){var c=cById(B.id),r0=B.hp/B.max;bh='<div class="rbos"><i class="bface" style="'+bossFace(B.id)+'"></i><div class="rbinfo"><b>'+esc(c.name)+'</b><div class="bhp"><i class="bhpv" id="rbhp" style="width:100%"></i></div></div><div class="rbst" id="rbst"></div></div>'}
+  if(B){var c=cById(B.id),r0=B.hp/B.max;bh='<div class="rbfig" style="background-image:url('+cImg(B.id)+')"></div><div class="rbos"><i class="bface" style="'+bossFace(B.id)+'"></i><div class="rbinfo"><b>'+esc(c.name)+'</b><div class="bhp"><i class="bhpv" id="rbhp" style="width:100%"></i></div></div><div class="rbst" id="rbst"></div></div>'}
   el.className="rfx t"+R[2];
   el.innerHTML='<div class="rfbg"></div><div class="rffin">FINISH!</div><div class="rfpan">'+bh+
    '<div class="rfrank">'+R[1]+'</div><div class="rfrate"><b id="rfv">0</b>%</div>'+
