@@ -17,7 +17,7 @@
 body.dopa{--bg:#1a0009;--card:#2a0010;--ink:#fff6d6;--sub:#ffb0c0;--line:#a3173a;--acc:#ffd400;--acc-ink:#3a0014;--soft:#3b1766;--ok:#39ff14;--ng:#ff4d6d;--s0:#25d9ff;--s1:#39ff14;--s2:#ffd400;--r:10px;--rc:14px;--bw:1px;color-scheme:dark}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
-html{-webkit-text-size-adjust:100%;height:100%;overflow:hidden;overscroll-behavior:none}
+html{-webkit-text-size-adjust:100%;height:100%;overflow:hidden;overscroll-behavior:none;background:#0b0c0e}
 body{margin:0;height:100vh;height:100dvh;overflow:hidden;overscroll-behavior:none;background:var(--bg);color:var(--ink);font-family:"Zen Maru Gothic","M PLUS Rounded 1c","Hiragino Maru Gothic ProN","ヒラギノ丸ゴ ProN","Arial Rounded MT Bold","Yu Gothic",sans-serif;
 padding:calc(env(safe-area-inset-top,0px) + 8px) 14px calc(env(safe-area-inset-bottom,0px) + 8px)}
 main{height:100%;max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
@@ -700,12 +700,16 @@ body.th-sty .head #count{color:var(--acc2)}
 body.th-sty .topr #gear,body.th-sty .topr #shareBtn{border-color:var(--acc2)!important;color:var(--acc2)!important}
 /* ---- アプリ版の初回：全データDLの選択 ---- */
 #appdl .sheet{justify-content:center;gap:14px;text-align:center}
+
+/* iPhoneのアプリ版で、上下に白い地が見えないように：bodyを画面いっぱいに固定 */
+body{position:fixed;top:0;left:0;right:0;bottom:0;height:auto!important;min-height:0}
+@supports (height:100lvh){html{min-height:100lvh}}
 </style>
 </head>
 <body class="dopa">
 <script>(function(){var P={std:["#8a0a2a","#3a0014","#12000a","#240010","#14000a"],sty:["#1b2125","#101316","#060708","#1b1d21","#0e0f11"],chn:["#c0161f","#640b10","#250405","#45080b","#260405"],sak:["#d4558a","#6e2346","#2a0c1a","#4a1a30","#2c0e1c"],sea:["#0b4f8a","#062849","#020c1a","#062038","#030f1e"]};
 try{var k=localStorage.getItem("dopa:skin");if(!P[k])k="sty";var an=localStorage.getItem("dopa:anim")!=="0",li=localStorage.getItem("dopa:lite")==="1",c="dopa";if(k!=="std")c+=" thx th-"+k;c+=(an&&!li)?" anim":" noanim";if(li)c+=" lite";document.body.className=c;
-var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function(p,j){st.setProperty(p,P[k][j])})}catch(e){document.body.className="dopa thx th-sty anim"}})();</script>
+var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function(p,j){st.setProperty(p,P[k][j])});document.documentElement.style.background=P[k][2]}catch(e){document.body.className="dopa thx th-sty anim"}})();</script>
 <main>
   <div class="homev" id="homeV">
     <div class="hbg"></div><div class="hray"></div><div class="hslash"></div><div class="hscan"></div><i class="hc tl"></i><i class="hc tr"></i><i class="hc bl"></i><i class="hc br"></i><div class="hdots"><i style="left:4%;animation-delay:0.0s;animation-duration:6s"></i><i style="left:12%;animation-delay:0.7s;animation-duration:7s"></i><i style="left:20%;animation-delay:1.4s;animation-duration:8s"></i><i style="left:28%;animation-delay:2.1s;animation-duration:9s"></i><i style="left:36%;animation-delay:2.8s;animation-duration:6s"></i><i style="left:44%;animation-delay:3.5s;animation-duration:7s"></i><i style="left:52%;animation-delay:4.2s;animation-duration:8s"></i><i style="left:60%;animation-delay:4.9s;animation-duration:9s"></i><i style="left:68%;animation-delay:5.6s;animation-duration:6s"></i><i style="left:76%;animation-delay:0.3s;animation-duration:7s"></i><i style="left:84%;animation-delay:1.0s;animation-duration:8s"></i><i style="left:92%;animation-delay:1.7s;animation-duration:9s"></i></div>
@@ -2316,7 +2320,7 @@ function chPlay(C){
     blob.arrayBuffer().then(function(ab){
       var done=function(buf){
         if(!bgm.on||bgm.mode!==mode||CT!==C)return;
-        loopBuf(buf,5);
+        loopBuf(buf,bgm.xfNext||5);bgm.xfNext=0;
         clearTimeout(bgm.rotT);clearTimeout(bgm.peekT);
         var auto=mode==="study"||$("chillSel").value==="-1";
         if(auto){
@@ -2338,7 +2342,7 @@ function bgmStart(mode){
   if(mode==="study")chillIdx=Math.floor(Math.random()*studyL().length)-1;
   if(mode==="chill"||mode==="study")chillNext();else setTheme(st);
   bgm.bus=a.createGain();bgm.rhy=false;
-  var fg=a.createGain(),fnow=a.currentTime,fd=mode==="test"?2.2:3.5;fg.gain.setValueAtTime(0,fnow);fg.gain.linearRampToValueAtTime(1,fnow+fd);fg.connect(bgmDest());bgm.bus.connect(fg);bgm.fg=fg;
+  var fg=a.createGain(),fnow=a.currentTime,fd=bgm.started?0.25:1.2;bgm.started=1;fg.gain.setValueAtTime(0,fnow);fg.gain.linearRampToValueAtTime(1,fnow+fd);fg.connect(bgmDest());bgm.bus.connect(fg);bgm.fg=fg;
   if(!LITE){var rs=a.createGain();rs.gain.value=0.15;fg.connect(rs);rs.connect(REVB)}
   bgm.on=true;bgm.ready=0;
   bgm.pre=false;
@@ -2355,8 +2359,8 @@ function bgmStop(){
   if(!bgm.on)return;
   bgm.on=false;clearInterval(bgm.timer);if(bgm.rot){clearInterval(bgm.rot);bgm.rot=0}if(bgm.lfo){bgm.lfo.forEach(function(o){try{o.stop(AC.currentTime+0.2)}catch(e){}});bgm.lfo=null}clearTimeout(bgm.rotT);bgm.rhy=false;
   var nw=AC?AC.currentTime:0;clearTimeout(bgm.peekT);
-  try{if(bgm.src)bgm.src.stop(nw+0.9)}catch(e){try{bgm.src.stop()}catch(x){}}bgm.src=null;bgm.sg=null;bgm.pdur=0;
-  try{bgm.bus.gain.cancelScheduledValues(nw);bgm.bus.gain.setValueAtTime(bgm.bus.gain.value,nw);bgm.bus.gain.setTargetAtTime(0,nw,0.18)}catch(e){}
+  try{if(bgm.src)bgm.src.stop(nw+0.15)}catch(e){try{bgm.src.stop()}catch(x){}}bgm.src=null;bgm.sg=null;bgm.pdur=0;
+  try{bgm.bus.gain.cancelScheduledValues(nw);bgm.bus.gain.setValueAtTime(bgm.bus.gain.value,nw);bgm.bus.gain.setTargetAtTime(0,nw,0.03)}catch(e){}
 }
 function lvSound(a){
   if(!AC||a<1||bgm.quiet)return;
@@ -2388,7 +2392,7 @@ function bgmSync(){
     if(want==="study"){chillIdx=Math.floor(Math.random()*studyL().length)-1;chillNext()}
     else if(bgm.lastChill!=null&&$("chillSel").value==="-1"){CHL=homeL();setChill(Math.min(bgm.lastChill,CHL.length-1))}
     else chillNext();
-    chPlay(CT);return;
+    bgm.xfNext=0.12;chPlay(CT);return;
   }
   if(bgm.on)bgmStop();
   bgmStart(want);
@@ -2587,7 +2591,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.5",VLOG=[
+var VERSION="1.5.1",VLOG=[
+ ["1.5.1","2026-11-11",["iPhoneのアプリ版で、画面の下に白い空白が出る問題と、上が白っぽくなる問題を修正（画面全体をアプリの色で埋めるように）","更新した直後に、古い版の画面が出ることがある問題を修正","学習・テスト・ガチャなどを切り替えたとき、曲がすぐ切り替わるように（ホームで曲が変わるときだけ、ゆっくり重ねます）"]],
  ["1.5","2026-11-11",["上のバナーに共有ボタンを追加（Xに投稿・LINEなどで共有・リンクのコピー）","公式X・YouTube・Discordへのボタンを、ホーム画面と共有画面に追加","タイトルのロゴを新しいデザインに（文字をアプリに同梱して、ネットがなくても同じ見た目に）","ガチャの結果を、スクロールしなくてもすぐ閉じられるように（右上の「閉じる」と、下に固定のOK）","ホームの曲の切り替えを、気づかないくらい自然に（5秒かけて重ねる／ホームと暗記の行き来で音を止めない）","スタイリッシュのBGMを、1.2のときの曲に戻しました","iPhoneで上のバナーが白っぽく見える問題を修正","開いたとき、まれに古い色の画面が一瞬出る問題を修正","スタイリッシュに2色目（シアン）を追加して、ガチャ以外の画面もにぎやかに","アプリ版で最初に開いたとき、全データをダウンロードするか選べるように","管理者コマンドを追加（データタブ）"]],
  ["1.4","2026-11-11",["声をアプリに収録しました（ネットから取得しなくなり、すぐ鳴ります）","利用規約に合わせて、2人の声を変更（結衣：東北ずん子、エルナ：東北イタコ）","掛け声の声は、収録した20種類から選ぶ形にしました","スマホのホーム画面に追加して、アプリとして使えるようにしました（オフラインでも動きます）","全解放パック（Google Play版のみ・買い切り）を追加。すべてのコンテンツは今までどおり無料で遊べます","設定の「全体」タブに、クレジットとプライバシーポリシーを追加"]],
  ["1.3","2026-11-11",["学習モードで「隠す／意味を見る」ボタンが下のボタンと重なる問題を修正（画面が短い端末でも重ならないように）","アプリやブラウザを切り替えて戻ったときに、音が大きく鳴ることがある問題を修正（声が音量設定を通らずに鳴っていたのを止め、戻ったときは音をゆっくり大きくします）","最初の画面に、オープニングのアニメーションを追加","スタイリッシュのBGMを、より尖った音に作り直し（ワブルベース、サイドチェインのうねり、グリッチ）","DLCに「残りをまとめてインストール」を追加"]],
@@ -3017,7 +3022,7 @@ function dlcDelete(id,b){
   if($("iapBuy"))$("iapBuy").onclick=iapBuy;if($("iapRest"))$("iapRest").onclick=function(){iapRestore(false)};
   if(FULL)setTimeout(function(){try{var ch=false;CHARS.forEach(function(x){if(lvOf(x.id)<5)ch=true});if(ch||G.slots<6)fullApply()}catch(e){}},0);
   setTimeout(iapInit,800);
-  if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
+  if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(r){try{r.update()}catch(e){}}).catch(function(){})})}
 })();
 
 /* ---- 共有と公式リンク ---- */
@@ -3046,7 +3051,7 @@ $("pullx").onclick=function(){
   p.classList.add("inv");p.classList.remove("cu");
 };
 /* ---- テーマの色を、スマホ上部（ステータスバー）にも ---- */
-function themeMeta(){try{var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",getComputedStyle(document.body).getPropertyValue("--bg").trim()||"#0b0c0e")}catch(e){}}
+function themeMeta(){try{var bg=getComputedStyle(document.body).getPropertyValue("--bg").trim()||"#0b0c0e",m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",bg);document.documentElement.style.background=bg}catch(e){}}
 setTimeout(themeMeta,0);
 /* ---- アプリ版（ホーム画面・Google Play）：最初に開いたとき、全データDLを選べる ---- */
 function isApp(){try{return (window.matchMedia&&(matchMedia("(display-mode: standalone)").matches||matchMedia("(display-mode: fullscreen)").matches))||navigator.standalone===true||(document.referrer||"").indexOf("android-app://")===0}catch(e){return false}}
