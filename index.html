@@ -749,6 +749,26 @@ body.anim .homev.intro .logo span{animation:lslam .55s cubic-bezier(.2,.9,.2,1.2
 .homev h1.logo{animation:none!important}
 #stones,.head,.topr,#count,.stat{font-variant-numeric:tabular-nums}
 .topr #stones{min-width:104px;justify-content:center}
+
+/* ---- スキル発動バナー：キャラごとに違う演出 ---- */
+#skb .sk{background:hsl(var(--skh,50),100%,60%)!important;filter:drop-shadow(0 0 8px hsla(var(--skh,50),100%,60%,.75))!important}
+#skb .sk>div{background:linear-gradient(90deg,hsl(var(--skh,280),70%,16%),hsl(var(--skh,280),75%,36%))!important}
+#skb .sk em{color:hsl(var(--skh,50),100%,78%)!important}
+#skb .sk.sks1,#skb .sk.sks1>div{clip-path:polygon(6% 0,100% 0,94% 100%,0 100%)!important}
+#skb .sk.sks2,#skb .sk.sks2>div{clip-path:none!important;border-radius:999px}
+#skb .sk.sks2{padding:3px}
+#skb .sk.sks3,#skb .sk.sks3>div{clip-path:polygon(0 0,100% 0,94% 50%,100% 100%,0 100%,6% 50%)!important}
+#skb .sk.ska0{animation:skL .95s cubic-bezier(.2,.9,.3,1) forwards!important}
+#skb .sk.ska1{animation:skR .95s cubic-bezier(.2,.9,.3,1) forwards!important;align-self:flex-end}
+#skb .sk.ska2{animation:skD .95s cubic-bezier(.2,.9,.3,1) forwards!important;align-self:center}
+#skb .sk.ska3{animation:skZ .95s cubic-bezier(.2,.9,.3,1.2) forwards!important;align-self:center}
+#skb .sk.ska4{animation:skF .95s ease-out forwards!important;align-self:flex-start}
+#skb .sk.skr{filter:drop-shadow(0 0 14px hsla(var(--skh,50),100%,65%,1)) drop-shadow(0 0 4px #fff)!important}
+@keyframes skD{0%{transform:translateY(-60px);opacity:0}25%{transform:translateY(6px);opacity:1}35%{transform:translateY(0)}80%{opacity:1}100%{transform:translateY(0);opacity:0}}
+@keyframes skZ{0%{transform:scale(.3);opacity:0}25%{transform:scale(1.08);opacity:1}35%{transform:scale(1)}80%{opacity:1}100%{transform:scale(1);opacity:0}}
+@keyframes skF{0%{transform:perspective(500px) rotateX(85deg);opacity:0}30%{transform:perspective(500px) rotateX(0);opacity:1}80%{opacity:1}100%{opacity:0}}
+body.noanim #skb .sk{animation:skFade .95s linear forwards!important}
+@keyframes skFade{0%{opacity:0}15%{opacity:1}80%{opacity:1}100%{opacity:0}}
 </style>
 </head>
 <body class="dopa">
@@ -1095,7 +1115,7 @@ function voxAllJobs(){
   for(var ix=0;ix<16;ix++)(FXV[ix]||[]).forEach(function(p,j){add(p,shoutSp(ix,j))});
   WSETS.forEach(function(w){w.forEach(function(x,ix){add(x[1],shoutSp(ix,(FXV[ix]||[]).length))})});
   var own=Object.keys(G.chars),rest=Object.keys(CVOICE).filter(function(id){return !G.chars[id]});
-  own.concat(rest).forEach(function(id){add(charLine(id),cvoice(id));sklLine(id).forEach(function(l){FXS.forEach(function(sp){add(l,sp)})})});
+  own.concat(rest).forEach(function(id){add(charLine(id),cvoice(id));sklLine(id).forEach(function(l){add(l,cvoice(id))})});
   return jobs;
 }
 function voxFetch(text,sp,cb){
@@ -1330,7 +1350,7 @@ function voxEssentialJobs(){
   var jobs=[],seen={};
   var add=function(t,s){var k=s+":"+t;if(seen[k])return;seen[k]=1;jobs.push([t,s,k])};
   [6,0,1,7,9,2,10,11,12,13,14,15,3,4,5,8].forEach(function(ix){(FXV[ix]||[]).slice(0,2).forEach(function(p,j){add(p,shoutSp(ix,j))});if(ix<3)WSETS.forEach(function(w){add(w[ix][1],shoutSp(ix,(FXV[ix]||[]).length))})});
-  partyList().forEach(function(id){add(charLine(id),cvoice(id));var l0=sklLine(id)[0];FXS.forEach(function(sp){add(l0,sp)})});
+  partyList().forEach(function(id){add(charLine(id),cvoice(id));sklLine(id).forEach(function(l){add(l,cvoice(id))})});
   Object.keys(CVOICE).forEach(function(id){add(charLine(id),cvoice(id))});
   return jobs;
 }
@@ -1488,7 +1508,7 @@ function charVoice(id){
 /* ---------- 効果音（ドパガキ版のみ） ---------- */
 var AC=null,MASTER=null,SFX=null,REVB=null,OUTG=null,EQN=[],EQV=[0,0,0,0,0],EQP="flat",WAKE=false,NZC={},volB=50,volS=50;
 try{var vb=parseInt(localStorage.getItem("dopa:volB")),vsv=parseInt(localStorage.getItem("dopa:volS"));if(vb>=0&&vb<=100)volB=vb;if(vsv>=0&&vsv<=100)volS=vsv}catch(e){}
-function bgBase(){return 0.2*volB/50*(bgm.custom&&!bgm.pre?2.5:1)*((REG===2&&bgm.mode==="test"&&!bgm.custom)?1.45:1)/((bgm.pre&&bgm.preS)||1)}
+function bgBase(){var v=0.2*volB/50;if(bgm.custom&&(bgm.pre||bgm.gmh))return v*2.2;return v*(bgm.custom&&!bgm.pre?2.5:1)*((REG===2&&bgm.mode==="test"&&!bgm.custom)?1.45:1)}
 function applyVol(){if(SFX)SFX.gain.value=2*volS/50;if(bgm.on&&bgm.bus)bgm.bus.gain.value=bgBase()}
 function ac(){
   if(SK!=="dopa")return null;
@@ -2105,11 +2125,11 @@ function gmPhrase(R,mode,prog,start,lo,hi,penta){
   return notes;
 }
 var GMHOME={
- std:[{n:"ドパ・タウン",bpm:116,sh:0,mode:"maj"},{n:"コインの小道",bpm:108,sh:-3,mode:"maj"},{n:"夕焼けアーケード",bpm:102,sh:2,mode:"min"}],
- sty:[{n:"ネオン・ラウンジ",bpm:124,sh:0,mode:"min"},{n:"ミッドナイト・ドライブ",bpm:118,sh:-3,mode:"min"},{n:"ガラスの街",bpm:128,sh:2,mode:"maj"}],
- chn:[{n:"茶館の午後",bpm:104,sh:0,mode:"maj"},{n:"灯籠の路地",bpm:110,sh:2,mode:"min"},{n:"月下の庭",bpm:98,sh:-3,mode:"maj"}],
- sak:[{n:"夜桜の小径",bpm:106,sh:0,mode:"min"},{n:"花筏",bpm:100,sh:3,mode:"maj"},{n:"春霞",bpm:112,sh:-2,mode:"maj"}],
- sea:[{n:"深海の灯り",bpm:90,sh:-2,mode:"min"},{n:"潮だまり",bpm:96,sh:1,mode:"maj"},{n:"クジラの歌",bpm:84,sh:-4,mode:"min"}]};
+ std:[{n:"ドパ・タウン",bpm:124,sh:0,mode:"maj"},{n:"コインの小道",bpm:116,sh:-3,mode:"maj"},{n:"夕焼けアーケード",bpm:110,sh:2,mode:"min"}],
+ sty:[{n:"ネオン・ラウンジ",bpm:132,sh:0,mode:"min"},{n:"ミッドナイト・ドライブ",bpm:126,sh:-3,mode:"min"},{n:"ガラスの街",bpm:136,sh:2,mode:"maj"}],
+ chn:[{n:"茶館の午後",bpm:112,sh:0,mode:"maj"},{n:"灯籠の路地",bpm:118,sh:2,mode:"min"},{n:"月下の庭",bpm:106,sh:-3,mode:"maj"}],
+ sak:[{n:"夜桜の小径",bpm:114,sh:0,mode:"min"},{n:"花筏",bpm:108,sh:3,mode:"maj"},{n:"春霞",bpm:120,sh:-2,mode:"maj"}],
+ sea:[{n:"深海の灯り",bpm:98,sh:-2,mode:"min"},{n:"潮だまり",bpm:104,sh:1,mode:"maj"},{n:"クジラの歌",bpm:92,sh:-4,mode:"min"}]};
 function gmTestInfo(th,k){var B={std:168,sty:146,chn:138,sak:150,sea:120}[th]||168,tt=THEMES[k]||THEMES[0];return {bpm:B+(k%5)*4+Math.floor(k/5)*3,sh:(((tt.sh%12)+17)%12)-5,mode:tt.min?"min":"maj"}}
 var GMSONG={};
 function gmSong(th,kind,k){
@@ -2505,16 +2525,17 @@ function loadPre(k,lap){
         if(bgm.src&&bgm.pdur){off=(((now-bgm.pstart)%bgm.pdur)+bgm.pdur)%bgm.pdur/bgm.pdur*buf.duration}
         else{var pm=POSM["t"+k];off=(pm!==undefined?pm:Math.floor(Math.random()*4)/4)*buf.duration}
         try{if(bgm.src){var og=bgm.sg;if(og){og.gain.cancelScheduledValues(now);og.gain.setValueAtTime(og.gain.value,now);og.gain.linearRampToValueAtTime(0,now+0.12)}bgm.src.stop(now+0.15)}}catch(e){}
-        var s=AC.createBufferSource(),sg=AC.createGain();s.buffer=buf;s.loop=true;s.connect(sg);sg.connect(bgm.bus);
+        var s=AC.createBufferSource(),sg=AC.createGain(),ngn=AC.createGain();s.buffer=buf;s.loop=true;ngn.gain.value=normGain(buf)*[1,1.04,1.08,1.12][lap||0];s.connect(ngn);ngn.connect(sg);sg.connect(bgm.bus);
         sg.gain.setValueAtTime(bgm.src?0:1,now);if(bgm.src)sg.gain.linearRampToValueAtTime(1,now+0.12);
         s.playbackRate.value=tf;s.start(now,off);bgm.src=s;bgm.sg=sg;bgm.pstart=now-off/tf;bgm.pdur=buf.duration/tf;bgm.curK="t"+k;
-        bgm.preS=(PRES[prk(k)]&&PRES[prk(k)][lap])||1;bgm.bus.gain.value=bgBase();bgm.ready=1;
+        bgm.preS=1;bgm.bus.gain.value=bgBase();bgm.ready=1;
       };
       var p=AC.decodeAudioData(ab,done,fail);if(p&&p.then)p.then(done,fail);
     }).catch(fail);
   });
 }
 function loadTrack(k){
+  bgm.gmh=0;
   trackGet(k,function(blob){
     if(!bgm.on||!bgm.custom)return;
     var fail=function(){if(bgm.on&&bgm.custom)startGen()};
@@ -2534,7 +2555,7 @@ function OCOK(){return !!(window.OfflineAudioContext||window.webkitOfflineAudioC
 CHILLS.forEach(function(c,i){c.id="std:h:"+i});STUDYS.forEach(function(c,i){c.id="std:s:"+i});
 Object.keys(THL).forEach(function(k){THL[k].h.forEach(function(c,i){c.id=k+":h:"+i});THL[k].s.forEach(function(c,i){c.id=k+":s:"+i})});
 function CHL_ALL(th){return GMH[th]||GMH.std}
-function chKey(C){return "pch7:"+C.id}
+function chKey(C){return "pch8:"+C.id}
 function renderCh(C,cb){
   if(!C||!C.gm)return cb(null);
   gmRender(gmSong(C.th,"h",C.gi),1,0,function(d,sr,sc){cb(d?wavArr(d,sr,sc):null)});
@@ -2543,19 +2564,20 @@ function chEnsure(C,cb){trackGet(chKey(C),function(b){if(b)return cb(true,b);ren
 var XFC={},POSM={};
 function posSave(){try{if(bgm.src&&bgm.pdur&&bgm.curK&&AC){POSM[bgm.curK]=(((AC.currentTime-bgm.pstart)%bgm.pdur)+bgm.pdur)%bgm.pdur/bgm.pdur}}catch(e){}}
 function xfCurve(up){var k=up?"u":"d";if(XFC[k])return XFC[k];var n=64,c=new Float32Array(n);for(var i=0;i<n;i++){var x=i/(n-1);c[i]=up?Math.sin(x*Math.PI/2):Math.cos(x*Math.PI/2)}c[0]=up?0.0001:1;c[n-1]=up?1:0.0001;return XFC[k]=c}
+function normGain(buf){if(buf.__ng)return buf.__ng;var d=buf.getChannelData(0),n=d.length,s2=0,c=0,i;for(i=0;i<n;i+=7){s2+=d[i]*d[i];c++}var rms=Math.sqrt(s2/Math.max(1,c))||0.1;return buf.__ng=Math.max(0.3,Math.min(3,0.11/rms))}
 function loopBuf(buf,xf,gap){
   var now=AC.currentTime+0.03,d=xf||5;
   if(gap){
     /* だんだん小さく（3秒）→ 一瞬無音（0.9秒）→ 次の曲を頭から */
     try{if(bgm.src){var og2=bgm.sg,os2=bgm.src;if(og2){og2.gain.cancelScheduledValues(now);og2.gain.setValueAtTime(Math.max(0.0001,og2.gain.value),now);og2.gain.exponentialRampToValueAtTime(0.0001,now+3)}os2.stop(now+3.1)}}catch(e){}
-    var s2=AC.createBufferSource(),g2=AC.createGain(),st2=now+3.9;s2.buffer=buf;s2.loop=true;s2.connect(g2);g2.connect(bgm.bus);
+    var s2=AC.createBufferSource(),g2=AC.createGain(),n2=AC.createGain(),st2=now+3.9;s2.buffer=buf;s2.loop=true;n2.gain.value=CT&&CT.gm?normGain(buf):1;s2.connect(n2);n2.connect(g2);g2.connect(bgm.bus);
     g2.gain.setValueAtTime(0.0001,st2);g2.gain.exponentialRampToValueAtTime(1,st2+0.5);
     s2.start(st2,0);bgm.src=s2;bgm.sg=g2;bgm.ready=1;bgm.pstart=st2;bgm.pdur=buf.duration;bgm.curK=CT?"c"+CT.id:"";
     return;
   }
   var off0=0,pm0=CT?POSM["c"+CT.id]:undefined;if(pm0!==undefined)off0=pm0*buf.duration;else if(!bgm.src||d<1)off0=Math.floor(Math.random()*4)/4*buf.duration;
   try{if(bgm.src){var og=bgm.sg,os=bgm.src;if(og){og.gain.cancelScheduledValues(now);og.gain.setValueAtTime(Math.max(0.0001,og.gain.value),now);try{og.gain.setValueCurveAtTime(xfCurve(false),now,d)}catch(e){og.gain.linearRampToValueAtTime(0.0001,now+d)}}os.stop(now+d+0.1)}}catch(e){}
-  var s=AC.createBufferSource(),sg=AC.createGain();s.buffer=buf;s.loop=true;s.connect(sg);sg.connect(bgm.bus);
+  var s=AC.createBufferSource(),sg=AC.createGain(),ngn=AC.createGain();s.buffer=buf;s.loop=true;ngn.gain.value=CT&&CT.gm?normGain(buf):1;s.connect(ngn);ngn.connect(sg);sg.connect(bgm.bus);
   if(bgm.src){sg.gain.setValueAtTime(0.0001,now);try{sg.gain.setValueCurveAtTime(xfCurve(true),now,d)}catch(e){sg.gain.linearRampToValueAtTime(1,now+d)}}else sg.gain.setValueAtTime(1,now);
   s.start(now,off0);bgm.src=s;bgm.sg=sg;bgm.ready=1;bgm.pstart=now-off0;bgm.pdur=buf.duration;bgm.curK=CT?"c"+CT.id:"";
 }
@@ -2568,7 +2590,7 @@ function chPlay(C){
     blob.arrayBuffer().then(function(ab){
       var done=function(buf){
         if(!bgm.on||bgm.mode!==mode||CT!==C)return;
-        loopBuf(buf,bgm.xfNext||5,bgm.gapNext);bgm.xfNext=0;bgm.gapNext=0;
+        bgm.gmh=C&&C.gm?1:0;loopBuf(buf,bgm.xfNext||5,bgm.gapNext);bgm.xfNext=0;bgm.gapNext=0;try{bgm.bus.gain.value=bgBase()}catch(e){}
         clearTimeout(bgm.rotT);clearTimeout(bgm.peekT);
         var auto=mode==="study"||$("chillSel").value==="-1";
         if(auto){
@@ -2839,7 +2861,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.8",VLOG=[
+var VERSION="1.9",VLOG=[
+ ["1.9","2026-11-11",["20キャラのスキル発動の演出を、すべて別のものに（色・出方・形・音がキャラごとに違います）","スキル発動のセリフは、そのキャラ本人の声で、3種類を順番に話します（20人×3＝60種類）","ホームとテストのBGMの音量をそろえました（曲ごとに聞こえる大きさを測って、自動で同じにします）","ホームのBGMを少し速くしました"]],
  ["1.8","2026-11-11",["BGMを速めにして、最初からノリよく（はじめの段階からドラムとベースがしっかり鳴ります）","テストBGMの速さは「ゆっくり／ふつう／速い」。はじめは「ふつう」（＝これまでより速い曲）です","アプリを閉じるときに、音が大きく鳴ることがある問題を修正","テストBGMの速さなどで、選んだボタンが光らなかった問題を修正","演出音をすべて作り直しました。正解は2音、不正解は低い1音だけ。連続正解やガチャも、短くすっきりした音に","画面の動きを控えめにして、ボタンや文字がブレないように（ふわっと出るだけ）"]],
  ["1.7","2026-11-11",["BGMをすべて作り直しました。ゲーム音楽のように、コード進行に沿ったはっきりしたメロディーで、楽器もメロディー・ベース・和音・ドラムの4つにしぼって聞きやすく","テストの曲は20ステージそれぞれ8小節、ホームの曲はテーマごとに3曲（16小節・A→B）。曲のつなぎ目でも途切れません","学習・ガチャ・記録・テストの設定画面では、ずっとホームの曲が流れるように（テストを解いている間だけテストの曲）","スタイリッシュの色を、黒×ライムだけのシンプルな配色に戻しました","新しい曲は、はじめて開いたときに作り直します（古い曲のデータは自動で消して、容量を空けます）"]],
  ["1.6","2026-11-11",["テストBGMの速さを3段階に（標準／速い／もっと速い）。はじめは「速い」です（テストの「くわしい設定」で変えられます）","正解・不正解の音を短くして、次の問題へ早く進むように","テストの出題数を、はじめは10問に","ホームの曲を1曲4〜5分と長くし、曲が変わるときは、だんだん小さく→一瞬無音→次の曲、にしました","画面を切り替えても曲が最初からやり直しにならず、続きから流れるように","上のバナーに「お知らせ」（ベル）を追加。更新やログインボーナス、公式のお知らせが見られます","共有ボタンを、わかりやすいアイコンと文字に","ホーム画面とテスト中にも、BGMをすぐON/OFFできるボタンを追加","アプリを開いたとき、閉じている間に更新されていたら、お知らせを表示","最初の画面のロゴを、テーマごとの文字に（スタイリッシュは尖った字、中華はやわらかい字など）","はじめて遊ぶときの流れを「最初の画面→データの準備→チュートリアル→プレイ」に分けました","iPhoneのアプリ版で、上のバナーを上部の表示から少し離しました"]],
@@ -3200,7 +3223,7 @@ function dlcShoutJobs(){var jobs=[],seen={},add=function(t,s){var k=s+":"+t;if(s
   for(var ix=0;ix<16;ix++)(FXV[ix]||[]).forEach(function(p,j){add(p,shoutSp(ix,j))});
   WSETS.forEach(function(w){w.forEach(function(x,ix){add(x[1],shoutSp(ix,(FXV[ix]||[]).length))})});return jobs}
 function dlcCharJobs(){var jobs=[],seen={},add=function(t,s){var k=s+":"+t;if(seen[k])return;seen[k]=1;jobs.push([t,s,k])};
-  Object.keys(CVOICE).forEach(function(id){add(charLine(id),cvoice(id));sklLine(id).forEach(function(l){FXS.forEach(function(sp){add(l,sp)})})});return jobs}
+  Object.keys(CVOICE).forEach(function(id){add(charLine(id),cvoice(id));sklLine(id).forEach(function(l){add(l,cvoice(id))})});return jobs}
 var DLCS={};
 function dlcBgmScan(th,cb){
   var n=0,have=0,keys=[];for(var k=0;k<STAGES.length;k++)for(var l=0;l<4;l++)keys.push(preKeyT(th,0,k,l));
@@ -4190,14 +4213,15 @@ function runSkills(x){
   if(Q.fire.length)setTimeout(function(){skillBanner(Q.fire.slice(0,2))},60);
   return Q;
 }
-var skT=0;
+var skT=0,SKI={};try{SKI=JSON.parse(localStorage.getItem("dopa:ski")||"{}")||{}}catch(e){SKI={}}
 function skillBanner(ids){
   var b=$("skb");if(!b)return;
-  b.innerHTML=ids.map(function(id){var c=cById(id);return '<div class="sk"><div><img src="'+IMT(id)+'" alt=""><span>'+esc(c.name)+'<em>'+esc(cSk(c))+'</em></span></div></div>'}).join("");
+  b.innerHTML=ids.map(function(id){var c=cById(id),k=Math.max(0,(parseInt(String(id).slice(1))||1)-1);return '<div class="sk ska'+(k%5)+' sks'+Math.floor(k/5)+(c.s>=5?' skr':'')+'" style="--skh:'+((k*47)%360)+'"><div><img src="'+IMT(id)+'" alt=""><span>'+esc(c.name)+'<em>'+esc(cSk(c))+'</em></span></div></div>'}).join("");
   b.classList.remove("show");void b.offsetWidth;b.classList.add("show");
   clearTimeout(skT);skT=setTimeout(function(){b.classList.remove("show")},950);
-  try{var sid=ids[0],sl=sklLine(sid),sx=sl[Math.floor(Math.random()*sl.length)],ssp=FXS[Math.floor(Math.random()*FXS.length)],sk=ssp+":"+sx;
-    if(VOX.mode!=="off"){if(VOX.cache[sk])setTimeout(function(){voxPlay(VOX.cache[sk],sx,ssp)},120);else voxFetch(sx,ssp,function(){})}}catch(e){}
+  try{var sid=ids[0],sl=sklLine(sid),ix=(SKI[sid]||0)%sl.length,sx=sl[ix],ssp=cvoice(sid),sk=ssp+":"+sx,t0=Date.now();
+    SKI[sid]=ix+1;try{localStorage.setItem("dopa:ski",JSON.stringify(SKI))}catch(e){}
+    if(VOX.mode!=="off"){if(VOX.cache[sk])setTimeout(function(){voxPlay(VOX.cache[sk],sx,ssp)},120);else voxFetch(sx,ssp,function(u){if(u&&Date.now()-t0<900)voxPlay(u,sx,ssp)})}}catch(e){}
   skillSnd(ids[0],0);if(ids[1])skillSnd(ids[1],0.16);
 }
 function sweepT(f0,f1,t,d,type,g){
@@ -4207,22 +4231,12 @@ function sweepT(f0,f1,t,d,type,g){
 /* キャラごとに固有のスキル音（9種類のフレーズ × 3種類の音色 × 音の高さ＝27通り） */
 function skillSnd(id,delay){
   var a=ac();if(!a)return;
-  var k=Math.max(0,(parseInt(String(id).slice(1))||1)-1),pat=k%9,v=Math.floor(k/9),W=["triangle","square","sawtooth"][v],g=v===2?0.06:0.09,r=7+((k*5)%9);
-  var t=a.currentTime+0.01+(delay||0),f=function(n){return pf(r+n)},i;
-  capRun((delay||0)+0.42,function(){
-    if(pat===0)[0,2,4,7].forEach(function(n,j){tone(f(n),t+j*0.06,0.12,W,g)});
-    else if(pat===1)[7,4,2,0].forEach(function(n,j){tone(f(n),t+j*0.06,0.12,W,g)});
-    else if(pat===2)for(i=0;i<6;i++)tone(f(i%2?3:0),t+i*0.04,0.06,W,g*0.9);
-    else if(pat===3)[0,2,4].forEach(function(n){tone(f(n),t,0.36,W,g*0.8)});
-    else if(pat===4)sweepT(f(0)*0.6,f(8),t,0.3,W,g);
-    else if(pat===5){tone(f(5),t,0.12,W,g);tone(f(0),t+0.14,0.28,W,g)}
-    else if(pat===6)for(i=0;i<3;i++)tone(f(3+i%2),t+i*0.1,0.05,W,g);
-    else if(pat===7){ping(t,f(6)*2,0.35,0.1);tone(f(6)*2.76,t,0.2,"sine",0.04)}
-    else{sweepT(f(9),f(0)*0.5,t,0.22,W,g);clatter(t,0.12,0.18,SFX,3000)}
-    if(v===2)ping(t+0.2,f(9)*2,0.2,0.05);
-  });
+  var k=Math.max(0,(parseInt(String(id).slice(1))||1)-1),pat=k%5,reg=Math.floor(k/5),t=a.currentTime+0.01+(delay||0),f=function(n){return pf(n+3+reg*2)};
+  var P=[[0,2,4],[4,2,0,4],[0,4,7],[2,0,2,5],[0,0,4,7]][pat];
+  capRun((delay||0)+0.5,function(){P.forEach(function(n,j){sBell(f(n),t+j*0.065,j===P.length-1?0.28:0.12,0.085)});if(reg>=3)sBell(f(9),t+P.length*0.065,0.3,0.04)});
 }
 function judge(k){
+  if(T&&!T.skPre){T.skPre=1;try{G.party.forEach(function(id){packLoad(String(cvoice(id)),function(){})})}catch(e){}}
   if(T.answered)return;
   var i=T.order[T.q],r=k===T.cur.ci,dir=T.lap-1;
   T.answered=true;T.res[i][dir]=r;
@@ -4559,8 +4573,8 @@ function bgmDest(){
 
 homeInfo();homeIntro();
 uiEnhance($("ov"));
-setTimeout(function(){try{if(localStorage.getItem("dopa:cln18"))return;localStorage.setItem("dopa:cln18","1");localStorage.removeItem("dopa:preS5");localStorage.removeItem("dopa:preS6")}catch(e){return}
-  idbOpen(function(db){if(!db)return;try{var tx=db.transaction("t","readwrite"),st=tx.objectStore("t"),q=st.openCursor();q.onsuccess=function(){var c=q.result;if(!c)return;var k=String(c.key);if(/^(pre5|pch5|pre6|pch6):/.test(k))c.delete();c.continue()}}catch(e){}})},15000);
+setTimeout(function(){try{if(localStorage.getItem("dopa:cln19"))return;localStorage.setItem("dopa:cln19","1");localStorage.removeItem("dopa:preS5");localStorage.removeItem("dopa:preS6")}catch(e){return}
+  idbOpen(function(db){if(!db)return;try{var tx=db.transaction("t","readwrite"),st=tx.objectStore("t"),q=st.openCursor();q.onsuccess=function(){var c=q.result;if(!c)return;var k=String(c.key);if(/^(pre5|pch5|pre6|pch6|pch7):/.test(k))c.delete();c.continue()}}catch(e){}})},15000);
 setTimeout(function(){try{if(localStorage.getItem("dopa:cln15"))return;localStorage.setItem("dopa:cln15","1")}catch(e){return}var ks=[];for(var k=0;k<STAGES.length;k++)for(var l=0;l<4;l++){ks.push("pre5:styv2:"+k+":"+l);ks.push("pre5:styv2:r1:"+k+":"+l);ks.push("pre5:styv2:r2:"+k+":"+l)}THL.sty.h.concat(THL.sty.s).forEach(function(C){ks.push("pch5:"+C.id+"v2")});ks.forEach(function(kk){try{trackDel(kk,function(){})}catch(e){}})},20000);
 setTimeout(function(){try{if(localStorage.getItem("dopa:cln13"))return;localStorage.setItem("dopa:cln13","1")}catch(e){return}var ks=[];for(var k=0;k<STAGES.length;k++)for(var l=0;l<4;l++){ks.push("pre5:sty:"+k+":"+l);ks.push("pre5:sty:r1:"+k+":"+l);ks.push("pre5:sty:r2:"+k+":"+l)}THL.sty.h.concat(THL.sty.s).forEach(function(C){ks.push("pch5:"+C.id)});ks.forEach(function(x){trackDel(x,function(){})})},8000);
 /* 開いた時点で、編成キャラの掛け声を先読み */
