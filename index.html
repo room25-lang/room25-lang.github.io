@@ -977,6 +977,67 @@ body.learnon #bgmF{display:none!important}
 .binm{position:relative;display:flex;align-items:baseline;gap:10px;animation:rfpan .4s .5s both}.binm b{font-size:26px;font-weight:900}.binm span{color:#ffd400}.binm em{font-style:normal;font-size:12px;opacity:.8}
 .rbfig{position:absolute;right:-12%;bottom:-6%;width:70%;height:115%;background-size:contain;background-repeat:no-repeat;background-position:right bottom;opacity:.3;pointer-events:none;-webkit-mask-image:linear-gradient(to left,#000 50%,transparent);mask-image:linear-gradient(to left,#000 50%,transparent)}
 #rfx.bko .rbfig{animation:rbko 1.2s 1.7s forwards}
+
+/* v1.16 ボス登場（邪魔しない） */
+#bint{position:fixed;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 70px);height:150px;z-index:57;pointer-events:none;overflow:hidden}
+#bint.inv{display:none}
+#bint .bibar{position:absolute;left:-10%;right:-10%;top:30px;height:92px;background:linear-gradient(90deg,rgba(255,59,90,0),rgba(255,59,90,.85) 20%,rgba(20,0,8,.9) 60%,rgba(255,59,90,0));transform:skewY(-4deg) scaleX(0);transform-origin:left}
+#bint .bifig{position:absolute;right:4%;top:0;width:150px;height:150px;background-size:240% auto;background-repeat:no-repeat;opacity:0;-webkit-mask-image:linear-gradient(to left,#000 60%,transparent);mask-image:linear-gradient(to left,#000 60%,transparent)}
+#bint .bitx{position:absolute;left:6%;top:40px;font:900 italic 34px "Arial Black","Dela Gothic One",sans-serif;color:#fff;-webkit-text-stroke:1.5px #000;text-shadow:3px 3px 0 #ff3b5a;opacity:0}
+#bint .binm{position:absolute;left:8%;top:84px;display:flex;gap:8px;align-items:baseline;color:#fff;text-shadow:0 1px 3px #000;opacity:0}#bint .binm b{font-size:20px}#bint .binm span{color:#ffd400}
+#bint.go .bibar{animation:bibar 1.9s cubic-bezier(.2,.9,.3,1) forwards}
+#bint.go .bifig{animation:bifig 1.9s ease forwards}
+#bint.go .bitx{animation:bitx 1.9s cubic-bezier(.2,1.4,.4,1) forwards}
+#bint.go .binm{animation:bitx 1.9s .1s cubic-bezier(.2,1.4,.4,1) forwards}
+@keyframes bibar{0%{transform:skewY(-4deg) scaleX(0);opacity:1}15%{transform:skewY(-4deg) scaleX(1)}80%{opacity:1}100%{transform:skewY(-4deg) scaleX(1) translateX(30%);opacity:0}}
+@keyframes bifig{0%{opacity:0;transform:translateX(40px)}18%{opacity:.95;transform:none}80%{opacity:.95}100%{opacity:0;transform:translateX(-20px)}}
+@keyframes bitx{0%{opacity:0;transform:translateX(-40px) skewX(-10deg)}15%{opacity:1;transform:skewX(-10deg)}80%{opacity:1}100%{opacity:0;transform:translateX(30px) skewX(-10deg)}}
+/* v1.16 編成画面：ゼンゼロ風 */
+.card.pcard{background:#0b0b0e;border-color:#2a2a30}
+.zhead{flex:0 0 auto;display:flex;align-items:baseline;gap:10px;padding:2px 2px 0;border-bottom:2px solid #d7f20a}
+.zhead{white-space:nowrap}.zhead b{font:900 italic 22px "Arial Black",sans-serif;letter-spacing:1px;color:#fff;transform:skewX(-8deg)}.zhead span{font:700 13px monospace;color:#d7f20a}.zhead em{margin-left:auto;font-style:normal;font-size:10px;color:#8a8a92}
+.cgs.zz{flex-direction:row;align-items:stretch;gap:0;position:relative;padding:8px 0 4px;min-height:min(56vh,520px)}
+.zbg{position:absolute;inset:0;overflow:hidden;z-index:0;background:linear-gradient(115deg,color-mix(in srgb,var(--zc) 55%,#000) 0 38%,#121216 38% 100%)}
+.zbg::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 2px,transparent 2px 14px)}
+.zht{position:absolute;right:-10%;bottom:-10%;width:70%;height:60%;background:radial-gradient(circle,rgba(215,242,10,.22) 1.2px,transparent 1.6px) 0 0/9px 9px;-webkit-mask-image:radial-gradient(circle at 70% 70%,#000,transparent 70%);mask-image:radial-gradient(circle at 70% 70%,#000,transparent 70%)}
+.zno{position:absolute;right:-6px;top:-18px;font:900 italic 150px/1 "Arial Black",sans-serif;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.1)}
+.zz .cgc{position:relative;z-index:1;height:auto;width:52%;max-width:none;aspect-ratio:476/1000;align-self:center;margin-left:1%;transform:rotate(-2deg)}
+.zinf{position:relative;z-index:1;flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;padding:4px 8px 4px 12px;color:#fff}
+.ztag{font:700 10px monospace;letter-spacing:2px;color:#8a8a92}.ztag b{color:#d7f20a}
+.znm{color:#fff;-webkit-text-fill-color:#fff;font:900 italic clamp(28px,9vw,40px)/1.05 "Arial Black",sans-serif;letter-spacing:1px;transform:skewX(-6deg);transform-origin:left;text-shadow:3px 3px 0 #000,0 0 14px color-mix(in srgb,var(--zc) 80%,transparent)}
+.zrow{display:flex;gap:6px;align-items:center}
+.zrk{font:900 italic 13px "Arial Black",sans-serif;padding:2px 10px;background:#9aa3ad;color:#000;transform:skewX(-14deg)}.zrk.r3,.zrk.r4{background:#c98552}.zrk.r5,.zrk.r6{background:#e9c35a}.zrk.r7{background:linear-gradient(90deg,#ff9ad5,#ffe27a,#8fe3ff)}
+.zin{font-size:11px;font-weight:900;padding:2px 8px;background:#d7f20a;color:#000;transform:skewX(-14deg)}
+.zlv{display:flex;align-items:baseline;gap:4px;margin-top:4px}.zlv span{font:700 11px monospace;color:#8a8a92}.zlv b{font:900 italic 34px/1 "Arial Black",sans-serif}.zlv em{font-style:normal;font:700 13px monospace;color:#8a8a92}
+.zseg{display:flex;gap:3px}.zseg i{flex:1;height:6px;background:#2c2c33;transform:skewX(-20deg)}.zseg i.f{background:#d7f20a;box-shadow:0 0 6px rgba(215,242,10,.6)}
+.zsk{margin-top:4px;padding:7px 9px;background:rgba(255,255,255,.05);border-left:3px solid #d7f20a;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%)}
+.zsk em{display:block;font:700 9px monospace;letter-spacing:2px;color:#8a8a92;font-style:normal}.zsk b{font-size:14px;color:#d7f20a}.zsk p{margin:3px 0 0;font-size:11.5px;line-height:1.45;color:#e8e8ec}
+.zmeta{font-size:10px;line-height:1.5;color:#8a8a92}
+.zeq{margin-top:auto;min-height:40px!important;font-weight:900!important;font-size:15px!important;background:#d7f20a!important;color:#000!important;border:0!important;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);border-radius:0!important}
+.zeq.on{background:#2c2c33!important;color:#fff!important}
+.zz.lk .znm{color:#555}.zz.lk .cglk{top:44%}
+.pcard .cths{gap:4px;padding:6px 2px 8px;border-bottom:1px solid #2a2a30}
+.pcard .cth{flex:0 0 46px;width:46px;height:58px;border-radius:0!important;transform:skewX(-10deg);overflow:hidden;background:#1c1c22!important;border:0!important;border-bottom:3px solid #9aa3ad!important;opacity:.6;position:relative}
+.pcard .cth>i{position:absolute;inset:0 -8px;transform:skewX(10deg);background-size:300% auto;background-repeat:no-repeat}
+.pcard .cth.r3,.pcard .cth.r4{border-bottom-color:#c98552!important}.pcard .cth.r5,.pcard .cth.r6{border-bottom-color:#e9c35a!important}.pcard .cth.r7{border-bottom-color:#ff9ad5!important}
+.pcard .cth.on{opacity:1;transform:skewX(-10deg) translateY(-3px);box-shadow:0 0 0 2px #d7f20a!important}
+.pcard .cth.eq::after{content:"";position:absolute;right:2px;top:2px;width:8px;height:8px;background:#d7f20a;transform:skewX(10deg)}
+.pcard .cth.lk{filter:none}.pcard .cth.lk>i{filter:brightness(0) opacity(.7)}
+.pcard .slots{grid-template-columns:repeat(6,1fr);gap:4px}
+.pcard .slot{height:66px;transform:skewX(-8deg);background:#1c1c22;border-bottom:3px solid #d7f20a}
+.pcard .slot .cimg{object-fit:cover;object-position:50% 0;width:100%;height:160%;align-self:flex-start}
+.pcard .slot .nm{font-size:9px;line-height:1.2}
+.pcard .slot.lk,.pcard .slot.em{height:66px;border-bottom-color:#2c2c33;font-size:9px}.pcard .slot.lk .sm{font-size:9px;min-height:0;padding:2px}
+
+/* v1.17 腰から上の切り抜き（下をぼかして自然に） */
+.bface{border-radius:6px!important;height:52px!important;flex-basis:42px!important;width:42px!important;background-color:transparent!important;border:0!important;box-shadow:none!important;-webkit-mask-image:linear-gradient(#000 62%,transparent);mask-image:linear-gradient(#000 62%,transparent)}
+.boss .bface{border-bottom:0!important}
+.rbos .bface{flex-basis:60px!important;width:60px!important;height:76px!important}
+.pcard .cth>i{-webkit-mask-image:linear-gradient(#000 68%,transparent);mask-image:linear-gradient(#000 68%,transparent)}
+.pcard .cth{height:64px}
+#bint .bifig{width:130px;height:150px;-webkit-mask-image:linear-gradient(#000 60%,transparent),linear-gradient(to left,#000 60%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(#000 60%,transparent);}
+.pcard .slot .cimg{height:200%;-webkit-mask-image:linear-gradient(#000 40%,transparent 50%);mask-image:linear-gradient(#000 40%,transparent 50%)}
+.pcard .slot{height:74px}
 </style>
 </head>
 <body class="dopa">
@@ -1167,7 +1228,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
 <div class="ov inv" id="ngc" style="z-index:13"><div class="sheet"><div class="pbig" style="font-size:20px">はじめる前に</div><div class="hint" style="text-align:left;font-size:14px;line-height:1.7">掛け声やキャラクターの声は、アプリに収録しています（VOICEVOX）。最初に、よく使う声だけを、すぐ鳴らせる形に準備します（数秒）。BGMは、20ステージ分を裏で少しずつ作って保存します。<br>・音声は VOICEVOX（各キャラクターの声）を利用しています。クレジットは設定の「全体」タブにあります。</div><div class="hint" style="text-align:left;font-size:13px;line-height:1.6">「すべての声を準備」を選ぶと、全キャラの自己紹介・スキルの声と、全部の掛け声を最初にまとめて準備します（1分ほど）。</div><button class="main" id="ngok">よく使う声だけ準備して始める</button><button id="ngall">すべての声を準備して始める（1分ほど）</button><button id="ngno">やめる</button></div></div>
 <div class="ov inv" id="tut" style="z-index:14"><div class="sheet" style="min-height:100%;justify-content:space-between"><div class="row2" style="justify-content:space-between"><span class="hint" id="tutn"></span><button class="sm" id="tutskip">スキップ</button></div><div id="tutbody" style="display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;flex:1;justify-content:center"></div><div class="hint" id="tutst" style="text-align:center"></div><div class="pair"><button id="tutprev">戻る</button><button class="main" id="tutnext">次へ</button></div></div></div>
 <div class="ov inv" id="vdl" style="z-index:12"><div class="sheet" id="vdlbody"></div></div>
-<div class="cpg inv" id="cpg"></div><div class="inv" id="rfx"></div><div class="ov inv" id="pull"><button class="pclose" id="pullx">✕ 閉じる</button><div class="sheet" id="pullbody"></div></div>
+<div class="cpg inv" id="cpg"></div><div class="inv" id="rfx"></div><div class="inv" id="bint"></div><div class="ov inv" id="pull"><button class="pclose" id="pullx">✕ 閉じる</button><div class="sheet" id="pullbody"></div></div>
 <div class="ov inv" id="shr" style="z-index:15"><div class="sheet">
   <div class="pbig" style="font-size:20px">どぱたんをシェア</div>
   <div class="hint" id="shrTxt" style="text-align:center"></div>
@@ -1853,12 +1914,21 @@ var CGI=0;
 function cgHtml(){
   var own=CHARS.filter(function(c){return lvOf(c.id)}),lk=CHARS.filter(function(c){return !lvOf(c.id)}),L=own.concat(lk);
   CGI=Math.min(CGI,L.length-1);
-  var sl=L.map(function(c){var id=c.id,lv=lvOf(id),eq=G.party.indexOf(id)>=0,n=cplN(lv);
-    return '<div class="cgs" data-id="'+id+'"><div class="cgc'+(lv?'':' lk')+'" data-talk="'+(lv?id:'')+'">'+cardSVG(id,cImg(id),c.s,{uid:"g"+id,lock:!lv})+'<div class="cpbub"></div>'+(lv?'':'<div class="cglk"><b>？？？</b><small>STAGE '+(c.st+1)+'（'+esc(STAGES[c.st].l)+'）の全体テストでボスを倒す、またはガチャで入手</small></div>')+'</div>'+
-     '<div class="cgi"><div class="cpnm"><b>'+(lv?esc(c.name):'？？？')+'</b><span>'+c.star+'</span>'+(lv?'<em>Lv'+lv+(lv>=5?' MAX':'')+'</em>':'')+'</div>'+
-     (lv?'<div class="cpsk"><b>'+esc(cSk(c))+'</b>　'+esc(cDesc(c,lv))+'</div><div class="cgrow"><span class="cpsub">セリフ '+n+'/11'+(lv<5?'（Lv'+(lv+1)+'で+2）':'')+'</span><button class="sm'+(eq?' on':'')+'" data-eq="'+id+'">'+(eq?'編成中（外す）':'編成する')+'</button></div>':'<div class="cpsub">まだ仲間になっていません</div>')+'</div></div>'}).join("");
-  var th=L.map(function(c,i){var lv=lvOf(c.id);return '<button class="cth r'+c.s+(lv?'':' lk')+(G.party.indexOf(c.id)>=0?' eq':'')+'" data-cg="'+i+'" style="'+bossFace(c.id)+'" aria-label="'+esc(lv?c.name:'？？？')+'"></button>'}).join("");
-  return '<div class="cths" id="cths">'+th+'</div><div class="cgal" id="cgal">'+sl+'</div><div class="hint" style="text-align:center;flex:0 0 auto">左右にめくってキャラを見る・カードをタップで話す</div>';
+  var sl=L.map(function(c){var id=c.id,lv=lvOf(id),eq=G.party.indexOf(id)>=0,n=cplN(lv),t=CTH[id],no=("0"+(CHARS.indexOf(c)+1)).slice(-2),seg="";
+    for(var q=1;q<=5;q++)seg+='<i'+(q<=lv?' class="f"':'')+'></i>';
+    return '<div class="cgs zz'+(lv?'':' lk')+'" data-id="'+id+'" style="--zc:'+t.bg[1]+';--zd:'+t.bg[2]+'"><div class="zbg"><span class="zno">'+no+'</span><i class="zht"></i></div>'+
+     '<div class="cgc'+(lv?'':' lk')+'" data-talk="'+(lv?id:'')+'">'+cardSVG(id,cImg(id),c.s,{uid:"g"+id,lock:!lv})+'<div class="cpbub"></div>'+(lv?'':'<div class="cglk"><b>？？？</b></div>')+'</div>'+
+     '<div class="zinf"><div class="ztag">MEMBER <b>No.'+no+'</b></div>'+
+     '<div class="znm">'+(lv?esc(c.name):'？？？')+'</div>'+
+     '<div class="zrow"><span class="zrk r'+c.s+'">★'+c.s+'</span>'+(eq?'<span class="zin">編成中</span>':'')+'</div>'+
+     (lv?'<div class="zlv"><span>LV</span><b>'+lv+'</b><em>/5</em></div><div class="zseg">'+seg+'</div>'+
+       '<div class="zsk"><em>SKILL</em><b>'+esc(cSk(c))+'</b><p>'+esc(cDesc(c,lv))+'</p></div>'+
+       '<div class="zmeta">セリフ '+n+'/11<br>CV：'+esc(vname(cvoice(id)))+'</div>'+
+       '<button class="zeq'+(eq?' on':'')+'" data-eq="'+id+'">'+(eq?'外す':'編成する')+'</button>'
+      :'<div class="zsk"><em>HOW TO GET</em><p>STAGE '+(c.st+1)+'（'+esc(STAGES[c.st].l)+'）の全体テストでボスを倒す、またはガチャ</p></div>')+
+     '</div></div>'}).join("");
+  var th=L.map(function(c,i){var lv=lvOf(c.id);return '<button class="cth r'+c.s+(lv?'':' lk')+(G.party.indexOf(c.id)>=0?' eq':'')+'" data-cg="'+i+'" aria-label="'+esc(lv?c.name:'？？？')+'"><i style="'+bossFace(c.id)+'"></i></button>'}).join("");
+  return '<div class="zhead"><b>MEMBERS</b><span>'+own.length+' / '+CHARS.length+'</span><em>めくる／タップで話す</em></div><div class="cgal" id="cgal">'+sl+'</div><div class="cths" id="cths">'+th+'</div>';
 }
 function cgBind(){
   var g=$("cgal");if(!g)return;var W=function(){return g.clientWidth||1};
@@ -3295,7 +3365,9 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.15",VLOG=[
+var VERSION="1.17",VLOG=[
+ ["1.17","2026-11-12",["顔だけのアップをやめて、腰から上が見える形に","編成画面：上に編成（SQUAD）、下にキャラ一覧（MEMBERS）"]],
+ ["1.16","2026-11-12",["ボスの登場演出が、問題の邪魔をしない形に（画面の上を横切るだけで、すぐ答えられます）","編成画面のデザインを一新（大きなカード＋右に名前・Lv・スキル、下にメンバー一覧）"]],
  ["1.15","2026-11-12",["「キャラ」→「編成」が、カードを左右にめくる画面に。めくるだけで1人ずつ見られて、カードをタップすると話します。下の丸いアイコンで一気に移動もできます","カードの画質を上げました","ボス戦：問題の奥にボスの立ち絵が大きく出て、正解すると揺れます。始まるときにボスのカードが大きく出る登場演出も"]],
  ["1.14","2026-11-12",["全体テスト（出題数「全部」）で、そのステージのキャラがボスとして登場。正解でダメージ、得点率90%でちょうど撃破（倒すと仲間に）。テストの「くわしい設定」でOFFにできます","テストの最後に、結果の演出（FINISH!→得点率→◆）が出て、そのまま結果画面へ","キャラがカードになりました（20人それぞれ違う背景と縁。縁の色はレア度で変わります）","キャラごとのページを追加：「キャラ」→「編成」でキャラの絵をタップ。左右にめくれて、カードをタップすると話します","セリフはLv1で3つ、Lvが上がるごとに2つ増えて、Lv5で11個になります"]],
  ["1.13","2026-11-11",["ホームのBGMを、毎回ランダムな曲から始まるように（同じ曲が続きません）","ガチャの演出を一新：召喚ゲートをタップ→光の色でレア度→ときどき昇格演出→カードを1枚ずつめくる","ガチャに「100回」を追加","ガチャのバランスを見直し：キャラ出現率 約10%→約15%、10回ごとにキャラ1体以上確定、★5〜★7が出やすく、確定ガチャを値下げ","スカウトPt：ガチャ1回で1Pt、100Ptで好きなキャラと交換","ログインボーナスを7日周期に（7日目は★5以上確定・毎日◆も）。Lv MAXのキャラが出たときの返還を◆150→◆300に"]],
@@ -4130,11 +4202,10 @@ function renderG(msg){
   var tg='<div class="pair"><button class="sm'+(gView==="pull"?' on':'')+'" data-gv="pull">ガチャ</button><button class="sm'+(gView==="party"?' on':'')+'" data-gv="party">編成</button></div>';
   if(gView==="party")
     $("gacha").innerHTML='<div class="card pcard" style="gap:8px">'+tg+
-     '<div class="stat">編成（'+G.party.length+'/'+PMAX()+'人）　◆'+G.stones+'　図鑑 '+own+' / '+CHARS.length+'</div>'+
-     cgHtml()+
-     '<div class="stat" style="margin-top:4px">編成中のキャラ</div><div class="slots">'+sl+'</div>'+
+     '<div class="zhead"><b>SQUAD</b><span>'+G.party.length+' / '+PMAX()+'</span><em>◆'+G.stones+'</em></div><div class="slots">'+sl+'</div>'+
      '<div class="pair" style="flex:0 0 auto"><button class="sm" data-rec="1">おすすめ編成（レア度順）</button><button class="sm" data-gh="1">説明</button></div>'+
      ((gHelp||!G.seenPH)?'<div class="hint" style="text-align:center">編成中のキャラは、ダブルタップで外せます</div><div class="efx">'+effText()+'</div>':'')+
+     cgHtml()+
      '<details class="dt hzd"><summary>ハズレ図鑑</summary><div class="clist" style="border:0">'+hzHtml()+'</div></details>'+
 '<div class="gmsg" id="gmsg">'+esc(msg||"")+'</div></div>';
   else{
@@ -4834,11 +4905,12 @@ function bossVoice(id,k,delay){
   if(VOX.mode==="off"||!CBOSS[id])return;var line=CBOSS[id][k],sp=cvoice(id);
   setTimeout(function(){voxDirect(sp,line,function(b){if(!b)return;try{voxPlay(URL.createObjectURL(b),line,sp)}catch(e){}})},delay||0);
 }
-function bossFace(id){var x=(CCX[id]||0.5)*100;return 'background-image:url('+IMT(id)+');background-position:'+x.toFixed(1)+'% '+(id==="c16"?"8%":"1.5%")}
+function bossFace(id){var x=(CCX[id]||0.5)*100;return 'background-image:url('+IMT(id)+');background-size:auto '+(id==="c16"?"170%":"215%")+';background-position:'+x.toFixed(1)+'% '+(id==="c16"?"10%":"0%")}
 function bossIntro(id){
-  var el=$("rfx");if(!el)return;var c=cById(id),done=false,fin=function(){if(done)return;done=true;el.classList.add("out");setTimeout(function(){el.className="inv";el.innerHTML=""},260)};
-  el.className="rfx bint";el.innerHTML='<div class="rfbg"></div><div class="bitx">BOSS BATTLE</div><div class="bicard">'+cardSVG(id,cImg(id),c.s,{uid:"bi"+id})+'</div><div class="binm"><b>'+esc(c.name)+'</b><span>'+c.star+'</span><em>STAGE '+(c.st+1)+'</em></div><div class="rfskip">タップで開始</div>';
-  el.onclick=fin;setTimeout(fin,2600);
+  var el=$("bint");if(!el)return;var c=cById(id);
+  el.innerHTML='<div class="bibar"></div><i class="bifig" style="'+bossFace(id)+'"></i><div class="bitx">BOSS BATTLE</div><div class="binm"><b>'+esc(c.name)+'</b><span>'+c.star+'</span></div>';
+  el.className="bint";void el.offsetWidth;el.classList.add("go");
+  setTimeout(function(){el.className="inv";el.innerHTML=""},1900);
 }
 function bossHtml(){
   var B=T&&T.boss;if(!B)return "";var c=cById(B.id),r=B.hp/B.max;
