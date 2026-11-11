@@ -769,6 +769,17 @@ body.anim .homev.intro .logo span{animation:lslam .55s cubic-bezier(.2,.9,.2,1.2
 @keyframes skF{0%{transform:perspective(500px) rotateX(85deg);opacity:0}30%{transform:perspective(500px) rotateX(0);opacity:1}80%{opacity:1}100%{opacity:0}}
 body.noanim #skb .sk{animation:skFade .95s linear forwards!important}
 @keyframes skFade{0%{opacity:0}15%{opacity:1}80%{opacity:1}100%{opacity:0}}
+
+.gcard.still .kvc,.gcard.still .kvbg,.gcard.still .gkv *{animation:none!important}
+img{image-rendering:auto}
+.kvc,.cimg,.cuimg,.pimg{backface-visibility:hidden;transform-style:flat}
+body.learnon #bgmF{display:none!important}
+#lbgmB{min-width:40px;padding:0 8px!important}
+#lbgmB.off{opacity:.55;text-decoration:line-through}
+#lstudy .head{flex-wrap:nowrap;gap:6px}
+#lstudy .head>span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+#lstudy .head>span:last-child{white-space:nowrap;flex:0 0 auto}
+#lstudy .head .sm{padding:0 9px}
 </style>
 </head>
 <body class="dopa">
@@ -795,13 +806,13 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
     <div class="tabs">
       <button class="tab on" id="tL">学習</button>
       <button class="tab" id="tT">テスト</button>
-      <button class="tab" id="tG">ガチャ</button>
+      <button class="tab" id="tG">キャラ</button>
       <button class="tab" id="tR">記録</button>
     </div>
     <div class="view" id="learn">
       <div id="lsetup" class="card scard" style="overflow-y:auto;gap:6px;justify-content:flex-start"></div>
       <div id="lstudy" hidden style="display:flex;flex-direction:column;gap:10px;flex:1;min-height:0">
-      <div class="head"><span id="count"></span><span><button class="sm" id="aTog">自動2周</button> <button class="sm" id="aSpd">ふつう</button> <button class="sm" id="lend">終了</button></span></div>
+      <div class="head"><span id="count"></span><span><button class="sm" id="lbgmB" aria-label="BGM">♪</button> <button class="sm" id="aTog">自動2周</button> <button class="sm" id="aSpd">ふつう</button> <button class="sm" id="lend">終了</button></span></div>
       <div class="bar"><i id="prog"></i></div>
       <section class="card c lcard">
         <div class="lbx"><div class="lbl">英単語</div><div class="word" id="word"></div>
@@ -889,7 +900,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <div class="row2">声1 <select id="fxs0"></select></div>
   <div class="row2">声2 <select id="fxs1"></select></div>
   <div class="row2">声3 <select id="fxs2"></select></div>
-  <label class="rad">掛け声の速さ <input type="range" id="voxRate" min="0.5" max="1.6" step="0.05"> <span id="voxRateV"></span></label>
+  <label class="rad">掛け声の速さ <input type="range" id="voxRate" min="0.8" max="2" step="0.05"> <span id="voxRateV"></span></label>
   <div hidden><div class="row2">声ID直接指定 <input type="number" id="voxCid" min="0" max="999" style="width:84px"><select id="voxCidSlot" style="flex:0 0 5em"><option value="0">声1</option><option value="1">声2</option><option value="2">声3</option></select><button class="sm" id="voxCidSet">設定</button></div>
   <div class="row2"><button class="sm" id="voxList">自分のエンジンから声の一覧を取得</button></div>
   <div class="row2">エンジンURL <input type="text" id="voxUrl" spellcheck="false" style="flex:1;min-width:0"></div>
@@ -1039,10 +1050,13 @@ VLIST=VLIST.concat([["東北ずん子",[["ノーマル",107]]],["東北イタコ
 /* 20キャラそれぞれの声（VOICEVOXの話者ID）と読み */
 var CVOICE={c01:14,c02:2,c03:10,c04:6,c05:23,c06:107,c07:58,c08:68,c09:47,c10:46,c11:54,c12:61,c13:43,c14:51,c15:109,c16:74,c17:16,c18:27,c19:65,c20:8};
 var CYOMI={c01:"かえで",c02:"しおり",c03:"かほ",c04:"あや",c05:"ふゆか",c06:"ゆい",c07:"クロ",c08:"レン",c09:"イオ",c10:"もえぎ",c11:"あさがお",c12:"リンレイ",c13:"ちよ",c14:"イリス",c15:"エルナ",c16:"ミナモ",c17:"ゆきの",c18:"すずね",c19:"リリス",c20:"ひかり"};
-var VOX={mode:"web",spk:"party",url:"http://127.0.0.1:50021",key:"",lastErr:"",rate:1.4,cache:{},alt:0,fail:0,pf:0,list:null,saved:{},stq:{},storeErr:"",saving:0,gap:0,cancel:0};
-try{var vs0=JSON.parse(localStorage.getItem("dopa:vox")||"null");if(vs0){VOX.mode=vs0.mode||"web";VOX.spk=(vs0.spk&&!((vs0.spk==="alt"||vs0.spk==="first"||vs0.spk==="id:8")&&!(vs0.rv>=5)))?vs0.spk:"party";VOX.url=vs0.url||VOX.url;if(typeof vs0.key==="string")VOX.key=vs0.key;if(vs0.rv>=6&&typeof vs0.rate==="number")VOX.rate=Math.max(0.5,Math.min(1.6,vs0.rate))}}catch(e){}
+var VOX={mode:"web",spk:"party",url:"http://127.0.0.1:50021",key:"",lastErr:"",rate:1.6,cache:{},alt:0,fail:0,pf:0,list:null,saved:{},stq:{},storeErr:"",saving:0,gap:0,cancel:0};
+try{var vs0=JSON.parse(localStorage.getItem("dopa:vox")||"null");if(vs0){VOX.mode=vs0.mode||"web";VOX.spk=(vs0.spk&&!((vs0.spk==="alt"||vs0.spk==="first"||vs0.spk==="id:8")&&!(vs0.rv>=5)))?vs0.spk:"party";VOX.url=vs0.url||VOX.url;if(typeof vs0.key==="string")VOX.key=vs0.key;if(vs0.rv>=7&&typeof vs0.rate==="number")VOX.rate=Math.max(0.5,Math.min(2,vs0.rate));else if(vs0.rv>=6&&typeof vs0.rate==="number"&&Math.abs(vs0.rate-1.4)>0.01)VOX.rate=Math.max(0.5,Math.min(2,vs0.rate))}}catch(e){}
+/* 声ごとの話す速さ（収録した声の長さから測定。1より大きい＝ゆっくり話す声なので、そのぶん速くする） */
+var VFAC={2:0.932,6:0.919,8:0.901,10:0.949,14:0.901,16:1.429,23:0.978,27:1.108,43:1.315,46:1.067,47:1.0,51:0.796,54:1.0,58:1.023,61:1.452,65:1.0,68:1.0,74:0.964,107:1.0,109:1.057};
+function vRate(sp){return Math.min(2.3,VOX.rate*Math.max(0.8,Math.min(1.5,VFAC[sp]||1)))}
 if(VOX.mode==="engine")VOX.mode="web";if(VOX.spk==="zunda")VOX.spk="id:3";else if(VOX.spk==="tsumugi")VOX.spk="id:8";
-function voxSave(){try{localStorage.setItem("dopa:vox",JSON.stringify({mode:VOX.mode,spk:VOX.spk,url:VOX.url,key:VOX.key,rate:VOX.rate,rv:6}))}catch(e){}}
+function voxSave(){try{localStorage.setItem("dopa:vox",JSON.stringify({mode:VOX.mode,spk:VOX.spk,url:VOX.url,key:VOX.key,rate:VOX.rate,rv:7}))}catch(e){}}
 var FXS=[8,46,47];var CAPU={},VCT=0;
 try{var fx0=JSON.parse(localStorage.getItem("dopa:fxs")||"null");if(Array.isArray(fx0)){fx0=fx0.filter(function(x){return PACKIDS[x]});if(fx0.length&&fx0.length<=3)FXS=fx0}}catch(e){}
 function fxSave(){try{localStorage.setItem("dopa:fxs",JSON.stringify(FXS))}catch(e){}}
@@ -1198,7 +1212,7 @@ function sleepAudio(){
       bgm.src=null;bgm.on=false;clearInterval(bgm.timer);clearTimeout(bgm.rotT);bgm.lfo=null;bgm.pb=null;
       try{if(VA){VA.pause();VA.removeAttribute("src")}}catch(e){}
       AC=null;MASTER=null;SFX=null;REVB=null;OUTG=null;SPAN=null;VBUF={};VST={};VEND=0;NZC={};WAKE=true;if(bgm.rot){clearInterval(bgm.rot);bgm.rot=0}
-      setTimeout(function(){try{a.close()}catch(e){}},60);
+      setTimeout(function(){try{var sp0=a.suspend?a.suspend():null;if(sp0&&sp0.then)sp0.then(function(){try{a.close()}catch(e){}},function(){try{a.close()}catch(e){}});else a.close()}catch(e){}},90);
     }
     try{VA.pause()}catch(e){}
     if(window.speechSynthesis){try{speechSynthesis.cancel()}catch(e){}}
@@ -1206,10 +1220,11 @@ function sleepAudio(){
 }
 var VISH=0;
 document.addEventListener("visibilitychange",function(){LASTVIS=Date.now();clearTimeout(VISH);if(document.hidden)sleepAudio();else VISH=setTimeout(function(){if(document.hidden)return;reviveAudio();try{bgmSync()}catch(e){}},450)});
-window.addEventListener("blur",function(){LASTVIS=Date.now()});
+function softMute(on){try{if(AC&&OUTG){var n=AC.currentTime;OUTG.gain.cancelScheduledValues(n);OUTG.gain.setValueAtTime(OUTG.gain.value,n);OUTG.gain.linearRampToValueAtTime(on?0:1,n+(on?0.06:0.4))}}catch(e){}}
+window.addEventListener("blur",function(){LASTVIS=Date.now();softMute(true)});
 window.addEventListener("pagehide",sleepAudio);
 window.addEventListener("pageshow",function(){clearTimeout(VISH);VISH=setTimeout(function(){if(document.hidden)return;reviveAudio();try{bgmSync()}catch(e){}},450)});
-window.addEventListener("focus",function(){if(document.hidden||Date.now()-LASTVIS<800)return;try{if(AC&&AC.state!=="running"&&AC.resume)AC.resume()}catch(e){}});
+window.addEventListener("focus",function(){if(document.hidden)return;softMute(false);if(Date.now()-LASTVIS<800)return;try{if(AC&&AC.state!=="running"&&AC.resume)AC.resume()}catch(e){}});
 var VBUF={},VEND=0,VSIDE=false,VST={};
 /* 高さを変えずに速くする（WSOLA）。再生速度を上げると声の高さまで上がって、キャラらしさが失われるため */
 function stretchBuf(a,buf,key,rate){
@@ -1232,13 +1247,14 @@ function stretchBuf(a,buf,key,rate){
   var nb=a.createBuffer(1,Math.max(1,last),sr);nb.getChannelData(0).set(out.subarray(0,Math.max(1,last)));
   VST[ck]=nb;return nb;
 }
-function voxPlayBuf(u,cb){
+function voxPlayBuf(u,cb,sp){
+  var RT=sp!==undefined?vRate(sp):VOX.rate;
   var a=ac();
   if(a&&a.state!=="running"){try{a.resume()}catch(e){}}
   if(!a||!MASTER||typeof a.decodeAudioData!=="function"){cb(false);return}
   var go=function(buf){
     try{
-      if(Math.abs(VOX.rate-1)>0.02)buf=stretchBuf(a,buf,u,VOX.rate);
+      if(Math.abs(RT-1)>0.02)buf=stretchBuf(a,buf,u,RT);
       var s=a.createBufferSource();s.buffer=buf;
       var now=a.currentTime,st=Math.max(now,VEND+0.12);
       if(st-now>2.4){cb(true);return}
@@ -1260,7 +1276,7 @@ function voxPlay(u,text,sp,onok,onerr){
     /* 予備の再生は音量を変えられない端末がある（爆音の原因）。音の準備ができていない・復帰直後は鳴らさない */
     if(AC||Date.now()-LASTVIS<6000){if(onerr)onerr();return}
     voxPlayEl(u,text,sp,onok,onerr);
-  });
+  },sp);
 }
 function voxPlayEl(u,text,sp,onok,onerr){
   try{
@@ -1586,7 +1602,7 @@ function lever(){var t=AC.currentTime+0.01;thunk(t,180,90,0.08,0.12)}
 function duck(dur){
   if(!bgm.on||!bgm.bus)return;
   var g=bgm.bus.gain,n=AC.currentTime;
-  try{g.cancelScheduledValues(n);g.setTargetAtTime(bgBase()*0.3,n,0.015);g.setTargetAtTime(bgBase(),n+dur,0.12)}catch(e){}
+  try{g.cancelScheduledValues(n);g.setTargetAtTime(bgBase()*(dur<1?0.8:0.55),n,0.02);g.setTargetAtTime(bgBase(),n+Math.min(dur,0.6),0.12)}catch(e){}
 }
 
 /* ---- 正解・不正解の音（Fメジャー・ペンタトニックでBGMと揃える） ---- */
@@ -1792,6 +1808,7 @@ var SKN={std:{n:"標準（ドパ）"},
  chn:{n:"中華（朱×金）",pal:[["#c0161f","#640b10","#250405","#45080b","#260405"],["#b3361a","#5c1708","#220703","#401009","#230704"],["#a01236","#55081d","#20030b","#3a0613","#20030a"],["#a8261a","#58130a","#200603","#3d0e07","#210604"]]},
  sak:{n:"さくら（桜色×白）",pal:[["#d4558a","#6e2346","#2a0c1a","#4a1a30","#2c0e1c"],["#c25a9a","#62244c","#26091d","#45193a","#280c1f"],["#d4687a","#6e2a36","#2a0e14","#4a1e26","#2c1015"],["#b85aa8","#5c2456","#240b22","#41193d","#270d24"]]},
  sea:{n:"深海（紺×シアン）",pal:[["#0b4f8a","#062849","#020c1a","#062038","#030f1e"],["#0b6a7a","#05333c","#011316","#04272e","#021518"],["#2a3f9a","#141f4e","#05081c","#10183b","#070b20"],["#0a5a6a","#052c34","#011014","#04222a","#021216"]]}};
+SKN.std.n="パチンコ";SKN=(function(o){var r={};["sty","std","chn","sak","sea"].forEach(function(k){r[k]=o[k]});return r})(SKN);
 var SKC="sty";try{var sk0=localStorage.getItem("dopa:skin");if(SKN[sk0])SKC=sk0}catch(e){}
 var BST=SKC;
 var ANIM=true;try{ANIM=localStorage.getItem("dopa:anim")!=="0"}catch(e){}
@@ -2650,8 +2667,11 @@ function bgmArr(a){
   bgm.arr=a;BPM=regBpm()*LM[a];SD=60/BPM/4;KSH=TH.sh+REGSH[REG]+LK[a];bgm.t0=tn-bgm.n*SD;
   if(up)lvSound(a);
 }
+var LBGM=false;try{LBGM=localStorage.getItem("dopa:lbgm")==="1"}catch(e){}
+function inLearn(){return !$("appV").hidden&&!$("learn").hidden}
 function bgmSync(){
-  if(!(SK==="dopa"&&bgmPref&&ac())){bgmStop();return}
+  try{bgmLabel()}catch(e){}
+  if(!(SK==="dopa"&&(inLearn()?LBGM:bgmPref)&&ac())){bgmStop();return}
   var want=(T&&!$("test").hidden&&document.body.classList.contains("qmode"))?"test":"chill",st=T?T.stage:0;
   var lapA=bgLevel();
   if(bgm.on&&bgm.mode===want&&(want!=="test"||bgm.stage===st)){if(want==="test")bgmArr(lapA);return}
@@ -2723,7 +2743,7 @@ function bgmSync(){
   var vchg=function(){VOX.mode=$("voxMode").value;fxRead();VOX.url=$("voxUrl").value||VOX.url;VOX.key=($("voxKey").value||"").trim();
     Object.keys(VOX.cache).forEach(function(k){if(!VOX.cache[k])delete VOX.cache[k]});VOX.fail=0;voxSave();voxPrefetch()};
   $("voxMode").onchange=function(){vchg();loadEngineSpeakers()};[0,1,2].forEach(function(q){$("fxs"+q).onchange=vchg});$("voxKey").onchange=vchg;$("voxUrl").onchange=function(){vchg();loadEngineSpeakers()};
-  $("voxRate").oninput=function(){VOX.rate=parseFloat(this.value)||1.4;$("voxRateV").textContent="×"+VOX.rate.toFixed(2);voxSave()};
+  $("voxRate").oninput=function(){VOX.rate=parseFloat(this.value)||1.6;$("voxRateV").textContent="×"+VOX.rate.toFixed(2);voxSave()};
   $("voxRate").onchange=function(){jaShout("リーチ！")};
   $("voxTest").onclick=function(){
     if(VOX.mode==="off"){$("voxMsg").textContent="方式が「標準」です（端末の音声で読み上げます）。";browserSay("リーチ！　音声のテストです。");return}
@@ -2861,7 +2881,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.9",VLOG=[
+var VERSION="1.10",VLOG=[
+ ["1.10","2026-11-11",["声を速くしました（はじめの速さ1.6倍）。声によって話す速さがかなり違ったので（いちばん遅い声といちばん速い声で約1.8倍）、どのキャラも同じくらいの速さで話すようにそろえました","テーマの一覧で、スタイリッシュをいちばん上に。「標準（ドパ）」は「パチンコ」という名前にしました","キャラ画面を開いたときなどに、立ち絵が揺れる問題を修正","「ガチャ」タブを「キャラ」に名前を変更","学習・テスト・キャラ・記録のタブを切り替える音を、4つとも別の音に","テストで答えたときに、BGMが小さくなりすぎないように","アプリを閉じるときの音割れを修正（画面から離れ始めた時点で、音をそっと下げます）","学習中は、BGMはオフが初期設定に（学習画面の♪ボタンでONにできます）。BGMボタンが「終了」ボタンと重なる問題も修正"]],
  ["1.9","2026-11-11",["20キャラのスキル発動の演出を、すべて別のものに（色・出方・形・音がキャラごとに違います）","スキル発動のセリフは、そのキャラ本人の声で、3種類を順番に話します（20人×3＝60種類）","ホームとテストのBGMの音量をそろえました（曲ごとに聞こえる大きさを測って、自動で同じにします）","ホームのBGMを少し速くしました"]],
  ["1.8","2026-11-11",["BGMを速めにして、最初からノリよく（はじめの段階からドラムとベースがしっかり鳴ります）","テストBGMの速さは「ゆっくり／ふつう／速い」。はじめは「ふつう」（＝これまでより速い曲）です","アプリを閉じるときに、音が大きく鳴ることがある問題を修正","テストBGMの速さなどで、選んだボタンが光らなかった問題を修正","演出音をすべて作り直しました。正解は2音、不正解は低い1音だけ。連続正解やガチャも、短くすっきりした音に","画面の動きを控えめにして、ボタンや文字がブレないように（ふわっと出るだけ）"]],
  ["1.7","2026-11-11",["BGMをすべて作り直しました。ゲーム音楽のように、コード進行に沿ったはっきりしたメロディーで、楽器もメロディー・ベース・和音・ドラムの4つにしぼって聞きやすく","テストの曲は20ステージそれぞれ8小節、ホームの曲はテーマごとに3曲（16小節・A→B）。曲のつなぎ目でも途切れません","学習・ガチャ・記録・テストの設定画面では、ずっとホームの曲が流れるように（テストを解いている間だけテストの曲）","スタイリッシュの色を、黒×ライムだけのシンプルな配色に戻しました","新しい曲は、はじめて開いたときに作り直します（古い曲のデータは自動で消して、容量を空けます）"]],
@@ -2886,11 +2907,13 @@ function verShow(cb){
 (function(){var l=$("liteChk");l.checked=LITE;l.onchange=function(){LITE=l.checked;try{localStorage.setItem("dopa:lite",LITE?"1":"0")}catch(e){}skinApply();try{renderG("")}catch(e){}if(bgm.on){bgmStop();setTimeout(bgmSync,120)}}})();
 (function(){var c=$("animChk");c.checked=ANIM;c.onchange=function(){ANIM=c.checked;try{localStorage.setItem("dopa:anim",ANIM?"1":"0")}catch(e){}skinApply()};$("verno").textContent=VERSION;$("verlog").innerHTML=verHtml()})();
 $("gear").onclick=function(){try{dlcRender()}catch(e){}$("iomsg").textContent="";$("addmsg").textContent="";$("ov").classList.remove("inv")};
-function bgmLabel(){var t=bgmPref?"♪ON":"♪OFF";$("bgmBtn").textContent=t;var f=$("bgmF");if(f){f.textContent=t;f.classList.toggle("off",!bgmPref)}$("bgmBtn").classList.toggle("off",!bgmPref)}
+function bgmLabel(){var on=inLearn()?LBGM:bgmPref,t=on?"♪ON":"♪OFF";var lb=$("lbgmB");if(lb){lb.classList.toggle("off",!LBGM)}$("bgmBtn").textContent=t;var f=$("bgmF");if(f){f.textContent=t;f.classList.toggle("off",!bgmPref)}$("bgmBtn").classList.toggle("off",!on)}
 $("bgmBtn").onclick=function(){
-  bgmPref=!bgmPref;try{localStorage.setItem("dopa:bgm",bgmPref?"1":"0")}catch(e){}
+  if(inLearn()){LBGM=!LBGM;try{localStorage.setItem("dopa:lbgm",LBGM?"1":"0")}catch(e){}}
+  else{bgmPref=!bgmPref;try{localStorage.setItem("dopa:bgm",bgmPref?"1":"0")}catch(e){}}
   bgmLabel();bgmSync();
 };
+$("lbgmB").onclick=function(){LBGM=!LBGM;try{localStorage.setItem("dopa:lbgm",LBGM?"1":"0")}catch(e){}bgmLabel();bgmSync()};
 bgmLabel();
 $("volB").value=volB;$("volS").value=volS;
 $("volB").oninput=function(){volB=parseInt(this.value);try{localStorage.setItem("dopa:volB",volB)}catch(e){}applyVol()};
@@ -3036,10 +3059,13 @@ function tab(t){
   if(t==="R")renderR("");
   bgmSync();
 }
-$("tL").onclick=function(){tab("L")};
-$("tT").onclick=function(){tab("T")};
-$("tG").onclick=function(){tab("G")};
-$("tR").onclick=function(){tab("R")};
+/* タブの切り替え音（学習＝やさしく上がる／テスト＝きびきび3音／キャラ＝キラッと高い2音／記録＝落ち着いて下がる） */
+function tabSnd(t){var a=ac();if(!a)return;var n=a.currentTime+0.01;
+  if(t==="L"){sBell(pf(5),n,0.1,0.06);sBell(pf(7),n+0.07,0.16,0.06)}
+  else if(t==="T"){[5,7,10].forEach(function(x,j){sBlip(pf(x),n+j*0.045,0.06,0.06,"square")})}
+  else if(t==="G"){sBell(pf(12),n,0.08,0.05);sBell(pf(15),n+0.05,0.2,0.05)}
+  else{sBell(pf(7),n,0.1,0.06);sBell(pf(4),n+0.08,0.18,0.06)}}
+["L","T","G","R"].forEach(function(k){$("t"+k).onclick=function(){if(!$("t"+k).classList.contains("on"))tabSnd(k);tab(k)}});
 $("stones").onclick=function(){tab("G")};
 /* ---------- 記録タブ（日別ペース・ステージ別・ランキング） ---------- */
 function dayKey(d){d=d||new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
@@ -3408,7 +3434,7 @@ ntfDot();setTimeout(ntfFetch,1200);
 })();
 /* ---- どの画面からでもBGMをON/OFF ---- */
 $("bgmF").onclick=function(e){e.stopPropagation();$("bgmBtn").onclick()};
-function homeFlag(){document.body.classList.toggle("homeon",!$("homeV").hidden)}
+function homeFlag(){document.body.classList.toggle("homeon",!$("homeV").hidden);document.body.classList.toggle("learnon",inLearn())}
 setInterval(homeFlag,400);homeFlag();
 /* ---- テストBGMの速さ ---- */
 function tmpoSet(v){TMPO=v;try{localStorage.setItem("dopa:tmpo2",v)}catch(e){}try{if(bgm.on&&bgm.pre&&bgm.src&&bgm.src.playbackRate){var nw=AC.currentTime,fr=(((nw-bgm.pstart)%bgm.pdur)+bgm.pdur)%bgm.pdur/bgm.pdur,bd=bgm.src.buffer.duration;bgm.src.playbackRate.value=tmpf();bgm.pdur=bd/tmpf();bgm.pstart=nw-fr*bgm.pdur}}catch(e){}}
@@ -3666,7 +3692,9 @@ function hzOwn(){return HZ.filter(function(h){return G.hz[h.id]}).length}
 function hzHtml(){return '<div class="stat">ハズレ図鑑 '+hzOwn()+' / '+HZ.length+'</div><div class="hzl">'+HZ.map(function(h){var n=G.hz[h.id]||0;return '<div class="hzc'+(n?'':' lock')+'"><img src="'+IMT(h.id)+'" alt=""><span>'+(n?esc(h.name)+'<br>×'+n:'？？？')+'</span></div>'}).join("")+'</div>'}
 function charProb(E){return Math.min(0.5,P_CHAR*(1+E.haz))}
 var gView="pull",gHelp=0;
+var RGLAST=null;
 function renderG(msg){
+  var stillG=(RGLAST===gView+":"+gBan);RGLAST=gView+":"+gBan;
   var E=effects(),c1=Math.round(300*E.disc),c10=Math.round(2700*E.disc),pr=charProb(E),sl="",i;
   for(i=0;i<6;i++){var id=G.party[i];
     if(i>=PMAX()){var nx=(i===PMAX());sl+='<div class="slot lk">'+(nx?'<button class="sm" data-sb="1">🔒 ◆'+SLOTC[i+1]+'<br>で解放</button>':'🔒')+'</div>';continue}
@@ -3691,7 +3719,7 @@ function renderG(msg){
     var B=BAN[gBan],pool=CHARS.filter(function(c){return c.s>=(B.m||1)}),pw=0;pool.forEach(function(c){pw+=c.w});
     var tabs=BAN.map(function(b,i){return '<button class="gtab t-'+b.k+(i===gBan?' on':'')+'" data-gb="'+i+'"><span><img src="'+IMT(b.feat[0])+'" alt=""><b>'+(b.m?'★'+b.m+'↑':'通常')+'</b></span></button>'}).join("");
     var odds=gHelp?'<div class="godds">'+[7,6,5,4,3,2,1].filter(function(s){return s>=(B.m||1)}).map(function(s){var w=0,n=0;pool.forEach(function(c){if(c.s===s){w+=c.w;n++}});return '★'+s+'（'+n+'体）'+(pr*w/pw*100).toFixed(2)+'%'}).join('　')+'<br>ハズレ '+((1-pr)*100).toFixed(1)+'%（◆'+HAZ_REF+'返還＋ハズレの仲間）</div>':'';
-    $("gacha").innerHTML='<div class="card gcard" style="gap:6px">'+tg+
+    $("gacha").innerHTML='<div class="card gcard'+(stillG?' still':'')+'" style="gap:6px">'+tg+
      '<div class="gtabs">'+tabs+'</div>'+
      '<div class="gkv k-'+B.k+'"><div class="kvbg"></div><div class="kvdots"></div>'+
       B.feat.map(function(id,i){return '<img class="kvc kv'+i+'" src="'+IMF(id)+'" alt="">'}).join("")+
