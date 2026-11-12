@@ -1487,7 +1487,7 @@ body.t0done .homev.intro .hbg,body.t0done .homev.intro .hc{animation:none!import
 
 /* --- 設定・学習・テストの開始ボタン：下に貼りつく帯を不透明にして、裏の文字が透けたり下からはみ出したりしないように --- */
 #lgo{position:static!important;box-shadow:none!important;width:100%}
-.lgow,#test .scard>.pair:last-child{position:sticky!important;bottom:-20px!important;z-index:3;flex:0 0 auto;margin:6px -20px -20px!important;padding:10px 20px 32px!important;background:var(--bg,#0b0c0e)!important;box-shadow:0 -10px 14px rgba(0,0,0,.4)!important;border-top:1px solid color-mix(in srgb,var(--line,#555) 55%,transparent)}
+.lgow,#test .scard>.pair:last-child{position:sticky!important;bottom:-20px!important;z-index:3;flex:0 0 auto;margin:6px -17px -20px!important;padding:10px 17px 32px!important;background:var(--bg,#0b0c0e)!important;box-shadow:0 -10px 14px rgba(0,0,0,.4)!important;border-top:1px solid color-mix(in srgb,var(--line,#555) 55%,transparent)}
 .v5rv{white-space:normal!important;line-height:1.25}
 .v5rv small{display:inline-block;white-space:nowrap;font-size:12px;font-weight:400;margin-left:10px;opacity:.85}
 .modes .v5lock{grid-column:1/-1;line-height:1.5}
@@ -1547,6 +1547,70 @@ body.spdone #skbd,body.spdone .sktop{display:none!important}
 
 /* --- キャラ入手の画面：見出しが「閉じる」ボタンの下にもぐらないように --- */
 .cutitle{right:112px!important;left:12px!important;font-size:13px;line-height:1.35}
+
+
+/* ===== v1.31 ===== */
+
+/* --- 横に動かないように：スクロールする枠は縦だけ --- */
+.card,.sheet,#lsetup,#lstudy,#homeT,#rec,.ov{overflow-x:hidden!important}
+#dsc{overflow-x:hidden!important}
+#dsc svg{width:100%!important;height:auto!important;display:block}
+
+/* --- ホームの新しいキャラカード（胸から上を大きく） --- */
+#homeT .hmhero{display:none!important}
+.hb2{position:relative;flex:0 0 auto;height:clamp(260px,74vw,330px);overflow:hidden;cursor:pointer;
+  clip-path:polygon(0 0,calc(100% - 28px) 0,100% 28px,100% 100%,28px 100%,0 calc(100% - 28px));
+  background:linear-gradient(150deg,var(--b0) 0%,var(--b1) 46%,var(--b2) 100%);-webkit-tap-highlight-color:transparent}
+.hb2band{position:absolute;top:-20%;bottom:-20%;left:44%;width:34%;background:var(--bd);transform:skewX(-18deg);opacity:.55}
+.hb2band.b{left:82%;width:7%;opacity:.4;background:rgba(255,255,255,.55)}
+.hb2img{position:absolute;inset:0;width:100%;height:100%;display:block;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35));transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.hb2.tap .hb2img{animation:hb2tap .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes hb2tap{30%{transform:translateY(-6px) scale(1.015)}}
+.hb2fade{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(90deg,rgba(7,8,10,.94) 0%,rgba(7,8,10,.82) 30%,rgba(7,8,10,.25) 52%,transparent 64%),
+  linear-gradient(0deg,rgba(7,8,10,.92) 0%,rgba(7,8,10,.55) 17%,transparent 32%)}
+.hb2tx{position:absolute;left:16px;top:16px;width:48%;display:flex;flex-direction:column;gap:9px;color:#fff;pointer-events:none}
+.hb2date{display:flex;align-items:baseline;gap:7px}
+.hb2date b{font:900 italic 30px/1 "Arial Black",sans-serif!important;letter-spacing:-.02em;color:#fff}
+.hb2date span{font:700 11px ui-monospace,Menlo,monospace;letter-spacing:.22em;color:var(--acc,#d4ff00)}
+.hb2nm{display:flex;flex-direction:column;gap:2px;padding-top:8px;border-top:1px solid rgba(255,255,255,.22)}
+.hb2nm small{font:700 9.5px ui-monospace,Menlo,monospace;letter-spacing:.28em;color:rgba(255,255,255,.6)}
+.hb2nm b{font-size:clamp(22px,7vw,28px);line-height:1.1;font-weight:600!important;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.hb2nm em{font-style:normal;font-size:12px;letter-spacing:.08em;color:#ffd34d;display:flex;align-items:center;gap:7px}
+.hb2nm em i{font:700 10px ui-monospace,Menlo,monospace;font-style:normal;letter-spacing:.06em;color:#0b0c0e;background:var(--acc,#d4ff00);padding:1px 5px;transform:skewX(-12deg)}
+.hb2nm u{text-decoration:none;font-size:11px;color:var(--acc,#d4ff00)}
+.hb2gr{margin:0;font-size:12.5px;line-height:1.55;color:rgba(255,255,255,.82)}
+.hb2chg{position:absolute;top:10px;right:36px;width:36px;height:36px;min-height:0!important;padding:0!important;display:flex!important;align-items:center;justify-content:center;border-radius:50%!important;background:rgba(7,8,10,.55)!important;border:1px solid rgba(255,255,255,.4)!important;color:#fff!important;z-index:3;clip-path:none!important}
+.hb2st{position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,1fr);padding:0 30px 12px 16px;z-index:2;pointer-events:none}
+.hb2st div{display:flex;flex-direction:column;gap:1px;padding-left:10px;border-left:2px solid var(--acc,#d4ff00)}
+.hb2st b{font:700 20px/1.1 ui-monospace,Menlo,monospace;color:#fff}
+.hb2st small{font-size:10.5px;color:rgba(255,255,255,.7)}
+.hb2.none{background:rgba(255,255,255,.04);cursor:default}
+.hb2pick{position:absolute;left:12px;right:12px;top:14px;bottom:70px;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:transparent!important;border:1px dashed rgba(255,255,255,.28)!important;color:var(--sub,#bbb)!important;font-size:13px!important}
+
+/* --- 最初の画面（ログイン）：v1.26 の黒い画面と中央の「TOUCH TO START」 --- */
+body.t0v2 #tap0{background:radial-gradient(circle at 50% 45%,#1b1d21,#050506 70%)!important;justify-content:center!important;padding:0!important;gap:0!important;transform:none!important;transition:opacity .55s ease .12s!important}
+body.t0v2 #tap0.out{opacity:0!important;transform:none!important}
+body.t0v2 #tap0 .t0mid{display:flex;flex-direction:column;align-items:center;gap:12px}
+body.t0v2 #tap0 .t0s{font:900 italic 15px "Arial Black",sans-serif!important;letter-spacing:.35em;color:#fff!important;background:none!important;padding:0 0 0 .35em!important;margin:0!important;animation:t0b 1.4s ease-in-out infinite;transition:letter-spacing .5s cubic-bezier(.2,.8,.2,1),opacity .4s}
+body.t0v2 #tap0 .t0j{font-size:12px;color:#fff!important;opacity:.6!important;background:none!important;padding:0!important;letter-spacing:.08em}
+body.t0v2 #tap0 .t0ln{display:block;width:0;height:1px;background:linear-gradient(90deg,transparent,var(--acc,#d4ff00),transparent);animation:t0ln 1.2s .3s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes t0ln{to{width:min(220px,58vw)}}
+body.t0v2 #tap0 .t0c{position:absolute;width:22px;height:22px;border:0 solid rgba(255,255,255,.28)}
+body.t0v2 #tap0 .t0c.tl{left:calc(env(safe-area-inset-left,0px) + 18px);top:calc(env(safe-area-inset-top,0px) + 18px);border-left-width:1px;border-top-width:1px}
+body.t0v2 #tap0 .t0c.tr{right:calc(env(safe-area-inset-right,0px) + 18px);top:calc(env(safe-area-inset-top,0px) + 18px);border-right-width:1px;border-top-width:1px}
+body.t0v2 #tap0 .t0c.bl{left:calc(env(safe-area-inset-left,0px) + 18px);bottom:calc(env(safe-area-inset-bottom,0px) + 18px);border-left-width:1px;border-bottom-width:1px}
+body.t0v2 #tap0 .t0c.br{right:calc(env(safe-area-inset-right,0px) + 18px);bottom:calc(env(safe-area-inset-bottom,0px) + 18px);border-right-width:1px;border-bottom-width:1px}
+body.t0v2 #tap0 .t0top{position:absolute;top:calc(env(safe-area-inset-top,0px) + 24px);left:0;right:0;text-align:center;font:700 9.5px ui-monospace,Menlo,monospace;letter-spacing:.42em;color:rgba(255,255,255,.32)}
+body.t0v2 #tap0 .t0bot{position:absolute;bottom:calc(env(safe-area-inset-bottom,0px) + 28px);left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11.5px;letter-spacing:.06em;color:rgba(255,255,255,.5)}
+body.t0v2 #tap0 .t0bot b{color:var(--acc,#d4ff00);font:700 13px ui-monospace,Menlo,monospace;margin:0 2px}
+body.t0v2 #tap0 .t0bot em{font:400 9.5px ui-monospace,Menlo,monospace;font-style:normal;letter-spacing:.3em;color:rgba(255,255,255,.28);margin-top:4px}
+body.t0v2 #tap0.out .t0s{letter-spacing:.9em;opacity:0;animation:none}
+body.t0v2 #tap0.out .t0j,body.t0v2 #tap0.out .t0bot,body.t0v2 #tap0.out .t0top{opacity:0;transition:opacity .3s}
+body.t0v2 #tap0.out .t0ln{width:100vw!important;transition:width .5s cubic-bezier(.2,.8,.2,1);animation:none}
+body.t0v2.tap0on .homev{visibility:hidden!important}
+
+@media (max-width:360px){.hb2st{padding:0 26px 10px 12px}.hb2st b{font-size:17px}.hb2st small{font-size:9.5px;white-space:nowrap}.hb2st div{padding-left:7px}.hb2tx{left:12px;top:12px;width:52%}}
 
 </style>
 </head>
@@ -2053,7 +2117,7 @@ function voxPlayBuf(u,cb,sp){
 }
 var LASTVIS=0;
 function voxPlay(u,text,sp,onok,onerr){
-  VTXT=text||"";voxPlayBuf(u,function(ok){
+  VTXT=text||"";try{if(sp!==undefined&&!CAPU[u]&&packOf(sp,VTXT)==="c")CAPU[u]=9}catch(e){}voxPlayBuf(u,function(ok){
     if(ok){if(onok)onok();return}
     /* 予備の再生は音量を変えられない端末がある（爆音の原因）。音の準備ができていない・復帰直後は鳴らさない */
     if(AC||Date.now()-LASTVIS<6000){if(onerr)onerr();return}
@@ -3939,7 +4003,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.30",VLOG=[
+var VERSION="1.31",VLOG=[
+ ["1.31","2026-11-12",["キャラのセリフが途中で切れる不具合を修正（2秒を超えるセリフ101本が、最後まで流れるように）","画面が横に少し動いてしまう不具合を修正","ホームのキャラを新しいカードに：立ち絵を胸から上で大きく映すように","アプリを開いた直後の画面を、黒い画面に「TOUCH TO START」のデザインで作り直し（おかえりなさい・連続ログインの表示つき）"]],
  ["1.30","2026-11-12",["【重要な修正】アプリを開き直すと「ホームのお気に入りキャラ・目標・事務連絡のみの設定」が消えてしまう不具合を修正","スペル入力：間違えたあと「次へ」ボタンが画面の外に出て進めなくなることがあるのを修正（キーボードをしまって「次へ」を表示）。同じ意味の別の単語を打っても正解に","画面が小さい端末で、テストの選択肢と「不正解」の文字やボタンが重なるのを修正（ボス戦・スペル入力のキーボードも収まるように）","声：短すぎて聞き取れなかった掛け声（「きた！」など）とボスのセリフ19個を録り直し。同じセリフを別のキャラの声で話していた2組を修正","設定・学習・テストの開始ボタンまわり：裏の文字が透ける／はみ出すのを修正。「今日の復習」ボタンの折り返しを整理","記録：切り替えボタンが縦に折れる、進捗の数字が右で切れる、図鑑の文字が切れるのを修正","設定：チェックの行の余白、上のタブから文字がのぞく、ボタンの折り返しを修正","最初の画面・タイトル：斜めの帯に重なって読みにくい文字に下地を追加"]],
  ["1.29","2026-11-12",["管理者コマンドを認証すると、すべてのコンテンツ（キャラ・編成・ボス戦・全キャラLv5・編成枠・ハズレ図鑑・ロック）が解放されるように","ホームの画面を整理（日付・パートナー・数字・目標・メールを、同じ形の区切りでそろえました）","「TOUCH TO START」からタイトルへの切り替えを滑らかに（背景はそのままで、タイトルだけが音と一緒に現れます）","動く背景がUI全体から見えるように、カードを半透明に","通知の数を、斜めのタグと等幅の数字のデザインに"]],
  ["1.28","2026-11-12",["最初の画面でタイトルが2回出てくるように見えるのを修正","アプリのアイコンをライム地のデザインに変更"]],
@@ -6397,6 +6462,7 @@ function homeRender(){
   $("hmChg").onclick=favPick;
   $("hmAdm").onchange=function(){G.mailAdm=$("hmAdm").checked?1:0;saveG();var x=$("mailAdmChk");if(x)x.checked=!!G.mailAdm;homeRender()};
   goalCard();V5.render();V5.dot();
+  try{if(window.V7home)V7home()}catch(e){}
 }
 window.homeRender=homeRender;
 function favPick(){
@@ -6652,6 +6718,66 @@ function lgoWrap(){
 var _rl=renderLearnSetup;
 renderLearnSetup=function(m){_rl(m);try{lgoWrap()}catch(e){}};
 try{lgoWrap()}catch(e){}
+})();
+
+
+/* ===== v1.31：ホームのキャラを胸から上で大きく・最初の画面（ログイン）を作り直し ===== */
+(function(){
+/* ---- ホーム：新しいカード（立ち絵を胸から上で切り出す） ---- */
+var HMY={c16:-0.04},HMX={c16:0.13};          /* 顔の位置が低い立ち絵だけ、切り出しを下げる */
+function bustSVG(id,href){
+  var wh=CARDIM[id]||[400,1000],w=wh[0],h=wh[1],cx=(CCX[id]||0.5)*w;
+  var vh=h*0.46,vw=vh*1.22,x0=cx-vw*(0.62-(HMX[id]||0)),y0=h*((HMY[id]||0)-0.012);
+  return '<svg class="hb2img" viewBox="'+x0.toFixed(1)+' '+y0.toFixed(1)+' '+vw.toFixed(1)+' '+vh.toFixed(1)+'" preserveAspectRatio="xMidYMin slice" aria-hidden="true"><image href="'+href+'" x="0" y="0" width="'+w+'" height="'+h+'"/></svg>';
+}
+window.bustSVG=bustSVG;
+function hex(c,a){c=String(c||"#888").replace("#","");if(c.length===3)c=c.split("").map(function(x){return x+x}).join("");var n=parseInt(c,16);return "rgba("+(n>>16&255)+","+(n>>8&255)+","+(n&255)+","+a+")"}
+function favId(){var f=G.fav;if(f&&lvOf(f))return f;return G.party[0]||G.first||(CHARS.filter(function(c){return lvOf(c.id)})[0]||{}).id||""}
+function favPick(){var b=$("hmChg")||$("hmNone");if(b)b.click()}
+window.V7home=function(){
+  var hero=document.querySelector("#homeT .hmhero");if(!hero)return;
+  var id=favId(),c=id?cById(id):null,dt=new Date(),wd=["SUN","MON","TUE","WED","THU","FRI","SAT"][dt.getDay()],hr=dt.getHours();
+  var gr=hr<5?"夜ふかしだね。無理しないでね":hr<11?"おはよう。今日も一緒にがんばろう":hr<17?"こんにちは。少しずつ進めよう":"おかえり。今日もおつかれさま";
+  var due=srsDue().length,m=V5.mastered(),tt=titleName(),ln=(G.login&&G.login.n)||0;
+  var st='<div class="hb2st"><div><b>'+m+'</b><small>習得</small></div><div><b>'+due+'</b><small>今日の復習</small></div><div><b>'+ln+'</b><small>連続ログイン</small></div></div>';
+  var html;
+  if(c){
+    var t=CTH[id]||{bg:["#333","#222","#111"],band2:"#555"},lv=lvOf(id);
+    html='<section class="hb2 cgc" id="hb2Card" style="--b0:'+t.bg[0]+';--b1:'+t.bg[1]+';--b2:'+t.bg[2]+';--bd:'+hex(t.band2,.55)+'">'+
+      '<i class="hb2band"></i><i class="hb2band b"></i>'+bustSVG(id,cImg(id))+'<i class="hb2fade"></i>'+
+      '<div class="hb2tx">'+
+        '<div class="hb2date"><b>'+(dt.getMonth()+1)+'.'+("0"+dt.getDate()).slice(-2)+'</b><span>'+wd+'</span></div>'+
+        '<div class="hb2nm"><small>PARTNER</small><b>'+esc(c.name)+'</b><em>'+c.star+'<i>Lv'+lv+'</i></em>'+(tt?'<u>'+esc(tt)+'</u>':'')+'</div>'+
+        '<p class="hb2gr">'+gr+'</p>'+
+      '</div>'+
+      '<button class="hb2chg" id="hb2Chg" aria-label="キャラを変える">'+ICO("users",15)+'</button>'+
+      st+'</section>';
+  }else{
+    html='<section class="hb2 none"><button class="hb2pick" id="hb2None">'+ICO("users",22)+'<span>ホームに置くキャラを選ぶ</span></button>'+st+'</section>';
+  }
+  hero.insertAdjacentHTML("beforebegin",html);
+  var cd=$("hb2Card");if(cd)cd.onclick=function(e){if(e.target.closest&&e.target.closest("#hb2Chg"))return;cgTalk(id,cd)};
+  if($("hb2Chg"))$("hb2Chg").onclick=function(e){e.stopPropagation();favPick()};
+  if($("hb2None"))$("hb2None").onclick=favPick;
+};
+try{if(!$("homeT").hidden)homeRender()}catch(e){}
+
+/* ---- 最初の画面（ログイン）：v1.26 の黒い画面と「TOUCH TO START」を土台に ---- */
+function t0Info(){
+  if(!G.starter)return '<span>はじめまして</span>';
+  var L=G.login||{},n=L.n||0,y=new Date();y.setDate(y.getDate()-1);
+  var live=L.last===dayKey()||L.last===dayKey(y),nm=G.name?esc(G.name)+" さん":"";
+  return '<span>おかえりなさい'+(nm?'、'+nm:'')+'</span>'+(live&&n?'<span>連続ログイン <b>'+(L.last===dayKey()?n:n+1)+'</b> 日目</span>':'');
+}
+function t0Build(){
+  var o=$("tap0");if(!o)return;
+  o.innerHTML='<i class="t0c tl"></i><i class="t0c tr"></i><i class="t0c bl"></i><i class="t0c br"></i>'+
+    '<div class="t0top">ENGLISH VOCABULARY SYSTEM</div>'+
+    '<div class="t0mid"><div class="t0s">TOUCH TO START</div><i class="t0ln"></i><div class="t0j">タップしてはじめる</div></div>'+
+    '<div class="t0bot">'+t0Info()+'<em>ver '+VERSION+'</em></div>';
+  document.body.classList.add("t0v2");
+}
+t0Build();
 })();
 
 </script>
