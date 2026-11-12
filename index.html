@@ -1418,6 +1418,11 @@ body:not(.dopa) #bgfx{display:none}
 .tabs .tab{white-space:nowrap;font-size:clamp(12px,3.6vw,15px);padding:0 4px;min-width:0;overflow:hidden;text-overflow:ellipsis}
 .tabs{gap:6px}
 
+/* 最初の画面：タップ前はタイトルを隠して背景と「TOUCH TO START」だけ（タイトルが2回出ないように） */
+body.tap0on .homev{visibility:hidden!important;animation:none!important}
+#tap0{background:transparent!important;justify-content:flex-end!important;padding-bottom:28vh;box-sizing:border-box}
+#tap0 .t0s{margin-top:0!important;color:var(--acc,#d4ff00)}
+
 </style>
 </head>
 <body class="dopa">
@@ -3808,7 +3813,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.27",VLOG=[
+var VERSION="1.28",VLOG=[
+ ["1.28","2026-11-12",["最初の画面でタイトルが2回出てくるように見えるのを修正（タップ前はタイトルを隠し、タップでタイトルが音と一緒に登場）","アプリのアイコンをライム地のデザインに変更"]],
  ["1.27","2026-11-12",["正解・不正解の音を選べるように：標準・ハードベース（キック）・8bit・太鼓・やさしい（マリンバ）。設定の「よく使う設定」から","背景を、ゆっくり動く光と斜線のアニメーションに","文字を全体的に細く（どのテーマも細めの角ゴシック）","ホームが画面の横幅からはみ出すのを修正","ホームのメールを、色や動きを抑えた落ち着いた見た目に","アプリのアイコンを新しいデザインに"]],
  ["1.26","2026-11-12",["声の速さを全キャラでそろえ直しました（テスト中のスキルの声も、掛け声と同じテンポに）","設定に「キャラの声の速さ（編成・キャラ画面）」を追加。掛け声とは別に変えられます","「ホーム」タブを追加：メール・目標・お気に入りのキャラ1人をまとめて表示。記録は上のボタンへ","目標（何語を・いつまでに）を決めると、1日の量を提案して、毎日のタスクをメールで届けます","メールは自動では開かないように。事務的なお知らせ以外を届けない設定も追加","スキル発動のバナーを横長の六角形に。左右ランダムに出て、複数のときは蜂の巣状に並びます","スペル入力のキーボードを画面になじむ色に。端末のキーボードにも切り替えられます","スタイリッシュのフォントを細めの角ゴシックに。テストの文字はどのテーマでも同じ標準的な文字に。学習カードの文字の光をなくしました","最初の画面は「タップしてはじめる」から。タップでアニメーションと音が一緒に始まります","テストの途中でアプリを閉じても、最初の画面の「コンティニュー」から続きができます","絵文字をアイコンに置き換え、キャラ画面のカードを大きく"]],
  ["1.25","2026-11-12",["受信箱（INBOX）：今日の復習・ログインボーナス・お知らせなどを、メールのように上から片付けられるように","今日の復習：習得した単語を、1日後・4日後・10日後・3週間後・6週間ごとに出題（暗記カード→確認テスト）","上級モード「スペル入力」：日本語→英語の問題を、アプリ専用のキーボードで答えます（正解は得点2倍）","バックアップをファイルで保存・復元できるように（初回は◆50）。端末の中にも自動の控えを3日分","称号・単語図鑑メダル・キャラの覚醒（Lv5＋そのキャラのボスを撃破）・全語制覇エンディングを追加","初めての人向けに、キャラ・編成・ボス戦を少しずつ開放（今遊んでいる人は全部開放済み）","スキル名をキャラらしい技名に。表情の割り当てを見直し","ボス撃破・PERFECT・ステージ初クリア・★5以上のスカウトで、専用の共有文","ホームに「今日の続き」ボタン"]],
@@ -6412,13 +6418,13 @@ contBtn();
 /* ---------------- 最初の画面：タップしてから、アニメーションと音を一緒に ---------------- */
 (function(){
   var hv=$("homeV");if(!hv||hv.hidden)return;
-  var o=el('<div id="tap0"><div class="t0l">どぱたん</div><div class="t0s">TOUCH TO START</div><div class="t0j">タップしてはじめる</div></div>');
-  document.body.appendChild(o);
+  var o=el('<div id="tap0"><div class="t0s">TOUCH TO START</div><div class="t0j">タップしてはじめる</div></div>');
+  document.body.appendChild(o);document.body.classList.add("tap0on");hv.classList.remove("intro");
   var go=function(e){
     if(e){e.preventDefault();e.stopPropagation()}
     if(o.classList.contains("out"))return;o.classList.add("out");
     try{var a=ac();if(a&&a.state!=="running"&&a.resume)a.resume()}catch(er){}
-    setTimeout(function(){o.remove();homeIntro();try{bgmSync()}catch(er){}},120);
+    setTimeout(function(){o.remove();document.body.classList.remove("tap0on");homeIntro();try{bgmSync()}catch(er){}},120);
   };
   o.addEventListener("pointerdown",go);o.addEventListener("click",go);
 })();
