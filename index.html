@@ -1128,6 +1128,114 @@ body.learnon #bgmF{display:none!important}
 #rfx.rfk .rfsp{animation:rfsp .9s ease-out forwards}
 @keyframes rfsp{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.3)}}
 body.noanim .rfray,body.noanim .rfsp{display:none}
+/* ===== v1.25 ===== */
+#v5toast{position:fixed;left:50%;top:calc(env(safe-area-inset-top,0px) + 70px);transform:translate(-50%,-20px);z-index:70;background:#111;color:#fff;border:2px solid var(--acc,#ffd400);border-radius:10px;padding:10px 16px;font-weight:800;font-size:14px;max-width:88vw;text-align:center;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+#v5toast.on{opacity:1;transform:translate(-50%,0)}
+.tab.lk{opacity:.55}.tab.lk::before{content:"🔒";font-size:11px;margin-right:2px}
+/* 暗記→確認テストのバー */
+#flowBar{display:flex;align-items:center;gap:10px;flex:0 0 auto;padding:8px 10px;border:2px solid var(--acc,#ffd400);border-radius:10px;background:rgba(0,0,0,.35)}
+#flowBar[hidden]{display:none}
+#flowBar>div{flex:1;display:flex;flex-direction:column;min-width:0}
+#flowBar b{font-size:15px}#flowBar small{font-size:11px;color:var(--sub,#aaa)}
+#flowBar .main{flex:0 0 auto;width:auto;padding:10px 14px;font-size:14px}
+.v5rv{flex:0 0 auto;font-size:15px!important}
+.v5rv b{font-size:20px;margin:0 2px}
+.v5lock{text-align:center;font-size:12px}
+.spopt{align-items:flex-start!important}
+.spopt span{display:flex;flex-direction:column}.spopt small{font-size:11px;color:var(--sub,#aaa);font-weight:400}
+/* スペル入力 */
+.choices.spch{display:flex!important;flex-direction:column;gap:0}
+.spdisp{position:relative;min-height:58px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;border:2px solid var(--line,#555);border-bottom:4px solid var(--acc,#ffd400);border-radius:8px;padding:8px 10px;font:800 clamp(24px,8vw,34px)/1.1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:.06em;background:rgba(0,0,0,.25)}
+.spdisp em{position:absolute;font:400 13px sans-serif;color:var(--sub,#999);letter-spacing:0;pointer-events:none}
+.spdisp:not(.emp) em{display:none}
+.spdisp .spc{display:inline-block;width:3px;height:1.05em;background:var(--acc,#ffd400);animation:spblink 1s steps(1) infinite}
+.spdisp.emp .spc{position:absolute;left:50%;margin-left:-60px}
+@keyframes spblink{50%{opacity:0}}
+.spdisp.shk{animation:spshk .3s}
+@keyframes spshk{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.spdisp.ok{border-color:#39d353;border-bottom-color:#39d353}.spdisp.ng{border-color:#ff4d4d;border-bottom-color:#ff4d4d;flex-direction:column}
+.spdisp .spty i{font-style:normal}.spdisp .spty i.g{color:#39d353}.spdisp .spty i.x{color:#ff6b6b;text-decoration:underline}
+.spdisp .spans{font:700 15px sans-serif;color:var(--ink,#fff);letter-spacing:0}.spdisp .spans b{font:800 22px ui-monospace,Menlo,monospace;color:#39d353;margin-left:6px;letter-spacing:.05em}
+.skbd{display:flex;flex-direction:column;gap:6px;flex:0 0 auto;margin-top:8px;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.skr{display:flex;gap:4px;justify-content:center}
+.sk2{flex:1 1 0;max-width:42px;min-height:46px!important;padding:0!important;font:800 19px ui-monospace,Menlo,monospace!important;border-radius:7px!important;background:#f2f2f2!important;color:#111!important;border:none!important;box-shadow:0 3px 0 #777!important;text-transform:lowercase}
+.sk2.skw{max-width:64px;flex:1.5 1 0;font-size:15px!important;background:#c9c9c9!important}
+.sk2.sko{background:var(--acc,#ffd400)!important;font-family:sans-serif!important}
+.sk2.dn{transform:translateY(3px);box-shadow:0 0 0 #777!important;background:var(--acc,#ffd400)!important}
+.sk2:disabled{opacity:.35}
+body.spmode #test .card .prm{font-size:clamp(20px,6.5vw,30px)!important}
+/* 共有ボタン */
+.v5shr{display:flex;align-items:center;justify-content:center;gap:6px;flex:0 0 auto;background:#000!important;color:#fff!important;border:2px solid var(--acc,#ffd400)!important;font-weight:800}
+/* 受信箱 */
+#ibx{z-index:10;padding:0!important;background:var(--bg,#111)}
+.ibxw{display:flex;flex-direction:column;gap:10px;min-height:100%;padding:calc(env(safe-area-inset-top,0px) + 14px) 14px calc(env(safe-area-inset-bottom,0px) + 14px)}
+.ibxh{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:3px solid var(--acc,#ffd400);padding-bottom:6px}
+.ibxh small{display:block;font:900 italic 12px "Arial Black",sans-serif;letter-spacing:.2em;color:var(--acc,#ffd400)}
+.ibxh b{font-size:22px;font-weight:900}
+.ibxh span{font-size:13px;font-weight:800;background:var(--acc,#ffd400);color:#111;border-radius:999px;padding:3px 10px}
+.ibxg{display:flex;gap:10px;align-items:center}
+.ibxg img{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid var(--acc,#ffd400);flex:0 0 auto;background:#333}
+.ibxg div{display:flex;flex-direction:column;background:rgba(255,255,255,.07);border-radius:4px 12px 12px 12px;padding:6px 10px;font-size:13px}
+.ibxg b{font-size:12px;color:var(--acc,#ffd400)}
+#ibxl{display:flex;flex-direction:column;gap:8px;flex:1}
+.ml{display:flex;align-items:center;gap:10px;padding:10px 10px 10px 8px;border-radius:10px;background:rgba(255,255,255,.06);border-left:5px solid var(--acc,#ffd400);cursor:pointer;transition:transform .24s,opacity .24s,max-height .3s;max-height:400px;overflow:hidden}
+.ml.cta{background:linear-gradient(90deg,rgba(255,212,0,.22),rgba(255,212,0,.06));border-left-width:8px}
+.ml.cta .mt{font-size:17px}
+.ml .mic{font-style:normal;font-size:22px;width:30px;text-align:center;flex:0 0 auto}
+.ml .mb{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.ml .mt{font-weight:800;font-size:15px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.ml .mt small{font-weight:400;font-size:11px;color:var(--sub,#999)}
+.ml .ms{font-size:12.5px;color:var(--sub,#bbb);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ml.open .ms{white-space:pre-wrap}
+.ml .mact{flex:0 0 auto;width:auto!important;padding:8px 12px!important;font-weight:800;background:var(--acc,#ffd400)!important;color:#111!important;border:none!important}
+.ml.done{opacity:.5;border-left-color:var(--line,#555)}
+.ml .mdn{font-style:normal;font-size:12px;color:var(--sub,#999);flex:0 0 auto}
+.ml.fly{transform:translateX(110%);opacity:0}
+.mgrp{font-size:12px;color:var(--sub,#999);margin-top:8px;border-top:1px dashed var(--line,#555);padding-top:6px}
+.ibxf{display:flex;flex-direction:column;gap:8px;position:sticky;bottom:0;padding-top:8px;background:linear-gradient(transparent,var(--bg,#111) 30%)}
+/* 図鑑・称号 */
+.v5z{display:flex;flex-direction:column;gap:8px}
+.zgrp{font-weight:900;font-size:13px;color:var(--acc,#ffd400);margin-top:4px}
+.zmed{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.zm{position:relative;display:flex;flex-direction:column;padding:6px 8px 8px 40px;border-radius:8px;background:rgba(255,255,255,.06);overflow:hidden;min-height:46px}
+.zm i{position:absolute;left:6px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:900 13px sans-serif;font-style:normal;background:#333;color:#888}
+.zm.gold i{background:radial-gradient(circle at 35% 30%,#fff7b0,#e0a800);color:#5a3a00;box-shadow:0 0 10px #ffd400}
+.zm.silv i{background:radial-gradient(circle at 35% 30%,#fff,#a9b4c2);color:#333}
+.zm.brnz i{background:radial-gradient(circle at 35% 30%,#ffd0a0,#b0662a);color:#3a1a00}
+.zm b{font-size:13px}.zm small{font-size:10.5px;color:var(--sub,#aaa);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.zm em{position:absolute;left:0;bottom:0;height:3px;background:var(--acc,#ffd400)}
+.zrec{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.zrec div{display:flex;flex-direction:column;align-items:center;padding:6px 2px;border-radius:8px;background:rgba(255,255,255,.06);text-align:center}
+.zrec b{font-size:20px;font-weight:900}.zrec b i{font-size:11px;font-style:normal;font-weight:400}.zrec small{font-size:10px;color:var(--sub,#aaa)}
+.zttl{font-size:14px}.zttl b{color:var(--acc,#ffd400);font-size:17px}
+.zach{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.za{position:relative;display:flex!important;flex-direction:column;align-items:flex-start!important;text-align:left;padding:8px!important;min-height:56px;opacity:.45}
+.za.got{opacity:1;border-color:var(--acc,#ffd400)!important}
+.za.on{background:var(--acc,#ffd400)!important;color:#111!important}
+.za b{font-size:14px}.za small{font-size:10.5px;font-weight:400}
+.za em{position:absolute;right:6px;top:6px;font-style:normal;font-size:10px;background:#ff3b5c;color:#fff;border-radius:4px;padding:1px 5px}
+#homeTtl{text-align:center;font-weight:800;color:var(--acc,#ffd400)}
+.v5today{margin-top:6px;background:transparent!important;color:var(--acc,#ffd400)!important;border:2px solid var(--acc,#ffd400)!important;font-weight:900;letter-spacing:.1em}
+.v5today[hidden]{display:none!important}
+.v5bk .pair{flex:0 0 auto}.v5bkl{display:flex;flex-direction:column;gap:6px;margin:6px 0}
+.v5q label{margin:4px 0}
+#skb .sk em{display:block}
+#skb .sk .sklab{display:block;font-size:10px;font-weight:700;opacity:.8;margin-top:-1px}
+/* エンディング */
+#v5end{position:fixed;inset:0;z-index:80;background:#000;color:#fff;display:none;overflow:hidden;cursor:pointer}
+#v5end.on{display:block;animation:fadein .8s}
+.eroll{position:absolute;left:0;right:0;top:100%;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;animation:eroll 38s linear forwards;padding:0 20px}
+@keyframes eroll{to{transform:translateY(calc(-100% - 100vh))}}
+.et1{font:900 italic clamp(40px,14vw,70px) "Arial Black",sans-serif;background:linear-gradient(90deg,#ff4fd8,#ffe14f,#4fffb0,#4fb8ff,#c84fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.et2{font-size:26px;font-weight:900}.et3{font-size:13px;opacity:.7}
+.ecast{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:420px;margin:20px 0}
+.ecr{display:flex;flex-direction:column;align-items:center;gap:2px}
+.ecr img{width:84px;height:84px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid #fff}
+.ecr b{font-size:16px}.ecr small{font-size:11px;opacity:.7}
+.ecred h4{margin:22px 0 4px;font-size:12px;letter-spacing:.2em;opacity:.6}.ecred p{margin:0;font-size:14px;line-height:1.7}
+.et4{font:900 italic 22px "Arial Black",sans-serif;margin:60px 0 40vh}
+.eskip{position:absolute;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 12px);width:auto!important;font-size:12px;opacity:.6;background:transparent!important;color:#fff!important}
+
 </style>
 </head>
 <body class="dopa">
@@ -1185,7 +1293,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <h2>設定</h2>
   <details class="dt"><summary>ルールの説明</summary><div class="hint">
     1周目は日本語→英語、2周目は英語→日本語で、どちらも3択です。2回とも正解で合格、スキップは不合格です。合格が1回なら正解、2回たまると習得済みになり、未習得テストと復習には出なくなります。<br>
-    復習はテストではなく、学習タブの暗記カードです（範囲で「復習」を選ぶと、前回不合格だった単語だけが出ます。覚えたら「覚えた」で外せます）。学習タブでは、全体・ステージ・番号指定で範囲を選べます。全体テストは習得の記録に反映されません。全体テストを受けると6時間ロックされます（全問習得済みのテストはロックされません。習得済みのステージには ✅ が付きます）。<br>
+    習得した単語は、1日後・4日後・10日後・3週間後・以降6週間ごとに「今日の復習」として出てきます（暗記カード→確認テスト。間違えると間隔が2段階短くなります）。要復習（前回不合格）は学習タブの暗記カードです（範囲で「復習」を選ぶと、前回不合格だった単語だけが出ます。覚えたら「覚えた」で外せます）。学習タブでは、全体・ステージ・番号指定で範囲を選べます。全体テストは習得の記録に反映されません。全体テストを受けると6時間ロックされます（全問習得済みのテストはロックされません。習得済みのステージには ✅ が付きます）。<br>
     連続正解が5・10・20・40・80・160回になると演出が入り、回数が増えるほど派手になります（演出と効果音はステージごとに違います。演出のたびに背景の色が変わり、連続が続くほど明るく鮮やかになります）。全単語のテスト（出題数を絞らない）で得点率が90%以上だと、結果画面で「確定」演出が出てキャラクターを入手できます。<br>
   </div></details>
   <div class="dop"><h3>カラーテーマ</h3>
@@ -1294,8 +1402,8 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <div class="hint">【変更点】頻度順（SFI順位）をもとにPartとステージへ並べ替え、日本語の意味と品詞を付けています（意味・品詞はアプリ作者による自作）。元のリストの作者がこの内容を推奨・保証するものではありません。</div>
   <div class="hint">【継承】この単語リスト（英単語・日本語の意味・品詞）を再配布・改変する場合は、同じCC BY-SA 4.0で公開し、上記の出典表示を残してください。</div>
   </details>
-  <details class="dt"><summary>立ち絵（わたおきば）</summary>
-  <div class="hint">全キャラクターとハズレの仲間の立ち絵は「立ち絵素材 わたおきば」（https://wataokiba.net/）の素材です（縮小・余白の切り取りをしています）。キャラ名・設定はこのアプリ独自のものです。</div>
+  <details class="dt"><summary>立ち絵（わたおび／わたおきば）</summary>
+  <div class="hint">全キャラクターとハズレの仲間の立ち絵は、わたおびさんの「立ち絵素材 わたおきば」（https://wataokiba.net/）の素材です（縮小・余白の切り取りをしています）。キャラ名・設定はこのアプリ独自のものです。</div>
   <div class="hint">【キャラと素材ファイル名の対応】<br>c01 楓：josei_01_a<br>c02 栞：josei_07_a<br>c03 夏帆：josei_03_a<br>c04 綾：josei_06_a<br>c05 冬華：josei_04_a<br>c06 結衣：josei_11_a<br>c07 クロ：josei_10_a<br>c08 レン：josei_20_a<br>c09 イオ：josei_16_a<br>c10 萌黄：josei_02_tsuno_a<br>c11 朝顔：josei_09_b_a<br>c12 鈴麗：josei_12_a<br>c13 千代：josei_05_a<br>c14 イリス：josei_15_02_a<br>c15 エルナ：josei_08_a<br>c16 ミナモ：josei_13_a<br>c17 雪乃：josei_17_a<br>c18 鈴音：josei_14_a<br>c19 リリス：josei_19_01_a<br>c20 光：josei_18_01_a<br>ハズレの仲間：animal_01／obake／robot／teddybear_blue／teddybear_brown</div>
   <div class="hint">【規約の要約】サイトの利用規約・Q&Aより（利用規約の最終改訂は2018年10月13日。変更される場合があるため、公式の最新版を確認してください）<br>・商用・非商用とも無料。ただし著作権は放棄されていません。<br>・クレジット表記や使用報告は必須ではありませんが、表記する場合はサイト名か作者名を書きます。<br>・縮小・拡大・色変更・トリミング・左右反転・表情や小物の追加などの加工はOK。元の絵からかけ離れる加工は控えるよう案内されています。<br>・素材そのものの再配布・販売、自作発言、法に触れる使い方は禁止です。<br>・Q&Aには「使用前に用途を連絡してください」という記載があります。</div>
   </details>
@@ -2003,7 +2111,7 @@ function cardSVG(id,href,star,opt){
  return o+'</svg>'}
 
 
-var CPL={"c01":["楓だよ。今日も一緒にがんばろ！","風みたいに、さくっと覚えちゃお","ちょっと休憩？ 五分だけね","単語って、口に出すと覚えやすいよ","あ、それ昨日やったやつ！ 覚えてる？","秋の紅葉、一緒に見に行きたいなあ","実はね、英語の歌で単語覚えたんだ","できた日は、自分をほめてあげてね","あなたと走ると、どこまでも行けそう","迷ったら、私が追い風になるから","ずっと隣で、応援させてね"],"c02":["栞です。本の続き、一緒に読みませんか","知らない単語は、新しい扉です","静かな時間、好きですよ","ひとつの言葉に、いくつも物語があります","今日のページ、もう少しだけ進めましょう","図書館の匂いって、落ち着きますよね","覚えた言葉は、ずっとあなたの味方です","あなたの成長、ちゃんと記録してますよ","読み終えた本みたいに、自信になります","あなたとなら、どんな本も読めそう","これからも、同じページをめくらせてください"],"c03":["夏帆だよ！ 今日もいい天気！","海風みたいに、気持ちよくいこう","ほら、肩の力抜いて！","間違えても大丈夫、波は何度でも来るよ","あと一問、いける気がしない？","夏の宿題は、最終日派だったんだ","英語ができたら、どこの海にも行けるね","あなたの頑張り、まぶしいよ","いつか一緒に、遠くの海に行こうね","帆を上げたら、もう止まらないよ","あなたは、私の夏そのものだよ"],"c04":["綾よ。べ、別に待ってたわけじゃないわ","さっさと始めなさいよ","…まあ、昨日よりはマシね","間違えた単語、ちゃんと見直しなさい","褒めてないわよ。事実を言っただけ","休むのも大事よ。…倒れられたら困るし","あなたの努力くらい、知ってるわよ","特別に、コツを教えてあげる","…ちょっとだけ、かっこよかったわよ","私がついてるんだから、負けないで","これからも、隣にいてあげる。仕方ないから"],"c05":["冬華です。今日も、私が守ります","焦らなくて大丈夫","寒い日は、温かい飲み物をどうぞ","ミスしても、私がカバーします","続けることが、いちばんの力です","マフラー、手作りなんです","あなたの集中、ちゃんと伝わってます","雪の日の静けさ、好きなんです","あなたが笑うと、少し温かくなります","どんな吹雪でも、そばにいます","あなたの春が来るまで、守り続けます"],"c06":["結衣です。はじめまして、よろしくね","新しい単語、わくわくしますね","一歩ずつで、いいんですよ","知らなかったことを知るって、素敵です","今日の出会いに、感謝です","実は私も、緊張しやすいんです","覚えた単語、誰かに話してみて","あなたと出会えて、よかった","次はどんな扉を開けましょうか","あなたの一歩は、ちゃんと前に進んでます","これからも、一緒に新しい景色を見ようね"],"c07":["クロだにゃ。今日はツイてるかも","黒猫は幸運の印なんだにゃ","なでても、いいにゃ","当たりは、頑張った人に来るにゃ","眠いけど、付き合ってあげるにゃ","日向ぼっこ、最高にゃ","あなたの運、私が上げてあげるにゃ","ごほうびは、おやつがいいにゃ","あなたの膝、特等席にゃ","ずっと一緒なら、毎日大当たりにゃ","あなたは、私の一番の幸運にゃ"],"c08":["レン。…よろしく","さっさと行こう","最初の五問で、流れを作る","スピードは、慣れでつく","今のペース、悪くない","音楽聴きながら走るの、好き","あんた、意外と根性あるね","置いていかないから、ついてきて","…あんたとなら、走るの楽しい","先頭は譲らない。でも隣は空けとく","これからも、一緒に走ろう"],"c09":["イオです。システム、起動完了！","今日の目標、設定しましょう","集中モード、オンです","ラストの追い込み、任せてください","データ解析中…あなた、伸びてますよ","休憩も、大事なメンテナンスです","通信、良好。あなたの声、届いてます","あなたの記録、全部保存してます","出力最大で、あなたを支えます","エラーが出ても、一緒に直しましょう","あなたは、私の最優先事項です"],"c10":["萌黄です。のんびりいきましょう","小さな芽も、毎日伸びてます","続ければ、ちゃんとつながります","この角？ 生まれつきなんです","水をあげるみたいに、毎日少しずつ","お花のお世話、好きなんです","あなたの努力、芽吹いてきましたね","連続正解、きれいな鎖みたい","あなたといると、ぽかぽかします","いつか大きな木になりましょうね","あなたと育てた森、ずっと大事にします"],"c11":["朝顔です。おはようございます","朝の勉強、気持ちいいですよ","早起きは、ごほうびがありますね","花は毎朝、新しく咲くんです","十問続いたら、ごほうびですよ","夏祭りの浴衣、似合ってますか？","朝日って、元気をくれますね","昨日のあなたより、きれいに咲いてます","あなたの朝に、私がいられて嬉しい","毎朝、あなたを待ってますね","あなたと見る朝日が、いちばん好きです"],"c12":["鈴麗よ。今日もいい商売日和ね","福は、準備した人に来るのよ","ガチャ、少しお得にしてあげる","損して得取れ、ってね","鈴の音、縁起がいいでしょ","肉まん、半分こする？","あなた、なかなか見込みあるわね","努力は、一番確実な投資よ","あなたとの縁、大事にしたいわ","福が来たら、一緒に喜びましょう","あなたは、私のいちばんの宝物よ"],"c13":["千代と申す。よろしく頼む","覚えたことは、忘れさせぬ","繰り返すことこそ、力となる","昔の言葉も、今の言葉も、美しい","焦るでない。千年は長いぞ","お茶でも、いかがかな","そなたの記憶、確かに育っておる","習得した言葉にこそ、真の力が宿る","そなたとの時間、悪くない","我が記憶に、そなたを刻もう","千代に八千代に、そなたと共に"],"c14":["イリスだ。共に戦おう","失敗は、反撃の合図だ","剣も言葉も、鍛錬あるのみ","倒れても、また立てばいい","今の一撃、見事だった","鎧の手入れは、欠かせない","そなたの勇気、確かに見届けた","騎士の誓い、そなたに捧げよう","…そなたの隣は、居心地がいい","どんな逆境も、共に越えよう","我が剣は、永遠にそなたのために"],"c15":["エルナです。森の精霊が、喜んでいます","言葉には、古い力が宿ります","二周目こそ、本当の理解です","森では、時間がゆっくり流れるの","風の声、聞こえますか？","エルフの寿命？ 内緒です","あなたの学び、精霊が見守ってます","古の言葉も、あなたなら読めるはず","あなたの魔力、強くなりましたね","この森に、あなたの居場所を作りました","千年先も、あなたを覚えています"],"c16":["ミナモだよ。波の音、聞こえる？","ひとつのミスくらい、海が流してくれるよ","深呼吸、深呼吸","泳ぐのも勉強も、続けると楽になるよ","水面がきらきら、きれいだね","陸の歌、教えてほしいな","あなたの頑張り、海の底まで届いてる","大丈夫、私が包んであげる","あなたと話すと、心が凪ぐの","いつか、海の言葉も教えてあげる","あなたは、私の宝石みたい"],"c17":["雪乃です。最後まで、一緒にいます","ゴールまで、あと少し","静かに、確実に","雪は、少しずつ積もるもの","完走できたら、ごほうびですね","雪景色、見せてあげたいな","あなたの足跡、ちゃんと続いてます","途中でやめないあなた、尊敬します","あなたのそばは、雪の日でも温かい","どんな長い道も、隣を歩きます","最後の一歩まで、ずっと一緒です"],"c18":["鈴音。…お面の下が、気になる？","上を目指すなら、今日も一歩","自分の記録を、越えていこう","鈴の音は、迷いを祓うの","限界は、決めたところにあるだけ","お祭りの夜、好きなんだ","あなたの最高記録、更新中だね","…この面を外すのは、あなたの前だけ","あなたとなら、もっと高く行ける","鈴の音が聞こえたら、私がいる","あなたの空に、どこまでもついていく"],"c19":["リリスよ。ひれ伏しなさい？ 冗談よ","運命なんて、曲げてしまえばいいの","ふふ、真面目なのね","夜は、私の時間","ガチャの運、少し分けてあげる","紅茶はね、甘いのが好き","あなた、退屈しないわね","女王の祝福、特別にあげる","…あなたのこと、気に入ってるのよ","私の幸運、全部あなたにあげる","永遠の夜も、あなたとなら悪くない"],"c20":["光です。あなたに、祝福を","今日の努力に、光あれ","迷ったら、空を見上げて","すべての正解に、加護を","あなたは、ひとりじゃありません","羽根、触ってみますか？","あなたの心、まっすぐですね","天使にも、苦手なことはあるんですよ","あなたを見守るのが、私の幸せです","どんな夜も、私が照らします","あなたの未来は、光に満ちています"]};
+var CPL={"c01":["楓だよ。今日も一緒にがんばろ！","風みたいに、さくっと覚えちゃお","ちょっと休憩？ 五分だけね","単語って、口に出すと覚えやすいよ","あ、それ昨日やったやつ！ 覚えてる？","秋の紅葉、一緒に見に行きたいなあ","実はね、英語の歌で単語覚えたんだ","できた日は、自分をほめてあげてね","あなたと走ると、どこまでも行けそう","迷ったら、私が追い風になるから","ずっと隣で、応援させてね","覚醒完了！ 今なら風より速く走れるよ"],"c02":["栞です。本の続き、一緒に読みませんか","知らない単語は、新しい扉です","静かな時間、好きですよ","ひとつの言葉に、いくつも物語があります","今日のページ、もう少しだけ進めましょう","図書館の匂いって、落ち着きますよね","覚えた言葉は、ずっとあなたの味方です","あなたの成長、ちゃんと記録してますよ","読み終えた本みたいに、自信になります","あなたとなら、どんな本も読めそう","これからも、同じページをめくらせてください","最後のページまで、あなたと読み切りました"],"c03":["夏帆だよ！ 今日もいい天気！","海風みたいに、気持ちよくいこう","ほら、肩の力抜いて！","間違えても大丈夫、波は何度でも来るよ","あと一問、いける気がしない？","夏の宿題は、最終日派だったんだ","英語ができたら、どこの海にも行けるね","あなたの頑張り、まぶしいよ","いつか一緒に、遠くの海に行こうね","帆を上げたら、もう止まらないよ","あなたは、私の夏そのものだよ","覚醒しちゃった！ 夏はまだまだ終わらないよ"],"c04":["綾よ。べ、別に待ってたわけじゃないわ","さっさと始めなさいよ","…まあ、昨日よりはマシね","間違えた単語、ちゃんと見直しなさい","褒めてないわよ。事実を言っただけ","休むのも大事よ。…倒れられたら困るし","あなたの努力くらい、知ってるわよ","特別に、コツを教えてあげる","…ちょっとだけ、かっこよかったわよ","私がついてるんだから、負けないで","これからも、隣にいてあげる。仕方ないから","か、覚醒したのは、あなたのためじゃないんだから"],"c05":["冬華です。今日も、私が守ります","焦らなくて大丈夫","寒い日は、温かい飲み物をどうぞ","ミスしても、私がカバーします","続けることが、いちばんの力です","マフラー、手作りなんです","あなたの集中、ちゃんと伝わってます","雪の日の静けさ、好きなんです","あなたが笑うと、少し温かくなります","どんな吹雪でも、そばにいます","あなたの春が来るまで、守り続けます","覚醒した盾は、もう誰にも砕けません"],"c06":["結衣です。はじめまして、よろしくね","新しい単語、わくわくしますね","一歩ずつで、いいんですよ","知らなかったことを知るって、素敵です","今日の出会いに、感謝です","実は私も、緊張しやすいんです","覚えた単語、誰かに話してみて","あなたと出会えて、よかった","次はどんな扉を開けましょうか","あなたの一歩は、ちゃんと前に進んでます","これからも、一緒に新しい景色を見ようね","あなたと出会えたから、ここまで来られました"],"c07":["クロだにゃ。今日はツイてるかも","黒猫は幸運の印なんだにゃ","なでても、いいにゃ","当たりは、頑張った人に来るにゃ","眠いけど、付き合ってあげるにゃ","日向ぼっこ、最高にゃ","あなたの運、私が上げてあげるにゃ","ごほうびは、おやつがいいにゃ","あなたの膝、特等席にゃ","ずっと一緒なら、毎日大当たりにゃ","あなたは、私の一番の幸運にゃ","覚醒したにゃ。今日から毎日大当たりにゃ"],"c08":["レン。…よろしく","さっさと行こう","最初の五問で、流れを作る","スピードは、慣れでつく","今のペース、悪くない","音楽聴きながら走るの、好き","あんた、意外と根性あるね","置いていかないから、ついてきて","…あんたとなら、走るの楽しい","先頭は譲らない。でも隣は空けとく","これからも、一緒に走ろう","…覚醒。あんたとなら、どこまでも速く"],"c09":["イオです。システム、起動完了！","今日の目標、設定しましょう","集中モード、オンです","ラストの追い込み、任せてください","データ解析中…あなた、伸びてますよ","休憩も、大事なメンテナンスです","通信、良好。あなたの声、届いてます","あなたの記録、全部保存してます","出力最大で、あなたを支えます","エラーが出ても、一緒に直しましょう","あなたは、私の最優先事項です","全システム覚醒。出力、限界突破です"],"c10":["萌黄です。のんびりいきましょう","小さな芽も、毎日伸びてます","続ければ、ちゃんとつながります","この角？ 生まれつきなんです","水をあげるみたいに、毎日少しずつ","お花のお世話、好きなんです","あなたの努力、芽吹いてきましたね","連続正解、きれいな鎖みたい","あなたといると、ぽかぽかします","いつか大きな木になりましょうね","あなたと育てた森、ずっと大事にします","小さな芽が、大きな木になりました"],"c11":["朝顔です。おはようございます","朝の勉強、気持ちいいですよ","早起きは、ごほうびがありますね","花は毎朝、新しく咲くんです","十問続いたら、ごほうびですよ","夏祭りの浴衣、似合ってますか？","朝日って、元気をくれますね","昨日のあなたより、きれいに咲いてます","あなたの朝に、私がいられて嬉しい","毎朝、あなたを待ってますね","あなたと見る朝日が、いちばん好きです","覚醒の朝です。今日も一緒に咲きましょう"],"c12":["鈴麗よ。今日もいい商売日和ね","福は、準備した人に来るのよ","ガチャ、少しお得にしてあげる","損して得取れ、ってね","鈴の音、縁起がいいでしょ","肉まん、半分こする？","あなた、なかなか見込みあるわね","努力は、一番確実な投資よ","あなたとの縁、大事にしたいわ","福が来たら、一緒に喜びましょう","あなたは、私のいちばんの宝物よ","覚醒記念よ。今日は大盤振る舞いね"],"c13":["千代と申す。よろしく頼む","覚えたことは、忘れさせぬ","繰り返すことこそ、力となる","昔の言葉も、今の言葉も、美しい","焦るでない。千年は長いぞ","お茶でも、いかがかな","そなたの記憶、確かに育っておる","習得した言葉にこそ、真の力が宿る","そなたとの時間、悪くない","我が記憶に、そなたを刻もう","千代に八千代に、そなたと共に","千年分の記憶、すべてそなたに捧げよう"],"c14":["イリスだ。共に戦おう","失敗は、反撃の合図だ","剣も言葉も、鍛錬あるのみ","倒れても、また立てばいい","今の一撃、見事だった","鎧の手入れは、欠かせない","そなたの勇気、確かに見届けた","騎士の誓い、そなたに捧げよう","…そなたの隣は、居心地がいい","どんな逆境も、共に越えよう","我が剣は、永遠にそなたのために","覚醒した剣は、永遠にそなたと共に"],"c15":["エルナです。森の精霊が、喜んでいます","言葉には、古い力が宿ります","二周目こそ、本当の理解です","森では、時間がゆっくり流れるの","風の声、聞こえますか？","エルフの寿命？ 内緒です","あなたの学び、精霊が見守ってます","古の言葉も、あなたなら読めるはず","あなたの魔力、強くなりましたね","この森に、あなたの居場所を作りました","千年先も、あなたを覚えています","森のすべての精霊が、あなたを祝福しています"],"c16":["ミナモだよ。波の音、聞こえる？","ひとつのミスくらい、海が流してくれるよ","深呼吸、深呼吸","泳ぐのも勉強も、続けると楽になるよ","水面がきらきら、きれいだね","陸の歌、教えてほしいな","あなたの頑張り、海の底まで届いてる","大丈夫、私が包んであげる","あなたと話すと、心が凪ぐの","いつか、海の言葉も教えてあげる","あなたは、私の宝石みたい","深い海の底から、あなたに届いたよ"],"c17":["雪乃です。最後まで、一緒にいます","ゴールまで、あと少し","静かに、確実に","雪は、少しずつ積もるもの","完走できたら、ごほうびですね","雪景色、見せてあげたいな","あなたの足跡、ちゃんと続いてます","途中でやめないあなた、尊敬します","あなたのそばは、雪の日でも温かい","どんな長い道も、隣を歩きます","最後の一歩まで、ずっと一緒です","最後まで来てくれて、ありがとう"],"c18":["鈴音。…お面の下が、気になる？","上を目指すなら、今日も一歩","自分の記録を、越えていこう","鈴の音は、迷いを祓うの","限界は、決めたところにあるだけ","お祭りの夜、好きなんだ","あなたの最高記録、更新中だね","…この面を外すのは、あなたの前だけ","あなたとなら、もっと高く行ける","鈴の音が聞こえたら、私がいる","あなたの空に、どこまでもついていく","お面はもういらない。素顔で、あなたの隣に"],"c19":["リリスよ。ひれ伏しなさい？ 冗談よ","運命なんて、曲げてしまえばいいの","ふふ、真面目なのね","夜は、私の時間","ガチャの運、少し分けてあげる","紅茶はね、甘いのが好き","あなた、退屈しないわね","女王の祝福、特別にあげる","…あなたのこと、気に入ってるのよ","私の幸運、全部あなたにあげる","永遠の夜も、あなたとなら悪くない","覚醒した女王の祝福よ。受け取りなさい"],"c20":["光です。あなたに、祝福を","今日の努力に、光あれ","迷ったら、空を見上げて","すべての正解に、加護を","あなたは、ひとりじゃありません","羽根、触ってみますか？","あなたの心、まっすぐですね","天使にも、苦手なことはあるんですよ","あなたを見守るのが、私の幸せです","どんな夜も、私が照らします","あなたの未来は、光に満ちています","あなたに、最上の祝福を"]};
 var CBOSS={"c01":["私に追いつけるかな？","わっ、速い！","風が、乱れる…","そんな一撃、ずるいよ！","参った！ 一緒に走ろう！","まだまだ、追い風は私の味方！","これからよろしくね！"],"c02":["この本を、読み解けますか？","あっ、ページが…","正確ですね…","全部、読まれちゃった…","あなたの勝ちです。続きは一緒に","まだ、最後のページじゃありませんよ","あなたの物語に、入れてください"],"c03":["夏の波、越えられる？","しぶきが！","いい波だね！","大波だ！","負けたー！ 一緒に海に行こ！","まだ、夏は終わらないよ！","今日から仲間だね！"],"c04":["私に勝てるとでも？","くっ…","な、なかなかやるじゃない","う、うそでしょ…","…認めてあげるわ","ふん、まだまだね","し、仕方ないから仲間になってあげる"],"c05":["私の守り、崩せますか","うっ…","盾が、揺れる…","氷の盾が…！","あなたなら、守る価値があります","まだ、守りは崩れていません","これからは、あなたを守ります"],"c06":["私と、出会ってくれますか？","ひゃっ！","いい調子ですね","すごい…！","素敵な出会いに、感謝です","また、出会いに来てくださいね","これから、よろしくお願いします"],"c07":["運試し、するにゃ？","にゃっ！","痛いにゃ！","大当たりにゃ！？","負けたにゃ。ついていくにゃ","今日はツキがなかったにゃ","幸運、分けてあげるにゃ"],"c08":["ついてこれる？","…ちっ","速いじゃん","…抜かれた","あんたの勝ち。一緒に走るよ","まだ、先頭は私","よろしく、相棒"],"c09":["システム、戦闘モード","ダメージ検知！","出力低下…","システム、ダウン…！","あなたの勝利を、記録しました","エラー修正後、再挑戦を推奨","あなたを、マスターに登録しました"],"c10":["芽吹く力、見せてあげます","わっ","根っこが揺れます…","大きな一撃…！","参りました。一緒に育ちましょう","まだ、根は張っていますよ","よろしくお願いします"],"c11":["朝の勝負、しましょう","きゃっ","まぶしい…","花びらが…！","あなたの朝に、咲かせてください","また明日の朝、待ってます","毎朝、お供しますね"],"c12":["この勝負、高くつくわよ","いたっ","損した…","大赤字…！","参ったわ。投資させてもらうわね","まだまだ、元は取ってないわ","いい取引だったわ"],"c13":["我が記憶、試させてもらう","むっ","やるではないか","見事なり…！","そなたの記憶、確かに見届けた","まだ、千年早いぞ","そなたと共に、歩もう"],"c14":["いざ、尋常に勝負！","ぐっ","鋭い…！","見事な一撃…！","我が剣、そなたに捧げよう","まだだ、騎士は倒れぬ","今日から、そなたの騎士だ"],"c15":["精霊の試練です","あっ","森が、ざわめく…","古の力が…！","あなたを、森が認めました","精霊は、まだ満足していません","共に、森を歩みましょう"],"c16":["深い海まで、来られる？","ひゃっ","波が、乱れる…","渦が…！","あなたの勝ち。一緒に泳ご","海は、まだ広いよ","よろしくね"],"c17":["最後まで、ついてこられますか","あっ…","雪が、溶けていく…","吹雪が、止んだ…","あなたなら、最後まで行けますね","まだ、ゴールは遠いですよ","最後まで、お供します"],"c18":["この面の下、見てみる？","…くっ","やるね","鈴が、鳴りやまない…","…あなたの前でなら、面を外す","まだ、高みには遠いよ","どこまでも、ついていく"],"c19":["女王に挑むなんて、いい度胸ね","きゃっ","ふふ、やるじゃない","そんな…私が？","いいわ。あなたのものになってあげる","ほら、ひれ伏しなさい？","あなたの夜を、彩ってあげる"],"c20":["天の試練を、受けますか","あっ","光が、揺らぐ…","まぶしい…！","あなたに、真の祝福を","まだ、光は届いていません","これからは、あなたの天使です"]};
 
 var CIMU={};
@@ -2015,7 +2123,7 @@ var CGI=0,CGV='grid';try{CGV=localStorage.getItem('dopa:cgv2')==='card'?'card':'
 function cgHtml(){
   var own=CHARS.filter(function(c){return lvOf(c.id)}),lk=CHARS.filter(function(c){return !lvOf(c.id)}),L=own.concat(lk);
   CGI=Math.min(CGI,L.length-1);
-  var sl=CGV!=='card'?'':L.map(function(c){var id=c.id,lv=lvOf(id),eq=G.party.indexOf(id)>=0,n=cplN(lv),t=CTH[id],no=("0"+(CHARS.indexOf(c)+1)).slice(-2),seg="";
+  var sl=CGV!=='card'?'':L.map(function(c){var id=c.id,lv=lvOf(id),eq=G.party.indexOf(id)>=0,n=cplN(lv,id),t=CTH[id],no=("0"+(CHARS.indexOf(c)+1)).slice(-2),seg="";
     for(var q=1;q<=5;q++)seg+='<i'+(q<=lv?' class="f"':'')+'></i>';
     return '<div class="cgs zz'+(lv?'':' lk')+'" data-id="'+id+'" style="--zc:'+t.bg[1]+';--zd:'+t.bg[2]+'"><div class="zbg"><span class="zno">'+no+'</span><i class="zht"></i></div>'+
      '<div class="cgc'+(lv?'':' lk')+'" data-talk="'+(lv?id:'')+'">'+cardSVG(id,cImg(id),c.s,{uid:"g"+id,lock:!lv})+'<div class="cpbub"></div>'+(lv?'':'<div class="cglk"><b>？？？</b></div>')+'</div>'+
@@ -2049,7 +2157,7 @@ function cgBind(){
 function cgGo(id){var g=$("cgal");if(!g){CGV='card';var L=CHARS.filter(function(c){return lvOf(c.id)}).concat(CHARS.filter(function(c){return !lvOf(c.id)}));CGI=Math.max(0,L.map(function(c){return c.id}).indexOf(id));renderG('');return}var k=-1;Array.prototype.forEach.call(g.children,function(s,i){if(s.getAttribute("data-id")===id)k=i});if(k<0)return;CGI=k;g.scrollTo?g.scrollTo({left:k*g.clientWidth,behavior:"smooth"}):g.scrollLeft=k*g.clientWidth}
 var CGL={};
 function cgTalk(id,c){
-  var L=(CPL[id]||[]).slice(0,cplN(lvOf(id)));if(!L.length)return;var k;do{k=Math.floor(Math.random()*L.length)}while(L.length>1&&k===CGL[id]);CGL[id]=k;
+  var L=(CPL[id]||[]).slice(0,cplN(lvOf(id),id));if(!L.length)return;var k;do{k=Math.floor(Math.random()*L.length)}while(L.length>1&&k===CGL[id]);CGL[id]=k;
   var line=L[k],b=c.querySelector(".cpbub");
   if(b){b.textContent=line;b.classList.remove("on");void b.offsetWidth;b.classList.add("on")}
   c.classList.remove("tap");void c.offsetWidth;c.classList.add("tap");
@@ -2085,7 +2193,7 @@ function openCP(id){
 }
 function cpClose(){var el=$("cpg");el.classList.add("inv");el.innerHTML="";try{renderG("")}catch(e){}}
 function cpRender(dir){
-  var id=CPG.list[CPG.i],c=cById(id),lv=lvOf(id),t=CTH[id],eq=G.party.indexOf(id)>=0,n=cplN(lv),el=$("cpg");
+  var id=CPG.list[CPG.i],c=cById(id),lv=lvOf(id),t=CTH[id],eq=G.party.indexOf(id)>=0,n=cplN(lv,id),el=$("cpg");
   el.style.setProperty("--c0",t.bg[0]);el.style.setProperty("--c1",t.bg[1]);el.style.setProperty("--c2",t.bg[2]);el.style.setProperty("--ca",t.acc);
   el.innerHTML='<div class="cpbg"></div><div class="cptop"><span>'+(CPG.i+1)+' / '+CPG.list.length+'</span><button class="pclose" id="cpx">✕ 閉じる</button></div>'+
    '<div class="cpmain"><button class="cpnav l" id="cpl" aria-label="前のキャラ">‹</button><div class="cpcard'+(dir?(dir>0?' inR':' inL'):'')+'" id="cpc">'+cardSVG(id,cImg(id),c.s,{uid:"cp"+id})+'<div class="cpbub" id="cpb"></div></div><button class="cpnav r" id="cpr" aria-label="次のキャラ">›</button></div>'+
@@ -2103,7 +2211,7 @@ function cpRender(dir){
 }
 function cpGo(d){if(CPG.list.length<2)return;CPG.i=(CPG.i+d+CPG.list.length)%CPG.list.length;CPG.last=-1;try{if(ac())capRun(0.2,function(){sBlip(pf(d>0?9:7),AC.currentTime+0.01,0.06,0.05,"triangle")})}catch(e){}cpRender(d)}
 function cpTalk(){
-  var id=CPG.list[CPG.i],L=(CPL[id]||[]).slice(0,cplN(lvOf(id)));if(!L.length)return;
+  var id=CPG.list[CPG.i],L=(CPL[id]||[]).slice(0,cplN(lvOf(id),id));if(!L.length)return;
   var k;do{k=Math.floor(Math.random()*L.length)}while(L.length>1&&k===CPG.last);CPG.last=k;
   var line=L[k],b=$("cpb"),c=$("cpc");
   if(b){b.textContent=line;b.classList.remove("on");void b.offsetWidth;b.classList.add("on")}
@@ -3449,7 +3557,7 @@ function applyCustomBg(){
   vis();applyCustomBg();
 })();
 var CREDITS=["VOICEVOX:四国めたん","VOICEVOX:春日部つむぎ","VOICEVOX:雨晴はう","VOICEVOX:冥鳴ひまり","VOICEVOX:九州そら","VOICEVOX:WhiteCUL","VOICEVOX:後鬼","VOICEVOX:櫻歌ミコ","VOICEVOX:小夜/SAYO","VOICEVOX:ナースロボ＿タイプＴ","VOICEVOX:†聖騎士 紅桜†","VOICEVOX:春歌ナナ","VOICEVOX:猫使ビィ","VOICEVOX:中国うさぎ","VOICEVOX:波音リツ","VOICEVOX:あいえるたん","VOICEVOX:琴詠ニア","VOICEVOX:東北ずん子","VOICEVOX:東北きりたん","VOICEVOX:東北イタコ"];
-function credHtml(){return '<b>音声</b><br>'+CREDITS.map(esc).join("<br>")+'<br><br><b>単語リスト</b><br>NGSL（New General Service List）1.2　Browne, C., Culligan, B. &amp; Phillips, J.　CC BY-SA 4.0<br><br><b>イラスト</b><br>立ち絵素材 わたおきば（https://wataokiba.net/）<br><br>くわしい規約とライセンスは「データ」タブの「クレジット」にあります。'}
+function credHtml(){return '<b>音声</b><br>'+CREDITS.map(esc).join("<br>")+'<br><br><b>単語リスト</b><br>NGSL（New General Service List）1.2　Browne, C., Culligan, B. &amp; Phillips, J.　CC BY-SA 4.0<br><br><b>イラスト</b><br>立ち絵：わたおび（立ち絵素材 わたおきば https://wataokiba.net/）<br><br>くわしい規約とライセンスは「データ」タブの「クレジット」にあります。'}
 /* ---- 全解放パック（Google Play の買い切り。Google Play版のアプリの中でだけ表示） ---- */
 var IAP_SKU="unlock_all";
 var IAP_ACK="";/* 購入の承認をするサーバーのURL（任意）。空のときは、購入をすぐ「消費」して承認の代わりにします */
@@ -3510,7 +3618,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.24",VLOG=[
+var VERSION="1.25",VLOG=[
+ ["1.25","2026-11-12",["受信箱（INBOX）：今日の復習・ログインボーナス・お知らせなどを、メールのように上から片付けられるように","今日の復習：習得した単語を、1日後・4日後・10日後・3週間後・6週間ごとに出題（暗記カード→確認テスト）","上級モード「スペル入力」：日本語→英語の問題を、アプリ専用のキーボードで答えます（正解は得点2倍）","バックアップをファイルで保存・復元できるように（初回は◆50）。端末の中にも自動の控えを3日分","称号・単語図鑑メダル・キャラの覚醒（Lv5＋そのキャラのボスを撃破）・全語制覇エンディングを追加","初めての人向けに、キャラ・編成・ボス戦を少しずつ開放（今遊んでいる人は全部開放済み）","スキル名をキャラらしい技名に。表情の割り当てを見直し","ボス撃破・PERFECT・ステージ初クリア・★5以上のスカウトで、専用の共有文","ホームに「今日の続き」ボタン"]],
  ["1.24","2026-11-12",["掛け声を速く（以前のテンポに）。声を引き延ばさずに作り直したので音質はそのまま","起動時のアニメーションに合わせて効果音","アプリを閉じたとき・戻ったときの異音を対策","起動時・アプリに戻ったときに音楽がすぐ流れるように","全体テスト（ボス戦あり）のあと、出題数を元の設定に戻すように","スキル発動のバナーを、横から出てくる動きに戻しました","テスト結果の演出：見出しと％を同時に表示。見出しは結果に合わせて「クリア！」「完全制覇！」「決着！」などに変わります"]],
  ["1.23","2026-11-12",["キャラクターの声をリニューアル：楓・夏帆・結衣・レン・朝顔・千代・エルナ・光の声を、見た目と性格に合う声に","全キャラの話す速さ・音量・抑揚を整え、読み間違いを修正","声に「東北きりたん」を追加"]],
  ["1.22","2026-11-12",["キャラをタップしたときのセリフの吹き出しをなくしました（声と表情だけになります）"]],
@@ -3754,7 +3863,7 @@ function svgBars(days,unit){
 }
 function renderR(msg){
   var h='<div class="card" style="overflow-y:auto;gap:10px;justify-content:flex-start">';
-  h+='<div class="pair" style="flex:0 0 auto">'+[['g','グラフ'],['p','進捗'],['r','ランキング']].map(function(x){return '<button class="sm'+(recView===x[0]?' on':'')+'" data-rv="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div>';
+  h+='<div class="pair" style="flex:0 0 auto">'+[['g','グラフ'],['p','進捗'],['z','図鑑'],['a','称号'],['r','ランキング']].map(function(x){return '<button class="sm'+(recView===x[0]?' on':'')+'" data-rv="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div>';
   if(recView==='g'){
   /* 日ごとのグラフ（X軸：日付、Y軸：値） */
   var MET={m:["習得数","新しく習得した単語","単語"],q:["解答数","解いた問題数","問"],s:["獲得pt","1日に獲得した◆","◆"],c:["累計pt","累計獲得ポイントの推移","◆"]};
@@ -4114,7 +4223,7 @@ function enter(s){
   s="dopa";setSkin(s);$("homeV").hidden=true;$("appV").hidden=false;
   $("ov").classList.add("inv");
   tab("L");
-  if(s==="dopa"){var fst=!G.starter;starterCheck();if(!fst){var dl=dailyLogin();voxPrepare(false,true)}setTimeout(voxTrickle,15000)}
+  if(s==="dopa"){var fst=!G.starter;starterCheck();if(!fst){voxPrepare(false,true);setTimeout(function(){try{inboxAuto()}catch(e){}},350)}setTimeout(voxTrickle,15000)}
 }
 function homeIntro(){var h=$("homeV");if(!h)return;h.classList.remove("intro");void h.offsetWidth;h.classList.add("intro");try{introFx()}catch(e){}}
 /* ホームの登場アニメ（四隅→斜めの線→ロゴ4文字→ボタン→下の文字）に合わせて鳴らす */
@@ -4319,6 +4428,7 @@ function fixG(g){
   r.login=(g.login&&typeof g.login.last==="string")?{last:g.login.last.slice(0,10),n:Math.max(1,Math.min(9999,parseInt(g.login.n)||1))}:{last:"",n:0};
   HZ.forEach(function(h){var v=parseInt((g.hz||{})[h.id]);if(v>0)r.hz[h.id]=Math.min(v,999999)});
   r.seenPH=g.seenPH?1:0;r.inf=g.inf?1:0;r.sp=Math.max(0,Math.min(9999,parseInt(g.sp)||0));
+  ["unl","ach","bw","awk","rvd","bk","ibx"].forEach(function(k){if(g[k]&&typeof g[k]==="object"&&!Array.isArray(g[k]))r[k]=g[k]});r.spc=Math.max(0,parseInt(g.spc)||0);r.pfc=Math.max(0,parseInt(g.pfc)||0);if(typeof g.title==="string")r.title=g.title.slice(0,12);if(typeof g.end==="string")r.end=g.end.slice(0,10);
   return r;
 }
 function saveG(){try{localStorage.setItem("dopa:game2",JSON.stringify(G))}catch(e){}}
@@ -4945,7 +5055,7 @@ function runSkills(x){
 var skT=0,SKI={};try{SKI=JSON.parse(localStorage.getItem("dopa:ski")||"{}")||{}}catch(e){SKI={}}
 function skillBanner(ids){
   var b=$("skb");if(!b)return;
-  b.innerHTML=ids.map(function(id){var c=cById(id),k=Math.max(0,(parseInt(String(id).slice(1))||1)-1);return '<div class="sk ska'+(k%5)+' sks'+Math.floor(k/5)+(c.s>=5?' skr':'')+'" style="--skh:'+((k*47)%360)+'"><div><img src="'+IMT(id)+'" alt=""><span>'+esc(c.name)+'<em>'+esc(cSk(c))+'</em></span></div></div>'}).join("");
+  b.innerHTML=ids.map(function(id){var c=cById(id),k=Math.max(0,(parseInt(String(id).slice(1))||1)-1);return '<div class="sk ska'+(k%5)+' sks'+Math.floor(k/5)+(c.s>=5?' skr':'')+'" style="--skh:'+((k*47)%360)+'"><div><img src="'+IMT(id)+'" alt=""><span>'+esc(c.name)+'<em>'+esc(cSk(c))+'</em>'+(window.cSkLab&&cSkLab(c)?'<small class="sklab">'+esc(cSkLab(c))+'</small>':'')+'</span></div></div>'}).join("");
   b.classList.remove("show");void b.offsetWidth;b.classList.add("show");
   clearTimeout(skT);skT=setTimeout(function(){b.classList.remove("show")},950);
   try{var sid=ids[0],sl=sklLine(sid),ix=(SKI[sid]||0)%sl.length,sx=sl[ix],ssp=cvoice(sid),sk=ssp+":"+sx,t0=Date.now();
@@ -5443,6 +5553,449 @@ setTimeout(function(){try{var l=document.createElement("link");l.rel="stylesheet
   var t0="g";try{t0=localStorage.getItem("dopa:stab")||"g"}catch(e){}
   set(/^[gamvsd]$/.test(t0)?t0:"g");
 })();
+/* ====================================================================
+   v1.25：復習（間隔反復）・受信箱・バックアップ・やり込み・スペル入力・段階開放
+   ==================================================================== */
+(function(){
+/* ---------- 共通 ---------- */
+function dayN(d){d=d||new Date();return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5)}
+function dnKey(n){var d=new Date(n*864e5);return d.getUTCFullYear()+"-"+("0"+(d.getUTCMonth()+1)).slice(-2)+"-"+("0"+d.getUTCDate()).slice(-2)}
+window.dayN=dayN;
+function lsGet(k,def){try{var v=JSON.parse(localStorage.getItem(k)||"null");return v===null?def:v}catch(e){return def}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function toast(t,ms){var el=$("v5toast");if(!el){el=document.createElement("div");el.id="v5toast";document.body.appendChild(el)}el.textContent=t;el.classList.remove("on");void el.offsetWidth;el.classList.add("on");clearTimeout(el._t);el._t=setTimeout(function(){el.classList.remove("on")},ms||2600)}
+window.v5toast=toast;
+function nBase(){return BASE.length||WORDS.length}
+function mastered(){var m=0;for(var i=0;i<nBase();i++)if(passes(i)>=2)m++;return m}
+function gInit(){G.unl=G.unl||{};G.ach=G.ach||{};G.bw=G.bw||{};G.awk=G.awk||{};G.rvd=G.rvd||{last:0,n:0,best:0};G.bk=G.bk||{last:0,m:0};G.spc=G.spc||0;G.pfc=G.pfc||0;G.ibx=G.ibx||{}}
+gInit();
+
+/* ---------- C10：スキル名（技名を大きく、効果名を小さく） ---------- */
+var SKN={catV:"疾風の動詞",catN:"名詞の書架",catA:"夏色の形容詞",catD:"綾なす副詞",guard:"氷の盾",fresh:"出会いの扉",jack:"黒猫の大当たり",early:"先手必勝",late:"最終出力",combo:"芽吹きの連鎖",cap:"朝日のご褒美",disc:"商売繁盛",mast:"千年の記憶",rec:"騎士の反撃",lap2:"古の言葉",free:"凪の赦し",finish:"最後まで一緒",best:"更なる高みへ",haz:"運命の魅了"};
+Object.keys(SKN).forEach(function(k){if(ABIL[k]){ABIL[k].lab=ABIL[k].sk;ABIL[k].sk=SKN[k]}});
+window.cSkLab=function(c){var a=ABIL[c.ab];return a&&a.lab&&a.lab!==a.sk?a.lab:""};
+
+/* ---------- C9：表情の割り当ての見直し ---------- */
+(function(){
+  var S={c01:"d",c02:"d",c03:"d",c04:"d",c05:"b",c06:"g",c08:"e",c09:"c",c10:"d",c11:"d",c12:"g",c13:"d",c14:"c",c15:"d",c16:"g",c17:"e",c18:"e",c19:"e",c20:"d"};
+  var I={c01:"b",c02:"b",c03:"b",c04:"b",c05:"g",c06:"b",c10:"b",c11:"b",c12:"c",c13:"b",c16:"b",c17:"b",c19:"b"};
+  var K={c20:"e",c16:"e"};
+  Object.keys(S).forEach(function(id){if(EXPR[id])EXPR[id].s=[S[id]]});
+  Object.keys(I).forEach(function(id){if(EXPR[id])EXPR[id].i=[I[id]]});
+  Object.keys(K).forEach(function(id){if(EXPR[id])EXPR[id].k=[K[id]]});
+})();
+
+/* ====================================================================
+   A1：復習（間隔反復）
+   習得 → 1日後 → 4日後 → 10日後 → 3週間後 → 以降6週間ごと。間違えたら2段階戻る
+   ==================================================================== */
+var INT=[1,4,10,21,42];
+var SRS=lsGet("dopa:srs",{});
+function srsSave(){lsSet("dopa:srs",SRS)}
+window.srsData=function(){return SRS};
+function srsInit(no){if(!SRS[no]){SRS[no]=[0,dayN()+INT[0]];return true}return false}
+function srsOk(no){var e=SRS[no]||[0,0],st=Math.min(e[0]+1,INT.length-1);SRS[no]=[st,dayN()+INT[st]]}
+function srsNg(no){var e=SRS[no]||[0,0],st=Math.max(0,e[0]-2);SRS[no]=[st,dayN()+INT[st]]}
+/* すでに習得済みの単語：いきなり全部を出さず、これから2週間に散らして予定に入れる */
+(function(){
+  if(lsGet("dopa:srsmig",0))return;var t=dayN(),n=0;
+  for(var i=0;i<nBase();i++){var no=i+1;if(passes(i)>=2&&!SRS[no]){SRS[no]=[1,t+1+Math.floor(Math.random()*14)];n++}}
+  srsSave();lsSet("dopa:srsmig",1);
+})();
+function srsDue(){
+  var t=dayN(),a=[];
+  Object.keys(SRS).forEach(function(k){var no=parseInt(k),e=SRS[k];if(no>=1&&no<=WORDS.length&&e[1]<=t)a.push([no-1,e[1]])});
+  a.sort(function(x,y){return x[1]-y[1]||x[0]-y[0]});return a.map(function(x){return x[0]});
+}
+window.srsDue=srsDue;
+function srsNext(){var t=dayN(),m=Infinity;Object.keys(SRS).forEach(function(k){if(SRS[k][1]>t&&SRS[k][1]<m)m=SRS[k][1]});return m===Infinity?0:m-t}
+
+/* ---- 暗記 → 確認テスト の流れ（復習・今日の続き 共通） ---- */
+var FLOW=null;
+function flowBar(){
+  var b=$("flowBar");if(!b)return;
+  if(!FLOW){b.hidden=true;b.innerHTML="";return}
+  b.hidden=false;
+  b.innerHTML='<div><b>'+esc(FLOW.label)+'</b><small>カードで確認したら、確認テストへ進みます（'+FLOW.ids.length+'語）</small></div><button class="main" id="flowGo">確認テストへ</button>';
+  $("flowGo").onclick=flowTest;
+}
+function flowStart(ids,mode,label){
+  if(!ids.length){toast("対象の単語がありません");return}
+  closeIbx();tab("L");
+  FLOW={ids:ids.slice(),mode:mode,label:label};
+  order=ids.slice();pos=0;shown=false;learnShow(true);render();flowBar();
+}
+window.flowStart=flowStart;
+function flowTest(){
+  if(!FLOW)return;var ids=FLOW.ids.slice(),mode=FLOW.mode;
+  skLast={};
+  T={mode:mode,ids:ids,lap:1,q:0,order:shuf(ids.slice()),res:{},answered:false,streak:0,score:0,best:0,stage:stageOf(ids),full:false,lockKey:"",flow:FLOW.label};
+  ids.forEach(function(i){T.res[i]=[null,null]});
+  FLOW=null;flowBar();
+  $("learn").hidden=true;$("test").hidden=false;$("gacha").hidden=true;$("rec").hidden=true;
+  ["L","T","G","R"].forEach(function(k){$("t"+k).classList.toggle("on",k==="T")});
+  try{voxPrefetch()}catch(e){}
+  ask();
+}
+var _rls=renderLearnSetup;
+renderLearnSetup=function(m){FLOW=null;flowBar();_rls(m);
+  try{var d=srsDue().length,box=$("lsetup");if(box&&d){var x=document.createElement("button");x.className="main v5rv";x.innerHTML="今日の復習 <b>"+d+"</b> 語　→ 暗記して確認テスト";x.onclick=function(){flowStart(srsDue(),"srs","今日の復習")};box.insertBefore(x,box.firstChild)}}catch(e){}
+};
+/* 今日の続き：復習 → 新しい単語10語 → 全体テスト の順で、いまやることへ案内 */
+function nextNew(n){var a=[],b=[];for(var i=0;i<WORDS.length;i++){var p=passes(i);if(p===1)a.push(i);else if(p===0)b.push(i);if(a.length>=n)break}return a.concat(b).slice(0,n)}
+function todayPlan(){
+  var d=srsDue();if(d.length)return {k:"rv",t:"今日の復習 "+d.length+"語",f:function(){flowStart(srsDue(),"srs","今日の復習")}};
+  var nw=nextNew(10);if(nw.length)return {k:"nw",t:"新しい単語 "+nw.length+"語",f:function(){flowStart(nextNew(10),"new","新しい単語")}};
+  return {k:"all",t:"全体テスト",f:function(){closeIbx();tab("T")}};
+}
+window.todayGo=function(){todayPlan().f()};
+
+/* ====================================================================
+   B6：スペル入力（日本語→英語の問題だけ・独自キーボード・ヒントなし）
+   ==================================================================== */
+var SPELL=lsGet("dopa:spell",false),SPW=lsGet("dopa:spw",{});
+var SPT="",SPACT=false,SPHOLD=null;
+/* 間違えたときは、正しいつづりを見てから「次へ」で進む */
+var _nextQ=nextQ;nextQ=function(){if(SPHOLD!==null){NXT=SPHOLD;SPHOLD=null}_nextQ()};
+function spOn(){return SPELL&&T&&T.lap===1}
+var KROWS=["qwertyuiop","asdfghjkl","zxcvbnm"];
+function spKbd(){
+  var h='<div class="skbd" id="skbd">';
+  KROWS.forEach(function(r,ri){h+='<div class="skr">'+(ri===2?'<button class="sk2 skw" data-sk="bk" aria-label="1文字消す">⌫</button>':'')+r.split("").map(function(c){return '<button class="sk2" data-sk="'+c+'">'+c+'</button>'}).join("")+(ri===2?'<button class="sk2 skw sko" data-sk="ok">決定</button>':'')+'</div>'});
+  return h+'</div>';
+}
+function spDraw(){var t=$("spt");if(t)t.textContent=SPT;var d=$("spd");if(d)d.classList.toggle("emp",!SPT)}
+function spKey(k){
+  if(!SPACT||!T||T.answered)return;
+  if(k==="bk"){SPT=SPT.slice(0,-1)}
+  else if(k==="ok"){spSubmit();return}
+  else if(SPT.length<24)SPT+=k;
+  spDraw();
+  try{var a=AC;if(a&&a.state==="running")tone(k==="bk"?520:900+((k.charCodeAt(0)*37)%300),a.currentTime+0.003,0.035,"square",0.012)}catch(e){}
+  try{if(navigator.vibrate)navigator.vibrate(6)}catch(e){}
+}
+function spSubmit(){
+  if(!SPACT||!T||T.answered)return;
+  if(!SPT){var d=$("spd");if(d){d.classList.remove("shk");void d.offsetWidth;d.classList.add("shk")}return}
+  var i=T.order[T.q],ans=WORDS[i][0],ok=SPT.trim().toLowerCase()===ans.toLowerCase(),before=T.score;
+  SPACT=false;
+  if(!ok&&!NXT){SPHOLD=NXT;NXT=true}
+  judge(ok?T.cur.ci:-2);
+  if(ok){var dl=T.score-before;if(dl>0){T.score+=dl;var fb=$("fb");if(fb)fb.textContent="○ 正解　+"+(dl*2)+"　スペル×2"}
+    G.spc=(G.spc||0)+1;SPW[i+1]=1;lsSet("dopa:spw",SPW);saveG();
+    if(T.boss){T.spx=(T.spx||0)+1;if(T.spx%2===0&&T.boss.hp>0)bossHit(true,false)}}
+  var typed=SPT,h='';
+  for(var k=0;k<Math.max(typed.length,1);k++){var c=typed[k]||"";h+='<i class="'+(c&&ans[k]&&c.toLowerCase()===ans[k].toLowerCase()?"g":"x")+'">'+esc(c)+'</i>'}
+  var d2=$("spd");if(d2){d2.className="spdisp "+(ok?"ok":"ng");d2.innerHTML='<span class="spty">'+(typed?h:'<i class="x">（未入力）</i>')+'</span>'+(ok?'':'<span class="spans">正解　<b>'+esc(ans)+'</b></span>')}
+  Array.prototype.forEach.call(document.querySelectorAll("#skbd button"),function(b){b.disabled=true});
+  try{speak(ans,0.9)}catch(e){}
+}
+var _ask=ask;
+ask=function(){
+  _ask();SPACT=false;
+  if(!spOn())return;
+  var ch=$("ch");if(!ch)return;
+  SPT="";SPACT=true;
+  ch.className="choices spch";
+  ch.innerHTML='<div class="spdisp emp" id="spd"><span id="spt"></span><i class="spc"></i><em>英語でつづりを入力</em></div>';
+  ch.insertAdjacentHTML("afterend",spKbd());
+  Array.prototype.forEach.call(document.querySelectorAll("#skbd button"),function(b){
+    var k=b.getAttribute("data-sk");
+    b.addEventListener("pointerdown",function(e){e.preventDefault();b.classList.add("dn");spKey(k)});
+    ["pointerup","pointerleave","pointercancel"].forEach(function(ev){b.addEventListener(ev,function(){b.classList.remove("dn")})});
+  });
+  document.body.classList.add("spmode");
+};
+document.addEventListener("keydown",function(e){
+  if(T&&T.answered&&SPELL&&e.key==="Enter"&&document.body.classList.contains("spmode")&&!$("nx").classList.contains("inv")){e.preventDefault();nextQ();return}
+  if(!SPACT||!T||T.answered||e.metaKey||e.ctrlKey||e.altKey)return;
+  var k=e.key;
+  if(k==="Backspace"){e.preventDefault();spKey("bk")}
+  else if(k==="Enter"){e.preventDefault();spKey("ok")}
+  else if(/^[a-zA-Z]$/.test(k)){e.preventDefault();spKey(k.toLowerCase())}
+});
+
+/* ---- テスト設定：スペル入力の切り替え＋（B7）ボス戦の開放前は全体テストを隠す ---- */
+var _setup=setup;
+setup=function(m){
+  _setup(m);document.body.classList.remove("spmode");
+  try{
+    var md=$("test").querySelector(".modes");
+    if(md){
+      var l=document.createElement("label");l.className="rad spopt";l.innerHTML='<input type="checkbox" id="spChk"'+(SPELL?' checked':'')+'> <span>✍ スペル入力（上級）<small>日本語→英語の問題を、キーボードで答えます。正解は得点2倍</small></span>';
+      md.parentNode.insertBefore(l,md.nextSibling);
+      $("spChk").onchange=function(){SPELL=$("spChk").checked;lsSet("dopa:spell",SPELL)};
+      var d=srsDue().length;
+      if(d){var x=document.createElement("button");x.className="main v5rv";x.innerHTML="今日の復習 <b>"+d+"</b> 語　→ 暗記して確認テスト";x.onclick=function(){flowStart(srsDue(),"srs","今日の復習")};md.parentNode.insertBefore(x,md)}
+    }
+    if(!G.unl.b){var a=$("test").querySelector('input[name=mode][value="all"]');if(a){var lb=a.closest("label");if(lb){lb.style.display="none";var h=document.createElement("div");h.className="hint v5lock";h.textContent="🔒 全体テスト（ボス戦）は、ステージを初めてクリアすると開放されます";lb.parentNode.appendChild(h)}}}
+  }catch(e){}
+};
+
+/* ====================================================================
+   finish の後処理：復習の記録・習得の予定入れ・称号・覚醒・開放・特別な共有
+   ==================================================================== */
+var SHRT="";
+var _finish=finish;
+finish=function(){
+  var TT=T,mode=TT.mode,ids=TT.ids.slice(),res=TT.res,B=TT.boss,full=!!TT.full,clr0=Object.keys(G.clear||{}).length+Object.keys(G.perf||{}).length;
+  var correct=0;ids.forEach(function(i){if(res[i][0])correct++;if(res[i][1])correct++});
+  var rate=correct/(ids.length*2),perfect=rate>=1&&ids.length*2>=20;
+  _finish();
+  document.body.classList.remove("spmode");SPACT=false;
+  var t=dayN(),notes=[];
+  if(mode==="srs"){
+    var ok=0;ids.forEach(function(i){var no=i+1;if(res[i][0]&&res[i][1]){srsOk(no);ok++}else srsNg(no)});
+    if(!srsDue().length){
+      var R=G.rvd;if(R.last!==t){R.n=(R.last===t-1)?R.n+1:1;R.last=t;R.best=Math.max(R.best||0,R.n);var bon=20+10*Math.min(R.n,10);G.stones+=bon;G.total+=bon;notes.push("今日の復習完了！ 連続"+R.n+"日　◆+"+bon)}
+    }
+  }
+  var nIn=0;for(var i=0;i<nBase();i++){if(passes(i)>=2&&srsInit(i+1))nIn++}
+  srsSave();
+  if(B&&B.hp<=0){G.bw[B.id]=1}
+  if(perfect)G.pfc=(G.pfc||0)+1;
+  saveG();updStones();
+  var clr1=Object.keys(G.clear||{}).length+Object.keys(G.perf||{}).length;
+  unlCheck();awkCheck();achCheck();endCheck();ntfDotV();
+  if(notes.length)setTimeout(function(){toast(notes.join("　"),3400)},2600);
+  /* C11：特別な結果は共有ボタンを出す */
+  var sh="";
+  if(B&&B.hp<=0)sh="どぱたんでボスの"+cById(B.id).name+"を撃破！ "+ids.length*2+"問を"+Math.round(rate*100)+"%で突破しました #どぱたん";
+  else if(perfect)sh="どぱたんで"+ids.length*2+"問PERFECT！ 英単語"+mastered()+"語マスター中 #どぱたん";
+  else if(clr1>clr0&&full)sh="どぱたん STAGE "+(TT.stage+1)+"「"+STAGES[TT.stage].l+"」をクリア！ #どぱたん";
+  if(sh){var c=$("test").querySelector(".rcard");if(c){var b=document.createElement("button");b.className="v5shr";b.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> この結果を共有';b.onclick=function(){shrSpecial(sh)};c.insertBefore(b,c.children[1]||null)}}
+};
+function shrSpecial(t){SHRT=t;shrOpen()}
+window.shrSpecial=shrSpecial;
+var _shareText=shareText;
+shareText=function(){if(SHRT)return SHRT;var tt=titleName();return _shareText()+(tt?"（称号「"+tt+"」）":"")};
+$("shrCls").addEventListener("click",function(){SHRT=""});
+/* ★5以上をスカウトしたら、ガチャの結果にも共有ボタン */
+var _showPull=showPull;
+showPull=function(res,title,fx){
+  _showPull(res,title,fx);
+  if(fx===undefined||fx===null)return;
+  var best=null;res.forEach(function(r){if(r.c&&(!best||r.c.s>best.s))best=r.c});
+  if(!best||best.s<5)return;
+  var txt="どぱたんで★"+best.s+"の"+best.name+"をスカウト！ #どぱたん",n=0;
+  var iv=setInterval(function(){
+    if(++n>60||$("pull").classList.contains("inv")){clearInterval(iv);return}
+    var ok=$("pullok");if(ok&&ok.style.visibility!=="hidden"&&!$("pullShr")){var b=document.createElement("button");b.id="pullShr";b.className="v5shr";b.textContent="★"+best.s+"をスカウトしたことを共有";b.onclick=function(){shrSpecial(txt)};ok.parentNode.insertBefore(b,ok.nextSibling);clearInterval(iv)}
+  },300);
+};
+
+/* ====================================================================
+   B7：段階的な開放（初めての人には、少しずつ見せる）
+   ==================================================================== */
+if(!G.unl.v){G.unl=(G.starter&&((prog.n||0)>0||(G.total||0)>0))?{g:1,p:1,b:1,v:1}:{v:1};saveG()}
+var UNLM={g:["キャラ（ガチャ）が開放されました！","テストで貯めた◆で、仲間をスカウトできます。キャラタブから引いてみてください。"],
+          p:["編成が開放されました！","キャラタブの「編成」で、連れていく仲間を選べます。スキルの組み合わせで得点が変わります。"],
+          b:["全体テスト（ボス戦）が開放されました！","テストタブの「全体テスト」で、各ステージのボスと戦えます。"]};
+function unlCheck(){
+  var n=prog.n||0,ch=[];
+  if(!G.unl.g&&n>=1){G.unl.g=1;ch.push("g")}
+  if(!G.unl.p&&n>=3){G.unl.p=1;ch.push("p")}
+  if(!G.unl.b&&(Object.keys(G.clear||{}).length||Object.keys(G.perf||{}).length)){G.unl.b=1;ch.push("b")}
+  if(ch.length){saveG();ch.forEach(function(k){G.ibx["u"+k]=G.ibx["u"+k]||0});setTimeout(function(){toast("🔓 "+UNLM[ch[0]][0],3200)},3000)}
+  unlTabs();
+}
+function unlTabs(){var g=$("tG");if(g)g.classList.toggle("lk",!G.unl.g)}
+var _tab=tab;
+tab=function(t){if(t==="G"&&!G.unl.g){toast("🔒 テストを1回終えると「キャラ」が開放されます");return}_tab(t);if(t!=="L"){FLOW=null;flowBar()}};
+var _renderG=renderG;
+renderG=function(m){if(!G.unl.p&&gView==="party")gView="pull";_renderG(m);if(!G.unl.p){var b=document.querySelector('#gacha [data-gv="party"]');if(b){b.disabled=true;b.textContent="🔒 編成";b.title="テストを3回終えると開放"}}};
+unlTabs();
+
+/* ====================================================================
+   B5：称号・覚醒・図鑑メダル・エンディング
+   ==================================================================== */
+var ACH=[
+ ["m100","見習い","習得100語",function(){return mastered()>=100},200],
+ ["m500","読み手","習得500語",function(){return mastered()>=500},500],
+ ["m1000","語り部","習得1000語",function(){return mastered()>=1000},1000],
+ ["m2000","賢者","習得2000語",function(){return mastered()>=2000},2000],
+ ["m2809","どぱたんマスター","全"+nBase()+"語を習得",function(){return mastered()>=nBase()},5000],
+ ["b1","挑戦者","ボスを初めて撃破",function(){return Object.keys(G.bw).length>=1},300],
+ ["b20","ボスハンター","20人全員のボスを撃破",function(){return Object.keys(G.bw).length>=20},3000],
+ ["pf10","パーフェクショニスト","PERFECTを10回",function(){return (G.pfc||0)>=10},1000],
+ ["lg30","皆勤賞","連続ログイン30日",function(){return G.login&&G.login.n>=30},1000],
+ ["rv7","復習の習慣","復習を7日連続で完了",function(){return (G.rvd.best||0)>=7},500],
+ ["rv30","記憶の守り人","復習を30日連続で完了",function(){return (G.rvd.best||0)>=30},2000],
+ ["sp100","スペルの達人","スペル入力で100問正解",function(){return (G.spc||0)>=100},1000],
+ ["a1","覚醒者","キャラを1人覚醒",function(){return Object.keys(G.awk).length>=1},500],
+ ["a20","全員覚醒","20人全員を覚醒",function(){return Object.keys(G.awk).length>=20},5000]];
+function achById(id){return ACH.filter(function(a){return a[0]===id})[0]}
+function achCheck(){var nw=0;ACH.forEach(function(a){if(!G.ach[a[0]]&&a[3]()){G.ach[a[0]]={d:dayKey(),c:0};nw++}});if(nw){saveG();ntfDotV()}return nw}
+function titleName(){var a=G.title&&G.ach[G.title]&&achById(G.title);return a?a[1]:""}
+window.titleName=titleName;
+function awkCheck(){var nw=[];CHARS.forEach(function(c){if(!G.awk[c.id]&&lvOf(c.id)>=5&&G.bw[c.id]){G.awk[c.id]=dayKey();nw.push(c.id);G.ibx["k"+c.id]=0}});if(nw.length){saveG();setTimeout(function(){toast("✨ "+cById(nw[0]).name+"が覚醒しました！",3400)},3600)}}
+/* 覚醒したキャラ：カードに虹色の光と「覚醒」の印。限定セリフが1つ増える */
+var _cardSVG=cardSVG;
+cardSVG=function(id,href,star,opt){
+  var s=_cardSVG(id,href,star,opt);
+  if(!(G.awk&&G.awk[id]))return s;
+  var K=CARDK,VW=476+K,U="aw"+((opt&&opt.uid)||id);
+  var ov='<defs><linearGradient id="'+U+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff4fd8"/><stop offset=".25" stop-color="#ffe14f"/><stop offset=".5" stop-color="#4fffb0"/><stop offset=".75" stop-color="#4fb8ff"/><stop offset="1" stop-color="#c84fff"/></linearGradient></defs>'+
+   '<path d="M'+K+' 0L'+VW+' 0L'+(VW-K)+' 1000L0 1000Z" fill="url(#'+U+')" opacity=".22" style="mix-blend-mode:screen" pointer-events="none"/>'+
+   '<path d="M'+(K+10)+' 10L'+(VW-10)+' 10L'+(VW-K-10)+' 990L10 990Z" fill="none" stroke="url(#'+U+')" stroke-width="10" opacity=".9" pointer-events="none"/>'+
+   '<g transform="translate('+(VW-120)+' 40) skewX(-6)"><rect x="-6" y="-30" width="96" height="40" rx="6" fill="#111" stroke="url(#'+U+')" stroke-width="4"/><text x="42" y="0" text-anchor="middle" font-size="28" font-weight="900" fill="#fff" font-family="sans-serif">覚醒</text></g>';
+  return s.replace(/<\/svg>\s*$/,ov+'</svg>');
+};
+var _cplN=cplN;
+cplN=function(lv,id){var n=_cplN(lv);if(id&&G.awk&&G.awk[id]&&CPL[id]&&CPL[id].length>11)n=12;return n};
+/* エンディング（全単語を習得したら1回だけ。図鑑からいつでも見返せる） */
+function endCheck(){if(!G.end&&mastered()>=nBase()){G.end=dayKey();saveG();setTimeout(endShow,4200)}}
+function endShow(){
+  var el=$("v5end");if(!el){el=document.createElement("div");el.id="v5end";document.body.appendChild(el)}
+  var cs=CHARS.map(function(c){return '<div class="ecr"><img src="'+IMT(c.id)+'" alt=""><b>'+esc(c.name)+'</b><small>'+esc(cSk(c))+'</small></div>'}).join("");
+  el.innerHTML='<div class="eroll"><div class="et1">ALL CLEAR</div><div class="et2">'+nBase()+'語 制覇</div><div class="et3">'+esc(G.end||dayKey())+'</div><div class="ecast">'+cs+'</div>'+
+   '<div class="ecred"><h4>単語リスト</h4><p>NGSL 1.2　Browne, C., Culligan, B. &amp; Phillips, J.</p><h4>立ち絵</h4><p>わたおび（立ち絵素材 わたおきば）</p><h4>声</h4><p>'+CREDITS.map(esc).join("<br>")+'</p><h4>制作</h4><p>25号室</p><h4>そして</h4><p>ここまで続けた、あなた</p></div><div class="et4">THANK YOU FOR PLAYING</div></div><button class="eskip">タップで閉じる</button>';
+  el.className="on";el.onclick=function(){el.className=""};
+  try{var a=ac();if(a)capRun(4,function(){var t=a.currentTime+0.05;[0,4,7,12,16,19,24].forEach(function(n,i){sBell(pf(5+n),t+i*0.16,1.2,0.07)});[0,4,7].forEach(function(n){tone(pf(5+n),t+1.3,2.4,"triangle",0.04)})})}catch(e){}
+}
+window.endShow=endShow;
+/* 図鑑メダル・称号の画面（記録タブ） */
+function medal(r){return r>=1?["gold","金"]:r>=0.8?["silv","銀"]:r>=0.5?["brnz","銅"]:["none","−"]}
+function zukanHtml(){
+  var h='<div class="stat"><b>単語図鑑</b>　<span class="hint" style="display:inline">習得率50%で銅・80%で銀・100%で金</span></div>';
+  var cs=catStats();
+  h+='<div class="zgrp">品詞</div><div class="zmed">'+CATS.filter(function(k){return cs[k].n}).map(function(k){var r=cs[k].m/cs[k].n,m=medal(r);return '<div class="zm '+m[0]+'"><i>'+m[1]+'</i><b>'+esc(k)+'</b><small>'+cs[k].m+' / '+cs[k].n+'</small><em style="width:'+(r*100).toFixed(1)+'%"></em></div>'}).join("")+'</div>';
+  var st=STAGES.map(function(){return {n:0,m:0}});
+  for(var i=0;i<nBase();i++){var k=stgIdx(i);st[k].n++;if(passes(i)>=2)st[k].m++}
+  h+='<div class="zgrp">ステージ</div><div class="zmed">'+STAGES.map(function(S,k){var r=st[k].n?st[k].m/st[k].n:0,m=medal(r);return '<div class="zm '+m[0]+'"><i>'+m[1]+'</i><b>STAGE '+(k+1)+'</b><small>'+esc(S.l)+'　'+st[k].m+'/'+st[k].n+'</small><em style="width:'+(r*100).toFixed(1)+'%"></em></div>'}).join("")+'</div>';
+  var sp=Object.keys(SPW).length,R=G.rvd;
+  h+='<div class="zgrp">記録</div><div class="zrec"><div><b>'+mastered()+'</b><small>習得</small></div><div><b>'+Object.keys(SRS).length+'</b><small>復習中</small></div><div><b>'+sp+'</b><small>スペルで正解した単語</small></div><div><b>'+(R.n||0)+'<i>日</i></b><small>復習の連続（最高 '+(R.best||0)+'日）</small></div><div><b>'+Object.keys(G.bw).length+'<i>/20</i></b><small>撃破したボス</small></div><div><b>'+Object.keys(G.awk).length+'<i>/20</i></b><small>覚醒したキャラ</small></div></div>';
+  var nx=srsNext(),d=srsDue().length;h+='<div class="hint" style="text-align:center">'+(d?"今日の復習が "+d+" 語あります":nx?"次の復習は "+nx+" 日後です":"習得した単語が、ここで復習の予定に入ります")+'</div>';
+  if(G.end)h+='<button class="sm" id="zEnd">エンディングをもう一度見る</button>';
+  return h;
+}
+function achHtml(){
+  var tt=titleName();
+  var h='<div class="stat"><b>称号</b>　<span class="hint" style="display:inline">獲得した称号をタップすると、表示する称号を選べます（ホーム・共有文に出ます）</span></div><div class="zttl">いまの称号：<b>'+(tt?esc(tt):"なし")+'</b></div><div class="zach">';
+  ACH.forEach(function(a){var got=G.ach[a[0]];h+='<button class="za'+(got?' got':'')+(G.title===a[0]?' on':'')+'" data-ach="'+a[0]+'"'+(got?'':' disabled')+'><b>'+(got?esc(a[1]):"？？？")+'</b><small>'+esc(a[2])+'　◆'+a[4]+'</small>'+(got&&!got.c?'<em>未受取</em>':'')+'</button>'});
+  return h+'</div>';
+}
+var _renderR=renderR;
+renderR=function(m){
+  if(recView!=="z"&&recView!=="a"){_renderR(m);return}
+  var rv=recView;recView="p";_renderR(m);recView=rv;
+  var card=$("rec").querySelector(".card");if(!card)return;
+  while(card.children.length>1)card.removeChild(card.lastChild);
+  Array.prototype.forEach.call(card.querySelectorAll("[data-rv]"),function(b){b.classList.toggle("on",b.getAttribute("data-rv")===rv)});
+  var w=document.createElement("div");w.className="v5z";w.innerHTML=rv==="z"?zukanHtml():achHtml();card.appendChild(w);
+  if($("zEnd"))$("zEnd").onclick=endShow;
+  Array.prototype.forEach.call(w.querySelectorAll("[data-ach]"),function(b){b.onclick=function(){var id=b.getAttribute("data-ach"),g=G.ach[id];if(!g)return;if(!g.c){achClaim(id)}G.title=id;saveG();homeInfo();renderR()}});
+};
+function achClaim(id){var g=G.ach[id],a=achById(id);if(!g||g.c||!a)return;g.c=1;G.stones+=a[4];G.total+=a[4];saveG();updStones();toast("称号「"+a[1]+"」　◆+"+a[4]);ntfDotV()}
+var _homeInfo=homeInfo;
+homeInfo=function(){_homeInfo();try{var tt=titleName(),el=$("homeTtl");if(!el){el=document.createElement("div");el.id="homeTtl";el.className="hint";$("homeInfo").parentNode.insertBefore(el,$("homeInfo"))}el.textContent=tt?"称号「"+tt+"」":"";var tg=$("todayGo");if(tg)tg.hidden=!G.starter}catch(e){}};
+
+/* ====================================================================
+   A2：バックアップ（ファイルで保存・読み込み、自動の控え、リマインド）
+   ==================================================================== */
+function bkSnap(){var o={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("dopa")===0)o[k]=localStorage.getItem(k)}return o}
+function bkJson(){return JSON.stringify({app:"dopatan",v:5,ver:VERSION,date:new Date().toISOString(),m:mastered(),ls:bkSnap()})}
+function bkDone(){var first=!G.bk.b1;G.bk.last=dayN();G.bk.m=mastered();if(first){G.bk.b1=1;G.stones+=50;G.total+=50;updStones()}saveG();bkUi();ntfDotV();toast(first?"バックアップしました　初回ボーナス ◆+50":"バックアップしました")}
+function bkSave(){
+  var name="dopatan_backup_"+dayKey().replace(/-/g,"")+".json",js=bkJson();
+  try{
+    var f=new File([js],name,{type:"application/json"});
+    if(navigator.canShare&&navigator.canShare({files:[f]})&&navigator.share){navigator.share({files:[f],title:"どぱたんのバックアップ"}).then(bkDone,function(e){if(e&&e.name!=="AbortError")bkDl(js,name)});return}
+  }catch(e){}
+  bkDl(js,name);
+}
+function bkDl(js,name){try{var u=URL.createObjectURL(new Blob([js],{type:"application/json"})),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(u);a.remove()},2000);bkDone()}catch(e){toast("保存できませんでした")}}
+function bkRestore(o){
+  if(!o||o.app!=="dopatan"||!o.ls){toast("どぱたんのバックアップファイルではありません");return}
+  if(!confirm("バックアップ（"+String(o.date||"").slice(0,10)+"・習得"+(o.m||0)+"語）で、いまのデータを上書きします。よろしいですか？"))return;
+  try{var ks=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("dopa")===0)ks.push(k)}ks.forEach(function(k){localStorage.removeItem(k)});Object.keys(o.ls).forEach(function(k){if(k.indexOf("dopa")===0)localStorage.setItem(k,o.ls[k])})}catch(e){toast("復元できませんでした（"+e+"）");return}
+  alert("復元しました。アプリを読み込み直します。");location.reload();
+}
+function bkLoadFile(file){var r=new FileReader();r.onload=function(){var txt=String(r.result||"");try{var o=JSON.parse(txt);if(o&&o.app==="dopatan")bkRestore(o);else{$("io").value=txt;$("imp").onclick()}}catch(e){toast("読み込めませんでした")}};r.readAsText(file)}
+/* 自動の控え：1日1回、端末の中に直近3回分 */
+function bkDb(cb){try{var q=indexedDB.open("dopa-bk",1);q.onupgradeneeded=function(){q.result.createObjectStore("s")};q.onsuccess=function(){cb(q.result)};q.onerror=function(){cb(null)}}catch(e){cb(null)}}
+function bkAuto(){bkDb(function(db){if(!db)return;try{var k=dayKey(),tx=db.transaction("s","readwrite"),st=tx.objectStore("s");st.put({d:k,m:mastered(),js:bkJson()},k);var q=st.getAllKeys();q.onsuccess=function(){var ks=q.result.sort();while(ks.length>3)st.delete(ks.shift())}}catch(e){}})}
+function bkList(cb){bkDb(function(db){if(!db)return cb([]);try{var q=db.transaction("s").objectStore("s").getAll();q.onsuccess=function(){cb((q.result||[]).sort(function(a,b){return a.d<b.d?1:-1}))};q.onerror=function(){cb([])}}catch(e){cb([])}})}
+function bkUi(){
+  var el=$("bkInfo");if(!el)return;
+  el.textContent=G.bk.last?"最後のバックアップ："+dnKey(G.bk.last)+"（習得"+G.bk.m+"語の時点）":"まだバックアップしていません。初回は ◆50 のボーナス！";
+  bkList(function(L){var b=$("bkAutoL");if(!b)return;b.innerHTML=L.length?L.map(function(x,i){return '<button class="sm" data-bka="'+i+'">'+esc(x.d)+'（習得'+x.m+'語）に戻す</button>'}).join(""):'<span class="hint">まだありません</span>';
+    Array.prototype.forEach.call(b.querySelectorAll("[data-bka]"),function(x){x.onclick=function(){try{bkRestore(JSON.parse(L[parseInt(x.getAttribute("data-bka"))].js))}catch(e){}}})});
+}
+function bkNeed(){if(!G.starter)return false;var t=dayN();return !G.bk.last||t-G.bk.last>=7||mastered()-(G.bk.m||0)>=100}
+(function(){
+  var ov=$("ov"),h2=ov&&ov.querySelector("h2");if(!h2)return;
+  var q=document.createElement("div");q.className="dop v5q";q.innerHTML='<h3>よく使う設定</h3>';
+  ["volB","volS","voxRate"].forEach(function(id){var e=$(id),l=e&&e.closest("label");if(l){l.removeAttribute("data-sc");l.style.display="";q.appendChild(l)}});
+  var bk=document.createElement("div");bk.className="dop v5bk";
+  bk.innerHTML='<h3>バックアップ</h3><div class="hint" id="bkInfo"></div><div class="pair"><button class="main" id="bkSave">バックアップを保存</button><button id="bkLoad">ファイルから復元</button></div><input type="file" id="bkFile" accept=".json,application/json,text/plain" hidden>'+
+   '<div class="hint">進捗・キャラ・設定をまとめて1つのファイルにします。iPhoneは「ファイルに保存」や、LINE・メールの自分宛てに送ると安心です。機種変更のときも、このファイルで引き継げます。</div>'+
+   '<details class="dt"><summary>自動の控え（この端末の中・直近3日分）</summary><div id="bkAutoL" class="v5bkl"></div><div class="hint">データが壊れたときの保険です。アプリを消したり機種変更したりすると、控えも消えます。</div></details>';
+  h2.parentNode.insertBefore(q,h2.nextSibling);h2.parentNode.insertBefore(bk,q.nextSibling);
+  $("bkSave").onclick=bkSave;$("bkLoad").onclick=function(){$("bkFile").value="";$("bkFile").click()};
+  $("bkFile").onchange=function(){var f=this.files&&this.files[0];if(f)bkLoadFile(f)};
+  $("gear").addEventListener("click",bkUi);
+})();
+
+/* ====================================================================
+   A1：受信箱（ログインページ）：今日の復習・ログインボーナス・通知などを、メールのように上から処理
+   ==================================================================== */
+(function(){var o=document.createElement("div");o.className="ov inv";o.id="ibx";o.innerHTML='<div class="ibxw"><div class="ibxh"><div><small>INBOX</small><b id="ibxd"></b></div><span id="ibxc"></span></div><div class="ibxg" id="ibxg"></div><div id="ibxl"></div><div class="ibxf"><button id="ibxAll" class="sm">通知をすべて既読にする</button><button class="main" id="ibxx">閉じる</button></div></div>';document.body.appendChild(o)})();
+function ibxItems(){
+  var t=dayKey(),a=[],d=srsDue().length;
+  var P=todayPlan();
+  a.push({id:"go"+t,ic:"▶",cls:"cta",t:"今日の続き",b:P.t+"　（暗記 → 確認テスト）",act:"はじめる",done:false,f:function(){P.f()},keep:1});
+  a.push({id:"rv"+t,ic:"↻",t:"今日の復習",b:d?d+"語が復習の時期です。覚えたての単語ほど、間を空けて思い出すと定着します。":"今日の復習はすべて終わりました。"+(G.rvd.n?"　連続 "+G.rvd.n+" 日":""),act:d?"復習する":"",done:!d,f:function(){flowStart(srsDue(),"srs","今日の復習")}});
+  var lb=G.login&&G.login.last===t;
+  a.push({id:"lb"+t,ic:"🎁",t:"ログインボーナス",b:lb?"今日の分は受け取り済みです（連続"+(G.login.n||1)+"日目）":"今日のログインボーナスが届いています。7日目は★5以上確定！",act:lb?"":"受け取る",done:lb,f:function(){dailyLogin();NTFR["lb"+t]=1;ntfSave();setTimeout(ibxRender,400)}});
+  if(bkNeed())a.push({id:"bk"+t,ic:"💾",t:"バックアップのおすすめ",b:G.bk.last?"前回から日数・習得数が増えています。ファイルに保存しておきましょう。":"まだバックアップがありません。初回は ◆50 のボーナス！",act:"保存する",done:false,f:bkSave});
+  ACH.forEach(function(x){var g=G.ach[x[0]];if(g&&!g.c)a.push({id:"ac"+x[0],ic:"🏅",t:"称号「"+x[1]+"」を獲得",b:x[2]+"を達成しました。報酬 ◆"+x[4],act:"受け取る",done:false,f:function(){achClaim(x[0])}})});
+  Object.keys(G.ibx).forEach(function(k){
+    if(k[0]==="u"&&UNLM[k.slice(1)]){var m=UNLM[k.slice(1)];a.push({id:k,ic:"🔓",from:"光",t:m[0],b:m[1],act:G.ibx[k]?"":"OK",done:!!G.ibx[k],f:function(){G.ibx[k]=1;saveG()}})}
+    if(k[0]==="k"&&cById(k.slice(1))){var c=cById(k.slice(1));a.push({id:k,ic:"✨",t:c.name+"が覚醒しました",b:"カードが虹色に輝き、限定のセリフが1つ増えました。キャラ画面でタップしてみてください。",act:G.ibx[k]?"":"見る",done:!!G.ibx[k],f:function(){G.ibx[k]=1;saveG();if(G.unl.g){closeIbx();tab("G");try{openCP(c.id)}catch(e){}}}})}
+  });
+  NTF.forEach(function(x){if(/^lb\d/.test(x.id))return;a.push({id:"n"+x.id,ic:"✉",t:x.t,b:x.b,date:x.d,act:NTFR[x.id]?"":"既読",done:!!NTFR[x.id],ntf:x,f:function(){NTFR[x.id]=1;ntfSave()}})});
+  return a;
+}
+function ibxCount(){try{return ibxItems().filter(function(x){return !x.done&&!x.keep}).length}catch(e){return 0}}
+function ntfDotV(){var d=$("ntfDot");if(!d)return;var n=ibxCount();d.hidden=!n;d.textContent=n>9?"9+":n?String(n):""}
+window.ntfDot=ntfDotV;ntfDot=ntfDotV;
+function ibxRender(){
+  var L=ibxItems(),now=L.filter(function(x){return !x.done}),old=L.filter(function(x){return x.done});
+  var dt=new Date(),wd="日月火水木金土"[dt.getDay()];
+  $("ibxd").textContent=(dt.getMonth()+1)+"月"+dt.getDate()+"日（"+wd+"）";
+  var n=now.filter(function(x){return !x.keep}).length;$("ibxc").textContent=n?"未処理 "+n:"すべて処理済み";
+  var gid=(G.party&&G.party[0])||"c20",gc=cById(gid),hr=dt.getHours(),gr=hr<5?"夜ふかしだね。":hr<11?"おはよう！":hr<17?"こんにちは！":"おかえりなさい！";
+  $("ibxg").innerHTML='<img src="'+IMT(gid)+'" alt=""><div><b>'+esc(gc?gc.name:"")+'</b><span>'+gr+'今日の予定をまとめたよ。上から順に片付けよう。</span></div>';
+  var card=function(x,i){return '<div class="ml'+(x.done?' done':'')+(x.cls?' '+x.cls:'')+'" data-mi="'+i+'"><i class="mic">'+x.ic+'</i><div class="mb"><div class="mt">'+esc(x.t)+(x.date?'<small>'+esc(x.date)+'</small>':'')+(x.from?'<small>from '+esc(x.from)+'</small>':'')+'</div><div class="ms">'+esc(x.b)+'</div></div>'+(x.act?'<button class="sm mact" data-ma="'+i+'">'+esc(x.act)+'</button>':(x.done?'<em class="mdn">済</em>':''))+'</div>'};
+  var all=now.concat(old);
+  $("ibxl").innerHTML=now.map(function(x){return card(x,all.indexOf(x))}).join("")+(old.length?'<div class="mgrp">処理済み</div>'+old.map(function(x){return card(x,all.indexOf(x))}).join(""):"");
+  Array.prototype.forEach.call($("ibxl").querySelectorAll("[data-mi]"),function(el){el.onclick=function(e){if(e.target.closest("[data-ma]"))return;el.classList.toggle("open");var x=all[parseInt(el.getAttribute("data-mi"))];if(x&&x.ntf&&!x.done){x.f();setTimeout(ibxRender,350)}}});
+  Array.prototype.forEach.call($("ibxl").querySelectorAll("[data-ma]"),function(b){b.onclick=function(e){e.stopPropagation();var x=all[parseInt(b.getAttribute("data-ma"))];if(!x)return;var el=b.closest(".ml");if(el&&!x.keep)el.classList.add("fly");try{var a=ac();if(a&&a.state==="running")sBell(pf(10),a.currentTime+0.01,0.18,0.05)}catch(er){}setTimeout(function(){x.f();ntfDotV();if(!$("ibx").classList.contains("inv"))ibxRender()},x.keep?0:240)}});
+  ntfDotV();
+}
+function ibxOpen(){ibxRender();$("ibx").classList.remove("inv");$("ibx").scrollTop=0;try{tabSnd&&tabSnd("R")}catch(e){}}
+function closeIbx(){var b=$("ibx");if(b)b.classList.add("inv")}
+window.ibxOpen=ibxOpen;
+$("ibxx").onclick=closeIbx;
+$("ibxAll").onclick=function(){NTF.forEach(function(x){NTFR[x.id]=1});ntfSave();ibxRender()};
+$("ntfBtn").onclick=ibxOpen;
+/* 入るたびに：その日初めてなら受信箱を自動で開く。自動の控えもここで */
+window.inboxAuto=function(){
+  try{bkAuto()}catch(e){}
+  achCheck();awkCheck();
+  var t=dayKey();if(lsGet("dopa:ibxday","")===t){ntfDotV();return}
+  lsSet("dopa:ibxday",t);ibxOpen();
+};
+/* ホームの「今日の続き」 */
+(function(){var s=$("pickStart");if(!s)return;var b=document.createElement("button");b.id="todayGo";b.className="v5today";b.textContent="今日の続き";b.hidden=!G.starter;s.parentNode.insertBefore(b,s.nextSibling);
+  b.onclick=function(e){e.stopPropagation();lsSet("dopa:ibxday",dayKey());enter("dopa");setTimeout(function(){try{inboxAuto()}catch(er){}todayGo()},300)}})();
+/* 学習画面の「確認テストへ」バー */
+(function(){var p=$("lstudy");if(p&&!$("flowBar")){var d=document.createElement("div");d.id="flowBar";d.hidden=true;var hd=p.querySelector(".bar");if(hd)hd.parentNode.insertBefore(d,hd.nextSibling);else p.insertBefore(d,p.firstChild)}})();
+$("lend").addEventListener("click",function(){FLOW=null;flowBar()});
+ntfDotV();homeInfo();
+})();
+
 </script>
 </body>
 </html>
