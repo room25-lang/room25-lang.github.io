@@ -1482,6 +1482,72 @@ body.t0done .homev.intro .hbg,body.t0done .homev.intro .hc{animation:none!import
 .tabs #tH.on:has(#tHdot:not([hidden])){padding-right:40px!important}
 .tabs #tH.on #tHdot{right:16px!important}
 
+
+/* ===== v1.30：全体の見直しで見つけた表示の不具合の修正 ===== */
+
+/* --- 設定・学習・テストの開始ボタン：下に貼りつく帯を不透明にして、裏の文字が透けたり下からはみ出したりしないように --- */
+#lgo{position:static!important;box-shadow:none!important;width:100%}
+.lgow,#test .scard>.pair:last-child{position:sticky!important;bottom:-20px!important;z-index:3;flex:0 0 auto;margin:6px -20px -20px!important;padding:10px 20px 32px!important;background:var(--bg,#0b0c0e)!important;box-shadow:0 -10px 14px rgba(0,0,0,.4)!important;border-top:1px solid color-mix(in srgb,var(--line,#555) 55%,transparent)}
+.v5rv{white-space:normal!important;line-height:1.25}
+.v5rv small{display:inline-block;white-space:nowrap;font-size:12px;font-weight:400;margin-left:10px;opacity:.85}
+.modes .v5lock{grid-column:1/-1;line-height:1.5}
+
+/* --- テスト：画面が低い端末で、選択肢と「不正解」の文字やボタンが重ならないように --- */
+#test .card{position:relative}
+#test .card .choices:not(.spch){flex:0 0 auto!important}
+@media (max-height:700px){
+  #test .card .row{position:absolute;right:12px;top:8px;z-index:4;height:auto!important;min-height:0!important;flex:none}
+  #test .card .row .sound{min-height:30px!important;height:30px;padding:0 10px!important;font-size:12px!important}
+  #test .card .prm{height:86px}
+  #test .card .choices{gap:8px!important}
+}
+@media (max-height:610px){
+  #test .card{gap:8px!important;padding-top:12px!important;padding-bottom:12px!important}
+  #test .card .prm{height:66px}
+  #test .card .prm.m,#test .card .prm.w{font-size:clamp(24px,8vw,34px)}
+  #test .card .choices button{min-height:40px!important;padding:5px 12px!important;line-height:1.3!important}
+  #test .card .fb{line-height:1.2}
+  #test .card .act button{min-height:40px!important}
+  #test .boss{transform-origin:top center}
+}
+
+/* --- スペル入力：答える前は使わない行をたたみ、間違えたらキーボードをしまって「次へ」を見せる --- */
+body.spmode:not(.spdone) #test .card .row,body.spmode:not(.spdone) #test .card #fb.inv{display:none!important}
+body.spmode #test .card .prm{height:72px}
+body.spmode #test .card .act button.skip{min-height:38px!important}
+body.spdone #skbd,body.spdone .sktop{display:none!important}
+@media (max-height:610px){
+  body.spmode #test .card .prm{height:54px}
+  body.spmode .skbd{gap:5px!important;margin-top:6px!important}
+  body.spmode .sk2{min-height:40px!important;height:40px!important}
+  body.spmode .sktop{margin-top:6px!important}
+  body.spmode .spdisp{min-height:50px!important}
+}
+
+/* --- 記録：上の切り替えボタンが縦に折れる／進捗の数字が右で切れる／図鑑の文字が切れる --- */
+#rec .card>.pair:first-child{gap:6px!important}
+#rec .card>.pair:first-child button{flex:1 1 auto!important;white-space:nowrap!important;min-width:0;padding-left:4px!important;padding-right:4px!important;font-size:13px!important}
+@media (max-width:360px){#rec .card>.pair:first-child button{font-size:11.5px!important;padding-left:2px!important;padding-right:2px!important}}
+@media (max-width:520px){#rec .card div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}}
+#rec .zm small{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;line-height:1.3}
+
+/* --- 設定：チェックの行の空白／上のタブの上から文字がのぞく／ボタンの折り返し --- */
+.sheet label.rad.radc{display:flex!important;align-items:center;gap:10px}
+.sheet label.rad.radc input{flex:0 0 auto}
+.stab::before{content:"";position:absolute;left:-16px;right:-16px;bottom:100%;height:120px;background:var(--bg,#14000a)}
+#bkSave,#bkLoad{white-space:nowrap;font-size:14px!important;padding-left:6px!important;padding-right:6px!important}
+#sndTry{white-space:nowrap;flex:0 0 auto}
+#sndSel{min-width:0}
+
+/* --- タイトル・最初の画面：斜めの帯に重なって読めない文字に、下地を付ける --- */
+#homeInfo,#hver,#homeNote:not(:empty),#homeTtl:not(:empty){width:fit-content;max-width:100%;margin-left:auto!important;margin-right:auto!important;padding:3px 10px;border-radius:6px;background:color-mix(in srgb,var(--bg,#0b0c0e) 78%,transparent);position:relative;z-index:2;box-sizing:border-box}
+#hver{opacity:1!important;margin-top:6px!important}
+#tap0 .t0s,#tap0 .t0j{padding:5px 14px;border-radius:6px;background:rgba(6,7,8,.72);opacity:1!important}
+#tap0 .t0j{color:rgba(255,255,255,.75)}
+
+/* --- キャラ入手の画面：見出しが「閉じる」ボタンの下にもぐらないように --- */
+.cutitle{right:112px!important;left:12px!important;font-size:13px;line-height:1.35}
+
 </style>
 </head>
 <body class="dopa">
@@ -1827,7 +1893,8 @@ function voxStore(key,u,cb){
 }
 function voxSavedCount(){return Object.keys(VOX.saved).length}
 function voxLoadSaved(done){
-  if(VOX.renew){VOX.renew=0;vdbClear(function(){voxSave();if(done)done(0)});return}
+  try{if(localStorage.getItem("dopa:vrev")!=="9")VOX.renew=1}catch(e){}
+  if(VOX.renew){VOX.renew=0;vdbClear(function(){try{localStorage.setItem("dopa:vrev","9")}catch(e){}voxSave();if(done)done(0)});return}
   vdbAll(function(list){
     list.forEach(function(kv){
       try{if(!VOX.cache[kv[0]]){VOX.cache[kv[0]]=URL.createObjectURL(kv[1])}VOX.saved[kv[0]]=1}catch(e){}
@@ -2044,7 +2111,7 @@ function voxDirect(sp,text,cb){
   if(!PACKIDS[sp]){cb(null,"この声（ID "+sp+"）はアプリに入っていません");return}
   packLoad(packOf(sp,text),function(m,why){
     if(!m){cb(null,why);return}
-    var b=m[text];if(!b){cb(null,"この文の音声はアプリに入っていません");return}
+    var b=m[sp+"|"+text]||m[text];if(!b){cb(null,"この文の音声はアプリに入っていません");return}
     cb(b);
   });
 }
@@ -3872,7 +3939,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.29",VLOG=[
+var VERSION="1.30",VLOG=[
+ ["1.30","2026-11-12",["【重要な修正】アプリを開き直すと「ホームのお気に入りキャラ・目標・事務連絡のみの設定」が消えてしまう不具合を修正","スペル入力：間違えたあと「次へ」ボタンが画面の外に出て進めなくなることがあるのを修正（キーボードをしまって「次へ」を表示）。同じ意味の別の単語を打っても正解に","画面が小さい端末で、テストの選択肢と「不正解」の文字やボタンが重なるのを修正（ボス戦・スペル入力のキーボードも収まるように）","声：短すぎて聞き取れなかった掛け声（「きた！」など）とボスのセリフ19個を録り直し。同じセリフを別のキャラの声で話していた2組を修正","設定・学習・テストの開始ボタンまわり：裏の文字が透ける／はみ出すのを修正。「今日の復習」ボタンの折り返しを整理","記録：切り替えボタンが縦に折れる、進捗の数字が右で切れる、図鑑の文字が切れるのを修正","設定：チェックの行の余白、上のタブから文字がのぞく、ボタンの折り返しを修正","最初の画面・タイトル：斜めの帯に重なって読みにくい文字に下地を追加"]],
  ["1.29","2026-11-12",["管理者コマンドを認証すると、すべてのコンテンツ（キャラ・編成・ボス戦・全キャラLv5・編成枠・ハズレ図鑑・ロック）が解放されるように","ホームの画面を整理（日付・パートナー・数字・目標・メールを、同じ形の区切りでそろえました）","「TOUCH TO START」からタイトルへの切り替えを滑らかに（背景はそのままで、タイトルだけが音と一緒に現れます）","動く背景がUI全体から見えるように、カードを半透明に","通知の数を、斜めのタグと等幅の数字のデザインに"]],
  ["1.28","2026-11-12",["最初の画面でタイトルが2回出てくるように見えるのを修正","アプリのアイコンをライム地のデザインに変更"]],
  ["1.27","2026-11-12",["正解・不正解の音を選べるように：標準・ハードベース（キック）・8bit・太鼓・やさしい（マリンバ）。設定の「よく使う設定」から","背景を、ゆっくり動く光と斜線のアニメーションに","文字を全体的に細く（どのテーマも細めの角ゴシック）","ホームが画面の横幅からはみ出すのを修正","ホームのメールを、色や動きを抑えた落ち着いた見た目に","アプリのアイコンを新しいデザインに"]],
@@ -4686,7 +4754,7 @@ function fixG(g){
   r.login=(g.login&&typeof g.login.last==="string")?{last:g.login.last.slice(0,10),n:Math.max(1,Math.min(9999,parseInt(g.login.n)||1))}:{last:"",n:0};
   HZ.forEach(function(h){var v=parseInt((g.hz||{})[h.id]);if(v>0)r.hz[h.id]=Math.min(v,999999)});
   r.seenPH=g.seenPH?1:0;r.inf=g.inf?1:0;r.sp=Math.max(0,Math.min(9999,parseInt(g.sp)||0));
-  ["unl","ach","bw","awk","rvd","bk","ibx"].forEach(function(k){if(g[k]&&typeof g[k]==="object"&&!Array.isArray(g[k]))r[k]=g[k]});r.spc=Math.max(0,parseInt(g.spc)||0);r.pfc=Math.max(0,parseInt(g.pfc)||0);if(typeof g.title==="string")r.title=g.title.slice(0,12);if(typeof g.end==="string")r.end=g.end.slice(0,10);
+  ["unl","ach","bw","awk","rvd","bk","ibx"].forEach(function(k){if(g[k]&&typeof g[k]==="object"&&!Array.isArray(g[k]))r[k]=g[k]});r.spc=Math.max(0,parseInt(g.spc)||0);r.pfc=Math.max(0,parseInt(g.pfc)||0);if(typeof g.title==="string")r.title=g.title.slice(0,12);if(typeof g.end==="string")r.end=g.end.slice(0,10);if(typeof g.fav==="string"&&r.chars[g.fav])r.fav=g.fav;if(g.mailAdm)r.mailAdm=1;if(g.goal&&typeof g.goal==="object"){var gn=parseInt(g.goal.n),gb=parseInt(g.goal.by);if(gn>0&&gb>0){r.goal={n:Math.min(gn,WORDS.length),by:gb,s:parseInt(g.goal.s)||gb-1,m0:Math.max(0,parseInt(g.goal.m0)||0)};if(g.goal.td&&typeof g.goal.td==="object")r.goal.td={d:parseInt(g.goal.td.d)||0,per:Math.max(0,parseInt(g.goal.td.per)||0)}}}
   return r;
 }
 function saveG(){try{localStorage.setItem("dopa:game2",JSON.stringify(G))}catch(e){}}
@@ -5897,7 +5965,7 @@ function flowTest(){
 }
 var _rls=renderLearnSetup;
 renderLearnSetup=function(m){FLOW=null;flowBar();_rls(m);
-  try{var d=srsDue().length,box=$("lsetup");if(box&&d){var x=document.createElement("button");x.className="main v5rv";x.innerHTML="今日の復習 <b>"+d+"</b> 語　→ 暗記して確認テスト";x.onclick=function(){flowStart(srsDue(),"srs","今日の復習")};box.insertBefore(x,box.firstChild)}}catch(e){}
+  try{var d=srsDue().length,box=$("lsetup");if(box&&d){var x=document.createElement("button");x.className="main v5rv";x.innerHTML="今日の復習 <b>"+d+"</b>語<small>暗記 → 確認テスト</small>";x.onclick=function(){flowStart(srsDue(),"srs","今日の復習")};box.insertBefore(x,box.firstChild)}}catch(e){}
 };
 /* 今日の続き：復習 → 新しい単語10語 → 全体テスト の順で、いまやることへ案内 */
 function nextNew(n){var a=[],b=[];for(var i=0;i<WORDS.length;i++){var p=passes(i);if(p===1)a.push(i);else if(p===0)b.push(i);if(a.length>=n)break}return a.concat(b).slice(0,n)}
@@ -5914,7 +5982,8 @@ window.todayGo=function(){todayPlan().f()};
 var SPELL=lsGet("dopa:spell",false),SPW=lsGet("dopa:spw",{});
 var SPT="",SPACT=false,SPHOLD=null;
 /* 間違えたときは、正しいつづりを見てから「次へ」で進む */
-var _nextQ=nextQ;nextQ=function(){if(SPHOLD!==null){NXT=SPHOLD;SPHOLD=null}_nextQ()};
+function spRel(){if(SPHOLD!==null){NXT=SPHOLD;SPHOLD=null}document.body.classList.remove("spdone")}
+var _nextQ=nextQ;nextQ=function(){spRel();_nextQ()};
 function spOn(){return SPELL&&T&&T.lap===1}
 var KROWS=["qwertyuiop","asdfghjkl","zxcvbnm"];
 function spKbd(){
@@ -5935,9 +6004,11 @@ function spKey(k){
 function spSubmit(){
   if(!SPACT||!T||T.answered)return;
   if(!SPT){var d=$("spd");if(d){d.classList.remove("shk");void d.offsetWidth;d.classList.add("shk")}return}
-  var i=T.order[T.q],ans=WORDS[i][0],ok=SPT.trim().toLowerCase()===ans.toLowerCase(),before=T.score;
+  var i=T.order[T.q],ans=WORDS[i][0],typ0=SPT.trim().toLowerCase(),ok=typ0===ans.toLowerCase(),before=T.score;
+  if(!ok){for(var j0=0;j0<WORDS.length;j0++){if(j0!==i&&WORDS[j0][1]===WORDS[i][1]&&WORDS[j0][0].toLowerCase()===typ0){ok=true;break}}}
   SPACT=false;
   if(!ok&&!NXT){SPHOLD=NXT;NXT=true}
+  if(!ok)document.body.classList.add("spdone");
   judge(ok?T.cur.ci:-2);
   if(ok){var dl=T.score-before;if(dl>0){T.score+=dl;var fb=$("fb");if(fb)fb.textContent="○ 正解　+"+(dl*2)+"　スペル×2"}
     G.spc=(G.spc||0)+1;SPW[i+1]=1;lsSet("dopa:spw",SPW);saveG();
@@ -5950,7 +6021,7 @@ function spSubmit(){
 }
 var _ask=ask;
 ask=function(){
-  _ask();SPACT=false;
+  document.body.classList.remove("spdone","spmode");_ask();SPACT=false;
   if(!spOn())return;
   var ch=$("ch");if(!ch)return;
   SPT="";SPACT=true;
@@ -5977,7 +6048,7 @@ document.addEventListener("keydown",function(e){
 /* ---- テスト設定：スペル入力の切り替え＋（B7）ボス戦の開放前は全体テストを隠す ---- */
 var _setup=setup;
 setup=function(m){
-  _setup(m);document.body.classList.remove("spmode");
+  spRel();_setup(m);document.body.classList.remove("spmode");
   try{
     var md=$("test").querySelector(".modes");
     if(md){
@@ -5985,7 +6056,7 @@ setup=function(m){
       md.parentNode.insertBefore(l,md.nextSibling);
       $("spChk").onchange=function(){SPELL=$("spChk").checked;lsSet("dopa:spell",SPELL)};
       var d=srsDue().length;
-      if(d){var x=document.createElement("button");x.className="main v5rv";x.innerHTML="今日の復習 <b>"+d+"</b> 語　→ 暗記して確認テスト";x.onclick=function(){flowStart(srsDue(),"srs","今日の復習")};md.parentNode.insertBefore(x,md)}
+      if(d){var x=document.createElement("button");x.className="main v5rv";x.innerHTML="今日の復習 <b>"+d+"</b>語<small>暗記 → 確認テスト</small>";x.onclick=function(){flowStart(srsDue(),"srs","今日の復習")};md.parentNode.insertBefore(x,md)}
     }
     if(!G.unl.b){var a=$("test").querySelector('input[name=mode][value="all"]');if(a){var lb=a.closest("label");if(lb){lb.style.display="none";var h=document.createElement("div");h.className="hint v5lock";h.innerHTML=ICO("lock",12)+" 全体テスト（ボス戦）は、ステージを初めてクリアすると開放されます";lb.parentNode.appendChild(h)}}}
   }catch(e){}
@@ -6001,7 +6072,7 @@ finish=function(){
   var correct=0;ids.forEach(function(i){if(res[i][0])correct++;if(res[i][1])correct++});
   var rate=correct/(ids.length*2),perfect=rate>=1&&ids.length*2>=20;
   _finish();
-  document.body.classList.remove("spmode");SPACT=false;
+  spRel();document.body.classList.remove("spmode");SPACT=false;
   var t=dayN(),notes=[];
   if(mode==="srs"){
     var ok=0;ids.forEach(function(i){var no=i+1;if(res[i][0]&&res[i][1]){srsOk(no);ok++}else srsNg(no)});
@@ -6419,7 +6490,7 @@ var OSKB=lsGet("dopa:oskb",false);
 function spIn(){var i=$("spIn");if(!i){i=document.createElement("input");i.id="spIn";i.type="text";i.setAttribute("autocapitalize","off");i.setAttribute("autocomplete","off");i.setAttribute("autocorrect","off");i.setAttribute("spellcheck","false");i.setAttribute("enterkeyhint","done");i.setAttribute("aria-label","英語のつづり");i.setAttribute("placeholder","英語でつづりを入力");document.body.appendChild(i);
   i.addEventListener("input",function(){var v=i.value.replace(/[^a-zA-Z]/g,"").toLowerCase().slice(0,24);if(v!==i.value)i.value=v;V5.spSet(v)});
   i.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();if(V5.spAct())V5.spSubmit();else if(T&&T.answered&&!$("nx").classList.contains("inv"))nextQ()}});}return i}
-function spPlace(){var i=$("spIn"),d=$("spd");if(!i)return;if(!d||!OSKB||!document.body.classList.contains("spmode")){i.classList.remove("on");return}d.classList.add("osk");var r=d.getBoundingClientRect();i.style.left=r.left+"px";i.style.top=r.top+"px";i.style.width=r.width+"px";i.style.height=r.height+"px";i.classList.add("on")}
+function spPlace(){var i=$("spIn"),d=$("spd");if(!i)return;if(!d||!OSKB||!document.body.classList.contains("spmode")||(T&&T.answered)){i.classList.remove("on");return}d.classList.add("osk");var r=d.getBoundingClientRect();i.style.left=r.left+"px";i.style.top=r.top+"px";i.style.width=r.width+"px";i.style.height=r.height+"px";i.classList.add("on")}
 if(window.visualViewport)visualViewport.addEventListener("resize",spPlace);window.addEventListener("resize",spPlace);
 var _ask=ask;
 ask=function(){
@@ -6560,6 +6631,27 @@ var dg=$("devGo"),og=dg.onclick;
 dg.onclick=function(){og.apply(this,arguments);if(typeof DEVON!=="undefined"&&DEVON){unlockAll();$("devMsg").textContent="認証しました（管理者モード）。すべてのコンテンツ（キャラ・編成・ボス戦・全キャラLv5・編成枠6・ハズレ図鑑・テストのロック）を解放しました。"+(G.inf?"　◆無制限：ON":"")}};
 var p=$("devPanel");if(p){var d=document.createElement("div");d.className="pair";d.innerHTML='<button class="sm" data-dv="all8">すべてのコンテンツを解放</button>';p.insertBefore(d,p.firstChild);
   d.querySelector("button").addEventListener("click",function(e){e.stopPropagation();if(typeof DEVON!=="undefined"&&DEVON){unlockAll();$("devMsg").textContent="すべてのコンテンツを解放しました。"}})}
+})();
+
+
+/* ===== v1.30：全体の見直しで見つけた不具合の修正 ===== */
+(function(){
+/* 設定のチェック行：スライダー用の3列レイアウトが当たって空白ができていたのを直す */
+function radFix(){
+  Array.prototype.forEach.call(document.querySelectorAll(".sheet label.rad"),function(l){
+    var i=l.querySelector("input");if(i&&(i.type==="checkbox"||i.type==="radio")&&!l.querySelector("input[type=range],select"))l.classList.add("radc");
+  });
+}
+radFix();var g=$("gear");if(g)g.addEventListener("click",function(){setTimeout(radFix,0)});
+
+/* 学習の「暗記スタート」：下に貼りつく帯に入れて、裏の文字が透けないようにする */
+function lgoWrap(){
+  var b=$("lgo");if(!b||(b.parentNode&&b.parentNode.className==="lgow"))return;
+  var w=document.createElement("div");w.className="lgow";b.parentNode.insertBefore(w,b);w.appendChild(b);
+}
+var _rl=renderLearnSetup;
+renderLearnSetup=function(m){_rl(m);try{lgoWrap()}catch(e){}};
+try{lgoWrap()}catch(e){}
 })();
 
 </script>
