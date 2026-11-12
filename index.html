@@ -1612,6 +1612,14 @@ body.t0v2.tap0on .homev{visibility:hidden!important}
 
 @media (max-width:360px){.hb2st{padding:0 26px 10px 12px}.hb2st b{font-size:17px}.hb2st small{font-size:9.5px;white-space:nowrap}.hb2st div{padding-left:7px}.hb2tx{left:12px;top:12px;width:52%}}
 
+
+/* ===== v1.32 ===== */
+.cuimg{left:0;transform:none!important;visibility:hidden;animation:none!important}
+.cuimg.cuok{visibility:visible;animation:cuzoom2 .9s cubic-bezier(.2,.8,.2,1) both!important}
+@keyframes cuzoom2{from{transform:scale(.75) translateY(18%);opacity:0}to{transform:none;opacity:1}}
+body.noanim .cuimg.cuok{animation:none!important}
+.cuw .cunew{z-index:3}
+
 </style>
 </head>
 <body class="dopa">
@@ -4003,7 +4011,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.31",VLOG=[
+var VERSION="1.32",VLOG=[
+ ["1.32","2026-11-12",["アプリを開いてStartを押したら、まずホームが表示されるように（はじめての時はこれまで通り）","ガチャでキャラがアップになる画面で、立ち絵が右にずれて顔が映らないことがある不具合を修正"]],
  ["1.31","2026-11-12",["キャラのセリフが途中で切れる不具合を修正（2秒を超えるセリフ101本が、最後まで流れるように）","画面が横に少し動いてしまう不具合を修正","ホームのキャラを新しいカードに：立ち絵を胸から上で大きく映すように","アプリを開いた直後の画面を、黒い画面に「TOUCH TO START」のデザインで作り直し（おかえりなさい・連続ログインの表示つき）"]],
  ["1.30","2026-11-12",["【重要な修正】アプリを開き直すと「ホームのお気に入りキャラ・目標・事務連絡のみの設定」が消えてしまう不具合を修正","スペル入力：間違えたあと「次へ」ボタンが画面の外に出て進めなくなることがあるのを修正（キーボードをしまって「次へ」を表示）。同じ意味の別の単語を打っても正解に","画面が小さい端末で、テストの選択肢と「不正解」の文字やボタンが重なるのを修正（ボス戦・スペル入力のキーボードも収まるように）","声：短すぎて聞き取れなかった掛け声（「きた！」など）とボスのセリフ19個を録り直し。同じセリフを別のキャラの声で話していた2組を修正","設定・学習・テストの開始ボタンまわり：裏の文字が透ける／はみ出すのを修正。「今日の復習」ボタンの折り返しを整理","記録：切り替えボタンが縦に折れる、進捗の数字が右で切れる、図鑑の文字が切れるのを修正","設定：チェックの行の余白、上のタブから文字がのぞく、ボタンの折り返しを修正","最初の画面・タイトル：斜めの帯に重なって読みにくい文字に下地を追加"]],
  ["1.29","2026-11-12",["管理者コマンドを認証すると、すべてのコンテンツ（キャラ・編成・ボス戦・全キャラLv5・編成枠・ハズレ図鑑・ロック）が解放されるように","ホームの画面を整理（日付・パートナー・数字・目標・メールを、同じ形の区切りでそろえました）","「TOUCH TO START」からタイトルへの切り替えを滑らかに（背景はそのままで、タイトルだけが音と一緒に現れます）","動く背景がUI全体から見えるように、カードを半透明に","通知の数を、斜めのタグと等幅の数字のデザインに"]],
@@ -4613,7 +4622,7 @@ function homeInfo(){
 function enter(s){
   s="dopa";setSkin(s);$("homeV").hidden=true;$("appV").hidden=false;
   $("ov").classList.add("inv");
-  tab("L");
+  tab(G.starter?"H":"L");
   if(s==="dopa"){var fst=!G.starter;starterCheck();if(!fst){voxPrepare(false,true);setTimeout(function(){try{inboxAuto()}catch(e){}},350)}setTimeout(voxTrickle,15000)}
 }
 function homeIntro(){var h=$("homeV");if(!h)return;h.classList.remove("intro");void h.offsetWidth;h.classList.add("intro");try{introFx()}catch(e){}}
@@ -5126,11 +5135,12 @@ function showPull(res,title,fx){
     if(i>=ups.length){summary();return}
     var r=ups[i],c=r.c,tg=resTag(r),last=one||i>=ups.length-1;
     $("pull").classList.add("cu");
-    $("pullbody").innerHTML='<div class="cuw r'+c.s+'" id="cuw"><div class="cubg"></div><div class="curay"></div><div class="culine"></div>'+(tg==="NEW"?'<div class="cunew">NEW!</div>':'')+'<img class="cuimg" src="'+IMF(c.id)+'" alt="" style="--cx:-'+(((CCX[c.id]||.5))*100).toFixed(1)+'%">'+
+    $("pullbody").innerHTML='<div class="cuw r'+c.s+'" id="cuw"><div class="cubg"></div><div class="curay"></div><div class="culine"></div>'+(tg==="NEW"?'<div class="cunew">NEW!</div>':'')+'<img class="cuimg" src="'+IMF(c.id)+'" alt="" data-fx="'+cuFx(c.id)+'" onload="cuPlace(this)">'+
       (title?'<div class="cutitle">'+title+'</div>':'')+
       '<div class="cuinfo"><div class="cust">'+Array(c.s+1).join('<s>★</s>')+(tg?'<i>'+tg+'</i>':'')+'</div><div class="cunm">'+esc(c.name)+'</div><div class="cusk"><b>'+esc(cSk(c))+'</b>　'+esc(cDesc(c,lvOf(c.id)))+'</div><div class="cuv">声：VOICEVOX '+esc(vname(cvoice(c.id)))+'</div></div>'+
       '<div class="cuhint">タップで'+(last?'結果へ':'次のキャラへ（'+(i+1)+' / '+ups.length+'）')+'</div></div>';
     show();
+    try{var ci=document.querySelector("#cuw .cuimg");if(ci&&ci.complete)cuPlace(ci)}catch(e){}
     try{var a=ac();if(a)capRun(0.6,function(){var t=a.currentTime+0.01;ping(t,pf(12),0.5,0.1);tone(pf(c.s>=4?14:9),t+0.08,0.3,"triangle",0.07)})}catch(e){}
     var vt=setTimeout(function(){charVoice(c.id)},550);
     var t0=Date.now();$("cuw").onclick=function(){if(Date.now()-t0<350)return;clearTimeout(vt);if(one)summary();else closeup(i+1)};
@@ -6779,6 +6789,21 @@ function t0Build(){
 }
 t0Build();
 })();
+
+
+/* ===== v1.32：ガチャのアップ表示で顔がずれる不具合の修正 ===== */
+/* 立ち絵の横位置を、読み込んだ後に計算して直接決める（iPhone の Safari ではアニメーション内の変数が効かず、右にずれていた） */
+var CUFX={c16:0.674};           /* 体の中心と顔の位置が離れているキャラは、顔を基準にする */
+function cuFx(id){return CUFX[id]||CCX[id]||0.5}
+function cuPlace(img){
+  try{
+    var w=img.parentNode,fx=parseFloat(img.getAttribute("data-fx"))||0.5;if(!w||!img.naturalWidth)return;
+    var ih=img.offsetHeight||w.clientHeight*1.32,iw=ih*img.naturalWidth/img.naturalHeight;
+    img.style.left=(w.clientWidth/2-fx*iw).toFixed(1)+"px";img.style.transformOrigin=(fx*100).toFixed(1)+"% 18%";
+    img.classList.add("cuok");
+  }catch(e){}
+}
+window.addEventListener("resize",function(){var i=document.querySelector("#cuw .cuimg");if(i)cuPlace(i)});
 
 </script>
 </body>
