@@ -1363,6 +1363,61 @@ body.th-sty b,body.th-sty strong,body.th-sty h2,body.th-sty h3{font-weight:700}
 #skb .hxi em{font-size:14.5px}
 .v5cont{position:relative;z-index:3;background:rgba(0,0,0,.72)!important;backdrop-filter:blur(2px)}
 
+/* ===== v1.27 ===== */
+/* フォント：全テーマ共通で細めの角ゴシック。太字はほぼ使わない */
+body.dopa{font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Meiryo",system-ui,sans-serif!important;font-weight:300!important}
+body.dopa :is(button,.tab,b,strong,label,span,div,small,em,li,p,select,input,summary,td,th,a){font-weight:300!important}
+body.dopa :is(h2,h3,.pbig,.tab.on,button.main,.stat>b,.hmst b,.zrec b,.glbig b,.hmdate b,#test .prm){font-weight:600!important}
+/* 英字の飾り文字（Arial Black・ロゴ）はそのまま */
+body.dopa :is(.logo,.logo *,.pkS,.rffin,.rfhd,.rfrank,.rfrate,.rfrate *,.vbig,.znm,.zhead b,.kven,.cunm,.fxt b,.g2t b,.et1,.et4,#tap0 *,.v5cont b,.hmdate small,.ibxh small,.sk2){font-weight:900!important}
+#test .choices button,#test .dir,#test .head{font-weight:400!important}
+#learn .word{font-weight:600!important}#learn .meaning{font-weight:400!important}
+/* 背景：ゆっくり動く光と斜線（約40〜90秒で一巡） */
+#bgfx{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+#bgfx i{position:absolute;display:block}
+#bgfx .b1{left:-30%;top:-30%;width:90%;height:90%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--acc,#d4ff00) 14%,transparent),transparent 65%);animation:bgf1 46s ease-in-out infinite alternate}
+#bgfx .b2{right:-35%;bottom:-25%;width:100%;height:80%;border-radius:50%;background:radial-gradient(circle,rgba(120,170,255,.10),transparent 65%);animation:bgf2 62s ease-in-out infinite alternate}
+#bgfx .b3{inset:-50%;background:repeating-linear-gradient(115deg,rgba(255,255,255,.028) 0 2px,transparent 2px 46px);animation:bgf3 90s linear infinite}
+@keyframes bgf1{to{transform:translate(55%,45%) scale(1.25)}}
+@keyframes bgf2{to{transform:translate(-45%,-50%) scale(.85)}}
+@keyframes bgf3{to{transform:translateX(184px)}}
+body.noanim #bgfx i,body.lite #bgfx{animation:none!important}
+body.lite #bgfx{display:none}
+body:not(.dopa) #bgfx{display:none}
+/* ホーム：スマホの横幅に収める */
+#homeT,#homeT .hmw{max-width:100%;box-sizing:border-box;overflow-x:hidden}
+.hmtop{min-width:0}
+.hmcard{flex:0 0 40%!important;min-width:0}
+.hminfo{min-width:0;overflow:hidden}
+.hmdate{flex-wrap:wrap;gap:2px}
+.hmdate b{font-size:26px}
+.hmsay{font-size:12px;overflow-wrap:anywhere}
+.hmst{grid-template-columns:repeat(3,minmax(0,1fr))}
+.hmst div{min-width:0;padding:4px 1px}
+.hmst b{font-size:16px}
+.hmst small{font-size:9px;white-space:normal;text-align:center;line-height:1.15}
+.hmchg{white-space:nowrap;font-size:12px!important;padding:0 6px!important}
+.glh{min-width:0}.glh span{min-width:0;flex:1 1 100%;order:3}
+.hmmh{min-width:0;gap:6px}.hmadm{white-space:nowrap}
+.ml{min-width:0}.ml .mb{min-width:0}
+/* メール：視覚的な刺激を少なく（色・光・動きを抑える） */
+#homeT .ml{background:rgba(255,255,255,.035);border-left:2px solid rgba(255,255,255,.18);border-radius:8px;padding:9px 10px;gap:10px;transition:opacity .2s,max-height .3s}
+#homeT .ml.cta,#homeT .ml.cta2{background:rgba(255,255,255,.05);border-left:2px solid rgba(255,255,255,.35)}
+#homeT .ml.cta .mt{font-size:14px}
+#homeT .ml .mic{color:var(--sub,#9aa);opacity:.8}
+#homeT .ml .mic svg{width:18px;height:18px}
+#homeT .ml .mt{font-size:13.5px}
+#homeT .ml .ms{font-size:12px;color:var(--sub,#9aa)}
+#homeT .ml .mact{background:transparent!important;color:var(--ink,#eee)!important;border:1px solid rgba(255,255,255,.28)!important;padding:5px 10px!important;min-height:30px!important;font-size:12px!important;clip-path:none!important;border-radius:6px!important;box-shadow:none!important}
+#homeT .ml.fly{transform:none;opacity:0}
+#homeT .ml.done{opacity:.4}
+#homeT .hmmh{border-bottom:1px solid rgba(255,255,255,.18)}
+#tHdot{background:rgba(255,255,255,.85);color:#111;min-width:16px;height:16px;line-height:16px;font-size:10px;top:-5px}
+.v7snd{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.v7snd select{flex:1;min-width:150px}
+.tabs .tab{white-space:nowrap;font-size:clamp(12px,3.6vw,15px);padding:0 4px;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.tabs{gap:6px}
+
 </style>
 </head>
 <body class="dopa">
@@ -3753,7 +3808,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.26",VLOG=[
+var VERSION="1.27",VLOG=[
+ ["1.27","2026-11-12",["正解・不正解の音を選べるように：標準・ハードベース（キック）・8bit・太鼓・やさしい（マリンバ）。設定の「よく使う設定」から","背景を、ゆっくり動く光と斜線のアニメーションに","文字を全体的に細く（どのテーマも細めの角ゴシック）","ホームが画面の横幅からはみ出すのを修正","ホームのメールを、色や動きを抑えた落ち着いた見た目に","アプリのアイコンを新しいデザインに"]],
  ["1.26","2026-11-12",["声の速さを全キャラでそろえ直しました（テスト中のスキルの声も、掛け声と同じテンポに）","設定に「キャラの声の速さ（編成・キャラ画面）」を追加。掛け声とは別に変えられます","「ホーム」タブを追加：メール・目標・お気に入りのキャラ1人をまとめて表示。記録は上のボタンへ","目標（何語を・いつまでに）を決めると、1日の量を提案して、毎日のタスクをメールで届けます","メールは自動では開かないように。事務的なお知らせ以外を届けない設定も追加","スキル発動のバナーを横長の六角形に。左右ランダムに出て、複数のときは蜂の巣状に並びます","スペル入力のキーボードを画面になじむ色に。端末のキーボードにも切り替えられます","スタイリッシュのフォントを細めの角ゴシックに。テストの文字はどのテーマでも同じ標準的な文字に。学習カードの文字の光をなくしました","最初の画面は「タップしてはじめる」から。タップでアニメーションと音が一緒に始まります","テストの途中でアプリを閉じても、最初の画面の「コンティニュー」から続きができます","絵文字をアイコンに置き換え、キャラ画面のカードを大きく"]],
  ["1.25","2026-11-12",["受信箱（INBOX）：今日の復習・ログインボーナス・お知らせなどを、メールのように上から片付けられるように","今日の復習：習得した単語を、1日後・4日後・10日後・3週間後・6週間ごとに出題（暗記カード→確認テスト）","上級モード「スペル入力」：日本語→英語の問題を、アプリ専用のキーボードで答えます（正解は得点2倍）","バックアップをファイルで保存・復元できるように（初回は◆50）。端末の中にも自動の控えを3日分","称号・単語図鑑メダル・キャラの覚醒（Lv5＋そのキャラのボスを撃破）・全語制覇エンディングを追加","初めての人向けに、キャラ・編成・ボス戦を少しずつ開放（今遊んでいる人は全部開放済み）","スキル名をキャラらしい技名に。表情の割り当てを見直し","ボス撃破・PERFECT・ステージ初クリア・★5以上のスカウトで、専用の共有文","ホームに「今日の続き」ボタン"]],
  ["1.24","2026-11-12",["掛け声を速く（以前のテンポに）。声を引き延ばさずに作り直したので音質はそのまま","起動時のアニメーションに合わせて効果音","アプリを閉じたとき・戻ったときの異音を対策","起動時・アプリに戻ったときに音楽がすぐ流れるように","全体テスト（ボス戦あり）のあと、出題数を元の設定に戻すように","スキル発動のバナーを、横から出てくる動きに戻しました","テスト結果の演出：見出しと％を同時に表示。見出しは結果に合わせて「クリア！」「完全制覇！」「決着！」などに変わります"]],
@@ -6366,6 +6422,64 @@ contBtn();
   };
   o.addEventListener("pointerdown",go);o.addEventListener("click",go);
 })();
+})();
+
+/* ====================================================================
+   v1.27：正解・不正解の音セット（ハードベースなど）・背景のゆっくりアニメ
+   ==================================================================== */
+(function(){
+/* ---------------- 音セット ---------------- */
+var SSETS=[["std","標準（ベル）"],["hb","ハードベース（キック）"],["bit","8bit"],["tk","太鼓"],["mr","やさしい（マリンバ）"]];
+var SSET=(function(){try{var v=localStorage.getItem("dopa:snd");return SSETS.some(function(x){return x[0]===v})?v:"std"}catch(e){return "std"}})();
+var SDUR={std:0.4,hb:0.62,bit:0.36,tk:0.5,mr:0.5};
+function O(type,f0,f1,t,d,g,dst,at){var o=AC.createOscillator(),v=AC.createGain();o.type=type;o.frequency.setValueAtTime(f0,t);if(f1&&f1!==f0)o.frequency.exponentialRampToValueAtTime(f1,t+d*0.9);v.gain.setValueAtTime(0.0001,t);v.gain.exponentialRampToValueAtTime(g,t+(at||0.004));v.gain.exponentialRampToValueAtTime(0.0001,t+d);o.connect(v);v.connect(dst||SFX);o.start(t);o.stop(t+d+0.05);return o}
+function NZ(t,d,g,type,f,q,dst){var n=Math.max(1,Math.floor(AC.sampleRate*(d+0.02))),b=AC.createBuffer(1,n,AC.sampleRate),x=b.getChannelData(0);for(var i=0;i<n;i++)x[i]=Math.random()*2-1;var s=AC.createBufferSource(),fl=AC.createBiquadFilter(),v=AC.createGain();s.buffer=b;fl.type=type||"highpass";fl.frequency.value=f||2000;fl.Q.value=q||0.7;v.gain.setValueAtTime(g,t);v.gain.exponentialRampToValueAtTime(0.0001,t+d);s.connect(fl);fl.connect(v);v.connect(dst||SFX);s.start(t);s.stop(t+d+0.02)}
+function DIST(amt,dst){var ws=AC.createWaveShaper(),c=new Float32Array(1024);for(var i=0;i<1024;i++){var x=i/512-1;c[i]=Math.tanh(x*amt)}ws.curve=c;ws.connect(dst||SFX);return ws}
+/* ハードベースのキック：ピッチが急降下する太いサイン波を強く歪ませる＋アタックのクリック */
+function hbKick(t,g,low){
+  var ws=DIST(9),v=AC.createGain(),o=AC.createOscillator();v.connect(ws);
+  o.type="sine";o.frequency.setValueAtTime(low?150:190,t);o.frequency.exponentialRampToValueAtTime(low?38:52,t+0.11);
+  v.gain.setValueAtTime(0.0001,t);v.gain.exponentialRampToValueAtTime(g,t+0.003);v.gain.setValueAtTime(g,t+0.08);v.gain.exponentialRampToValueAtTime(0.0001,t+(low?0.5:0.36));
+  o.connect(v);o.start(t);o.stop(t+0.55);
+  NZ(t,0.018,g*0.6,"highpass",3000,0.7);
+}
+/* 裏拍のベース（のこぎり波＋フィルターが閉じていく） */
+function hbStab(t,f,g,d){
+  var ws=DIST(3),lp=AC.createBiquadFilter(),v=AC.createGain();lp.type="lowpass";lp.Q.value=8;lp.frequency.setValueAtTime(3200,t);lp.frequency.exponentialRampToValueAtTime(350,t+d);lp.connect(v);v.connect(ws);
+  v.gain.setValueAtTime(0.0001,t);v.gain.exponentialRampToValueAtTime(g,t+0.005);v.gain.exponentialRampToValueAtTime(0.0001,t+d);
+  [0,7].forEach(function(dt){var o=AC.createOscillator();o.type="sawtooth";o.frequency.value=f;o.detune.value=dt;o.connect(lp);o.start(t);o.stop(t+d+0.02)});
+}
+var WIN={
+  hb:function(t,s){hbKick(t,0.55,false);hbStab(t+0.15,pf(s%5)/2,0.16+0.01*s,0.13);if(s>=3)hbStab(t+0.3,pf(2+s%5)/2,0.14,0.12)},
+  bit:function(t,s){[0,4,7,12].forEach(function(n,i){O("square",pf(5+s)*Math.pow(2,n/12),0,t+i*0.045,0.07,0.045)})},
+  tk:function(t,s){O("sine",150,72,t,0.32,0.5,null,0.002);NZ(t,0.06,0.12,"lowpass",900,0.8);if(s>=2){O("triangle",1250,1100,t+0.16,0.05,0.12,null,0.001);NZ(t+0.16,0.03,0.1,"highpass",3000)}},
+  mr:function(t,s){[0,4].forEach(function(n,i){var f=pf(5+Math.min(s,4))*Math.pow(2,n/12);O("triangle",f,0,t+i*0.08,0.28,0.09,null,0.003);O("sine",f*4,0,t+i*0.08,0.06,0.025,null,0.002)})}
+};
+var FAIL={
+  hb:function(t){hbKick(t,0.5,true);var ws=DIST(6),v=AC.createGain(),o=AC.createOscillator();v.connect(ws);o.type="sawtooth";o.frequency.setValueAtTime(110,t+0.04);o.frequency.exponentialRampToValueAtTime(41,t+0.4);v.gain.setValueAtTime(0.0001,t+0.04);v.gain.exponentialRampToValueAtTime(0.12,t+0.06);v.gain.exponentialRampToValueAtTime(0.0001,t+0.45);o.connect(v);o.start(t+0.04);o.stop(t+0.5)},
+  bit:function(t){O("square",220,0,t,0.09,0.05);O("square",165,0,t+0.1,0.16,0.05)},
+  tk:function(t){O("triangle",520,480,t,0.05,0.09,null,0.001);NZ(t,0.04,0.06,"bandpass",1500,2);O("sine",90,60,t+0.06,0.18,0.18,null,0.004)},
+  mr:function(t){O("sine",330,262,t,0.3,0.07,null,0.01)}
+};
+var _wc=winCore;
+winCore=function(t,s,k){if(SSET==="std"||!WIN[SSET])return _wc(t,s,k);TCAP=0;try{WIN[SSET](t,s)}catch(e){}};
+var _sk=sfxKey;sfxKey=function(){return _sk()+"_"+SSET};
+winSound=function(streak,k){var a=ac();if(!a)return;duck(SSET==="hb"?0.85:0.7);spSide();var s=Math.min(streak-1,6);sfxPlay("w3_"+s+"_"+sfxKey(),SDUR[SSET]||0.4,function(t){winCore(t,s,k)})};
+var _fs=failSound;
+failSound=function(){if(SSET==="std"||!FAIL[SSET])return _fs();var a=ac();if(!a)return;spSide();duck(0.5);sfxPlay("f_"+SSET,0.6,function(t){try{FAIL[SSET](t)}catch(e){}})};
+window.sndTry=function(){var a=ac();if(!a)return;winSound(1,0);setTimeout(function(){winSound(4,0)},420);setTimeout(function(){failSound()},900)};
+/* 設定：よく使う設定に並べる */
+(function(){
+  var q=document.querySelector(".v5q");if(!q)return;
+  var l=document.createElement("label");l.className="rad v7snd";
+  l.innerHTML='正解・不正解の音 <select id="sndSel">'+SSETS.map(function(x){return '<option value="'+x[0]+'"'+(x[0]===SSET?' selected':'')+'>'+x[1]+'</option>'}).join("")+'</select><button class="sm" id="sndTry">試し聞き</button>';
+  q.appendChild(l);
+  $("sndSel").onchange=function(){SSET=$("sndSel").value;try{localStorage.setItem("dopa:snd",SSET)}catch(e){}sndTry()};
+  $("sndTry").onclick=function(e){e.preventDefault();sndTry()};
+})();
+
+/* ---------------- 背景：ゆっくり動く光と斜線 ---------------- */
+(function(){if($("bgfx"))return;var d=document.createElement("div");d.id="bgfx";d.innerHTML='<i class="b1"></i><i class="b2"></i><i class="b3"></i>';document.body.insertBefore(d,document.body.firstChild)})();
 })();
 
 </script>
