@@ -1228,7 +1228,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <div class="row2">声1 <select id="fxs0"></select></div>
   <div class="row2">声2 <select id="fxs1"></select></div>
   <div class="row2">声3 <select id="fxs2"></select></div>
-  <label class="rad">掛け声の速さ <input type="range" id="voxRate" min="0.8" max="2" step="0.05"> <span id="voxRateV"></span></label>
+  <label class="rad">掛け声の速さ <input type="range" id="voxRate" min="0.7" max="1.6" step="0.05"> <span id="voxRateV"></span></label>
   <div hidden><div class="row2">声ID直接指定 <input type="number" id="voxCid" min="0" max="999" style="width:84px"><select id="voxCidSlot" style="flex:0 0 5em"><option value="0">声1</option><option value="1">声2</option><option value="2">声3</option></select><button class="sm" id="voxCidSet">設定</button></div>
   <div class="row2"><button class="sm" id="voxList">自分のエンジンから声の一覧を取得</button></div>
   <div class="row2">エンジンURL <input type="text" id="voxUrl" spellcheck="false" style="flex:1;min-width:0"></div>
@@ -1239,7 +1239,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <div class="hint" id="voxSaveMsg"></div>
   <details class="dt"><summary>音声についての説明・クレジット</summary>
   <div class="hint">声はすべてアプリに収録しています（VOICEVOXで作成）。「音声をまとめて保存」を押すと、選んだ声の掛け声と全20キャラの自己紹介を、すぐ鳴らせる形で端末に保存します。</div>
-  <div class="hint">リーチ・大当たり・確定などの掛け声と、スキル発動の声を、ここで選んだ声（最大3つ）で鳴らします。選べるのはアプリに収録した19人（20種類）の声です。全20キャラにも、それぞれ声を割り当てていて、入手したときや、ガチャ画面で立ち絵を押したときに自己紹介します。速さは掛け声全体に効きます。<br>音声クレジット：<span id="voxCredit"></span></div>
+  <div class="hint">リーチ・大当たり・確定などの掛け声と、スキル発動の声を、ここで選んだ声（最大3つ）で鳴らします。選べるのはアプリに収録した20人（21種類）の声です。全20キャラにも、それぞれ声を割り当てていて、入手したときや、ガチャ画面で立ち絵を押したときに自己紹介します。速さは掛け声全体に効きます。<br>音声クレジット：<span id="voxCredit"></span></div>
   </details>
   <details class="dt" id="eqBox"><summary>イコライザー</summary>
   <div class="hint">音の高さごとの強さを調整します。おすすめの設定を選ぶだけでも使えます。</div>
@@ -1371,20 +1371,20 @@ function speak(text,rate){if(!synth)return;
   synth.speak(u)}
 try{if(navigator.audioSession)navigator.audioSession.type="ambient"}catch(e){}
 /* アプリに同梱している声（VOICEVOX）。この20種類だけを選べます */
-var PACKV=[["四国めたん",[["ノーマル",2],["ツンツン",6]]],["春日部つむぎ",[["ノーマル",8]]],["雨晴はう",[["ノーマル",10]]],["冥鳴ひまり",[["ノーマル",14]]],["九州そら",[["ノーマル",16]]],["WhiteCUL",[["ノーマル",23]]],["後鬼",[["人間ver.",27]]],["櫻歌ミコ",[["ノーマル",43]]],["小夜/SAYO",[["ノーマル",46]]],["ナースロボ＿タイプＴ",[["ノーマル",47]]],["†聖騎士 紅桜†",[["ノーマル",51]]],["春歌ナナ",[["ノーマル",54]]],["猫使ビィ",[["ノーマル",58]]],["中国うさぎ",[["ノーマル",61]]],["波音リツ",[["クイーン",65]]],["あいえるたん",[["ノーマル",68]]],["琴詠ニア",[["ノーマル",74]]],["東北ずん子",[["ノーマル",107]]],["東北イタコ",[["ノーマル",109]]]];
+var PACKV=[["四国めたん",[["ノーマル",2],["ツンツン",6]]],["春日部つむぎ",[["ノーマル",8]]],["雨晴はう",[["ノーマル",10]]],["冥鳴ひまり",[["ノーマル",14]]],["九州そら",[["ノーマル",16]]],["WhiteCUL",[["ノーマル",23]]],["後鬼",[["人間ver.",27]]],["櫻歌ミコ",[["ノーマル",43]]],["小夜/SAYO",[["ノーマル",46]]],["ナースロボ＿タイプＴ",[["ノーマル",47]]],["†聖騎士 紅桜†",[["ノーマル",51]]],["春歌ナナ",[["ノーマル",54]]],["猫使ビィ",[["ノーマル",58]]],["中国うさぎ",[["ノーマル",61]]],["波音リツ",[["クイーン",65]]],["あいえるたん",[["ノーマル",68]]],["琴詠ニア",[["ノーマル",74]]],["東北ずん子",[["ノーマル",107]]],["東北きりたん",[["ノーマル",108]]],["東北イタコ",[["ノーマル",109]]]];
 var PACKIDS={};PACKV.forEach(function(x){x[1].forEach(function(st){PACKIDS[st[1]]=1})});
 var VLIST=[["四国めたん",[["あまあま",0],["ノーマル",2],["セクシー",4],["ツンツン",6],["ささやき",36],["ヒソヒソ",37]]],["ずんだもん",[["あまあま",1],["ノーマル",3],["セクシー",5],["ツンツン",7],["ささやき",22],["ヒソヒソ",38],["ヘロヘロ",75],["なみだめ",76]]],["春日部つむぎ",[["ノーマル",8]]],["雨晴はう",[["ノーマル",10]]],["波音リツ",[["ノーマル",9],["クイーン",65]]],["玄野武宏",[["ノーマル",11],["喜び",39],["ツンギレ",40],["悲しみ",41]]],["白上虎太郎",[["ふつう",12],["わーい",32],["びくびく",33],["おこ",34],["びえーん",35]]],["青山龍星",[["ノーマル",13],["熱血",81],["不機嫌",82],["喜び",83],["しっとり",84],["かなしみ",85],["囁き",86]]],["冥鳴ひまり",[["ノーマル",14]]],["九州そら",[["あまあま",15],["ノーマル",16],["セクシー",17],["ツンツン",18],["ささやき",19]]],["もち子さん",[["ノーマル",20]]],["剣崎雌雄",[["ノーマル",21]]],["WhiteCUL",[["ノーマル",23],["たのしい",24],["かなしい",25],["びえーん",26]]],["後鬼",[["人間ver.",27],["ぬいぐるみver.",28]]],["No.7",[["ノーマル",29],["アナウンス",30],["読み聞かせ",31]]],["ちび式じい",[["ノーマル",42]]],["櫻歌ミコ",[["ノーマル",43],["第二形態",44],["ロリ",45]]],["小夜/SAYO",[["ノーマル",46]]],["ナースロボ＿タイプＴ",[["ノーマル",47],["楽々",48],["恐怖",49],["内緒話",50]]],["†聖騎士 紅桜†",[["ノーマル",51]]],["雀松朱司",[["ノーマル",52]]],["麒ヶ島宗麟",[["ノーマル",53]]],["春歌ナナ",[["ノーマル",54]]],["猫使アル",[["ノーマル",55],["おちつき",56],["うきうき",57]]],["猫使ビィ",[["ノーマル",58],["おちつき",59],["人見知り",60]]],["中国うさぎ",[["ノーマル",61],["おどろき",62],["こわがり",63],["へろへろ",64]]],["栗田まろん",[["ノーマル",67]]],["あいえるたん",[["ノーマル",68]]],["満別花丸",[["ノーマル",69],["元気",70],["ささやき",71],["ぶりっ子",72],["ボーイ",73]]],["琴詠ニア",[["ノーマル",74]]]];
-VLIST=VLIST.concat([["東北ずん子",[["ノーマル",107]]],["東北イタコ",[["ノーマル",109]]]]);
+VLIST=VLIST.concat([["東北ずん子",[["ノーマル",107]]],["東北きりたん",[["ノーマル",108]]],["東北イタコ",[["ノーマル",109]]]]);
 /* 20キャラそれぞれの声（VOICEVOXの話者ID）と読み */
-var CVOICE={c01:14,c02:2,c03:10,c04:6,c05:23,c06:107,c07:58,c08:68,c09:47,c10:46,c11:54,c12:61,c13:43,c14:51,c15:109,c16:74,c17:16,c18:27,c19:65,c20:8};
+var CVOICE={c01:8,c02:2,c03:54,c04:6,c05:23,c06:10,c07:58,c08:108,c09:47,c10:46,c11:14,c12:61,c13:109,c14:51,c15:43,c16:74,c17:16,c18:27,c19:65,c20:107};
 var CYOMI={c01:"かえで",c02:"しおり",c03:"かほ",c04:"あや",c05:"ふゆか",c06:"ゆい",c07:"クロ",c08:"レン",c09:"イオ",c10:"もえぎ",c11:"あさがお",c12:"リンレイ",c13:"ちよ",c14:"イリス",c15:"エルナ",c16:"ミナモ",c17:"ゆきの",c18:"すずね",c19:"リリス",c20:"ひかり"};
-var VOX={mode:"web",spk:"party",url:"http://127.0.0.1:50021",key:"",lastErr:"",rate:1.6,cache:{},alt:0,fail:0,pf:0,list:null,saved:{},stq:{},storeErr:"",saving:0,gap:0,cancel:0};
-try{var vs0=JSON.parse(localStorage.getItem("dopa:vox")||"null");if(vs0){VOX.mode=vs0.mode||"web";VOX.spk=(vs0.spk&&!((vs0.spk==="alt"||vs0.spk==="first"||vs0.spk==="id:8")&&!(vs0.rv>=5)))?vs0.spk:"party";VOX.url=vs0.url||VOX.url;if(typeof vs0.key==="string")VOX.key=vs0.key;if(vs0.rv>=7&&typeof vs0.rate==="number")VOX.rate=Math.max(0.5,Math.min(2,vs0.rate));else if(vs0.rv>=6&&typeof vs0.rate==="number"&&Math.abs(vs0.rate-1.4)>0.01)VOX.rate=Math.max(0.5,Math.min(2,vs0.rate))}}catch(e){}
+var VOX={mode:"web",spk:"party",url:"http://127.0.0.1:50021",key:"",lastErr:"",rate:1.0,cache:{},alt:0,fail:0,pf:0,list:null,saved:{},stq:{},storeErr:"",saving:0,gap:0,cancel:0};
+try{var vs0=JSON.parse(localStorage.getItem("dopa:vox")||"null");if(vs0){VOX.mode=vs0.mode||"web";VOX.spk=(vs0.spk&&!((vs0.spk==="alt"||vs0.spk==="first"||vs0.spk==="id:8")&&!(vs0.rv>=5)))?vs0.spk:"party";VOX.url=vs0.url||VOX.url;if(typeof vs0.key==="string")VOX.key=vs0.key;if(vs0.rv>=8&&typeof vs0.rate==="number")VOX.rate=Math.max(0.7,Math.min(1.6,vs0.rate));if(!(vs0.rv>=8))VOX.renew=1}}catch(e){}
 /* 声ごとの話す速さ（収録した声の長さから測定。1より大きい＝ゆっくり話す声なので、そのぶん速くする） */
-var VFAC={2:0.932,6:0.919,8:0.901,10:0.949,14:0.901,16:1.429,23:0.978,27:1.108,43:1.315,46:1.067,47:1.0,51:0.796,54:1.0,58:1.023,61:1.452,65:1.0,68:1.0,74:0.964,107:1.0,109:1.057};
+var VFAC={};/* v1.23：声ごとの速さは音声データ側でそろえ済み */
 function vRate(sp){return Math.min(2.3,VOX.rate*Math.max(0.8,Math.min(1.5,VFAC[sp]||1)))}
 if(VOX.mode==="engine")VOX.mode="web";if(VOX.spk==="zunda")VOX.spk="id:3";else if(VOX.spk==="tsumugi")VOX.spk="id:8";
-function voxSave(){try{localStorage.setItem("dopa:vox",JSON.stringify({mode:VOX.mode,spk:VOX.spk,url:VOX.url,key:VOX.key,rate:VOX.rate,rv:7}))}catch(e){}}
+function voxSave(){try{localStorage.setItem("dopa:vox",JSON.stringify({mode:VOX.mode,spk:VOX.spk,url:VOX.url,key:VOX.key,rate:VOX.rate,rv:8}))}catch(e){}}
 var FXS=[47,8,46];var CAPU={},VCT=0;
 try{var fx0=JSON.parse(localStorage.getItem("dopa:fxs")||"null");if(Array.isArray(fx0)){fx0=fx0.filter(function(x){return PACKIDS[x]});if(fx0.length&&fx0.length<=3)FXS=fx0}}catch(e){}
 function fxSave(){try{localStorage.setItem("dopa:fxs",JSON.stringify(FXS))}catch(e){}}
@@ -1445,6 +1445,7 @@ function voxStore(key,u,cb){
 }
 function voxSavedCount(){return Object.keys(VOX.saved).length}
 function voxLoadSaved(done){
+  if(VOX.renew){VOX.renew=0;vdbClear(function(){voxSave();if(done)done(0)});return}
   vdbAll(function(list){
     list.forEach(function(kv){
       try{if(!VOX.cache[kv[0]]){VOX.cache[kv[0]]=URL.createObjectURL(kv[1])}VOX.saved[kv[0]]=1}catch(e){}
@@ -1587,7 +1588,7 @@ function voxPlayBuf(u,cb,sp){
       var s=a.createBufferSource();s.buffer=buf;
       var now=a.currentTime,st=Math.max(now,VEND+0.12);
       if(st-now>2.4){cb(true);return}
-      var g=a.createGain();var vol0=Math.min(2,Math.max(0.05,volS/40));g.gain.value=vol0;var cap=CAPU[u]||2.0,dur=Math.min(buf.duration,cap);if(buf.duration>cap){g.gain.setValueAtTime(vol0,st+cap-0.15);g.gain.linearRampToValueAtTime(0.0001,st+cap)}
+      var g=a.createGain();var vol0=Math.min(1.6,Math.max(0.04,volS/40*0.75));g.gain.value=vol0;var cap=CAPU[u]||2.0,dur=Math.min(buf.duration,cap);if(buf.duration>cap){g.gain.setValueAtTime(vol0,st+cap-0.15);g.gain.linearRampToValueAtTime(0.0001,st+cap)}
       var vp=null;if(spm()&&SPM[spm()].vw&&a.createStereoPanner){vp=a.createStereoPanner();vp.pan.value=(VSIDE=!VSIDE)?-SPM[spm()].vw:SPM[spm()].vw;s.connect(g);g.connect(vp);vp.connect(MASTER)}else{s.connect(g);g.connect(MASTER)}s.start(st);if(buf.duration>cap)s.stop(st+cap+0.03);VEND=st+dur;duck(1.3);cb(true);
     }catch(e){cb(false)}
   };
@@ -1620,7 +1621,7 @@ function voxPlayEl(u,text,sp,onok,onerr){
     a.onerror=function(){bad("音声ファイルを再生できません（取得先がブロックされている／形式非対応の可能性）")};
     a.onplaying=function(){if(onok)onok()};
     a.src=u;
-    a.volume=Math.min(1,volS/60);a.defaultPlaybackRate=VOX.rate;a.playbackRate=VOX.rate;a.preservesPitch=true;a.webkitPreservesPitch=true;
+    a.volume=Math.min(1,volS/60*0.75);a.defaultPlaybackRate=VOX.rate;a.playbackRate=VOX.rate;a.preservesPitch=true;a.webkitPreservesPitch=true;
     clearTimeout(VCT);VCT=setTimeout(function(){if(my===VTOK)try{a.pause()}catch(e){}},(CAPU[u]||2.0)*1000+300);
     var p=a.play();
     if(p&&p.catch)p.catch(function(e){
@@ -3331,7 +3332,7 @@ function bgmSync(){
   var vchg=function(){VOX.mode=$("voxMode").value;fxRead();VOX.url=$("voxUrl").value||VOX.url;VOX.key=($("voxKey").value||"").trim();
     Object.keys(VOX.cache).forEach(function(k){if(!VOX.cache[k])delete VOX.cache[k]});VOX.fail=0;voxSave();voxPrefetch()};
   $("voxMode").onchange=function(){vchg();loadEngineSpeakers()};[0,1,2].forEach(function(q){$("fxs"+q).onchange=vchg});$("voxKey").onchange=vchg;$("voxUrl").onchange=function(){vchg();loadEngineSpeakers()};
-  $("voxRate").oninput=function(){VOX.rate=parseFloat(this.value)||1.6;$("voxRateV").textContent="×"+VOX.rate.toFixed(2);voxSave()};
+  $("voxRate").oninput=function(){VOX.rate=parseFloat(this.value)||1;$("voxRateV").textContent="×"+VOX.rate.toFixed(2);voxSave()};
   $("voxRate").onchange=function(){jaShout("リーチ！")};
   $("voxTest").onclick=function(){
     if(VOX.mode==="off"){$("voxMsg").textContent="方式が「標準」です（端末の音声で読み上げます）。";browserSay("リーチ！　音声のテストです。");return}
@@ -3407,7 +3408,7 @@ function applyCustomBg(){
   };
   vis();applyCustomBg();
 })();
-var CREDITS=["VOICEVOX:四国めたん","VOICEVOX:春日部つむぎ","VOICEVOX:雨晴はう","VOICEVOX:冥鳴ひまり","VOICEVOX:九州そら","VOICEVOX:WhiteCUL","VOICEVOX:後鬼","VOICEVOX:櫻歌ミコ","VOICEVOX:小夜/SAYO","VOICEVOX:ナースロボ＿タイプＴ","VOICEVOX:†聖騎士 紅桜†","VOICEVOX:春歌ナナ","VOICEVOX:猫使ビィ","VOICEVOX:中国うさぎ","VOICEVOX:波音リツ","VOICEVOX:あいえるたん","VOICEVOX:琴詠ニア","VOICEVOX:東北ずん子","VOICEVOX:東北イタコ"];
+var CREDITS=["VOICEVOX:四国めたん","VOICEVOX:春日部つむぎ","VOICEVOX:雨晴はう","VOICEVOX:冥鳴ひまり","VOICEVOX:九州そら","VOICEVOX:WhiteCUL","VOICEVOX:後鬼","VOICEVOX:櫻歌ミコ","VOICEVOX:小夜/SAYO","VOICEVOX:ナースロボ＿タイプＴ","VOICEVOX:†聖騎士 紅桜†","VOICEVOX:春歌ナナ","VOICEVOX:猫使ビィ","VOICEVOX:中国うさぎ","VOICEVOX:波音リツ","VOICEVOX:あいえるたん","VOICEVOX:琴詠ニア","VOICEVOX:東北ずん子","VOICEVOX:東北きりたん","VOICEVOX:東北イタコ"];
 function credHtml(){return '<b>音声</b><br>'+CREDITS.map(esc).join("<br>")+'<br><br><b>単語リスト</b><br>NGSL（New General Service List）1.2　Browne, C., Culligan, B. &amp; Phillips, J.　CC BY-SA 4.0<br><br><b>イラスト</b><br>立ち絵素材 わたおきば（https://wataokiba.net/）<br><br>くわしい規約とライセンスは「データ」タブの「クレジット」にあります。'}
 /* ---- 全解放パック（Google Play の買い切り。Google Play版のアプリの中でだけ表示） ---- */
 var IAP_SKU="unlock_all";
