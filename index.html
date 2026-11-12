@@ -1423,6 +1423,65 @@ body.tap0on .homev{visibility:hidden!important;animation:none!important}
 #tap0{background:transparent!important;justify-content:flex-end!important;padding-bottom:28vh;box-sizing:border-box}
 #tap0 .t0s{margin-top:0!important;color:var(--acc,#d4ff00)}
 
+/* ===== v1.28 ===== */
+/* 通知の数：斜めのタグ・等幅の2桁 */
+#tHdot{background:#0b0c0e!important;color:var(--acc,#d4ff00)!important;border:1px solid var(--acc,#d4ff00);border-radius:1px!important;transform:skewX(-14deg);font:700 10px/14px ui-monospace,"SF Mono",Menlo,monospace!important;font-style:normal;height:16px!important;min-width:0!important;padding:0 5px!important;top:-8px!important;right:-3px!important;letter-spacing:.04em;box-shadow:2px 2px 0 rgba(0,0,0,.55);text-align:center}
+#tHdot::before{content:"";position:absolute;left:-4px;top:3px;width:2px;height:8px;background:var(--acc,#d4ff00)}
+.tab.on #tHdot{border-color:#0b0c0e;box-shadow:2px 2px 0 rgba(0,0,0,.35)}
+/* 動く背景をUI全体に：カードを半透明に */
+#bgfx .b1{background:radial-gradient(circle,color-mix(in srgb,var(--acc,#d4ff00) 24%,transparent),transparent 62%)!important}
+#bgfx .b2{background:radial-gradient(circle,rgba(110,170,255,.17),transparent 62%)!important}
+#bgfx .b3{background:repeating-linear-gradient(115deg,rgba(255,255,255,.045) 0 2px,transparent 2px 46px)!important}
+body.dopa .card{background:linear-gradient(color-mix(in srgb,var(--c1,#1c1f23) 55%,transparent),color-mix(in srgb,var(--c2,#121417) 62%,transparent))!important;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+body.dopa.th-sty .card{background:linear-gradient(rgba(26,28,32,.58),rgba(16,17,20,.66))!important}
+body.lite.dopa .card{-webkit-backdrop-filter:none;backdrop-filter:none}
+body.th-sty .hbg{background:repeating-linear-gradient(115deg,rgba(255,255,255,.03) 0 2px,transparent 2px 22px),linear-gradient(115deg,transparent 0 58%,#d4ff00 58% 62%,transparent 62% 65%,rgba(255,255,255,.85) 65% 65.6%,transparent 65.6%),linear-gradient(160deg,rgba(28,31,35,.5),rgba(5,5,6,.62))!important}
+/* タップ前：背景と装飾は見せて、ロゴ・ボタン・文字だけ隠す。タップで文字がふわっと消え、同じ背景の上にタイトルが出る */
+body.tap0on .homev{visibility:visible!important;animation:none!important}
+body.tap0on .homev>*:not(.hbg):not(.hray):not(.hdots):not(.hc){visibility:hidden!important}
+body.t0done .homev.intro .hbg,body.t0done .homev.intro .hc{animation:none!important}
+#tap0{transition:opacity .5s ease,transform .5s ease,letter-spacing .5s ease!important}
+#tap0.out{opacity:0!important;transform:translateY(-14px) scale(1.04)}
+#tap0 .t0s{transition:letter-spacing .5s ease}
+#tap0.out .t0s{letter-spacing:.7em}
+/* ホームを整える */
+#homeT .hmw{gap:14px!important;padding:12px!important}
+.hmhero{display:flex;gap:12px;align-items:stretch;flex:0 0 auto;min-width:0}
+.hmhero .hmcard{flex:0 0 41%!important}
+.hmnone{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1px dashed rgba(255,255,255,.25);border-radius:6px;color:var(--sub,#aaa);font-size:13px;aspect-ratio:586/1000}
+.hmside{flex:1;min-width:0;display:flex;flex-direction:column;gap:10px;padding-top:2px}
+.hmdate{display:flex;align-items:baseline;gap:8px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.14)}
+.hmdate b{font:900 italic 30px/1 "Arial Black",sans-serif!important;letter-spacing:-.02em}
+.hmdate span{font:700 11px ui-monospace,Menlo,monospace;letter-spacing:.2em;color:var(--acc,#d4ff00)}
+.hmname{display:flex;flex-direction:column;gap:1px;min-width:0}
+.hmname small{font:700 9.5px ui-monospace,Menlo,monospace;letter-spacing:.25em;color:var(--sub,#999)}
+.hmname b{font-size:20px;font-weight:600!important;line-height:1.15}
+.hmname em{font-style:normal;font-size:11px;color:var(--acc,#d4ff00)}
+.hmline{margin:0;font-size:12.5px;line-height:1.55;color:var(--sub,#c8c8c8)}
+.hmst{margin:auto 0 0;display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,.14)}
+.hmst div{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.08);background:none!important;border-radius:0!important}
+.hmst dt{font-size:11.5px;color:var(--sub,#aaa)}
+.hmst dd{margin:0;font:700 17px ui-monospace,Menlo,monospace}.hmst dd i{font:400 10px sans-serif;font-style:normal;color:var(--sub,#aaa);margin-left:2px}
+.hmchg{display:inline-flex!important;align-items:center;justify-content:center;gap:6px;min-height:32px!important;font-size:12px!important;background:transparent!important;border:1px solid rgba(255,255,255,.25)!important;color:var(--ink,#eee)!important;border-radius:4px!important;clip-path:none!important;box-shadow:none!important}
+.hmsec{display:flex;flex-direction:column;gap:8px;flex:0 0 auto;min-width:0}
+.hmsec h4{margin:0;display:flex;align-items:baseline;gap:8px;font-size:14px;font-weight:600!important;padding-bottom:5px;border-bottom:1px solid rgba(255,255,255,.14)}
+.hmsec h4 span{font:900 italic 12px "Arial Black",sans-serif!important;letter-spacing:.14em;color:var(--acc,#d4ff00)}
+.hmsec h4 .hmadm{margin-left:auto;font-size:11px;color:var(--sub,#999);display:flex;align-items:center;gap:4px;font-weight:300!important}
+.hmmh{display:none!important}
+.hmgoal{border:0!important;background:rgba(255,255,255,.035)!important;border-radius:6px!important;padding:10px!important;gap:8px!important}
+.hmgoal.none{flex-direction:column!important;align-items:stretch!important}
+.hmgoal.none p{margin:0;font-size:12.5px;color:var(--sub,#bbb);line-height:1.55}
+.glh b{font:700 18px ui-monospace,Menlo,monospace!important}
+.hmbtn{display:inline-flex!important;align-items:center;justify-content:center;gap:6px;min-height:38px!important;font-size:13px!important;background:transparent!important;color:var(--acc,#d4ff00)!important;border:1px solid var(--acc,#d4ff00)!important;border-radius:4px!important;clip-path:none!important;box-shadow:none!important}
+.glbar{height:6px!important}.glbar i{background:var(--acc,#d4ff00)}
+.gltask{gap:2px!important}.gltask div{font-size:12.5px}
+.tabs #tH{overflow:visible!important}
+#tHdot{top:4px!important;right:12px!important;transform:skewX(-14deg) scale(.92)}
+#tHdot{top:50%!important;right:10px!important;transform:translateY(-50%) skewX(-14deg)!important}
+.tabs #tH:has(#tHdot:not([hidden])){padding-right:36px!important}
+.tabs #tH.on:has(#tHdot:not([hidden])){padding-right:40px!important}
+.tabs #tH.on #tHdot{right:16px!important}
+
 </style>
 </head>
 <body class="dopa">
@@ -3813,8 +3872,9 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.28",VLOG=[
- ["1.28","2026-11-12",["最初の画面でタイトルが2回出てくるように見えるのを修正（タップ前はタイトルを隠し、タップでタイトルが音と一緒に登場）","アプリのアイコンをライム地のデザインに変更"]],
+var VERSION="1.29",VLOG=[
+ ["1.29","2026-11-12",["管理者コマンドを認証すると、すべてのコンテンツ（キャラ・編成・ボス戦・全キャラLv5・編成枠・ハズレ図鑑・ロック）が解放されるように","ホームの画面を整理（日付・パートナー・数字・目標・メールを、同じ形の区切りでそろえました）","「TOUCH TO START」からタイトルへの切り替えを滑らかに（背景はそのままで、タイトルだけが音と一緒に現れます）","動く背景がUI全体から見えるように、カードを半透明に","通知の数を、斜めのタグと等幅の数字のデザインに"]],
+ ["1.28","2026-11-12",["最初の画面でタイトルが2回出てくるように見えるのを修正","アプリのアイコンをライム地のデザインに変更"]],
  ["1.27","2026-11-12",["正解・不正解の音を選べるように：標準・ハードベース（キック）・8bit・太鼓・やさしい（マリンバ）。設定の「よく使う設定」から","背景を、ゆっくり動く光と斜線のアニメーションに","文字を全体的に細く（どのテーマも細めの角ゴシック）","ホームが画面の横幅からはみ出すのを修正","ホームのメールを、色や動きを抑えた落ち着いた見た目に","アプリのアイコンを新しいデザインに"]],
  ["1.26","2026-11-12",["声の速さを全キャラでそろえ直しました（テスト中のスキルの声も、掛け声と同じテンポに）","設定に「キャラの声の速さ（編成・キャラ画面）」を追加。掛け声とは別に変えられます","「ホーム」タブを追加：メール・目標・お気に入りのキャラ1人をまとめて表示。記録は上のボタンへ","目標（何語を・いつまでに）を決めると、1日の量を提案して、毎日のタスクをメールで届けます","メールは自動では開かないように。事務的なお知らせ以外を届けない設定も追加","スキル発動のバナーを横長の六角形に。左右ランダムに出て、複数のときは蜂の巣状に並びます","スペル入力のキーボードを画面になじむ色に。端末のキーボードにも切り替えられます","スタイリッシュのフォントを細めの角ゴシックに。テストの文字はどのテーマでも同じ標準的な文字に。学習カードの文字の光をなくしました","最初の画面は「タップしてはじめる」から。タップでアニメーションと音が一緒に始まります","テストの途中でアプリを閉じても、最初の画面の「コンティニュー」から続きができます","絵文字をアイコンに置き換え、キャラ画面のカードを大きく"]],
  ["1.25","2026-11-12",["受信箱（INBOX）：今日の復習・ログインボーナス・お知らせなどを、メールのように上から片付けられるように","今日の復習：習得した単語を、1日後・4日後・10日後・3週間後・6週間ごとに出題（暗記カード→確認テスト）","上級モード「スペル入力」：日本語→英語の問題を、アプリ専用のキーボードで答えます（正解は得点2倍）","バックアップをファイルで保存・復元できるように（初回は◆50）。端末の中にも自動の控えを3日分","称号・単語図鑑メダル・キャラの覚醒（Lv5＋そのキャラのボスを撃破）・全語制覇エンディングを追加","初めての人向けに、キャラ・編成・ボス戦を少しずつ開放（今遊んでいる人は全部開放済み）","スキル名をキャラらしい技名に。表情の割り当てを見直し","ボス撃破・PERFECT・ステージ初クリア・★5以上のスカウトで、専用の共有文","ホームに「今日の続き」ボタン"]],
@@ -6159,7 +6219,7 @@ function ibxItems(){
   return a;
 }
 function ibxCount(){try{return ibxItems().filter(function(x){return !x.done&&!x.keep}).length}catch(e){return 0}}
-function ntfDotV(){var n=ibxCount();["ntfDot","tHdot"].forEach(function(k){var d=$(k);if(!d)return;d.hidden=!n;d.textContent=n>9?"9+":n?String(n):""})}
+function ntfDotV(){var n=ibxCount();["ntfDot","tHdot"].forEach(function(k){var d=$(k);if(!d)return;d.hidden=!n;d.textContent=n>99?"99":n?("0"+n).slice(-2):""})}
 window.ntfDot=ntfDotV;ntfDot=ntfDotV;
 function ibxRender(){
   var L=ibxItems(),now=L.filter(function(x){return !x.done}),old=L.filter(function(x){return x.done});
@@ -6247,22 +6307,22 @@ $("recBtn").onclick=function(){tabSnd("R");tab("R")};
 function favId(){var f=G.fav;if(f&&lvOf(f))return f;return G.party[0]||G.first||(CHARS.filter(function(c){return lvOf(c.id)})[0]||{}).id||""}
 function homeRender(){
   var h=$("homeT");if(!h)return;
-  var id=favId(),c=id?cById(id):null,dt=new Date(),wd="日月火水木金土"[dt.getDay()],hr=dt.getHours();
-  var gr=hr<5?"夜ふかしだね。":hr<11?"おはよう！":hr<17?"こんにちは！":"おかえりなさい！";
+  var id=favId(),c=id?cById(id):null,dt=new Date(),wd=["SUN","MON","TUE","WED","THU","FRI","SAT"][dt.getDay()],hr=dt.getHours();
+  var gr=hr<5?"夜ふかしだね。無理しないでね":hr<11?"おはよう。今日も一緒にがんばろう":hr<17?"こんにちは。少しずつ進めよう":"おかえり。今日もおつかれさま";
   var due=srsDue().length,m=V5.mastered(),tt=titleName();
-  var card=c?'<div class="hmcard cgc" id="hmCard">'+cardSVG(id,cImg(id),c.s,{uid:"hm"+id})+'<div class="cpbub"></div></div>':'<div class="hmcard hmnone">キャラを選ぶ</div>';
+  var card=c?'<div class="hmcard cgc" id="hmCard">'+cardSVG(id,cImg(id),c.s,{uid:"hm"+id})+'<div class="cpbub"></div></div>':'<div class="hmcard hmnone" id="hmNone">'+ICO("users",22)+'<span>キャラを選ぶ</span></div>';
   h.innerHTML='<div class="card hmw">'+
-   '<div class="hmtop">'+card+
-    '<div class="hminfo"><div class="hmdate"><small>TODAY</small><b>'+(dt.getMonth()+1)+'/'+dt.getDate()+'</b><span>（'+wd+'）</span></div>'+
-     (c?'<div class="hmsay"><b>'+esc(c.name)+'</b>'+gr+'<br>今日も一緒にがんばろう。</div>':'')+
-     (tt?'<div class="hmttl">称号「'+esc(tt)+'」</div>':'')+
-     '<div class="hmst"><div><b>'+m+'</b><small>習得</small></div><div><b>'+due+'</b><small>今日の復習</small></div><div><b>'+((G.login&&G.login.n)||0)+'</b><small>連続ログイン</small></div></div>'+
-     '<button class="sm hmchg" id="hmChg">'+ICO("users",14)+' キャラを変える</button></div></div>'+
-   '<div id="hmGoal"></div>'+
-   '<div class="hmmh"><b>'+ICO("mail",16)+' メール</b><label class="hmadm"><input type="checkbox" id="hmAdm"'+(G.mailAdm?' checked':'')+'> 事務連絡のみ</label></div>'+
-   '<div id="homeMail" class="hmmail"></div></div>';
+   '<section class="hmhero">'+card+
+    '<div class="hmside">'+
+     '<div class="hmdate"><b>'+(dt.getMonth()+1)+'.'+("0"+dt.getDate()).slice(-2)+'</b><span>'+wd+'</span></div>'+
+     (c?'<div class="hmname"><small>PARTNER</small><b>'+esc(c.name)+'</b>'+(tt?'<em>'+esc(tt)+'</em>':'')+'</div><p class="hmline">'+gr+'</p>':'')+
+     '<dl class="hmst"><div><dt>習得</dt><dd>'+m+'<i>語</i></dd></div><div><dt>今日の復習</dt><dd>'+due+'<i>語</i></dd></div><div><dt>連続ログイン</dt><dd>'+((G.login&&G.login.n)||0)+'<i>日</i></dd></div></dl>'+
+     '<button class="hmchg" id="hmChg">'+ICO("users",14)+'<span>キャラを変える</span></button>'+
+    '</div></section>'+
+   '<section class="hmsec"><h4><span>GOAL</span>目標</h4><div id="hmGoal"></div></section>'+
+   '<section class="hmsec"><h4><span>MAIL</span>メール<label class="hmadm"><input type="checkbox" id="hmAdm"'+(G.mailAdm?' checked':'')+'>事務連絡のみ</label></h4><div id="homeMail" class="hmmail"></div></section></div>';
   if($("hmCard"))$("hmCard").onclick=function(){cgTalk(id,$("hmCard"))};
-  else{var n=h.querySelector(".hmnone");if(n)n.onclick=favPick}
+  if($("hmNone"))$("hmNone").onclick=favPick;
   $("hmChg").onclick=favPick;
   $("hmAdm").onchange=function(){G.mailAdm=$("hmAdm").checked?1:0;saveG();var x=$("mailAdmChk");if(x)x.checked=!!G.mailAdm;homeRender()};
   goalCard();V5.render();V5.dot();
@@ -6292,13 +6352,13 @@ function goalToday(){
 }
 function goalCard(){
   var b=$("hmGoal");if(!b)return;var g=G.goal;
-  if(!g){b.innerHTML='<div class="hmgoal none">'+ICO("target",22)+'<div><b>目標を決めよう</b><small>「何語を・いつまでに」を決めると、1日の量を提案して、毎日のタスクをメールで届けます</small></div><button class="main" id="glNew">目標を決める</button></div>';$("glNew").onclick=goalEdit;return}
+  if(!g){b.innerHTML='<div class="hmgoal none"><p>「何語を・いつまでに」を決めると、1日の量を提案して、毎日のタスクをメールで届けます。</p><button class="hmbtn" id="glNew">'+ICO("target",14)+' 目標を決める</button></div>';$("glNew").onclick=goalEdit;return}
   var m=V5.mastered(),t=dayN(),tot=Math.max(1,g.by-g.s),el2=Math.min(tot,Math.max(0,t-g.s)),exp=Math.round(g.m0+(g.n-g.m0)*el2/tot),diff=m-exp,r=Math.min(1,(m-g.m0)/Math.max(1,g.n-g.m0)),T2=goalToday();
-  b.innerHTML='<div class="hmgoal"><div class="glh">'+ICO("target",18)+'<b>目標：'+g.n+'語</b><span>'+V5.dnKey(g.by)+' まで（あと'+Math.max(0,g.by-t)+'日）</span><button class="sm" id="glEd">変更</button></div>'+
+  b.innerHTML='<div class="hmgoal"><div class="glh"><b>'+g.n+'語</b><span>'+V5.dnKey(g.by)+' まで（あと'+Math.max(0,g.by-t)+'日）</span><button class="sm" id="glEd">変更</button></div>'+
    '<div class="glbar"><i style="width:'+(r*100).toFixed(1)+'%"></i><em style="left:'+(Math.min(1,el2/tot)*100).toFixed(1)+'%"></em></div>'+
    '<div class="glpace '+(diff>=0?'up':'dn')+'">'+m+' / '+g.n+'語　'+(diff>=0?'予定より '+diff+'語 先行':'予定より '+(-diff)+'語 遅れ')+'</div>'+
    '<div class="gltask"><div class="'+(T2.due===0?'ok':'')+'">'+ICO(T2.due===0?"check":"repeat",14)+' 今日の復習　'+(T2.due===0?'完了':'あと '+T2.due+'語')+'</div><div class="'+(T2.doneNew>=T2.per?'ok':'')+'">'+ICO(T2.doneNew>=T2.per?"check":"book",14)+' 新しく習得　'+Math.min(T2.doneNew,T2.per)+' / '+T2.per+'語</div></div>'+
-   (T2.done?'':'<button class="main" id="glGo">今日のタスクを進める</button>')+'</div>';
+   (T2.done?'':'<button class="hmbtn" id="glGo">'+ICO("play",13)+' 今日のタスクを進める</button>')+'</div>';
   $("glEd").onclick=goalEdit;if($("glGo"))$("glGo").onclick=goalGo;
 }
 function goalGo(){
@@ -6424,7 +6484,8 @@ contBtn();
     if(e){e.preventDefault();e.stopPropagation()}
     if(o.classList.contains("out"))return;o.classList.add("out");
     try{var a=ac();if(a&&a.state!=="running"&&a.resume)a.resume()}catch(er){}
-    setTimeout(function(){o.remove();document.body.classList.remove("tap0on");homeIntro();try{bgmSync()}catch(er){}},120);
+    document.body.classList.add("t0done");document.body.classList.remove("tap0on");homeIntro();try{bgmSync()}catch(er){}
+    setTimeout(function(){o.remove()},700);
   };
   o.addEventListener("pointerdown",go);o.addEventListener("click",go);
 })();
@@ -6486,6 +6547,19 @@ window.sndTry=function(){var a=ac();if(!a)return;winSound(1,0);setTimeout(functi
 
 /* ---------------- 背景：ゆっくり動く光と斜線 ---------------- */
 (function(){if($("bgfx"))return;var d=document.createElement("div");d.id="bgfx";d.innerHTML='<i class="b1"></i><i class="b2"></i><i class="b3"></i>';document.body.insertBefore(d,document.body.firstChild)})();
+})();
+
+/* ===== v1.28：管理者コマンドで全コンテンツ解放 ===== */
+(function(){
+function unlockAll(){
+  G.unl={g:1,p:1,b:1,v:1};try{fullApply()}catch(e){}G.lock={};G.slots=6;saveG();
+  var g=$("tG");if(g)g.classList.remove("lk");
+  try{updStones();renderG("")}catch(e){}try{if(!$("homeT").hidden)homeRender()}catch(e){}try{if(!T)setup("")}catch(e){}
+}
+var dg=$("devGo"),og=dg.onclick;
+dg.onclick=function(){og.apply(this,arguments);if(typeof DEVON!=="undefined"&&DEVON){unlockAll();$("devMsg").textContent="認証しました（管理者モード）。すべてのコンテンツ（キャラ・編成・ボス戦・全キャラLv5・編成枠6・ハズレ図鑑・テストのロック）を解放しました。"+(G.inf?"　◆無制限：ON":"")}};
+var p=$("devPanel");if(p){var d=document.createElement("div");d.className="pair";d.innerHTML='<button class="sm" data-dv="all8">すべてのコンテンツを解放</button>';p.insertBefore(d,p.firstChild);
+  d.querySelector("button").addEventListener("click",function(e){e.stopPropagation();if(typeof DEVON!=="undefined"&&DEVON){unlockAll();$("devMsg").textContent="すべてのコンテンツを解放しました。"}})}
 })();
 
 </script>
