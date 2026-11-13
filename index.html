@@ -2179,6 +2179,50 @@ small.vstd{display:block;font-size:11px;opacity:.65;margin-top:2px;width:100%}
 
 #t2w #pickStart::before,#t2w #pickStart::after{display:none!important}
 
+/* ================= v1.41 ================= */
+/* 傾き：キャラ（立ち絵）と文字は動かさない。帯・背景・光だけ */
+.hb2{transform:none!important}
+.hb2 .hb2img{translate:none!important;scale:none!important;filter:drop-shadow(-4px 10px 14px rgba(0,0,0,.45))!important}
+.hb2 .hb2tx{translate:none!important}
+#syv .syhero .syfig{translate:none!important;filter:drop-shadow(-4px 12px 16px rgba(0,0,0,.45))!important}
+#rdv2 .r2fig{translate:none!important}
+
+/* ストーリーの通知：ホームのタブと同じ、斜めのライム色バッジ */
+.sydot{position:absolute;top:-8px!important;right:-5px!important;width:auto!important;height:15px!important;min-width:20px;border-radius:1px!important;background:#0b0c0e!important;color:var(--acc,#d4ff00);border:1px solid var(--acc,#d4ff00);transform:skewX(-14deg);font:700 10px/13px ui-monospace,"SF Mono",Menlo,monospace!important;font-style:normal;padding:0 4px;box-sizing:border-box;text-align:center;pointer-events:none}
+.sydot::before{content:"";position:absolute;left:-4px;top:3px;width:2px;height:7px;background:var(--acc,#d4ff00)}
+button.sm:has(.sydot){overflow:visible!important}
+button.sm.on .sydot{border-color:#0b0c0e;box-shadow:2px 2px 0 rgba(0,0,0,.35)}
+.sytb span i,.sybd i{width:auto!important;height:auto!important;border-radius:1px!important;background:var(--acc,#d4ff00)!important;color:#0b0c0e;font:900 italic 8px/11px "Arial Black",sans-serif!important;letter-spacing:.08em;padding:0 4px;transform:skewX(-14deg)}
+.sytb span i::after,.sybd i::after{content:"NEW"}
+.sytb button span i{position:absolute!important;top:-14px!important;right:-16px!important}
+.sytb button{overflow:visible!important}
+.syhead em{color:var(--acc,#d4ff00)!important}
+.sybd i{top:-6px!important;right:-8px!important}
+.sychip.nw{background:var(--acc,#d4ff00)!important;color:#0b0c0e!important}
+#syv .syep em{background:var(--acc,#d4ff00)!important;color:#0b0c0e!important}
+
+/* 進捗リセット：アプリの中の確認画面 */
+#rsc{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(5,6,8,.72);opacity:0;transition:opacity .18s}
+#rsc.on{opacity:1}
+#rsc .rsb{position:relative;width:100%;max-width:340px;background:#0f1114;border:1px solid rgba(255,255,255,.12);border-left:3px solid var(--acc,#d4ff00);padding:20px 18px 16px;color:#fff;transform:translateY(8px);transition:transform .18s}
+#rsc.on .rsb{transform:none}
+#rsc .rsb.dg{border-left-color:#ff4d6d}
+#rsc .rsh{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+#rsc .rsh i{width:14px;height:14px;background:var(--acc,#d4ff00);transform:skewX(-14deg)}
+#rsc .dg .rsh i{background:#ff4d6d}
+#rsc .rsh b{font:900 italic 17px "Arial Black",sans-serif;letter-spacing:.02em}
+#rsc p{margin:0 0 16px;font-size:13.5px;line-height:1.7;color:rgba(255,255,255,.82)}
+#rsc p small{font-size:11.5px;opacity:.7}
+#rsc .rsa{display:flex;gap:10px}
+#rsc .rsa button{flex:1;min-height:44px;border-radius:0!important;transform:skewX(-10deg);font:800 14px sans-serif;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff}
+#rsc .rsa .rsy{background:var(--acc,#d4ff00);color:#0b0c0e;border-color:var(--acc,#d4ff00)}
+#rsc .dg .rsa .rsy{background:#ff4d6d;color:#fff;border-color:#ff4d6d}
+#rswipe{position:fixed;inset:0;z-index:100001;background:#0b0c0e;overflow:hidden;animation:t2in .25s ease both}
+#rswipe .t2band{position:absolute;left:-30%;right:-30%;top:42%;height:64px;margin-top:-32px;transform:rotate(-14deg);display:flex;align-items:center;justify-content:center}
+#rswipe .t2band i{position:absolute;inset:0;background:var(--acc,#d4ff00)}
+#rswipe .t2band b{position:relative;font:900 italic 40px "Arial Black",sans-serif;color:#0b0c0e;letter-spacing:.06em}
+#rswipe small{position:absolute;left:0;right:0;top:calc(42% + 70px);text-align:center;font-size:12px;color:rgba(255,255,255,.6)}
+
 </style>
 </head>
 <body class="dopa">
@@ -2276,7 +2320,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <button class="main" id="fbOpen" style="width:100%">フィードバックを送る</button><div class="hint" id="fbMsg"></div></div>
   <div class="dop"><details class="dt"><summary>得点とガチャの説明</summary><div class="hint">
     正解で得点：未習得の単語は10点、正解は5点、習得済みは2点。連続正解ボーナス（最大+10、既習の単語は少なめ）も加わります。ミス・スキップは5点減点（0点より下にはなりません）。20問以上のテストを全問正解すると+100点。テストを最後まで終えると、得点がそのまま◆（ガチャ石）になります。中止したテストは加算されません。<br>
-    初めてNewGameを押すと、ログインボーナスとして3連スロットで仲間が3人決まります。ガチャは1回300◆、10回2700◆、100回27000◆です（10回以上は1割引き）。キャラは全20体で、出現率は1回だけ引くと約10%、10回まとめて引くと必ずキャラ1体（100回なら10体）です。ハズレは◆30が戻ります。ガチャを1回引くごとにスカウトPtが1たまり、100Ptで好きなキャラ1体と交換できます。Lv MAXのキャラが出たときは◆300が戻ります。ハズレのときは「ハズレの仲間」（黒猫・おばけ・ロボット・クマ2種の全5種）のどれかが出て、ハズレ図鑑に記録されます（能力はありません）。同じキャラが出るとレベルが上がります（最大Lv5）。キャラのレア度は★1〜★7です。ガチャには「★2以上」「★3以上」「★4以上」の確定ガチャもあります。これは、当たったときのレア度の最低値が決まるもので、ハズレがなくなるわけではありません（当たりやすさは通常と同じ・価格は1回400／600／1000◆）。毎日ログインするとキャラ1体と◆がもらえます。7日で1周し、1〜6日目は★1〜★4、7日目は★5以上が確定です（1日でも空くと1日目から）。キャラは最初は3人まで編成でき（◆で最大6人まで枠を増やせます）、編成中の能力がテストの得点などに反映されます。<br>キャラはそれぞれのステージに1体ずつ配置されています。そのステージを中心にしたテストで、得点率（正解数÷出題数）が90%以上だと、そのキャラを確定入手します（初回のみ・問題数は問いません）。出題数を絞らない「全問」のテストで100%（全問正解）だと「特別確定演出」が出て、最初からレベルMAXで入手できます（20問だけなど、絞ったテストでは通常の確定になります）。
+    初めてNewGameを押すと、チュートリアルの最後の無料10連で仲間が3人加わります（チュートリアルを飛ばした場合も、同じ3人が仲間になります）。ガチャは1回300◆、10回2700◆、100回27000◆です（10回以上は1割引き）。キャラは全20体で、出現率は1回だけ引くと約10%、10回まとめて引くと必ずキャラ1体（100回なら10体）です。ハズレは◆30が戻ります。ガチャを1回引くごとにスカウトPtが1たまり、100Ptで好きなキャラ1体と交換できます。Lv MAXのキャラが出たときは◆300が戻ります。ハズレのときは「ハズレの仲間」（黒猫・おばけ・ロボット・クマ2種の全5種）のどれかが出て、ハズレ図鑑に記録されます（能力はありません）。同じキャラが出るとレベルが上がります（最大Lv5）。キャラのレア度は★1〜★7です。ガチャには「★2以上」「★3以上」「★4以上」の確定ガチャもあります。これは、当たったときのレア度の最低値が決まるもので、ハズレがなくなるわけではありません（当たりやすさは通常と同じ・価格は1回400／600／1000◆）。毎日ログインするとキャラ1体と◆がもらえます。7日で1周し、1〜6日目は★1〜★4、7日目は★5以上が確定です（1日でも空くと1日目から）。キャラは最初は3人まで編成でき（◆で最大6人まで枠を増やせます）、編成中の能力がテストの得点などに反映されます。<br>キャラはそれぞれのステージに1体ずつ配置されています。そのステージを中心にしたテストで、得点率（正解数÷出題数）が90%以上だと、そのキャラを確定入手します（初回のみ・問題数は問いません）。出題数を絞らない「全問」のテストで100%（全問正解）だと「特別確定演出」が出て、最初からレベルMAXで入手できます（20問だけなど、絞ったテストでは通常の確定になります）。
   </div></details>
   </div>
   <h3>ステージ音楽</h3>
@@ -4571,7 +4615,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.40",VLOG=[
+var VERSION="1.41",VLOG=[
+ ["1.41","2026-11-13",["傾きの設定をオンにしても、キャラ自体は動かないように（背景と光だけが動きます）","タップした時のキャラの声を、これまでより少し速く（約1.05倍）","ストーリーの通知を、赤い点からアプリに合った斜めのバッジに","進捗リセットの確認を、アプリの中の画面に。リセット後は新しいタイトル画面から始まります","最初のログインボーナス（3連スロット）をなくし、チュートリアルの無料10連で仲間3人に。チュートリアルを飛ばした場合も同じ3人が仲間になります","ホームに戻る時の音を作り直しました","テストの初期設定を「選択式」に（スペル入力は設定でオンにできます）"]],
  ["1.40","2026-11-13",["初めて開いた時の画面を新しいデザインに（起動の帯がそのままタイトルに）","キャラの声の基準の速さを決め直し：×1.00＝ふつうに話す速さ","立ち絵の光の筋が、文字やボタンにかからないように","ストーリーの「スキップ」と「タップで次へ」を分かりやすく","URLを貼ると、プレイ画面の画像が表示されるように","「キャラを傾きで動かす」を設定に。初期はオフで、オンにした時だけ許可を聞きます"]],
  ["1.39","2026-11-13",["起動を軽く：大きな画像と例文を、起動のあとで別ファイルから読むように","ストーリー：仲間になった子の章が読めるように。読むとその子のレベルが上がり、セリフ・掛け声・スキルが強くなります（英単語のテストとは連携しません）","掛け声（スキル発動の声）もレベルで増えるように","立ち絵の奥行き：スマホを傾けると、キャラ・背景・光がずれて立体的に見えます"]],
  ["1.38","2026-11-13",["キャラの声（タップ・編成画面）を、普通に話す速さに。掛け声も1つずつ速さをそろえました","キャラ一覧の枠をレア度の色に","進捗リセットを直しました（リセット後は最初の画面からやり直し）","テスト画面に「今日の復習」ボタンを出さないように","答えたあとに「スキップ」が一瞬消えないように","設定：種類のタブを一番上に","ホームの「キャラを選ぶ」ボタンを端に","ガチャの確率を調整：10回で1体、100回で10体","10回ガチャも100回と同じ演出に","チュートリアルを分かりやすく、最後に無料の10回ガチャ（3体確定）","ストーリーを書き直し、キャラ画面（編成・ストーリー・ガチャ）へ移動。画面も作り直しました"]],
@@ -6623,7 +6668,7 @@ window.todayGo=function(){todayPlan().f()};
 /* ====================================================================
    B6：スペル入力（日本語→英語の問題だけ・独自キーボード・ヒントなし）
    ==================================================================== */
-var SPELL=lsGet("dopa:spell",false),SPW=lsGet("dopa:spw",{});
+var SPELL=(G&&G.starter)?lsGet("dopa:spell",false):false,SPW=lsGet("dopa:spw",{});
 var SPT="",SPACT=false,SPHOLD=null;
 /* 間違えたときは、正しいつづりを見てから「次へ」で進む */
 function spRel(){if(SPHOLD!==null){NXT=SPHOLD;SPHOLD=null}document.body.classList.remove("spdone")}
@@ -8395,6 +8440,108 @@ if(q&&!$("tiltChk")){
 /* 声の速さの基準を説明に書く */
 var r2=$("voxRate2");if(r2){var lb=r2.closest("label");if(lb&&!lb.querySelector(".vstd")){var h=document.createElement("small");h.className="vstd";h.textContent="×1.00＝ふつうに話す速さ（どの声も同じ速さにそろえています）";lb.appendChild(h)}}
 var r1=$("voxRate");if(r1){var lb1=r1.closest("label");if(lb1&&!lb1.querySelector(".vstd")){var h1=document.createElement("small");h1.className="vstd";h1.textContent="×1.00＝少し速めの、はずむ速さ（どの声も同じ速さにそろえています）";lb1.appendChild(h1)}}
+})();
+
+/* ================= v1.41 ================= */
+/* ---------- 初回：ログインボーナスのスロットはなし。チュートリアルの10連で仲間3人 ---------- */
+function stOwned(){return CHARS.some(function(c){return !!lvOf(c.id)})}
+function stGrant(quiet){
+  if(stOwned())return false;
+  var picks=starterPicks().map(cById);
+  picks.forEach(function(c){giveChar(c)});G.first=picks[0].id;G.tutPull=1;saveG();
+  try{updStones();renderG("")}catch(e){}
+  try{voxWarm(picks[0].id)}catch(e){}
+  if(!quiet){try{V5.toast("仲間が3人加わりました："+picks.map(function(c){return c.name}).join("・"),3200)}catch(e){}}
+  return true;
+}
+starterCheck=function(){
+  if(G.starter)return;
+  G.starter=1;G.login={last:dayKey(),n:1};saveG();
+  try{voxPrepare(false,true)}catch(e){}
+  TUTSOON=0;ST_SHOW=null;
+};
+/* 案内役：これから仲間になる子 */
+gtFace=function(){var id=G.first||(G.party&&G.party[0])||(starterPicks()[0])||"c01";var c=cById(id);return {id:id,name:c?c.name:""}};
+/* チュートリアルの無料10連：3人は最初から決まっている（スキップ時にもらえる子と同じ） */
+gtPull=function(){
+  if(G.tutPull||stOwned()){GT.sp=1;return}
+  var picks=starterPicks().map(cById);
+  var res=picks.map(function(c){return giveChar(c)});for(var j=0;j<7;j++)res.push(hzRoll());
+  for(var k=res.length-1;k>0;k--){var r=Math.floor(Math.random()*(k+1)),t=res[k];res[k]=res[r];res[r]=t}
+  G.first=picks[0].id;G.tutPull=1;saveG();updStones();try{renderG("")}catch(e){}showPull(res,"",gBan);
+};
+/* チュートリアルを飛ばした・途中でやめた → 同じ3人をそのまま仲間に */
+(function(){var _e=gtEnd;gtEnd=function(){_e.apply(this,arguments);if(G.starter&&!G.tutPull&&!stOwned())setTimeout(function(){stGrant(false)},300)}})();
+/* ダウンロード画面が終わったら、スロットを待たずにチュートリアルへ */
+frdlEnd=function(){
+  if(!FR.on)return;FR.on=0;clearInterval(FR.iv);
+  try{localStorage.setItem("dopa:tut","1")}catch(e){}
+  GT.pend=2;setTimeout(function(){$("frdl").classList.add("inv")},120);
+  if(ST_SHOW){var f=ST_SHOW;ST_SHOW=null;setTimeout(f,250)}
+};
+/* 途中で閉じた人：仲間がいないまま始まったら、チュートリアルからやり直し（終えていれば3人を渡す） */
+setTimeout(function(){
+  try{
+    if(!G.starter||stOwned()||G.tutPull)return;
+    var done=false;try{done=localStorage.getItem("dopa:gt")==="1"}catch(e){}
+    if(done)stGrant(false);else if(!GT.on&&!GT.pend)GT.pend=2;
+  }catch(e){}
+},2600);
+
+(function(){
+var toast=function(t,ms){try{V5.toast(t,ms)}catch(e){}};
+
+/* ---------- 進捗リセット：アプリの中の確認画面で。消したら新しいタイトルから ---------- */
+var KEEP=/^dopa:(st0|vox|volB|volS|anim|lite|eq|sp2|aspd|snd|oskb|tmpo2|gskip|skin|vrev|tilt|bgm|lbgm)$/;
+function rsAsk(o){
+  var w=document.createElement("div");w.id="rsc";
+  w.innerHTML='<div class="rsb'+(o.danger?' dg':'')+'"><div class="rsh"><i></i><b>'+o.title+'</b></div><p>'+o.body+'</p><div class="rsa"><button type="button" class="rsn">やめる</button><button type="button" class="rsy">'+o.ok+'</button></div></div>';
+  document.body.appendChild(w);requestAnimationFrame(function(){w.classList.add("on")});
+  var close=function(){w.classList.remove("on");setTimeout(function(){w.remove()},200)};
+  w.querySelector(".rsn").onclick=function(){close()};
+  w.onclick=function(e){if(e.target===w)close()};
+  w.querySelector(".rsy").onclick=function(){close();setTimeout(o.yes,220)};
+}
+function wipe(){
+  var cv=document.createElement("div");cv.id="rswipe";cv.innerHTML='<div class="t2band"><i></i><b>RESET</b></div><small>最初の画面にもどります…</small>';document.body.appendChild(cv);
+  try{var ks=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/^(dopa|dopatan)/.test(k)&&!KEEP.test(k))ks.push(k)}ks.forEach(function(k){localStorage.removeItem(k)})}catch(e){}
+  try{sessionStorage.clear()}catch(e){}
+  /* 消したあとに古いデータを書き戻さないように */
+  try{saveG=function(){};save=function(){}}catch(e){}
+  try{G={};prog={p:{},l:{},f:{},n:0,dl:{}}}catch(e){}
+  window.onbeforeunload=null;
+  setTimeout(function(){location.replace(location.pathname+"?fresh="+Date.now())},700);
+}
+var rb=$("rst");
+if(rb){rb.textContent="進捗をリセット";rb.onclick=function(){
+  try{$("ov").classList.add("inv")}catch(e){}
+  rsAsk({title:"進捗をリセット",body:"学習の記録・キャラ・◆・ストーリーなど、すべての進捗を消して最初からやり直します。<br><small>音や表示の設定はそのまま残ります。</small>",ok:"次へ",yes:function(){
+    rsAsk({danger:1,title:"本当に消しますか？",body:"元に戻せません。必要なら、先に設定の「バックアップ」から保存してください。",ok:"すべて消す",yes:wipe});
+  }});
+}}
+/* リセット後のURLの印は消しておく */
+if(/[?&]fresh=/.test(location.search)){try{history.replaceState(null,"",location.pathname)}catch(e){}}
+
+/* ---------- ストーリーの通知：赤い点をやめて、ホームと同じ斜めのバッジに ---------- */
+function syBadge(){
+  var n=window.stNew?stNew():0;
+  Array.prototype.forEach.call(document.querySelectorAll(".sydot"),function(i){i.textContent=n>99?"99+":("0"+n).slice(-2)});
+}
+if(typeof renderG==="function"){var _rg=renderG;renderG=function(){var r=_rg.apply(this,arguments);try{syBadge()}catch(e){}return r}}
+setTimeout(syBadge,1200);
+
+/* ---------- ホームに行く音を作り直し：やわらかく「帰ってきた」感じの和音 ---------- */
+window.homeSnd=function(){
+  var a=ac();if(!a)return;var n=a.currentTime+0.01;
+  tone(pf(0)/2,n,0.16,"sine",0.06);
+  sBell(pf(0),n,0.16,0.035);sBell(pf(2),n+0.05,0.16,0.035);sBell(pf(4),n+0.10,0.18,0.035);
+  sBell(pf(5),n+0.15,0.42,0.045);tone(pf(5)*1.5,n+0.15,0.3,"sine",0.008);
+};
+var th=$("tH");if(th)th.onclick=function(){if(!th.classList.contains("on"))homeSnd();tab("H")};
+
+/* ---------- 傾き：キャラは動かさず、背景と光だけ ---------- */
+var tc=$("tiltChk");if(tc){var sm=tc.parentNode.querySelector("small");if(sm)sm.textContent="スマホを傾けると、キャラの後ろの背景と光が動きます（キャラ自体は動きません）。オンにした時に、動きの使用の許可を聞きます。"}
+var lbl=tc&&tc.parentNode;if(lbl){Array.prototype.forEach.call(lbl.childNodes,function(nd){if(nd.nodeType===3&&/キャラを傾きで動かす/.test(nd.textContent))nd.textContent=" 傾きで背景を動かす"})}
 })();
 
 </script>
