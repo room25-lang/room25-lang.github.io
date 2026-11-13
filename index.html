@@ -1782,6 +1782,41 @@ body.noanim .rcard.rin>*,body.noanim .rcard.rin .rxhd{animation:none!important}
 .tcstep b{font-size:14px}.tcstep p{margin:2px 0 0;font-size:12.5px;color:var(--sub,#aaa);line-height:1.5}
 .tcs textarea{width:100%;height:64px;font:11px ui-monospace,Menlo,monospace;background:rgba(255,255,255,.05);color:var(--txt,#eee);border:1px solid rgba(255,255,255,.2);padding:8px;resize:none;word-break:break-all}
 
+
+/* ===== v1.35 ===== */
+/* 設定：上のタブの裏地がバックアップ欄を隠していた → 裏地をやめて、タブ自体を余白ぶん上まで伸ばす */
+.stab::before{display:none!important}
+.sheet .stab{top:-14px;padding-top:20px}
+/* スキル発動の六角形を細く（1行にまとめる） */
+#skb .hx{padding:2px}
+#skb .hxi{gap:7px;padding:0 11% 0 10%}
+#skb .hxi img{width:26px;height:26px;border-width:1.5px}
+#skb .hxi span{flex-direction:row;align-items:baseline;gap:7px;line-height:1}
+#skb .hxi b{font-size:10.5px;flex:0 0 auto}
+#skb .hxi em{font-size:14.5px}
+#skb .hxi small{display:none}
+/* チュートリアル */
+#gt{position:fixed;inset:0;z-index:9000;pointer-events:none;display:none}
+#gt.on{display:block}
+#gt.hid .gtb,#gt.hid .gtr,#gt.hid .gtc{display:none!important}
+#gt .gtb{position:fixed;background:rgba(4,5,7,.72);pointer-events:auto}
+#gt.free .gtb{pointer-events:none;background:rgba(4,5,7,.45)}
+#gt .gtr{position:fixed;border:2px solid var(--acc,#d4ff00);border-radius:10px;box-shadow:0 0 0 3px rgba(212,255,0,.25),0 0 22px rgba(212,255,0,.55);pointer-events:none;animation:gtPulse 1.1s ease-in-out infinite}
+@keyframes gtPulse{50%{box-shadow:0 0 0 7px rgba(212,255,0,.1),0 0 30px rgba(212,255,0,.7)}}
+#gt .gtc{position:fixed;left:14px;right:14px;max-width:420px;margin:0 auto;background:#121418;border:1px solid rgba(255,255,255,.14);border-left:4px solid var(--acc,#d4ff00);border-radius:12px;padding:10px 12px 10px;pointer-events:auto;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+#gt .gtc.pop{animation:gtIn .28s cubic-bezier(.2,.9,.3,1.2)}
+@keyframes gtIn{from{transform:translateY(8px) scale(.97);opacity:0}}
+#gt .gth{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+#gt .gtav,#gtst .gtav{display:block;width:32px;height:32px;flex:0 0 auto;border-radius:50%;background:#2a2d33 no-repeat;background-size:290% auto;border:1.5px solid var(--acc,#d4ff00)}
+#gt .gth b{font-size:13px;flex:1}
+#gt .gtx{background:none;border:0;color:rgba(255,255,255,.55);font-size:12px;padding:6px 4px;min-height:0;box-shadow:none}
+#gt .gtt{font-size:15px;line-height:1.6}
+#gt .gtf{display:flex;align-items:center;justify-content:space-between;margin-top:8px;min-height:20px}
+#gt .gtn{font:700 11px ui-monospace,Menlo,monospace;letter-spacing:.12em;color:rgba(255,255,255,.45)}
+#gt .gtgo{width:auto;min-width:110px;padding:9px 18px;font-size:15px;margin:0}
+#gtst{position:fixed;left:12px;right:12px;top:calc(env(safe-area-inset-top,0px) + 60px);max-width:420px;margin:0 auto;z-index:9001;display:flex;align-items:center;gap:8px;background:#121418;border-left:4px solid var(--acc,#d4ff00);border-radius:10px;padding:8px 12px;color:#fff;font-size:14px;line-height:1.5;opacity:0;transform:translateY(-10px);pointer-events:none;transition:opacity .25s,transform .25s;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+#gtst.on{opacity:1;transform:none}
+
 </style>
 </head>
 <body class="dopa">
@@ -2127,8 +2162,8 @@ function voxStore(key,u,cb){
 }
 function voxSavedCount(){return Object.keys(VOX.saved).length}
 function voxLoadSaved(done){
-  try{if(localStorage.getItem("dopa:vrev")!=="9")VOX.renew=1}catch(e){}
-  if(VOX.renew){VOX.renew=0;vdbClear(function(){try{localStorage.setItem("dopa:vrev","9")}catch(e){}voxSave();if(done)done(0)});return}
+  try{if(localStorage.getItem("dopa:vrev")!=="10")VOX.renew=1}catch(e){}
+  if(VOX.renew){VOX.renew=0;vdbClear(function(){try{localStorage.setItem("dopa:vrev","10")}catch(e){}voxSave();if(done)done(0)});return}
   vdbAll(function(list){
     list.forEach(function(kv){
       try{if(!VOX.cache[kv[0]]){VOX.cache[kv[0]]=URL.createObjectURL(kv[1])}VOX.saved[kv[0]]=1}catch(e){}
@@ -2484,22 +2519,22 @@ all:["天使の加護を！","みんなに祝福を！","光あれ！"]};
 var SKVC={"c01":["疾風よ吹け！","紅葉よ舞え！","駆け抜ける！"],"c02":["次のページへ！","物語は続く","言葉よ集え！"],"c03":["帆を上げろ！","いざ出航！","夏風に乗れ！"],"c04":["仕方ないわね","見てなさい！","特別だから！"],"c05":["氷の盾よ！","凍てつけ！","私が守る"],"c06":["扉よひらけ！","一歩前へ！","新しい出会い！"],"c07":["黒猫の幸運！","にゃっ、当たり！","ツキが来た！"],"c08":["先手必勝！","置いてくよ！","全速前進！"],"c09":["出力最大！","充填完了！","本気でいく！"],"c10":["芽吹け連鎖！","つないでいく！","まだまだ！"],"c11":["朝日の恵み！","花ひらけ！","咲き誇れ！"],"c12":["福よ来たれ！","縁起よし！","鈴よ鳴れ！"],"c13":["千年の記憶！","忘れはせぬ","想いは千代に"],"c14":["反撃の時だ！","騎士の誇り！","まだ終わらぬ！"],"c15":["精霊の導き！","森よ応えよ！","古の風よ！"],"c16":["波よ包んで","海の守り！","水面の奇跡！"],"c17":["最後まで一緒","あと少し！","静かに強く"],"c18":["限界を越えろ！","鈴よ響け！","更なる高みへ！"],"c19":["運命を曲げる","夜の祝福を","幸運は私に"],"c20":["天使の加護を！","みんなに祝福を！","光あれ！"]};
 function sklLine(id){var c=cById(id);return SKVC[id]||(c&&SKV[c.ab])||["いくよ！","まかせて！","スキル発動！"]}
 var FXV={
-0:["リーチ！","チャンス！","熱い！","来たよ！","いい感じ！","まだまだ！","乗ってきた！","波が来てる！","いけるいける！","調子いいね！","その調子！","ナイスコンボ！"],
-1:["大当たり！","ビンゴ！","確変突入！","きた！","いけいけ！","止まらない！","流れ来てる！","アツいぞ！","ノってきた！","ここからだ！","攻めろー！","ぐんぐん上がる！"],
-2:["激アツ！","連荘！","フィーバー！","燃えてきた！","絶好調！","すごいすごい！","手がつけられない！","冴えてるね！","勢いすごい！","連チャン中！","さいこう！","これは強い！"],
-3:["超激アツ！","プレミア！","ラッシュ！","もう止まらない！","最高潮！","やばい！","化け物級！","異次元だ！","ぶっ飛んでる！","とんでもない！","圧倒的！","輝いてる！"],
-4:["神引き！","全回転！","エクストラ！","奇跡だ！","信じられない！","ありえない！","神がかってる！","次元が違う！","鳥肌が立つ！","これぞ神業！","まさに天才！","震えるね！"],
-5:["天に昇る！","伝説！","究極！","神の領域！","歴史が変わる！","もはや無敵！","世界が変わる！","宇宙が見えた！","語り継がれる！","頂点に立った！","限界突破！","新時代の幕開け！"],
-6:["リーチ！","テンパイ！","来るぞ！","ドキドキ！","いけるか！","頼む！","当たれー！","お願い！","息をのむ！","ここだ！","運命の瞬間！","どうだ！"],
-7:["確定！","ビンゴ！","当たり！","きたー！","決まった！","もらった！","勝ち確！","やった確定！","よっしゃー！","見えた！","もらいました！","これは入った！"],
-8:["スペシャル確定！","超ビンゴ！","神降臨！","伝説の始まり！","完全確定！","奇跡の瞬間！","特別確定！","覚醒の時！","神に選ばれた！","運命が動く！","奇跡の確定！","最強確定！"],
-9:["大当たり！","ジャックポット！","おめでとう！","やったね！","ばんざい！","ナイスゲット！","祝福の時！","運がいいね！","持ってるね！","最高だよ！","ゲットしたよ！","ラッキー！"],
-10:["パーフェクト！","完全勝利！","おめでとう！","完璧だよ！","天才！","全問正解だね！","一問も落とさず！","文句なし！","満点だね！","非の打ち所なし！","完全制覇！","英語マスター！"],
-11:["エクセレント！","すばらしい！","お見事！","さすが！","かっこいい！","いい出来だね！","よく頑張った！","立派だよ！","成長したね！","安定してる！","上出来！"],
-12:["グレート！","ナイス！","やるね！","いい感じ！","その調子！","いいね！","悪くない！","手応えあり！","ちゃんと伸びてる！","きてるよ！","順調！"],
-13:["グッド！","いい調子！","まずまず！","悪くないよ！","ここから！","少しずつ！","着実に！","そのまま進もう！","積み重ね大事！","伸びしろあるよ！","焦らず行こう！"],
-14:["ネクスト！","がんばれ！","次は勝つ！","まだいける！","あきらめない！","復習すれば大丈夫！","次がある！","ここからが本番！","くじけないで！","やり直そう！","もう一回！"],
-15:["ハズレ…","ざんねん！","つぎこそ！","惜しい！","どんまい！","あらら…","次があるよ！","気にしない！","またチャレンジ！","運が悪かっただけ！","切り替えよう！"]};
+0:["よし！","いいね！","ナイス！","その調子！","リーチ！","乗った！","いける！","好調！"],
+1:["きた！","当たり！","ビンゴ！","確変！","止まらない！","上がる！","流れ来た！","アツい！"],
+2:["激アツ！","連荘！","フィーバー！","絶好調！","冴えてる！","強い！","燃える！","すごい！"],
+3:["超激アツ！","ラッシュ！","無双！","最高潮！","圧倒的！","異次元！","やばい！","輝いてる！"],
+4:["神引き！","全回転！","奇跡！","神業！","鳥肌！","別格！","規格外！","天才！"],
+5:["伝説！","究極！","天に昇る！","無敵！","頂点！","神域！","限界突破！","歴史的！"],
+6:["リーチ！","来るぞ！","頼む！","ここだ！","どうだ！","いけ！","当たれ！","テンパイ！"],
+7:["確定！","決まり！","もらった！","入った！","よっしゃ！","勝ち確！","当たり！","見えた！"],
+8:["特別確定！","神降臨！","超ビンゴ！","最強確定！","奇跡確定！","覚醒！","伝説確定！","完全確定！"],
+9:["大当たり！","ジャックポット！","おめでとう！","ゲット！","ラッキー！","持ってる！","やったね！","祝福！"],
+10:["パーフェクト！","満点！","完璧！","全問正解！","文句なし！","完全制覇！","天才！","お見事！"],
+11:["エクセレント！","お見事！","さすが！","上出来！","立派！","すばらしい！","安定！","冴えてた！"],
+12:["グレート！","ナイス！","やるね！","順調！","いいね！","手応えあり！","伸びてる！","悪くない！"],
+13:["グッド！","まずまず！","着実に！","その調子！","ここから！","少しずつ！","伸びしろ！","焦らずに！"],
+14:["ネクスト！","もう一回！","次こそ！","まだいける！","復習しよ！","切り替え！","ここから！","負けない！"],
+15:["ハズレ…","惜しい！","どんまい！","次こそ！","あらら…","切り替え！","まだまだ！","気にしない！"]};
 /* 各セリフは「どのキャラの声で言うか」を決め打ちにしてある（先読みで1回だけ保存すれば足りる） */
 function shoutSp(ev,j){return FXS[(j+ev)%FXS.length]}
 var SHOT=0;
@@ -4172,7 +4207,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.34",VLOG=[
+var VERSION="1.35",VLOG=[
+ ["1.35","2026-11-13",["掛け声を短く作り直し（リーチ・連続正解・確定・結果など、全16場面）","チュートリアルを、画面の部品を押しながら進める形に（最初の暗記とテストを実際にやってみます）","スキル発動の六角形を細く","設定画面で、バックアップの「自動の控え」が隠れていた不具合を修正"]],
  ["1.34","2026-11-13",["キャラの編成枠を3つに固定（最初から3つとも使えます）","連続正解の言葉（リーチ！など）を、画面の上を斜めのタグが横切る形に","ほかのアプリから戻った時に音楽が流れない不具合を修正（流れない時も、画面に触れると再開）","アプリから離れる時の異音を対策","共有画面を上下の真ん中に","テスト終了時の大きな演出をなくし、結果画面の中で音とアニメーションを流すように","更新履歴はアプリを開いた時に出さず、メールでお知らせ","タイトル画面の効果音を作り直し","設定のバックアップに「引き継ぎコード」：コードをLINEやメモで送って、新しい端末に貼り付けるだけで引き継げます","設定に「ご意見・不具合を送る」"]],
  ["1.33","2026-11-12",["編成画面を作り直し：カードをなくし、各キャラの背景の装飾の上に立たせる形に。パーティ全員を斜めの柱で並べ、タップした人の柱が広がって上半身と表情の変化が見えるように","編成の入れ替え・追加は「入れ替え」ボタンから選ぶ形に。下の一覧の顔をタップすると、編成していないキャラも上に大きく表示","100連の演出を「ストリーム」に：斜めの帯の上を結果が流れ、★5以上やNEWの時だけ止まってカードが飛び出す。結果はレア度ごとの本数とハイライト（全件は折りたたみ）","メールに「すべて既読」ボタンを追加"]],
  ["1.32","2026-11-12",["アプリを開いてStartを押したら、まずホームが表示されるように（はじめての時はこれまで通り）","ガチャでキャラがアップになる画面で、立ち絵が右にずれて顔が映らないことがある不具合を修正"]],
@@ -6728,7 +6764,7 @@ var _skb=skillBanner;
 skillBanner=function(ids){
   _skb(ids);
   var b=$("skb");if(!b)return;
-  var VW=Math.min(window.innerWidth||390,560),W=Math.min((VW-8)/1.82,300),H=58,flip=Math.random()<0.5,X0=((window.innerWidth||390)-VW)/2;
+  var VW=Math.min(window.innerWidth||390,560),W=Math.min((VW-8)/1.82,300),H=40,flip=Math.random()<0.5,X0=((window.innerWidth||390)-VW)/2;
   b.classList.add("hex");
   b.innerHTML=ids.map(function(id,i){
     var c=cById(id),k=Math.max(0,(parseInt(String(id).slice(1))||1)-1),side=Math.random()<0.5?"L":"R";
@@ -7317,6 +7353,109 @@ window.gcHit=gcHit;
   d.innerHTML='<button id="tcBtn">引き継ぎコード</button><button id="fbBtn">ご意見・不具合を送る</button>';
   bk.appendChild(d);$("tcBtn").onclick=tcOpen;$("fbBtn").onclick=fbOpen;
 })();
+
+
+/* ================= v1.35 ================= */
+/* ---- 操作しながら覚えるチュートリアル（画面の部品を光らせて、実際に押してもらう） ---- */
+var GT={on:0,i:0,pend:0,raf:0,el:null,tm:0,lap2:0};
+function gtFace(){var id=G.first||(G.party&&G.party[0])||"c01";var c=cById(id);return {id:id,name:c?c.name:""}}
+var GTS=[
+ {pre:function(){tab("L");try{LS.set={};LS.mode="all";LS.from=1;LS.to=10;renderLearnSetup("")}catch(e){}},
+  sel:"#lgo",tx:"まずは暗記から。最初の10語を見てみよう。ここを押してね"},
+ {sel:"#reveal",tx:"英単語の意味は、ここを押すと出てくるよ"},
+ {sel:"#say",tx:"発音も聞けるの。押してみて"},
+ {sel:"#next",tx:"次の単語へ。10語、ざっと眺めよう",cnt:1},
+ {tx:"だいたい分かったら、テストで確かめよう。1周目は日本語→英語、2周目は英語→日本語の3択だよ",btn:"テストへ",act:function(){try{learnShow(false)}catch(e){}tab("T")}},
+ {pre:function(){try{var r=$("test").querySelector('input[name=mode][value=new]');if(r){r.checked=true;if(r.onchange)r.onchange()}$("lim").value="10";if($("lim").onchange)$("lim").onchange()}catch(e){}},
+  sel:"#go",tx:"出題数は10問にしておいたよ。テスト開始！"},
+ {sel:"#ch",tx:"正しい英語を選んでね。連続で正解すると、演出が派手になっていくよ",until:function(){return T&&T.answered},free:1},
+ {until:function(){return !T},hide:1},
+ {pre:function(){},wait:2600,sel:function(){return G.unl&&G.unl.g?"#tG":null},tx:function(){return G.unl&&G.unl.g?"テストの得点が ◆ になったよ。キャラのタブでガチャを回して、仲間を増やそう":"中止したテストは ◆ にならないの。また10問、挑戦してみてね"}},
+ {tx:"基本はこれでおしまい。編成した仲間の能力がテストに効いて、掛け声もその子の声になるよ。説明は、設定の「チュートリアルをもう一度見る」でいつでも見られます",btn:"はじめる",end:1}
+];
+function gtBox(){
+  var o=$("gt");if(o)return o;
+  o=document.createElement("div");o.id="gt";
+  o.innerHTML='<div class="gtb" data-k="t"></div><div class="gtb" data-k="b"></div><div class="gtb" data-k="l"></div><div class="gtb" data-k="r"></div><div class="gtr"></div>'+
+    '<div class="gtc"><div class="gth"><i class="gtav"></i><b></b><button class="gtx" type="button">スキップ</button></div><div class="gtt"></div><div class="gtf"><span class="gtn"></span><button class="main gtgo" type="button"></button></div></div>';
+  document.body.appendChild(o);
+  o.querySelector(".gtx").onclick=function(){gtEnd()};
+  return o;
+}
+function gtStart(){
+  GT.on=1;GT.i=0;GT.pend=0;GT.lap2=0;try{$("ov").classList.add("inv")}catch(e){}
+  var o=gtBox();o.classList.add("on");var f=gtFace();gtAv(o.querySelector(".gtav"),f.id);o.querySelector(".gth b").textContent=f.name;
+  gtStep();cancelAnimationFrame(GT.raf);GT.raf=requestAnimationFrame(gtLoop);
+}
+function gtEnd(){
+  GT.on=0;cancelAnimationFrame(GT.raf);clearTimeout(GT.tm);var o=$("gt");if(o)o.classList.remove("on","hid","free");
+  try{localStorage.setItem("dopa:tut","1");localStorage.setItem("dopa:gt","1")}catch(e){}
+}
+function gtAv(e,id){if(!e)return;var x=window.cuFx?cuFx(id):0.5;e.style.backgroundImage='url("'+IMT(id)+'")';e.style.backgroundPosition=(x*100).toFixed(0)+'% 3%'}
+function gtVal(v){return typeof v==="function"?v():v}
+function gtStep(){
+  var s=GTS[GT.i];if(!s){gtEnd();return}
+  var o=gtBox();GT.el=null;GT.cnt=s.cnt||0;clearTimeout(GT.tm);
+  o.classList.toggle("hid",!!s.hide);o.classList.toggle("free",!!s.free);
+  var show=function(){
+    try{if(s.pre)s.pre()}catch(e){}
+    o.classList.remove("hid");if(s.hide)o.classList.add("hid");
+    var c=o.querySelector(".gtc");c.classList.remove("pop");void c.offsetWidth;c.classList.add("pop");
+    o.querySelector(".gtt").textContent=gtVal(s.tx)||"";
+    var real=GTS.filter(function(x){return !x.hide}).length,k=GTS.slice(0,GT.i+1).filter(function(x){return !x.hide}).length;
+    o.querySelector(".gtn").textContent=k+" / "+real;
+    var b=o.querySelector(".gtgo"),sel=gtVal(s.sel);
+    b.hidden=!s.btn&&!!sel&&!s.end;b.textContent=s.btn||(sel?"":"次へ");if(!sel&&!s.btn)b.textContent="OK";
+    if(sel&&!s.btn)b.hidden=true;
+    b.onclick=function(){try{if(s.act)s.act()}catch(e){}if(s.end){gtEnd();return}gtNext()};
+    GT.sel=sel;
+    try{var a=ac();if(a&&!s.hide)tone(1320,a.currentTime,0.06,"sine",0.03)}catch(e){}
+  };
+  if(s.wait){o.classList.add("hid");GT.sel=null;GT.tm=setTimeout(show,s.wait)}else show();
+}
+function gtNext(){GT.i++;gtStep()}
+function gtLoop(){
+  if(!GT.on)return;GT.raf=requestAnimationFrame(gtLoop);
+  var s=GTS[GT.i],o=$("gt");if(!s||!o)return;
+  if(s.until&&s.until()){gtNext();return}
+  if(T&&T.lap===2&&!GT.lap2&&GT.i>=6){GT.lap2=1;gtToast("2周目は英語→日本語。両方とも正解で「合格」だよ")}
+  var W=innerWidth,H=innerHeight,el=GT.sel?document.querySelector(GT.sel):null,r=null;
+  if(el){r=el.getBoundingClientRect();if(r.width<2||r.height<2)r=null}
+  var p=6,box=r?{l:r.left-p,t:r.top-p,r:r.right+p,b:r.bottom+p}:null;
+  var bs=o.querySelectorAll(".gtb"),ring=o.querySelector(".gtr"),c=o.querySelector(".gtc");
+  if(!box){bs[0].style.cssText="left:0;top:0;width:100%;height:100%";bs[1].style.cssText=bs[2].style.cssText=bs[3].style.cssText="display:none";ring.style.display="none";
+    c.style.top=Math.max(20,H/2-c.offsetHeight/2)+"px";return}
+  bs[0].style.cssText="left:0;top:0;width:100%;height:"+Math.max(0,box.t)+"px";
+  bs[1].style.cssText="left:0;top:"+box.b+"px;width:100%;height:"+Math.max(0,H-box.b)+"px";
+  bs[2].style.cssText="left:0;top:"+box.t+"px;width:"+Math.max(0,box.l)+"px;height:"+(box.b-box.t)+"px";
+  bs[3].style.cssText="left:"+box.r+"px;top:"+box.t+"px;width:"+Math.max(0,W-box.r)+"px;height:"+(box.b-box.t)+"px";
+  ring.style.cssText="display:block;left:"+box.l+"px;top:"+box.t+"px;width:"+(box.r-box.l)+"px;height:"+(box.b-box.t)+"px";
+  var ch=c.offsetHeight||120,below=box.b+14,above=box.t-14-ch;
+  c.style.top=(below+ch<H-10?below:(above>10?above:Math.max(10,H-ch-10)))+"px";
+}
+function gtToast(t){var o=$("gtst");if(!o){o=document.createElement("div");o.id="gtst";document.body.appendChild(o)}var f=gtFace();o.innerHTML='<i class="gtav"></i><span></span>';gtAv(o.querySelector(".gtav"),f.id);o.querySelector("span").textContent=t;o.classList.remove("on");void o.offsetWidth;o.classList.add("on");clearTimeout(o._t);o._t=setTimeout(function(){o.classList.remove("on")},4200)}
+/* 光らせた部品が押されたら、元の動きのあとで次へ */
+document.addEventListener("click",function(e){
+  if(!GT.on||!GT.sel)return;var s=GTS[GT.i];if(!s||s.until||s.btn)return;
+  var el=document.querySelector(GT.sel);if(!el||!el.contains(e.target))return;
+  setTimeout(function(){if(GT.cnt>1){GT.cnt--;return}gtNext()},60);
+},true);
+/* 初回：文字の説明はやめて、仲間3人が決まったらチュートリアルを始める */
+frdlEnd=function(){
+  if(!FR.on)return;FR.on=0;clearInterval(FR.iv);
+  try{localStorage.setItem("dopa:tut","1")}catch(e){}
+  GT.pend=1;setTimeout(function(){$("frdl").classList.add("inv")},120);
+  if(ST_SHOW){var f=ST_SHOW;ST_SHOW=null;setTimeout(f,250)}
+};
+$("frdlSkip").onclick=function(){frdlEnd()};
+setInterval(function(){
+  if(!GT.pend||GT.on)return;
+  var vis=function(id){var e=$(id);return e&&!e.classList.contains("inv")};
+  if(vis("pull")&&GT.pend===1){GT.pend=2;return}
+  if(GT.pend!==2||!G.starter||vis("pull")||vis("vdl")||vis("cpg")||vis("frdl")||vis("tut")||$("appV").hidden)return;
+  GT.pend=0;setTimeout(gtStart,600);
+},400);
+$("tutagain").onclick=function(){$("ov").classList.add("inv");if(T){try{$("quit").click()}catch(e){}}gtStart()};
 
 </script>
 </body>
