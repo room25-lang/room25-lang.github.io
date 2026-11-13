@@ -1735,6 +1735,53 @@ body.noanim .cuimg.cuok{animation:none!important}
 .hmsec h4{flex-wrap:nowrap;white-space:nowrap}
 @media (max-width:370px){.hmsec h4{font-size:0!important;gap:6px}.hmsec h4 span{font-size:12px!important}.hmsec h4 .hmadm{font-size:10.5px!important}.hmsec h4 .hmall{font-size:10.5px!important;padding:0 7px!important}}
 
+
+/* ===== v1.34 ===== */
+/* --- 連続正解の言葉（リーチなど）：画面の上を斜めのタグが横切る形に --- */
+#banner{position:fixed!important;left:0!important;right:0!important;top:calc(env(safe-area-inset-top,0px) + 108px)!important;margin:0 auto!important;width:max-content!important;max-width:92vw;
+  padding:6px 22px 6px 18px!important;font:900 italic 22px/1.1 "Arial Black",sans-serif!important;letter-spacing:.06em!important;
+  background:#0b0c0e!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:var(--acc,#d4ff00)!important;-webkit-text-fill-color:var(--acc,#d4ff00)!important;
+  border-left:4px solid var(--acc,#d4ff00);box-shadow:0 6px 18px rgba(0,0,0,.5);text-shadow:none!important;filter:none!important;transform:skewX(-14deg);pointer-events:none;z-index:40}
+#banner.big{color:#fff!important;-webkit-text-fill-color:#fff!important;background:linear-gradient(90deg,#0b0c0e 0 70%,rgba(11,12,14,.85))!important;border-left-color:#ff3bd4}
+#banner.show,#banner.v1.show,#banner.v2.show{visibility:visible;animation:bnSlide 1s cubic-bezier(.2,.8,.2,1) forwards!important}
+@keyframes bnSlide{0%{opacity:0;transform:translateX(-60vw) skewX(-14deg)}18%{opacity:1;transform:translateX(0) skewX(-14deg)}80%{opacity:1;transform:translateX(4vw) skewX(-14deg)}100%{opacity:0;transform:translateX(60vw) skewX(-14deg)}}
+
+/* --- 共有画面：上下の真ん中に --- */
+#shr:not(.inv){display:flex!important;align-items:center;justify-content:center;padding-top:calc(env(safe-area-inset-top,0px) + 16px)!important;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 16px)!important}
+#shr .sheet{margin:auto!important}
+
+/* --- テスト結果：入ってくるアニメーション --- */
+.rxh{display:flex;flex-direction:column;align-items:center;gap:4px;padding:2px 0 4px}
+.rxhd{font:900 italic 26px/1.1 "Arial Black","Hiragino Sans",sans-serif;letter-spacing:.02em;color:var(--acc,#d4ff00);transform:skewX(-8deg)}
+.rxh.t5 .rxhd{background:linear-gradient(90deg,#ff3b3b,#ffd400,#39ff14,#25d9ff,#ff3bd4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rxrow{display:flex;gap:18px;font-size:13px;color:var(--sub,#aaa)}
+.rxrow b{font:700 17px ui-monospace,Menlo,monospace;color:var(--txt,#fff)}
+.rxboss{display:flex;align-items:center;gap:8px;font-size:13px;margin-top:2px}
+.rxboss .bface{width:30px;height:30px;border-radius:50%;flex:0 0 auto}
+.rxboss b{font:900 italic 13px "Arial Black","Hiragino Sans",sans-serif;padding:2px 8px;transform:skewX(-12deg)}
+.rxboss.ko b{background:var(--acc,#d4ff00);color:#0b0c0e}.rxboss.sv b{background:#333;color:#ddd}
+.rcard.rin>*{animation:rxIn .5s cubic-bezier(.2,.8,.2,1) both}
+.rcard.rin>*:nth-child(1){animation-delay:0s}.rcard.rin>*:nth-child(2){animation-delay:.08s}.rcard.rin>*:nth-child(3){animation-delay:.16s}.rcard.rin>*:nth-child(4){animation-delay:.24s}.rcard.rin>*:nth-child(5){animation-delay:.32s}.rcard.rin>*:nth-child(n+6){animation-delay:.4s}
+@keyframes rxIn{from{opacity:0;transform:translateY(14px)}}
+.rcard.rin .rxhd{animation:rxHd .7s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes rxHd{from{opacity:0;transform:skewX(-8deg) scale(.6);letter-spacing:.4em}}
+.rcard.rin .donut.pop{animation:rxPop .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes rxPop{40%{transform:scale(1.08)}}
+.rcard.rin .rate:after{content:"";position:absolute;inset:-10px;border-radius:50%;border:2px solid var(--acc,#d4ff00);opacity:0;animation:rxRing .9s .75s ease-out both;pointer-events:none}
+.rcard .rate{position:relative}
+@keyframes rxRing{0%{opacity:.8;transform:scale(.6)}100%{opacity:0;transform:scale(1.6)}}
+body.noanim .rcard.rin>*,body.noanim .rcard.rin .rxhd{animation:none!important}
+
+/* --- 引き継ぎ --- */
+#tcov{z-index:30}
+.tcs{gap:10px!important;max-height:86vh;overflow-y:auto}
+.tch small{display:block;font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.26em;color:var(--sub,#999)}
+.tch b{font-size:20px}
+.tcstep{display:flex;gap:10px;align-items:flex-start}
+.tcstep i{flex:0 0 auto;width:24px;height:24px;display:flex;align-items:center;justify-content:center;font:900 italic 13px "Arial Black",sans-serif;font-style:normal;background:var(--acc,#d4ff00);color:#0b0c0e;transform:skewX(-12deg)}
+.tcstep b{font-size:14px}.tcstep p{margin:2px 0 0;font-size:12.5px;color:var(--sub,#aaa);line-height:1.5}
+.tcs textarea{width:100%;height:64px;font:11px ui-monospace,Menlo,monospace;background:rgba(255,255,255,.05);color:var(--txt,#eee);border:1px solid rgba(255,255,255,.2);padding:8px;resize:none;word-break:break-all}
+
 </style>
 </head>
 <body class="dopa">
@@ -2176,23 +2223,22 @@ function sleepAudio(){
   try{
     var a=AC;
     if(a){
-      var og0=OUTG;try{if(OUTG){var nw0=a.currentTime;OUTG.gain.cancelScheduledValues(nw0);OUTG.gain.setValueAtTime(OUTG.gain.value,nw0);OUTG.gain.setTargetAtTime(0,nw0,0.006)}}catch(e){}ZOMB.push({a:a,og:og0});
-      try{if(bgm.src)bgm.src.stop(a.currentTime+0.04)}catch(e){}
-      bgm.src=null;bgm.on=false;clearInterval(bgm.timer);clearTimeout(bgm.rotT);bgm.lfo=null;bgm.pb=null;
-      try{if(VA){VA.pause();VA.removeAttribute("src")}}catch(e){}
-      AC=null;MASTER=null;SFX=null;REVB=null;OUTG=null;SPAN=null;VBUF={};VST={};VEND=0;NZC={};WAKE=true;if(bgm.rot){clearInterval(bgm.rot);bgm.rot=0}
-      setTimeout(killZomb,60);
+      try{if(OUTG){var n=a.currentTime;OUTG.gain.cancelScheduledValues(n);OUTG.gain.setValueAtTime(OUTG.gain.value,n);OUTG.gain.linearRampToValueAtTime(0,n+0.03)}}catch(e){}
+      try{if(bgm.src)bgm.src.stop(a.currentTime+0.05)}catch(e){}
+      bgm.src=null;bgm.on=false;clearInterval(bgm.timer);clearTimeout(bgm.rotT);bgm.lfo=null;bgm.pb=null;if(bgm.rot){clearInterval(bgm.rot);bgm.rot=0}
+      VEND=0;window.SLEPT=1;
+      setTimeout(function(){try{if(AC===a&&document.hidden&&a.state==="running"&&a.suspend)a.suspend()}catch(e){}},80);
     }
-    try{VA.pause()}catch(e){}
+    try{if(VA&&!VA.paused)VA.pause()}catch(e){}
     if(window.speechSynthesis){try{speechSynthesis.cancel()}catch(e){}}
   }catch(e){}
 }
 var VISH=0;
-document.addEventListener("visibilitychange",function(){LASTVIS=Date.now();clearTimeout(VISH);if(document.hidden)sleepAudio();else{killZomb();VISH=setTimeout(function(){if(document.hidden)return;reviveAudio();try{bgmSync()}catch(e){}},150)}});
+document.addEventListener("visibilitychange",function(){LASTVIS=Date.now();clearTimeout(VISH);if(document.hidden)sleepAudio();else{killZomb();VISH=setTimeout(function(){if(document.hidden)return;reviveAudio();try{audTryResume()}catch(e){}},120)}});
 function softMute(on){try{if(AC&&OUTG){var n=AC.currentTime;OUTG.gain.cancelScheduledValues(n);OUTG.gain.setValueAtTime(OUTG.gain.value,n);OUTG.gain.linearRampToValueAtTime(on?0:1,n+(on?0.06:0.4))}}catch(e){}}
 window.addEventListener("blur",function(){LASTVIS=Date.now();softMute(true)});
 window.addEventListener("pagehide",sleepAudio);
-window.addEventListener("pageshow",function(){killZomb();clearTimeout(VISH);VISH=setTimeout(function(){if(document.hidden)return;reviveAudio();try{bgmSync()}catch(e){}},150)});
+window.addEventListener("pageshow",function(){killZomb();clearTimeout(VISH);VISH=setTimeout(function(){if(document.hidden)return;reviveAudio();try{audTryResume()}catch(e){}},120)});
 window.addEventListener("focus",function(){if(document.hidden)return;softMute(false);if(Date.now()-LASTVIS<800)return;try{if(AC&&AC.state!=="running"&&AC.resume)AC.resume()}catch(e){}});
 var VBUF={},VEND=0,VSIDE=false,VST={};
 /* 高さを変えずに速くする（WSOLA）。再生速度を上げると声の高さまで上がって、キャラらしさが失われるため */
@@ -3235,7 +3281,7 @@ var CHL=CHILLS;
 CHILLS.concat(STUDYS).forEach(function(c){c.mel=genMel(c.seed)});
 function setChill(i){chillIdx=i;CT=CHL[i];BPM=CT.bpm;SD=60/BPM/4;KSH=0;PO=PO_MAJ}
 function chRand(){var n=CHL.length;if(n<2)return 0;var k;do{k=Math.floor(Math.random()*n)}while(k===chillIdx);return k}
-function chillNext(){var st=bgm.mode==="study";CHL=st?studyL():homeL();var v=st?-1:parseInt($("chillSel").value);if(!st&&(isNaN(v)||v<0)&&PREK!==null&&PREK<CHL.length){var k=PREK;PREK=-1;setChill(k);return}setChill(isNaN(v)||v<0?chRand():v)}
+function chillNext(){var st=bgm.mode==="study";CHL=st?studyL():homeL();var v=st?-1:parseInt($("chillSel").value);if(!st&&(isNaN(v)||v<0)&&PREK!==null&&PREK>=0&&PREK<CHL.length){var k=PREK;PREK=null;setChill(k);return}setChill(isNaN(v)||v<0?chRand():v)}
 function padTone(f,t,d,type,g){
   var a=AC,o=a.createOscillator(),o2=a.createOscillator(),v=a.createGain(),lp=a.createBiquadFilter();
   o.type=type;o2.type=type;o.frequency.setValueAtTime(f,t);o2.frequency.setValueAtTime(f*1.004,t);
@@ -4126,7 +4172,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.33",VLOG=[
+var VERSION="1.34",VLOG=[
+ ["1.34","2026-11-13",["キャラの編成枠を3つに固定（最初から3つとも使えます）","連続正解の言葉（リーチ！など）を、画面の上を斜めのタグが横切る形に","ほかのアプリから戻った時に音楽が流れない不具合を修正（流れない時も、画面に触れると再開）","アプリから離れる時の異音を対策","共有画面を上下の真ん中に","テスト終了時の大きな演出をなくし、結果画面の中で音とアニメーションを流すように","更新履歴はアプリを開いた時に出さず、メールでお知らせ","タイトル画面の効果音を作り直し","設定のバックアップに「引き継ぎコード」：コードをLINEやメモで送って、新しい端末に貼り付けるだけで引き継げます","設定に「ご意見・不具合を送る」"]],
  ["1.33","2026-11-12",["編成画面を作り直し：カードをなくし、各キャラの背景の装飾の上に立たせる形に。パーティ全員を斜めの柱で並べ、タップした人の柱が広がって上半身と表情の変化が見えるように","編成の入れ替え・追加は「入れ替え」ボタンから選ぶ形に。下の一覧の顔をタップすると、編成していないキャラも上に大きく表示","100連の演出を「ストリーム」に：斜めの帯の上を結果が流れ、★5以上やNEWの時だけ止まってカードが飛び出す。結果はレア度ごとの本数とハイライト（全件は折りたたみ）","メールに「すべて既読」ボタンを追加"]],
  ["1.32","2026-11-12",["アプリを開いてStartを押したら、まずホームが表示されるように（はじめての時はこれまで通り）","ガチャでキャラがアップになる画面で、立ち絵が右にずれて顔が映らないことがある不具合を修正"]],
  ["1.31","2026-11-12",["キャラのセリフが途中で切れる不具合を修正（2秒を超えるセリフ101本が、最後まで流れるように）","画面が横に少し動いてしまう不具合を修正","ホームのキャラを新しいカードに：立ち絵を胸から上で大きく映すように","アプリを開いた直後の画面を、黒い画面に「TOUCH TO START」のデザインで作り直し（おかえりなさい・連続ログインの表示つき）"]],
@@ -4698,7 +4745,7 @@ ntfDot();setTimeout(ntfFetch,1200);
   var seen=verSeen();
   if(seen&&seen!==VERSION){
     var v0=VLOG[0];ntfAdd("v"+VERSION,"ver "+VERSION+" に更新しました",(v0&&v0[2]||[]).map(function(x){return "・"+x}).join("\n"));
-    setTimeout(function(){if(!$("homeV").hidden&&$("verov").classList.contains("inv"))verShow(function(){})},1700);
+    setTimeout(function(){if(0)verShow(function(){})},1700);
   }
 })();
 /* ---- どの画面からでもBGMをON/OFF ---- */
@@ -4768,7 +4815,7 @@ function goHome(){
   homeInfo();homeIntro();setTimeout(function(){try{bgmSync()}catch(e){}},100);
 }
 $("pickStart").onclick=function(){
-  if(G.starter){if(ac())coinInsert();if(verSeen()!==VERSION){verShow(function(){enter("dopa")});return}enter("dopa");return}
+  if(G.starter){if(ac())coinInsert();verMark();enter("dopa");return}
   verMark();
   $("ngc").classList.remove("inv");
 };
@@ -6532,7 +6579,7 @@ window.inboxAuto=function(){
 /* 学習画面の「確認テストへ」バー */
 (function(){var p=$("lstudy");if(p&&!$("flowBar")){var d=document.createElement("div");d.id="flowBar";d.hidden=true;var hd=p.querySelector(".bar");if(hd)hd.parentNode.insertBefore(d,hd.nextSibling);else p.insertBefore(d,p.firstChild)}})();
 $("lend").addEventListener("click",function(){FLOW=null;flowBar()});
-window.V5={readAll:ibxReadAll,items:ibxItems,render:ibxRender,dot:ntfDotV,mastered:mastered,nextNew:nextNew,flowStart:flowStart,toast:toast,lsGet:lsGet,lsSet:lsSet,dayN:dayN,dnKey:dnKey,spell:function(){return SPELL},spKey:spKey,spSubmit:spSubmit,spSet:function(v){SPT=v;spDraw()},spAct:function(){return SPACT},achClaim:achClaim};
+window.V5={bkJson:bkJson,bkRestore:bkRestore,readAll:ibxReadAll,items:ibxItems,render:ibxRender,dot:ntfDotV,mastered:mastered,nextNew:nextNew,flowStart:flowStart,toast:toast,lsGet:lsGet,lsSet:lsSet,dayN:dayN,dnKey:dnKey,spell:function(){return SPELL},spKey:spKey,spSubmit:spSubmit,spSet:function(v){SPT=v;spDraw()},spAct:function(){return SPACT},achClaim:achClaim};
 ntfDotV();homeInfo();
 })();
 
@@ -7067,7 +7114,7 @@ renderG=function(msg){
   if(PPRE&&!lvOf(PPRE))PPRE=null;PSI=Math.max(0,Math.min(PSI,PMAX()-1));
   var w=document.createElement("div");w.className="pwrap";w.innerHTML=stageHtml()+infoHtml();old.parentNode.replaceChild(w,old);
   var pr=card.querySelector("button[data-rec]");if(pr){pr.textContent="おすすめ編成";pr.parentNode.classList.add("prow");
-    if(PMAX()<6){var sb=document.createElement("button");sb.className="sm";sb.innerHTML="枠 +1　◆"+SLOTC[PMAX()+1];sb.onclick=buySlot;pr.parentNode.appendChild(sb)}}
+}
   Array.prototype.forEach.call(card.querySelectorAll(".hint"),function(h){if(/カードへ/.test(h.textContent))h.textContent="タップで上に大きく表示（会話もできます）"});
   layout();bindStage();bindInfo();
   /* 一覧の顔をタップ → そのキャラを上に大きく表示（編成していなくても） */
@@ -7143,6 +7190,133 @@ function stSummary(res,ups,sumTxt,cell){
     (ups.length?'<div class="stsl">HIGHLIGHT<span>タップでもう一度紹介</span></div><div class="sthg">'+ups.map(function(r){return stCard(r)}).join("")+'</div>':'')+
     '<details class="stall"><summary>全'+n+'件を見る</summary><div class="pgrid pg100">'+res.map(cell).join("")+'</div></details><div class="hint" style="text-align:center;font-size:13px">'+sumTxt+'</div></div>';
 }
+
+
+/* ===== v1.34 ===== */
+/* ---- キャラ枠は3つで固定（最初から3つとも使える） ---- */
+PMAX=function(){return 3};
+buySlot=function(){};
+(function(){try{if(G.party.length>3){G.party=G.party.slice(0,3);saveG()}}catch(e){}})();
+
+/* ---- アプリを離れた時・戻った時の音 ---- */
+/* 離れる時：音を30msで絞ってから一時停止（閉じない）。閉じて作り直すと、そのたびにiPhone側の音声の切り替えでプツッと鳴るため */
+var SLEPT=0;
+function audWake(){
+  var a=AC;if(!a||a.state!=="running")return;
+  try{if(OUTG){var n=a.currentTime;OUTG.gain.cancelScheduledValues(n);OUTG.gain.setValueAtTime(0,n);OUTG.gain.linearRampToValueAtTime(1,n+0.45)}}catch(e){}
+  SLEPT=0;setTimeout(function(){try{bgmSync()}catch(e){}},30);
+}
+function audTryResume(){
+  if(document.hidden)return;
+  try{
+    if(AC&&AC.state==="closed"){AC=null;MASTER=null;SFX=null;REVB=null;SPAN=null;OUTG=null;VBUF={};bgm.on=false;clearInterval(bgm.timer)}
+    if(!AC){WAKE=true;ac();SLEPT=0;setTimeout(function(){try{bgmSync()}catch(e){}},30);return}
+    if(AC.state==="running"){audWake();return}
+    var p=AC.resume&&AC.resume();if(p&&p.then)p.then(audWake,function(){});
+  }catch(e){}
+}
+/* iPhoneは、戻った直後は画面に触れるまで音を出せないことがある → 最初のタッチで必ず再開する */
+["touchstart","pointerdown","keydown"].forEach(function(ev){document.addEventListener(ev,function(){if(SLEPT||(AC&&AC.state!=="running"))audTryResume();else if(AC&&bgmPref&&SK==="dopa"&&!bgm.on){try{bgmSync()}catch(e){}}},{passive:true,capture:true})});
+
+/* ---- テスト終了：大きな演出はやめて、結果画面の中で音とアニメーション ---- */
+resultFx=function(o,cb){
+  if(SK!=="dopa"){cb();return}
+  var R=rateTier(o.rate),B=o.boss,card=document.querySelector("#test .rcard");
+  if(card){
+    var hd=rfHead(o),bh="";
+    if(B){var bc=cById(B.id);bh='<div class="rxboss '+(B.hp<=0?'ko':'sv')+'"><i class="bface" style="'+bossFace(B.id)+'"></i><span>'+esc(bc.name)+'</span><b>'+(B.hp<=0?'撃破！':'撃破ならず')+'</b></div>'}
+    var x=document.createElement("div");x.className="rxh t"+R[2];
+    x.innerHTML='<div class="rxhd">'+esc(hd)+'</div><div class="rxrow"><span>◆ <b id="rxe">0</b></span><span>最大連続 <b>'+o.best+'</b></span></div>'+bh;
+    card.insertBefore(x,card.firstChild);card.classList.add("rin","t"+R[2]);
+  }
+  try{var a=ac();if(a)capRun(2.2,function(){
+    var t=a.currentTime+0.02;
+    tone(55,t,0.5,"sine",0.12);nzHit(t,0.25,0.05,SFX,3000,1.5);
+    [0,4,7,11].forEach(function(n,i){tone(pf(5+n),t+0.04+i*0.045,0.6,"triangle",0.03)});
+    var k=Math.min(5,R[2]);for(var i=0;i<3+k;i++)sBell(pf(10+[0,2,4,7,9,12,14,16][i]),t+0.78+i*0.055,0.55,0.05);
+    if(k>=3)tone(pf(22),t+0.78+(3+k)*0.055,0.8,"sine",0.04);
+  })}catch(e){}
+  var t0=Date.now(),iv=setInterval(function(){var e=$("rxe");if(!e){clearInterval(iv);return}var p=Math.min(1,(Date.now()-t0)/900),f=1-Math.pow(1-p,3);e.textContent=Math.round(o.earn*f);if(p>=1)clearInterval(iv)},30);
+  setTimeout(function(){try{shoutEv(10+({5:0,3:1,2:2,1:3,0:4}[R[2]]||0),R[3])}catch(e){}},780);
+  if(B){if(B.hp<=0){if(!B.said[4]){B.said[4]=1;bossVoice(B.id,4,1400)}}else bossVoice(B.id,5,1400)}
+  cb();
+};
+
+/* ---- タイトルの効果音：低い響き→ロゴ1文字ごとに澄んだ音→やわらかい和音 ---- */
+introFx=function(){
+  if(SK!=="dopa"||!document.body.classList.contains("anim"))return;
+  var a=ac();if(!a)return;var c0=Date.now();
+  var go=function(){
+    if(a!==AC||a.state!=="running"||Date.now()-c0>700)return;
+    var t=a.currentTime+0.02-Math.min(0.3,(Date.now()-c0)/1000),now=a.currentTime,ok=function(x){return x>=now};
+    capRun(2.6,function(){
+      if(ok(t)){var o=a.createOscillator(),g=a.createGain();o.type="sine";o.frequency.setValueAtTime(48,t);o.frequency.exponentialRampToValueAtTime(62,t+0.9);g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.14,t+0.45);g.gain.exponentialRampToValueAtTime(0.0001,t+1.3);o.connect(g);g.connect(SFX);o.start(t);o.stop(t+1.35)}
+      if(ok(t+0.05))sweepT(600,4200,t+0.05,0.48,"sine",0.006);
+      [0,3,7,10].forEach(function(n,i){var x=t+0.55+i*0.13;if(!ok(x))return;tone(3800+i*180,x,0.018,"square",0.006);tone(pf(14+n),x+0.005,0.22,"sine",0.04)});
+      if(ok(t+1.05)){tone(73.4,t+1.05,0.6,"sine",0.1);[0,7,11,14,19].forEach(function(n,i){sBell(pf(5+n),t+1.06+i*0.03,0.9,0.032)})}
+    });
+  };
+  if(a.state==="running")go();else if(a.resume){try{var p=a.resume();if(p&&p.then)p.then(go,function(){})}catch(e){}}
+};
+
+/* ---- 端末の引き継ぎ：データを短い「引き継ぎコード」にして、LINEやメモで新しい端末へ ---- */
+function b64u(u8){var s="";for(var i=0;i<u8.length;i+=0x8000)s+=String.fromCharCode.apply(null,u8.subarray(i,i+0x8000));return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
+function ub64(t){t=t.replace(/-/g,"+").replace(/_/g,"/");while(t.length%4)t+="=";var s=atob(t),u=new Uint8Array(s.length);for(var i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u}
+function zip1(str){if(!window.CompressionStream)return Promise.resolve(null);var cs=new Blob([str]).stream().pipeThrough(new CompressionStream("deflate-raw"));return new Response(cs).arrayBuffer().then(function(b){return new Uint8Array(b)})}
+function unzip1(u8){var ds=new Blob([u8]).stream().pipeThrough(new DecompressionStream("deflate-raw"));return new Response(ds).text()}
+function tcMake(){return zip1(V5.bkJson()).then(function(u){if(!u)throw "この端末は引き継ぎコードに対応していません";return "DPT1."+b64u(u)})}
+function tcRead(code){
+  code=String(code||"").replace(/\s+/g,"");var m=code.match(/DPT1\.([A-Za-z0-9_\-]+)/);
+  if(!m)return Promise.reject("引き継ぎコードが見つかりません");
+  if(!window.DecompressionStream)return Promise.reject("この端末は引き継ぎコードに対応していません");
+  return unzip1(ub64(m[1])).then(function(t){return JSON.parse(t)});
+}
+function tcOpen(){
+  var o=$("tcov");if(!o){o=document.createElement("div");o.id="tcov";o.className="ov inv";document.body.appendChild(o)}
+  o.innerHTML='<div class="sheet tcs"><div class="tch"><small>TRANSFER</small><b>端末の引き継ぎ</b></div>'+
+   '<div class="tcstep"><i>1</i><div><b>今の端末で</b><p>「コードを作る」→「送る」で、LINEのKeepやメモ、自分宛てのメールなどに送ります。</p></div></div>'+
+   '<div class="pair"><button class="main" id="tcMk">コードを作る</button><button id="tcSh" disabled>送る・コピー</button></div><textarea id="tcOut" readonly placeholder="ここにコードが出ます"></textarea>'+
+   '<div class="tcstep"><i>2</i><div><b>新しい端末で</b><p>どぱたんを開き、ここにコードを貼り付けて「引き継ぐ」。</p></div></div>'+
+   '<textarea id="tcIn" placeholder="DPT1. から始まるコードを貼り付け"></textarea><button class="main" id="tcGo">引き継ぐ</button><div class="hint" id="tcMsg"></div>'+
+   '<button class="sm" id="tcX">閉じる</button></div>';
+  o.classList.remove("inv");
+  var msg=function(t){$("tcMsg").textContent=t};
+  $("tcX").onclick=function(){o.classList.add("inv")};
+  $("tcMk").onclick=function(){msg("作成中…");tcMake().then(function(c){$("tcOut").value=c;$("tcSh").disabled=false;msg("コードを作りました（"+Math.ceil(c.length/1000)+"千文字）。中身は今の進捗・キャラ・設定です。")},function(e){msg(String(e))})};
+  $("tcSh").onclick=function(){var c=$("tcOut").value;if(!c)return;
+    if(navigator.share){navigator.share({title:"どぱたん 引き継ぎコード",text:c}).catch(function(){})}
+    else if(navigator.clipboard){navigator.clipboard.writeText(c).then(function(){msg("コピーしました")},function(){$("tcOut").select()})}else $("tcOut").select()};
+  $("tcGo").onclick=function(){tcRead($("tcIn").value).then(function(obj){V5.bkRestore(obj)},function(e){msg(typeof e==="string"?e:"コードを読み取れませんでした。最後まで貼り付けられているか確認してください。")})};
+}
+window.tcOpen=tcOpen;
+
+/* ---- ご意見・不具合の送信（Googleフォームができたら FB_FORM にURLを入れる。それまではメール） ---- */
+var FB_FORM="",FB_MAIL="bluecustomsecond14@gmail.com";
+function fbOpen(){
+  var info="ver "+VERSION+" / "+(navigator.userAgent||"").replace(/\s+/g," ").slice(0,160);
+  if(FB_FORM){openExt(FB_FORM+(FB_FORM.indexOf("?")<0?"?":"&")+"usp=pp_url");return}
+  location.href="mailto:"+FB_MAIL+"?subject="+encodeURIComponent("どぱたん ご意見・不具合")+"&body="+encodeURIComponent("（ここに内容を書いてください）\n\n\n---\n"+info);
+}
+window.fbOpen=fbOpen;
+
+/* ---- アクセス統計（GoatCounter）：GC_CODE にサイト名を入れると有効。個人を特定しない数え方 ---- */
+var GC_CODE="";
+(function(){
+  if(!GC_CODE||location.hostname.indexOf("github.io")<0)return;
+  window.goatcounter={no_onload:true,allow_local:false};
+  var s=document.createElement("script");s.async=true;s.src="https://gc.zgo.at/count.js";s.setAttribute("data-goatcounter","https://"+GC_CODE+".goatcounter.com/count");
+  s.onload=function(){gcHit("/")};document.head.appendChild(s);
+})();
+function gcHit(p,title){try{if(window.goatcounter&&goatcounter.count)goatcounter.count({path:p,title:title||p,event:p.indexOf("/ev/")===0})}catch(e){}}
+window.gcHit=gcHit;
+
+/* ---- 設定に「引き継ぎ」「ご意見」を追加 ---- */
+(function(){
+  var bk=document.querySelector(".v5bk");if(!bk)return;
+  var d=document.createElement("div");d.className="pair";d.style.marginTop="6px";
+  d.innerHTML='<button id="tcBtn">引き継ぎコード</button><button id="fbBtn">ご意見・不具合を送る</button>';
+  bk.appendChild(d);$("tcBtn").onclick=tcOpen;$("fbBtn").onclick=fbOpen;
+})();
 
 </script>
 </body>
