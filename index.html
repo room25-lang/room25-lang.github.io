@@ -2136,6 +2136,28 @@ body.anim .clist .ch{animation-duration:.2s!important}
 .stpop.on .sthc.big{animation-duration:.3s!important}
 #v5toast{transition-duration:.12s!important}
 
+
+/* ===== v1.44 ===== */
+/* ヘッダー：BGMとキャラボイスのボタン（アイコン＋名前＋ON/OFFで見分けやすく） */
+.topr .hdtg{width:auto!important;min-width:54px;min-height:40px;padding:0 7px!important;display:inline-flex;align-items:center;gap:5px;text-decoration:none!important;flex:0 0 auto}
+.topr .hdtg i{font-style:normal;font-size:13px;line-height:1;display:flex}
+.topr .hdtg span{display:flex;flex-direction:column;align-items:flex-start;line-height:1.05}
+.topr .hdtg small{font:700 8.5px/1 sans-serif;letter-spacing:.08em;opacity:.75}
+.topr .hdtg b{font:900 11.5px/1.1 "Arial Black",sans-serif}
+.topr #bgmBtn.hdtg{border-color:color-mix(in srgb,var(--acc,#d4ff00) 55%,transparent)!important}
+.topr #bgmBtn.hdtg i{color:var(--acc,#d4ff00)}
+.topr #cvBtn{border:1px solid rgba(120,190,255,.55);color:#fff;background:transparent}
+.topr #cvBtn i{color:#7cc4ff}
+.topr .hdtg.off{opacity:.5!important}
+.topr .hdtg.off b{text-decoration:line-through}
+/* 傾けると背景の光・斜線も動く（速め・大きめ） */
+#bgfx .b1{translate:calc(var(--bx,0) * 22vw) calc(var(--by,0) * 16vh)}
+#bgfx .b2{translate:calc(var(--bx,0) * -18vw) calc(var(--by,0) * -12vh)}
+#bgfx .b3{translate:calc(var(--bx,0) * 90px) calc(var(--by,0) * 40px)}
+body.tilton #bgfx .b1{animation-duration:16s}
+body.tilton #bgfx .b2{animation-duration:22s}
+body.tilton #bgfx .b3{animation-duration:30s}
+
 </style>
 </head>
 <body class="dopa">
@@ -4523,7 +4545,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.43",VLOG=[
+var VERSION="1.44",VLOG=[
+ ["1.44","2026-11-13",["ホームBGMを4セットに（A ミッドナイト・ドライブ／B ネオン・ラウンジ／C ローファイ・ネオン／D シティ・グライド、各3曲）。起動した時刻で自動で切り替え、設定で固定もできます","ヘッダーのBGMボタンの横に、キャラボイスのON/OFFボタン","設定に「設定だけリセット」（進捗は消えません）","傾けると、画面の背景の光と斜線も速く大きく動くように","アプリが裏に回った時・ほかのアプリの音に止められた時に、BGMを確実に止めるように"]],
  ["1.43","2026-11-13",["キャラの声をすべて作り直し：高音質（160kbps）に、速さは声を作る時に決めて再生時に引き伸ばさない（こもり・ゆがみが出ない）","タップした時に表情が変わらないことがあったのを修正","テスト：選択肢と次へ・スキップを画面の下に集めて、片手で答えやすく","立体音響のテスト中は、BGMをすぐ止めるように","設定の右上に、どこからでも閉じられるボタン","キャラは、タップした時だけ話すように（編成に入れた時などは話さない）","画面やカードのアニメーションを速く"]],
  ["1.42","2026-11-13",["キャラのふだんの顔を笑顔に","ホームに置くキャラを選ぶ画面を、編成画面と同じカードのデザインに（選ぶと上で大きく確認できます）","通信が遅い時に、古い最初の画面が出ないように（古い画面を削除）","声の音割れを直しました（音の圧縮をゆるめ、声の音量を少し調整）","「よく使う設定」は初期では表示しないように。設定の「全体」でオン・オフできます","使っていない古いストーリーの仕組みや、使われていない見た目の指定を削除して軽く","ボタン・一覧・画面の切り替えに短いアニメーションを追加"]],
  ["1.41","2026-11-13",["傾きの設定をオンにしても、キャラ自体は動かないように（背景と光だけが動きます）","タップした時のキャラの声を、これまでより少し速く（約1.05倍）","ストーリーの通知を、赤い点からアプリに合った斜めのバッジに","進捗リセットの確認を、アプリの中の画面に。リセット後は新しいタイトル画面から始まります","最初のログインボーナス（3連スロット）をなくし、チュートリアルの無料10連で仲間3人に。チュートリアルを飛ばした場合も同じ3人が仲間になります","ホームに戻る時の音を作り直しました","テストの初期設定を「選択式」に（スペル入力は設定でオンにできます）"]],
@@ -8285,7 +8308,7 @@ setTimeout(function(){
 var toast=function(t,ms){try{V5.toast(t,ms)}catch(e){}};
 
 /* ---------- 進捗リセット：アプリの中の確認画面で。消したら新しいタイトルから ---------- */
-var KEEP=/^dopa:(st0|vox|volB|volS|anim|lite|eq|sp2|aspd|snd|oskb|tmpo2|gskip|skin|vrev|tilt|bgm|lbgm)$/;
+var KEEP=/^dopa:(st0|vox|volB|volS|anim|lite|eq|sp2|aspd|snd|oskb|tmpo2|gskip|skin|vrev|tilt|bgm|lbgm|bgmset|cvoff)$/;
 function rsAsk(o){
   var w=document.createElement("div");w.id="rsc";
   w.innerHTML='<div class="rsb'+(o.danger?' dg':'')+'"><div class="rsh"><i></i><b>'+o.title+'</b></div><p>'+o.body+'</p><div class="rsa"><button type="button" class="rsn">やめる</button><button type="button" class="rsy">'+o.ok+'</button></div></div>';
@@ -8518,6 +8541,131 @@ if(ov&&!$("ovx")){
   x.onclick=function(){var c=$("cls");if(c)c.click();else ov.classList.add("inv")};
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!ov.classList.contains("inv"))x.click()});
 }
+})();
+
+
+/* ===================== v1.44 ===================== */
+(function(){
+var toast=function(t,ms){try{V5.toast(t,ms)}catch(e){}};
+var ls=function(k,d){try{var v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}};
+var lset=function(k,v){try{localStorage.setItem(k,v)}catch(e){}};
+
+/* ---------- ホームBGM：A〜Dの4セット。起動した時刻で自動、または固定 ---------- */
+var BS={
+  A:{n:"A ミッドナイト・ドライブ",d:"シンセウェイヴ",t:[["Midnight Drive",100,32,"hA1"],["Sunset Boulevard",96,32,"hA2"],["Neon Highway",104,32,"hA3"]]},
+  B:{n:"B ネオン・ラウンジ",d:"ディープハウス",t:[["Neon Lounge",120,32,"hB1"],["Glass Terrace",122,32,"hB2"],["Afternoon Pool",118,32,"hB3"]]},
+  C:{n:"C ローファイ・ネオン",d:"ローファイ",t:[["Lofi Neon",82,24,"hC1"],["Rainy Window",78,24,"hC2"],["Midnight Notes",86,24,"hC3"]]},
+  D:{n:"D シティ・グライド",d:"シティポップ",t:[["City Glide",112,32,"hD1"],["Morning Commute",116,32,"hD2"],["Blue Seaside",108,32,"hD3"]]}
+};
+Object.keys(BS).forEach(function(k){BS[k].L=BS[k].t.map(function(x,i){return {n:x[0],bpm:x[1],sh:0,id:"bs:"+k+":"+i,gm:1,th:"bs",gi:i,kind:"h",url:"bgm/"+x[3]+".mp3",L:x[2]*240/x[1]}})});
+/* 起動した時の時刻で決める：朝 D／昼 B／夕方〜夜 A／深夜 C */
+var BSAUTO=(function(){var h=new Date().getHours();return h>=5&&h<11?"D":h>=11&&h<17?"B":h>=17&&h<22?"A":"C"})();
+window.bsCur=function(){var v=ls("dopa:bgmset","auto");return v==="auto"?BSAUTO:v};
+if(typeof homeL==="function"){var _hl=homeL;homeL=function(){var k=bsCur();return BS[k]?BS[k].L:_hl()}}
+if(typeof chEnsure==="function"){var _ce=chEnsure;chEnsure=function(C,cb){
+  if(!C||!C.url)return _ce(C,cb);
+  fetch(C.url).then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(b){cb(true,b)}).catch(function(){cb(false)});
+}}
+/* mp3は前後にわずかな無音が付くことがある → 1ループぴったりに切りそろえて、つなぎ目を消す */
+function bsTrim(b,L){
+  if(b.__trb)return b.__trb;
+  var sr=b.sampleRate,n=Math.round(L*sr),ex=b.length-n;
+  if(ex<=8||n<sr){b.__tr=1;return b}
+  var st=Math.min(ex,Math.round(1105*sr/44100)),o=AC.createBuffer(b.numberOfChannels,n,sr);
+  for(var c=0;c<b.numberOfChannels;c++)o.getChannelData(c).set(b.getChannelData(c).subarray(st,st+n));
+  o.__tr=1;b.__trb=o;return o;
+}
+if(typeof loopBuf==="function"){var _lb=loopBuf;loopBuf=function(buf,xf,gap){try{if(CT&&CT.L&&buf&&!buf.__tr)buf=bsTrim(buf,CT.L)}catch(e){}return _lb.call(this,buf,xf,gap)}}
+function bsApply(){
+  try{chillIdx=-1;var cs=$("chillSel");if(cs)cs.value="-1";chillOpts()}catch(e){}
+  try{if(bgm.on&&(bgm.mode==="chill"||bgm.mode==="study")){bgmStop();setTimeout(bgmSync,150)}}catch(e){}
+  bsLabel();
+}
+function bsLabel(){var h=$("bsHint");if(!h)return;var v=ls("dopa:bgmset","auto"),k=bsCur();h.textContent=(v==="auto"?"自動：今回は「"+BS[k].n+"」（起動した時刻で決まります。朝5〜11時 D／昼11〜17時 B／夕方17〜22時 A／深夜22〜5時 C）":"「"+BS[k].n+"」に固定中です。")+"　セットの中の3曲は、下の「曲」で選べます。"}
+(function(){
+  var cs=$("chillSel");if(!cs||$("bgmSet"))return;var row=cs.closest(".row2")||cs.parentNode;
+  var r=document.createElement("div");r.className="row2";r.innerHTML='曲のセット <select id="bgmSet"></select>';
+  var sel=r.querySelector("select");
+  [["auto","自動（起動した時刻で切り替え）"]].concat(Object.keys(BS).map(function(k){return [k,BS[k].n+"（"+BS[k].d+"）"]})).forEach(function(x){var o=document.createElement("option");o.value=x[0];o.textContent=x[1];sel.appendChild(o)});
+  sel.value=ls("dopa:bgmset","auto");if(!sel.value)sel.value="auto";
+  sel.onchange=function(){lset("dopa:bgmset",this.value);bsApply();toast("BGM："+BS[bsCur()].n,1600)};
+  var sc=row.getAttribute("data-sc")||"m";r.setAttribute("data-sc",sc);
+  row.parentNode.insertBefore(r,row);
+  var h=document.createElement("div");h.className="hint";h.id="bsHint";h.setAttribute("data-sc",sc);row.parentNode.insertBefore(h,row);
+  try{chillOpts()}catch(e){}bsLabel();
+})();
+
+/* ---------- キャラボイスのON/OFF（BGMボタンの横） ---------- */
+window.cvOff=function(){return ls("dopa:cvoff","0")==="1"};
+["voxPlay","browserSay","jaShout","charVoice"].forEach(function(nm){
+  var f=window[nm];if(typeof f!=="function")return;
+  window[nm]=function(){if(cvOff())return;return f.apply(this,arguments)};
+});
+try{voxPlay=window.voxPlay;browserSay=window.browserSay;charVoice=window.charVoice;if(typeof jaShout==="function")jaShout=window.jaShout}catch(e){}
+function hdrLabel(){
+  var b=$("bgmBtn"),v=$("cvBtn");if(!b)return;
+  var bon=!b.classList.contains("off");
+  b.innerHTML='<i aria-hidden="true">♪</i><span><small>BGM</small><b>'+(bon?"ON":"OFF")+'</b></span>';b.setAttribute("aria-label","BGM "+(bon?"オン":"オフ"));
+  if(v){var von=!cvOff();v.classList.toggle("off",!von);v.innerHTML='<i aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v10H10l-5 4v-4H4z"/></svg></i><span><small>VOICE</small><b>'+(von?"ON":"OFF")+'</b></span>';v.setAttribute("aria-label","キャラボイス "+(von?"オン":"オフ"))}
+}
+(function(){
+  var b=$("bgmBtn");if(!b||$("cvBtn"))return;
+  b.classList.add("hdtg");
+  var v=document.createElement("button");v.id="cvBtn";v.type="button";v.className="hdtg";b.parentNode.insertBefore(v,b.nextSibling);
+  v.onclick=function(){var off=!cvOff();lset("dopa:cvoff",off?"1":"0");if(off){try{if(VA&&!VA.paused)VA.pause()}catch(e){}try{speechSynthesis.cancel()}catch(e){}}hdrLabel();toast(off?"キャラボイスをオフにしました":"キャラボイスをオンにしました",1400)};
+  if(typeof bgmLabel==="function"){var _bl=bgmLabel;bgmLabel=function(){var r=_bl.apply(this,arguments);try{hdrLabel()}catch(e){}return r}}
+  hdrLabel();
+})();
+
+/* ---------- アプリが裏に回ったら、BGMを確実に止める ---------- */
+document.addEventListener("freeze",function(){try{sleepAudio()}catch(e){}});
+setInterval(function(){try{if(document.hidden&&bgm.on)sleepAudio()}catch(e){}},1000);
+/* 電話や他のアプリの音で、こちらの音が止められた時（iPhoneなど）は、BGMをオフにして知らせる */
+var AWT=null;
+setInterval(function(){
+  try{if(!AC||AWT===AC)return;AWT=AC;AC.addEventListener("statechange",function(){
+    if(this.state==="interrupted"&&!document.hidden&&bgmPref){bgmPref=false;lset("dopa:bgm","0");try{bgmLabel();bgmSync()}catch(e){}toast("ほかのアプリの音が流れたので、BGMをオフにしました",2600)}
+  })}catch(e){}
+},1500);
+
+/* ---------- 傾けると、画面の背景の光と斜線も速く大きく動く ---------- */
+(function(){
+  var tx=0,ty=0,cx=0,cy=0,raf=0,bf=null,cl=function(v){return Math.max(-1,Math.min(1,v))};
+  var on=function(){try{return window.tiltOn&&tiltOn()}catch(e){return false}};
+  var ap=function(){
+    raf=0;cx+=(tx-cx)*0.28;cy+=(ty-cy)*0.28;bf=bf&&bf.isConnected?bf:$("bgfx");
+    if(bf){bf.style.setProperty("--bx",cx.toFixed(3));bf.style.setProperty("--by",cy.toFixed(3))}
+    if(Math.abs(tx-cx)>0.002||Math.abs(ty-cy)>0.002)raf=requestAnimationFrame(ap);
+  };
+  var set=function(x,y){tx=cl(x);ty=cl(y);if(!raf)raf=requestAnimationFrame(ap)};
+  window.addEventListener("deviceorientation",function(e){if(e.gamma==null||!on())return;set(e.gamma/16,(e.beta-45)/16)});
+  document.addEventListener("pointermove",function(e){if(!on()||e.pointerType==="touch")return;set(e.clientX/innerWidth*2-1,e.clientY/innerHeight*2-1)},{passive:true});
+  var sync=function(){var o=on();document.body.classList.toggle("tilton",o);if(!o&&(tx||ty))set(0,0)};
+  setInterval(sync,1000);sync();
+})();
+
+/* ---------- 設定だけリセット（進捗は消さない） ---------- */
+var SETK=/^dopa:(vox|volB|volS|anim|lite|eq|sp2|aspd|snd|oskb|tmpo2|gskip|skin|tilt|bgm|lbgm|qset|autosay|lauto|chill|fxs|bg|stab|bgmset|cvoff)$/;
+function setAsk(){
+  var w=document.createElement("div");w.id="rsc";
+  w.innerHTML='<div class="rsb"><div class="rsh"><i></i><b>設定をリセット</b></div><p>音量・BGM・声・表示・テーマなどの設定を、最初の状態に戻します。<br><small>学習の記録・キャラ・◆・ストーリーは消えません。</small></p><div class="rsa"><button type="button" class="rsn">やめる</button><button type="button" class="rsy">戻す</button></div></div>';
+  document.body.appendChild(w);requestAnimationFrame(function(){w.classList.add("on")});
+  var close=function(){w.classList.remove("on");setTimeout(function(){w.remove()},200)};
+  w.querySelector(".rsn").onclick=close;w.onclick=function(e){if(e.target===w)close()};
+  w.querySelector(".rsy").onclick=function(){
+    close();
+    try{var ks=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(SETK.test(k))ks.push(k)}ks.forEach(function(k){localStorage.removeItem(k)})}catch(e){}
+    toast("設定を元に戻しました。読み込み直します…",1500);
+    setTimeout(function(){location.reload()},900);
+  };
+}
+(function(){
+  var rb=$("rst");if(!rb||$("rstSet"))return;
+  var b=document.createElement("button");b.id="rstSet";b.type="button";b.className=rb.className;b.textContent="設定だけリセット";
+  if(rb.getAttribute("data-sc"))b.setAttribute("data-sc",rb.getAttribute("data-sc"));
+  rb.parentNode.insertBefore(b,rb);
+  b.onclick=function(){try{$("ov").classList.add("inv")}catch(e){}setAsk()};
+})();
 })();
 
 </script>
