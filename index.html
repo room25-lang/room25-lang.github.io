@@ -10,6 +10,18 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="どぱたん">
 <meta name="description" content="NGSL 2809語をガチャとキャラで覚える英単語アプリ">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="どぱたん">
+<meta property="og:title" content="どぱたん｜ガチャとキャラで覚える英単語アプリ">
+<meta property="og:description" content="よく使われる英単語2809語（NGSL）を、テスト・ガチャ・20人のキャラと一緒に覚える無料の英単語アプリ。">
+<meta property="og:url" content="https://room25-lang.github.io/">
+<meta property="og:image" content="https://room25-lang.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="どぱたん｜ガチャとキャラで覚える英単語アプリ">
+<meta name="twitter:description" content="英単語2809語を、テスト・ガチャ・キャラと一緒に。">
+<meta name="twitter:image" content="https://room25-lang.github.io/og.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/favicon-48.png" sizes="48x48">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -2118,6 +2130,54 @@ body.noanim .hb2::after,body.lite .hb2::after{display:none}
 #rdv2 .r2lv b i{font-style:normal;color:var(--acc,#d4ff00)}
 #rdv2 .r2lv ul{list-style:none;margin:8px 0 0;padding:0;font-size:12.5px;line-height:1.7;color:rgba(255,255,255,.85);text-align:left}
 #rdv2 .r2lv li::before{content:"＋ ";color:var(--acc,#d4ff00)}
+
+
+/* ===== v1.40 ===== */
+/* 光の筋はキャラと背景だけに（文字やボタンの上にかけない） */
+.hb2::after{z-index:1}
+.hb2 .hb2fade{z-index:2}
+.hb2 .hb2tx,.hb2 .hb2st,.hb2 .hb2chg{z-index:3}
+#syv .syhero::after{z-index:1}#syv .syhero .syname{z-index:2}
+/* 声の速さの説明 */
+small.vstd{display:block;font-size:11px;opacity:.65;margin-top:2px;width:100%}
+/* 起動の帯：新規の時はその場で消える（タイトルの帯に重なる） */
+#bnd{z-index:200}
+#bnd.stay .bnb,#bnd.stay .bnl{top:40%}
+#bnd.stay.up{background:transparent}
+#bnd.stay.up .bnb,#bnd.stay.up .bnl{transform:rotate(-14deg)!important;opacity:0;transition:opacity .35s ease .1s}
+/* 初めて開いた時の画面 */
+#homeV.t2>*:not(#t2w):not(.hc){display:none!important}
+#homeV.t2{background:#0b0c0e!important}
+#t2w{position:absolute;inset:0;overflow:hidden;color:#fff}
+#t2w::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(-14deg,rgba(255,255,255,.025) 0 1px,transparent 1px 22px);pointer-events:none}
+#t2w .t2top{position:absolute;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 26px);text-align:center;font:700 9.5px ui-monospace,Menlo,monospace;letter-spacing:.42em;color:rgba(255,255,255,.4)}
+#t2w .t2band{position:absolute;left:-30%;right:-30%;top:40%;height:74px;margin-top:-37px;transform:rotate(-14deg);display:flex;align-items:center;justify-content:center}
+#t2w .t2band i{position:absolute;inset:0;background:var(--acc,#d4ff00)}
+#t2w .t2band b{position:relative;font:900 italic 56px/60px "DopaLogo","Arial Black",sans-serif;color:#0b0c0e;letter-spacing:-.02em}
+#t2w .t2cap{position:absolute;left:0;right:0;top:calc(40% + 78px);text-align:center;display:flex;flex-direction:column;gap:6px;animation:t2in .6s ease .9s both}
+#t2w .t2cap small{font:700 9.5px ui-monospace,Menlo,monospace;letter-spacing:.24em;color:var(--acc,#d4ff00)}
+#t2w .t2cap span{font-size:13px;color:rgba(255,255,255,.75)}
+@keyframes t2in{from{opacity:0;transform:translateY(8px)}}
+#t2w .t2bot{position:absolute;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 84px);display:flex;flex-direction:column;align-items:center;gap:12px;animation:t2in .6s ease 1.1s both}
+#t2w #pickStart,#t2w #pickCont{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:min(300px,80vw);height:64px;margin:0;background:transparent!important;border:2px solid var(--acc,#d4ff00)!important;color:#fff!important;border-radius:0!important;transform:skewX(-12deg);box-shadow:0 0 24px rgba(212,255,0,.18)!important;animation:none!important;clip-path:none!important}
+#t2w #pickCont[hidden]{display:none!important}
+#t2w #pickStart>*,#t2w #pickCont>*{transform:skewX(12deg)}
+#t2w #pickStart span{font:900 italic 22px/1 "Arial Black",sans-serif;letter-spacing:.14em;color:var(--acc,#d4ff00)}
+#t2w #pickStart small{font-size:11px;opacity:.75;font-weight:400}
+#t2w #pickStart:active{background:var(--acc,#d4ff00)!important}
+#t2w #pickStart:active span,#t2w #pickStart:active small{color:#0b0c0e}
+#t2w #homeNote{font-size:11.5px!important;opacity:.6;margin:0!important;text-align:center}
+#t2w .hsns{display:flex;gap:8px;position:static!important}
+#t2w .hsns a{background:transparent!important;border:1px solid rgba(255,255,255,.22)!important;font-size:12px!important;transform:none!important}
+#t2w .hver{position:absolute!important;top:calc(env(safe-area-inset-top,0px) - 40px);right:0;left:0;text-align:center;display:none!important;font:700 10px ui-monospace,Menlo,monospace!important;letter-spacing:.2em;opacity:.45;background:none!important}
+/* ストーリー：スキップを分かりやすく */
+#rdv2 .r2x{display:flex;align-items:center;gap:6px;padding:7px 12px 7px 14px!important;font:700 12px "Hiragino Sans","Noto Sans CJK JP",sans-serif!important;letter-spacing:.06em!important;border:1px solid rgba(255,255,255,.55)!important;color:#fff!important;background:rgba(0,0,0,.35)!important}
+#rdv2 .r2x i{font-style:normal;font-size:10px;color:var(--acc,#d4ff00);letter-spacing:-.1em}
+#rdv2 .r2tap{position:absolute;left:24px;bottom:-16px;font-style:normal;font-size:11px;color:rgba(255,255,255,.55);animation:r2tap 1.4s ease-in-out infinite}
+@keyframes r2tap{50%{opacity:.25}}
+#rdv2 .r2sk{margin:0;max-width:280px;text-align:center;font-size:12px;line-height:1.6;color:rgba(255,255,255,.65)}
+
+#t2w #pickStart::before,#t2w #pickStart::after{display:none!important}
 
 </style>
 </head>
@@ -4511,7 +4571,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.39",VLOG=[
+var VERSION="1.40",VLOG=[
+ ["1.40","2026-11-13",["初めて開いた時の画面を新しいデザインに（起動の帯がそのままタイトルに）","キャラの声の基準の速さを決め直し：×1.00＝ふつうに話す速さ","立ち絵の光の筋が、文字やボタンにかからないように","ストーリーの「スキップ」と「タップで次へ」を分かりやすく","URLを貼ると、プレイ画面の画像が表示されるように","「キャラを傾きで動かす」を設定に。初期はオフで、オンにした時だけ許可を聞きます"]],
  ["1.39","2026-11-13",["起動を軽く：大きな画像と例文を、起動のあとで別ファイルから読むように","ストーリー：仲間になった子の章が読めるように。読むとその子のレベルが上がり、セリフ・掛け声・スキルが強くなります（英単語のテストとは連携しません）","掛け声（スキル発動の声）もレベルで増えるように","立ち絵の奥行き：スマホを傾けると、キャラ・背景・光がずれて立体的に見えます"]],
  ["1.38","2026-11-13",["キャラの声（タップ・編成画面）を、普通に話す速さに。掛け声も1つずつ速さをそろえました","キャラ一覧の枠をレア度の色に","進捗リセットを直しました（リセット後は最初の画面からやり直し）","テスト画面に「今日の復習」ボタンを出さないように","答えたあとに「スキップ」が一瞬消えないように","設定：種類のタブを一番上に","ホームの「キャラを選ぶ」ボタンを端に","ガチャの確率を調整：10回で1体、100回で10体","10回ガチャも100回と同じ演出に","チュートリアルを分かりやすく、最後に無料の10回ガチャ（3体確定）","ストーリーを書き直し、キャラ画面（編成・ストーリー・ガチャ）へ移動。画面も作り直しました"]],
  ["1.37","2026-11-13",["全2809語に例文と和訳を付けました","例文の英語音声を全2809文に収録（「例文を聞く」で再生。ステージごとに必要な分だけ読み込みます）"]],
@@ -8208,9 +8269,9 @@ function syRead(key,sc,id,label,done){
     var t=CTH[id];o.className="on";o.style.cssText="--b0:"+t.bg[0]+";--b1:"+t.bg[1]+";--b2:"+t.bg[2];
     o.innerHTML='<div class="r2bg" style="background-image:url('+full(id)+')"></div><div class="r2grad"></div>'+
       '<div class="r2fig" style="background-image:url('+full(id)+')"></div><i class="r2lb t"></i><i class="r2lb b"></i>'+
-      '<div class="r2top"><small>'+esc(label)+'</small><button type="button" class="r2x">SKIP</button></div>'+
+      '<div class="r2top"><small>'+esc(label)+'</small><button type="button" class="r2x"><span>スキップ</span><i>▶▶</i></button></div>'+
       '<div class="r2title"><small>'+esc(label)+'</small><b>'+esc(sc[0])+'</b><i></i></div>'+
-      '<div class="r2txt"><b class="r2n"></b><p class="r2p"></p><span class="r2c"></span></div>';
+      '<div class="r2txt"><b class="r2n"></b><p class="r2p"></p><span class="r2c"></span><em class="r2tap">タップで次へ ▼</em></div>';
     var p=o.querySelector(".r2p"),nm=o.querySelector(".r2n"),cnt=o.querySelector(".r2c"),fig=o.querySelector(".r2fig");
     var finish=function(){
       clearInterval(tt);var first=!rd(key);G.story=G.story||{};G.story[key]=1;var rw=0;
@@ -8220,7 +8281,7 @@ function syRead(key,sc,id,label,done){
           try{if(window.fxRot)fxRot(cvoice(id))}catch(e){}}
         else{rw=key.indexOf("e")>0?30:50;G.stones+=rw;G.total+=rw;updStones()}}
       saveG();
-      o.innerHTML+='<div class="r2end"><small>'+esc(label)+'</small><b>END</b>'+up+(rw?'<em>◆ +'+rw+'</em>':'')+'<button type="button" class="main r2ok">閉じる</button></div>';
+      o.innerHTML+='<div class="r2end"><small>'+esc(label)+'</small><b>END</b>'+(o.classList.contains("skipped")?'<p class="r2sk">最後までとばしました。もう一度読むときは、一覧から選んでください</p>':'')+up+(rw?'<em>◆ +'+rw+'</em>':'')+'<button type="button" class="main r2ok">閉じる</button></div>';
       o.onclick=null;o.querySelector(".r2ok").onclick=function(){o.className="";if(done)done()};
       try{var a=ac();if(a)sBell(pf(12),a.currentTime,0.8,0.04)}catch(e){}
     };
@@ -8232,7 +8293,7 @@ function syRead(key,sc,id,label,done){
       tt=setInterval(function(){n+=1;p.textContent=s.slice(0,n);if(n>=s.length){clearInterval(tt);typing=0}},34);
     };
     var adv=function(){if(typing){clearInterval(tt);typing=0;p.textContent=lines[i][1];return}i++;if(i>=lines.length)finish();else show()};
-    o.onclick=function(e){if(e.target.closest(".r2x")){clearInterval(tt);finish();return}if(o.classList.contains("intro"))return;adv()};
+    o.onclick=function(e){if(e.target.closest(".r2x")){clearInterval(tt);o.classList.add("skipped");finish();return}if(o.classList.contains("intro"))return;adv()};
     o.classList.add("intro");setTimeout(function(){o.classList.remove("intro");adv()},1700);
     wipe.classList.add("out");setTimeout(function(){wipe.remove()},500);
   },380);
@@ -8292,16 +8353,48 @@ function sklN(lv){lv=lv||1;return lv>=4?3:lv>=2?2:1}
     if(Math.abs(tx-cx)>0.002||Math.abs(ty-cy)>0.002)raf=requestAnimationFrame(apply);
   };
   var set=function(x,y){tx=Math.max(-1,Math.min(1,x));ty=Math.max(-1,Math.min(1,y));if(!raf)raf=requestAnimationFrame(apply)};
-  var ori=function(e){if(e.gamma==null)return;on=true;last=Date.now();set(e.gamma/22,(e.beta-45)/22)};
+  var ori=function(e){if(e.gamma==null||!tiltOn())return;on=true;last=Date.now();set(e.gamma/22,(e.beta-45)/22)};
   window.addEventListener("deviceorientation",ori);
-  /* iPhone は一度だけ許可が必要（最初にキャラのカードを触った時に聞く） */
-  document.addEventListener("click",function(e){
-    if(asked||!e.target.closest||!e.target.closest(".hb2,.syhero"))return;asked=true;
-    try{if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==="function")DeviceOrientationEvent.requestPermission().catch(function(){})}catch(er){}
-  },true);
-  /* 指でなぞった時も傾ける。センサーが無い時は、ゆっくり自動で揺らす */
-  document.addEventListener("pointermove",function(e){var el=e.target.closest&&e.target.closest(".hb2,.syhero");if(!el)return;var r=el.getBoundingClientRect();set((e.clientX-r.left)/r.width*2-1,(e.clientY-r.top)/r.height*2-1);last=Date.now()},{passive:true});
-  setInterval(function(){if(Date.now()-last<2500)return;var t=Date.now()/1000;set(Math.sin(t*0.6)*0.35,Math.cos(t*0.45)*0.25)},120);
+  /* 設定で「キャラを傾きで動かす」をオンにした時だけ動かす（許可はその時に一度だけ聞く） */
+  window.tiltOn=function(){try{return localStorage.getItem("dopa:tilt")==="1"}catch(e){return false}};
+  window.tiltAsk=function(cb){try{if(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==="function"){DeviceOrientationEvent.requestPermission().then(function(r){cb(r==="granted")}).catch(function(){cb(false)});return}}catch(er){}cb(true)};
+  window.tiltReset=function(){tx=0;ty=0;if(!raf)raf=requestAnimationFrame(apply)};
+  document.addEventListener("pointermove",function(e){if(!tiltOn())return;var el=e.target.closest&&e.target.closest(".hb2,.syhero");if(!el)return;var r=el.getBoundingClientRect();set((e.clientX-r.left)/r.width*2-1,(e.clientY-r.top)/r.height*2-1);last=Date.now()},{passive:true});
+})();
+
+
+/* ================= v1.40 ================= */
+if(typeof window.unlTabs!=="function")window.unlTabs=function(){var g=$("tG");if(g&&G.unl)g.classList.toggle("lk",!G.unl.g)};
+(function(){
+/* ---------- 初めて開いた時の画面：起動の帯がそのままタイトルになる ---------- */
+var hv=$("homeV");
+if(hv){
+  hv.classList.add("t2");
+  var w=document.createElement("div");w.id="t2w";
+  w.innerHTML='<div class="t2top">ENGLISH VOCABULARY SYSTEM</div><div class="t2band"><i></i><b>どぱたん</b></div><div class="t2cap"><small>NGSL 2809 WORDS · GACHA · CHARACTERS</small><span>英単語2809語を、ガチャとキャラで覚える</span></div><div class="t2bot"></div>';
+  hv.appendChild(w);
+  var bot=w.querySelector(".t2bot");["pickStart","pickCont","homeNote"].forEach(function(id){var e=$(id);if(e)bot.appendChild(e)});
+  var sns=hv.querySelector(".hsns");if(sns)bot.appendChild(sns);var hvv=$("hver");if(hvv)bot.appendChild(hvv);
+  var ps=$("pickStart"),psSet=function(){if(ps)ps.innerHTML=G.starter?'<span>START</span><small>つづきから</small>':'<span>NEW GAME</span><small>はじめる</small>'};psSet();
+  var _hi=homeInfo;homeInfo=function(){_hi.apply(this,arguments);psSet()};
+}
+/* 新規の時は、起動の帯を上に飛ばさず、その場で消してタイトルの帯に重ねる */
+var bd=$("bnd");if(bd&&!G.starter)bd.classList.add("stay");
+
+/* ---------- 設定：キャラを傾きで動かす（初期はオフ。オンにした時だけ許可を聞く） ---------- */
+var q=document.querySelector(".v5q");
+if(q&&!$("tiltChk")){
+  var l=document.createElement("label");l.className="rad";l.innerHTML='<input type="checkbox" id="tiltChk"> キャラを傾きで動かす<small style="display:block;font-size:11.5px;opacity:.7;margin-left:28px">スマホを傾けると、立ち絵が立体的に動きます。オンにした時に、動きの使用の許可を一度だけ聞きます。</small>';
+  q.appendChild(l);
+  var c=$("tiltChk");c.checked=window.tiltOn&&tiltOn();
+  c.onchange=function(){
+    if(c.checked){tiltAsk(function(ok){if(ok){try{localStorage.setItem("dopa:tilt","1")}catch(e){}}else{c.checked=false;try{V5.toast("動きの使用が許可されませんでした。iPhoneの設定から許可できます")}catch(e){}}})}
+    else{try{localStorage.setItem("dopa:tilt","0")}catch(e){}try{tiltReset()}catch(e){}}
+  };
+}
+/* 声の速さの基準を説明に書く */
+var r2=$("voxRate2");if(r2){var lb=r2.closest("label");if(lb&&!lb.querySelector(".vstd")){var h=document.createElement("small");h.className="vstd";h.textContent="×1.00＝ふつうに話す速さ（どの声も同じ速さにそろえています）";lb.appendChild(h)}}
+var r1=$("voxRate");if(r1){var lb1=r1.closest("label");if(lb1&&!lb1.querySelector(".vstd")){var h1=document.createElement("small");h1.className="vstd";h1.textContent="×1.00＝少し速めの、はずむ速さ（どの声も同じ速さにそろえています）";lb1.appendChild(h1)}}
 })();
 
 </script>
