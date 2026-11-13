@@ -1817,6 +1817,157 @@ body.noanim .rcard.rin>*,body.noanim .rcard.rin .rxhd{animation:none!important}
 #gtst{position:fixed;left:12px;right:12px;top:calc(env(safe-area-inset-top,0px) + 60px);max-width:420px;margin:0 auto;z-index:9001;display:flex;align-items:center;gap:8px;background:#121418;border-left:4px solid var(--acc,#d4ff00);border-radius:10px;padding:8px 12px;color:#fff;font-size:14px;line-height:1.5;opacity:0;transform:translateY(-10px);pointer-events:none;transition:opacity .25s,transform .25s;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 #gtst.on{opacity:1;transform:none}
 
+
+/* ===== v1.36 ===== */
+/* 起動：帯スラッシュ */
+#bnd{position:fixed;inset:0;z-index:95;background:#0b0c0e;pointer-events:none;overflow:hidden;transition:background .35s ease .25s}
+#bnd .bnb{position:absolute;left:-30%;right:-30%;top:50%;height:74px;margin-top:-37px;background:var(--acc,#d4ff00);transform:rotate(-14deg) translateX(-130%);transition:transform .32s cubic-bezier(.2,.9,.2,1)}
+#bnd.in .bnb{transform:rotate(-14deg) translateX(0)}
+#bnd .bnl{position:absolute;left:0;right:0;top:50%;margin-top:-30px;display:flex;justify-content:center;gap:2px;transform:rotate(-14deg);font:900 italic 56px/60px "DopaLogo","Arial Black",sans-serif;color:#0b0c0e;letter-spacing:-.02em}
+#bnd .bnl span{opacity:0;transform:translateY(-40px) scale(1.6);transition:opacity .12s,transform .2s cubic-bezier(.2,1.4,.4,1)}
+#bnd.in .bnl span{opacity:1;transform:none}
+#bnd.in .bnl span:nth-child(1){transition-delay:.3s}#bnd.in .bnl span:nth-child(2){transition-delay:.36s}#bnd.in .bnl span:nth-child(3){transition-delay:.42s}#bnd.in .bnl span:nth-child(4){transition-delay:.48s}
+#bnd.up{background:transparent;transition:background .3s ease}
+#bnd.up .bnb{transform:rotate(-14deg) translateY(-62vh) scaleY(.4);opacity:0;transition:transform .5s cubic-bezier(.6,0,.2,1),opacity .4s ease .15s}
+#bnd.up .bnl{transform:rotate(-14deg) translateY(-62vh) scale(.5);opacity:0;transition:transform .5s cubic-bezier(.6,0,.2,1),opacity .4s ease .15s}
+body.noanim #bnd{display:none}
+/* ストーリー（ホーム） */
+#hmStory h4 .stn,#hmXm h4 .stn{margin-left:auto;font-style:normal;font-size:11px;color:var(--acc,#d4ff00);font-weight:700!important}
+.hmst2{position:relative;display:flex;align-items:stretch;gap:0;width:100%;min-height:88px;padding:0!important;margin:0;background:#121418!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:0!important;overflow:hidden;text-align:left;color:#fff!important}
+.hmstb{position:relative;flex:0 0 96px;height:88px;background:linear-gradient(150deg,var(--b0),var(--b1) 50%,var(--b2));clip-path:polygon(0 0,100% 0,82% 100%,0 100%);overflow:hidden}
+.hmstb svg{position:absolute;inset:0;width:100%;height:100%}
+.hmst2>span{display:flex;flex-direction:column;justify-content:center;gap:3px;padding:8px 12px;flex:1;min-width:0}
+.hmst2 small{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.2em;color:var(--acc,#d4ff00)}
+.hmst2 b{font-size:16px;font-weight:700!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hmst2 u{text-decoration:none;font-size:12px;opacity:.7}
+/* ストーリー一覧・絆 */
+#stv{position:fixed;inset:0;z-index:60;background:#0b0c0e;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#stv.inv{display:none}
+#stv .syw{max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top,0px) + 14px) 16px 40px;color:#fff}
+#stv .syhd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px}
+#stv .syhd small{display:block;font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.24em;color:rgba(255,255,255,.5)}
+#stv .syhd b{display:block;font:900 italic 30px/1.1 "Arial Black",sans-serif;margin-top:4px}
+#stv .syhd b i{color:#b7525a;font-style:italic}
+#stv .syx{width:auto;min-height:0;padding:8px 14px;font-size:13px}
+#stv .sytb{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:6px 0 8px}
+#stv .sytb button{min-height:0;padding:7px 0;font-size:13px;transform:skewX(-12deg);border-radius:0}
+#stv .sytb button.on{background:var(--acc,#d4ff00);color:#111;border-color:var(--acc,#d4ff00)}
+#stv .syh{font-size:12px;line-height:1.6;color:rgba(255,255,255,.6);margin:4px 0 12px}
+#stv .syl{display:flex;flex-direction:column;gap:12px;position:relative}
+#stv .syc{position:relative;display:flex;gap:0;min-height:112px;width:88%;background:#121418;border:1px solid rgba(255,255,255,.1);cursor:pointer}
+#stv .syc.r{margin-left:12%}
+#stv .syc.lk{opacity:.55}
+#stv .syb{position:relative;flex:0 0 100px;background:linear-gradient(150deg,var(--b0),var(--b1) 50%,var(--b2));clip-path:polygon(0 0,100% 0,84% 100%,0 100%);overflow:hidden}
+#stv .syc.lk .syb{filter:grayscale(1) brightness(.5)}
+#stv .syb svg{position:absolute;inset:0;width:100%;height:100%}
+#stv .syt{display:flex;flex-direction:column;gap:4px;padding:9px 10px;flex:1;min-width:0}
+#stv .syt small{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.14em;color:var(--acc,#d4ff00)}
+#stv .syt b{font-size:16px;line-height:1.3}
+#stv .tag{align-self:flex-start;font:900 italic 10.5px "Arial Black",sans-serif;letter-spacing:.1em;padding:2px 8px;transform:skewX(-14deg);background:rgba(255,255,255,.12)}
+#stv .tag.nw{background:#ff2f6d;color:#fff}#stv .tag.ok{background:var(--acc,#d4ff00);color:#111}
+#stv .sybar{display:block;height:4px;background:rgba(255,255,255,.12)}#stv .sybar i{display:block;height:100%;background:var(--acc,#d4ff00)}
+#stv .syt em{font:700 10px ui-monospace,Menlo,monospace;font-style:normal;color:rgba(255,255,255,.55)}
+#stv .sybd{margin-top:auto;align-self:flex-start;width:auto;min-height:0;padding:5px 10px;font-size:11.5px;border-radius:0;transform:skewX(-12deg)}
+#stv .bdh{position:relative;height:230px;margin:0 -16px;background:linear-gradient(150deg,var(--b0),var(--b1) 50%,var(--b2));clip-path:polygon(0 0,100% 0,100% 84%,0 100%);overflow:hidden}
+#stv .bdh svg{position:absolute;inset:0;width:100%;height:100%}
+#stv .bdn{position:absolute;left:16px;bottom:44px}
+#stv .bdl{display:flex;justify-content:space-between;align-items:baseline;margin-top:6px}
+#stv .bdl span{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.24em;color:rgba(255,255,255,.55)}
+#stv .bdl b{font:700 22px ui-monospace,Menlo,monospace;color:var(--acc,#d4ff00)}#stv .bdl b i{font-size:12px;opacity:.6;font-style:normal}
+#stv .bdbar{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:6px}
+#stv .bdbar i{display:block;height:6px;transform:skewX(-20deg);background:rgba(255,255,255,.12);overflow:hidden}
+#stv .bdbar b{display:block;height:100%;background:var(--acc,#d4ff00)}
+#stv .bde{display:flex;flex-direction:column}
+#stv .bdep{display:flex;align-items:center;gap:12px;min-height:54px;padding:0 4px;background:none;border:0;border-bottom:1px solid rgba(255,255,255,.1);border-radius:0;color:#fff;text-align:left;width:100%}
+#stv .bdep span{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.14em;color:var(--acc,#d4ff00);width:40px;flex:0 0 auto}
+#stv .bdep b{flex:1;font-size:15px;font-weight:600}
+#stv .bdep i{font-style:normal;opacity:.5}
+#stv .bdep.lk{opacity:.4}#stv .bdep.lk span{color:#888}
+/* 読む画面 */
+#rdv{position:fixed;inset:0;z-index:70;display:none;background:linear-gradient(170deg,var(--b2,#111),#07080a 70%);color:#fff;cursor:pointer;user-select:none;-webkit-user-select:none}
+#rdv.on{display:block;animation:rdIn .3s ease}
+@keyframes rdIn{from{opacity:0}}
+#rdv .rdt{position:absolute;left:16px;right:16px;top:calc(env(safe-area-inset-top,0px) + 14px);display:flex;align-items:baseline;gap:10px;z-index:2}
+#rdv .rdt small{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.2em;color:var(--acc,#d4ff00)}
+#rdv .rdt b{font-size:14px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#rdv .rdx{width:auto;min-height:0;padding:6px 12px;font-size:12px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.3)}
+#rdv .rdf{position:absolute;left:0;right:0;top:44px;bottom:150px;background:no-repeat center bottom/contain;transition:filter .3s}
+#rdv .rdf.dim{filter:brightness(.45) blur(1px)}
+#rdv .rdbox{position:absolute;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);min-height:132px;background:rgba(10,11,14,.92);border:1px solid rgba(255,255,255,.16);border-left:4px solid var(--acc,#d4ff00);padding:12px 16px 26px;max-width:560px;margin:0 auto}
+#rdv .rdbox.nar{border-left-color:rgba(255,255,255,.4)}
+#rdv .rdn{display:block;font-size:13px;color:var(--acc,#d4ff00);min-height:18px;margin-bottom:4px}
+#rdv .rdp{margin:0;font-size:16.5px;line-height:1.75}
+#rdv .rdbox.nar .rdp{font-style:italic;color:rgba(255,255,255,.85)}
+#rdv .rdp.in{animation:rdT .35s ease}
+@keyframes rdT{from{opacity:0;transform:translateY(4px)}}
+#rdv .rdc{position:absolute;right:12px;bottom:8px;font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.14em;color:rgba(255,255,255,.4)}
+/* 目標達成のハンコ */
+#stmp{position:fixed;inset:0;z-index:80;background:rgba(5,6,8,.0);display:flex;align-items:center;justify-content:center;transition:background .25s}
+#stmp.on{background:rgba(5,6,8,.96)}
+#stmp .smw{position:relative;width:min(360px,90vw);color:#fff;opacity:0;transform:translateY(10px);transition:opacity .25s,transform .25s}
+#stmp.on .smw{opacity:1;transform:none}
+#stmp.hit .smw{animation:smShake .28s ease}
+@keyframes smShake{20%{transform:translate(-4px,3px)}40%{transform:translate(3px,-2px)}60%{transform:translate(-2px,1px)}}
+#stmp .smg{border:1px solid rgba(255,255,255,.15);padding:16px;opacity:.55}
+#stmp .smg small,#stmp .smr small{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.22em;color:rgba(255,255,255,.55)}
+#stmp .smg b{display:block;font-size:18px;margin-top:6px}
+#stmp .smg i{display:block;height:7px;background:var(--acc,#d4ff00);margin-top:16px}
+#stmp .smg em{display:block;font:700 11px ui-monospace,Menlo,monospace;font-style:normal;margin-top:6px;opacity:.7}
+#stmp .smk{position:absolute;left:8%;right:8%;top:14px;height:118px;border:6px solid var(--acc,#d4ff00);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:rotate(-12deg) scale(2.4);opacity:0;box-shadow:inset 0 0 0 2px #0b0c0e}
+#stmp.hit .smk{opacity:1;transform:rotate(-12deg) scale(1);transition:transform .22s cubic-bezier(.5,0,.6,1.6),opacity .1s}
+#stmp .smk b{font:900 italic 44px/1 "Arial Black",sans-serif;color:var(--acc,#d4ff00)}
+#stmp .smk small{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.14em;color:var(--acc,#d4ff00);margin-top:6px}
+#stmp .smr{margin-top:20px}
+#stmp .smr>div{display:flex;gap:10px;margin-top:8px}
+#stmp .smr span{flex:1;border-left:3px solid var(--acc,#d4ff00);padding:4px 10px}
+#stmp .smr span.b{border-left-color:#ff2f6d}
+#stmp .smr span b{display:block;font:700 24px ui-monospace,Menlo,monospace}
+#stmp .smr span em{font-style:normal;font-size:11px;opacity:.6}
+#stmp .smwk{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:18px}
+#stmp .smwk div{text-align:center}
+#stmp .smwk small{font:700 10px ui-monospace,Menlo,monospace;opacity:.55}
+#stmp .smwk i{display:block;height:26px;margin-top:5px;transform:skewX(-12deg);background:rgba(255,255,255,.08)}
+#stmp .smwk i.on{background:var(--acc,#d4ff00)}
+#stmp .smwk i.td{outline:1px solid #fff;outline-offset:2px}
+#stmp .smok{margin-top:20px;width:100%}
+/* クリスマス：色は落ち着いたトーン（深い緑・くすんだ赤・古い金） */
+html.xmas{--xg:#2e4a3f;--xr:#9a4f55;--xo:#bfae82}
+.xmb{display:flex;flex-direction:column;align-items:flex-start;gap:4px;width:100%;padding:14px 16px!important;margin:0;border-radius:0!important;background:linear-gradient(115deg,#1c2b25 0 62%,#2e2224 62%)!important;border:1px solid rgba(191,174,130,.3)!important;color:#fff!important;text-align:left}
+.xmb small{font:700 10px ui-monospace,Menlo,monospace;letter-spacing:.2em;color:var(--xo)}
+.xmb b{font:900 italic 26px/1 "Arial Black",sans-serif}.xmb b i{color:var(--xr)}
+.xmb span{font-size:12px;opacity:.7}
+#stv .xmw .syhd b i{color:#b7525a}
+#stv .xmg{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+#stv .xmc{height:58px;min-height:0;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-radius:0;transform:skewX(-8deg);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff}
+#stv .xmc b{font:700 17px ui-monospace,Menlo,monospace;transform:skewX(8deg)}
+#stv .xmc small{font-size:9.5px;opacity:.7;transform:skewX(8deg)}
+#stv .xmc.op{background:rgba(191,174,130,.12);border-color:rgba(191,174,130,.4);color:#bfae82}
+#stv .xmc.td{background:#7d4247;border-color:#d9c9a3}
+#stv .xmc.sp{background:linear-gradient(135deg,#5c3a3d,#6b5d3f)}
+#stv .xmc.ms{opacity:.35}
+#stv .xmi{margin:14px 0 8px;font-size:13px;color:#bfae82}
+#stv .xmgo{width:100%}
+#stv .xmgb{width:100%;margin-top:10px;border:1px solid rgba(191,174,130,.5);color:#bfae82;background:transparent}
+.gtab.t-xms{--tc:#9a4f55}
+.gkv.k-xms .kvbg{background:linear-gradient(115deg,#22352d 0 48%,#7d4247 48% 50%,#151a18 50%)!important}
+.gkv.k-xms .kvtag{background:#bfae82!important;color:#1a1a1a!important}
+.xmcr{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;border:1px solid rgba(191,174,130,.35);font-size:12.5px;color:#d8cba8}
+.xmcr b{font:700 15px ui-monospace,Menlo,monospace}
+.xmcr button{width:auto;min-height:0;padding:6px 12px;font-size:12px}
+#xmsnow{position:fixed;inset:0;z-index:40;pointer-events:none;display:none;overflow:hidden}
+html.xmas body.qmode #xmsnow,html.xmas body #homeT:not([hidden])~#xmsnow{display:block}
+html.xmas body.qmode #xmsnow{display:block}
+#xmsnow i{position:absolute;top:-10px;border-radius:50%;background:#e9efe9;animation:xmFall linear infinite}
+@keyframes xmFall{to{transform:translate3d(30px,105vh,0)}}
+body.lite #xmsnow,body.noanim #xmsnow{display:none!important}
+html.xmas body.qmode #test .card{background-image:linear-gradient(180deg,rgba(46,74,63,.25),transparent 40%)}
+
+#contBar{position:fixed;left:12px;right:12px;bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:50;max-width:520px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:10px 10px 10px 14px;background:#121418;border:1px solid rgba(255,255,255,.15);border-left:4px solid var(--acc,#d4ff00);box-shadow:0 10px 30px rgba(0,0,0,.6);color:#fff;animation:gtIn .3s ease}
+#contBar span{flex:1;min-width:0;display:flex;flex-direction:column;font-size:12px;line-height:1.4}
+#contBar span b{font-size:14px}
+#contBar .main{width:auto;margin:0;padding:9px 14px;font-size:14px;min-height:0}
+#contBar .cbx{width:34px;min-height:0;padding:6px 0;background:none;border:0;color:rgba(255,255,255,.6);font-size:18px}
+
 </style>
 </head>
 <body class="dopa">
@@ -3115,7 +3266,7 @@ var SKN={std:{n:"標準（ドパ）"},
  chn:{n:"中華（朱×金）",pal:[["#c0161f","#640b10","#250405","#45080b","#260405"],["#b3361a","#5c1708","#220703","#401009","#230704"],["#a01236","#55081d","#20030b","#3a0613","#20030a"],["#a8261a","#58130a","#200603","#3d0e07","#210604"]]},
  sak:{n:"さくら（桜色×白）",pal:[["#d4558a","#6e2346","#2a0c1a","#4a1a30","#2c0e1c"],["#c25a9a","#62244c","#26091d","#45193a","#280c1f"],["#d4687a","#6e2a36","#2a0e14","#4a1e26","#2c1015"],["#b85aa8","#5c2456","#240b22","#41193d","#270d24"]]},
  sea:{n:"深海（紺×シアン）",pal:[["#0b4f8a","#062849","#020c1a","#062038","#030f1e"],["#0b6a7a","#05333c","#011316","#04272e","#021518"],["#2a3f9a","#141f4e","#05081c","#10183b","#070b20"],["#0a5a6a","#052c34","#011014","#04222a","#021216"]]}};
-SKN.std.n="パチンコ";SKN=(function(o){var r={};["sty","std","chn","sak","sea"].forEach(function(k){r[k]=o[k]});return r})(SKN);
+SKN.std.n="パチンコ";SKN=(function(o){var r={};["sty"].forEach(function(k){r[k]=o[k]});return r})(SKN);
 var SKC="sty";try{var sk0=localStorage.getItem("dopa:skin");if(SKN[sk0])SKC=sk0}catch(e){}
 var BST=SKC;
 var ANIM=true;try{ANIM=localStorage.getItem("dopa:anim")!=="0"}catch(e){}
@@ -4207,7 +4358,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.35",VLOG=[
+var VERSION="1.36",VLOG=[
+ ["1.36","2026-11-13",["ストーリーを追加：全20章（ステージの単語の3割に合格すると開く）と、キャラごとの絆エピソード（各5話）","絆：編成中のキャラは、テストで正解するたびに絆がたまります","目標を達成した日に「CLEAR」のハンコ演出","起動の演出を1段階に：帯とロゴのあと、そのままホームへ","テーマ（パチンコ・中華・さくら・深海）をなくし、スタイリッシュに統一","クリスマスイベントの準備（12/1〜12/25）：アドベントカレンダーと限定スカウト"]],
  ["1.35","2026-11-13",["掛け声を短く作り直し（リーチ・連続正解・確定・結果など、全16場面）","チュートリアルを、画面の部品を押しながら進める形に（最初の暗記とテストを実際にやってみます）","スキル発動の六角形を細く","設定画面で、バックアップの「自動の控え」が隠れていた不具合を修正"]],
  ["1.34","2026-11-13",["キャラの編成枠を3つに固定（最初から3つとも使えます）","連続正解の言葉（リーチ！など）を、画面の上を斜めのタグが横切る形に","ほかのアプリから戻った時に音楽が流れない不具合を修正（流れない時も、画面に触れると再開）","アプリから離れる時の異音を対策","共有画面を上下の真ん中に","テスト終了時の大きな演出をなくし、結果画面の中で音とアニメーションを流すように","更新履歴はアプリを開いた時に出さず、メールでお知らせ","タイトル画面の効果音を作り直し","設定のバックアップに「引き継ぎコード」：コードをLINEやメモで送って、新しい端末に貼り付けるだけで引き継げます","設定に「ご意見・不具合を送る」"]],
  ["1.33","2026-11-12",["編成画面を作り直し：カードをなくし、各キャラの背景の装飾の上に立たせる形に。パーティ全員を斜めの柱で並べ、タップした人の柱が広がって上半身と表情の変化が見えるように","編成の入れ替え・追加は「入れ替え」ボタンから選ぶ形に。下の一覧の顔をタップすると、編成していないキャラも上に大きく表示","100連の演出を「ストリーム」に：斜めの帯の上を結果が流れ、★5以上やNEWの時だけ止まってカードが飛び出す。結果はレア度ごとの本数とハイライト（全件は折りたたみ）","メールに「すべて既読」ボタンを追加"]],
@@ -7456,6 +7608,268 @@ setInterval(function(){
   GT.pend=0;setTimeout(gtStart,600);
 },400);
 $("tutagain").onclick=function(){$("ov").classList.add("inv");if(T){try{$("quit").click()}catch(e){}}gtStart()};
+
+
+/* ストーリー本文。章 k（0〜19）はステージ k と CHARS[k] に対応。行は「話す人|文」、話す人が空ならナレーション */
+var STORY={
+ch:[
+["走り出す動詞","|ことばの塔。使われなくなった単語から、色が抜けていく場所。\nc01|あ、新しい人？ 楓だよ。ここ、一階は「動詞」の階なんだ\nc01|動詞って、動きの言葉。run、make、give……使わないと、すぐ止まっちゃう\nc01|だから毎日、走らせてあげるの。一緒に走ってくれる？\n|楓の後ろで、灰色だった単語がひとつ、色を取り戻した。"],
+["栞と名詞の書庫","|二階は、天井まで本が積まれた書庫だった。\nc02|……あ、ごめんなさい。栞です。本の間に、挟まってました\nc02|名詞は、世界に付けた名札なんです。名札が消えると、物も見えなくなる\nc02|この書庫の本、半分くらい、もう題名が読めないんです\nc02|あなたが一冊ずつ読んでくれたら……戻ると思います"],
+["夏帆と港の約束","|三階の窓を開けると、なぜか潮の匂いがした。\nc03|おーい！ こっちこっち！ 夏帆だよ！\nc03|形容詞はね、景色に色をつける言葉。blue も、bright も\nc03|色がないと、海もただの水たまりなんだって。さみしくない？\nc03|約束ね。全部の色を取り戻したら、一緒に港まで行こう！"],
+["綾の放課後","|四階は、夕方の教室に似ていた。誰かが机に座っている。\nc04|……遅かったじゃない。綾よ\nc04|副詞は文の味付け。quickly とか、always とか。地味だけど、ないと全部が平坦になるの\nc04|べつに、待ってたわけじゃないから。たまたまよ、たまたま\nc04|ほら、さっさと始めなさい。……手伝ってあげるから"],
+["冬華、冬を待つ","|Part1の最上階。床に薄く霜が降りていた。\nc05|冬華です。ここは、間違えた言葉が凍ってしまう場所\nc05|でも、凍った言葉は割れません。春になれば、また動きます\nc05|一つのミスくらいなら、私が受け止めます。だから怖がらないで\n|五人の仲間がそろった。塔の上から、かすかに鐘の音が聞こえた。"],
+["結衣と最初の扉","|Part2。階段を上ると、無数の扉が並んでいた。\nc06|あ……結衣です。この階は、まだ会ってない言葉の扉なんです\nc06|知らない、は、まだ会ってないだけ。そう思うと、少し楽しくて\nc06|私、人見知りなんですけど……扉の向こうは、平気なんです\nc06|一つ開けたら、次の扉が少し軽くなりますよ"],
+["クロの当たり籤","|扉の一つが、勝手に開いた。黒猫が座っている。\nc07|クロだにゃ。ここは運の階。当たりもハズレも、ここで混ざるにゃ\nc07|でも、ほんとの当たりは、ちゃんと覚えた単語のほうにゃ\nc07|運も実力のうち。だけど、実力も実力にゃ\nc07|……撫でるなら、あごの下にゃ。それで今日は手を打つにゃ"],
+["レンのスタートライン","|長い廊下に、白いスタートラインが引かれていた。\nc08|レン。……最初の五問で、だいたい決まる\nc08|迷ったら、最初の直感。考えすぎると、足が止まる\nc08|置いてかない。振り向きもしないけど\n|ピストルの音はしなかった。それでも、レンはもう走り出していた。"],
+["イオの最終出力","|機械の音がする階。青い光が、壁を流れていく。\nc09|イオです。あなたの学習記録、すべて保存しています\nc09|この階の単語は、終盤で忘れやすいものばかり。だから私は、最後に出力を上げます\nc09|推奨：三十分ごとに休憩。……これは命令ではありません。お願いです\nc09|冗談機能、試験運用中です。……今のは、冗談ではありません"],
+["萌黄の芽吹き","|Part2の最上階は、温室だった。\nc10|萌黄です。ここでは、続けて覚えた言葉が、つるになって伸びるんです\nc10|根っこは見えないけど、ちゃんと伸びてます\nc10|一日空いても、根は枯れません。だから、また来てくださいね\n|十人目の仲間。温室の天井に、小さな花が咲いた。"],
+["朝顔の一問目","|Part3の扉は、朝にしか開かない。\nc11|おはようございます。朝顔です。今日の一問目、どうぞ\nc11|朝の五分は、夜の十五分ぶん。私はそう信じてます\nc11|早起きできなかった日も、咲く時間はあります\nc11|ほら、寝ぐせ。……ふふ、冗談です"],
+["鈴麗の商い","|市場のような階。鈴の音と、値切る声。\nc12|鈴麗よ。いらっしゃい。本日の相場、単語は買いね\nc12|努力は元本保証。こんなにいい投資、ほかにないわよ\nc12|分からない単語は、明日に回す。損切りも商売のうちよ\nc12|あなた、商売っ気はないけど、根性はあるわね。気に入ったわ"],
+["千代の千度","|畳の部屋。床の間に、古い掛け軸。\nc13|千代と申す。よう来たな\nc13|一度で覚えずともよい。千度でよい\nc13|忘れるのは人の常。だから繰り返すのじゃ。退屈ではない、修行じゃ\nc13|そなたの名、我が記憶に書き留めておこう"],
+["イリスの盾","|石の床に、剣の傷跡がいくつも残っていた。\nc14|イリスだ。この階では、何度でも立ち上がった者だけが先へ進める\nc14|失敗は、反撃のための構えだ。怯むな\nc14|騎士にも休息はある。……座れ。話はそれからだ\nc14|そなたの盾になろう。命じられるまでもなく"],
+["エルナの森","|Part3の最上階には、森があった。塔の中なのに。\nc15|エルナです。言葉には、生まれた土地の匂いがあります\nc15|二周目で、言葉はやっと目を覚ますんです。英語から日本語へ、逆向きに\nc15|精霊たちが、あなたの名前を覚え始めました\n|十五人。森の奥で、古い言葉がいくつも目を覚ました。"],
+["ミナモの凪","|Part4。階段の先は、水の中だった。\nc16|ミナモだよ。息は、できるから大丈夫\nc16|海の中では、言葉が泡になるの。間違えた言葉も、泡になって消えていく\nc16|一つのミス？ 波がさらっていったよ\nc16|深呼吸。吐くほうが大事なんだよ"],
+["雪乃の足跡","|雪の積もった、長い一本道。\nc17|雪乃です。この階は、とても長いんです\nc17|でも、振り返ると、足跡は思ったより長く見えます\nc17|途中で止まらないこと。それだけです\nc17|最後まで、ご一緒します"],
+["鈴音の面","|祭りの夜。屋台の灯りの中に、お面の少女が立っていた。\nc18|鈴音。……昨日の自分は、越えるためにいる\nc18|鈴が鳴ったら、迷いは置いていって\nc18|記録更新。……お面の下、見えないでしょ\nc18|でも今、ちょっと笑ってる"],
+["リリスの夜","|塔の上の方。月がやけに近い。\nc19|リリスよ。ここまで来るなんて、退屈しない人ね\nc19|運命は、気まぐれに曲げるものよ。あなたの努力でね\nc19|紅茶は甘め。人生は辛口でいいの\nc19|私の夜に、あなたの席を用意したわ"],
+["光の加護","|最上階。白い光の中に、羽根が一枚、落ちてきた。\nc20|光です。ここまで来てくれて、ありがとう\nc20|塔の言葉は、あなたが使うたびに色を取り戻してきました\nc20|祈るより、一問解くほうが早いこともあるんです\nc20|これで終わりじゃありません。言葉は、使い続けるものだから\n|二十人の仲間。塔のすべての窓に、明かりが灯った。"]
+],
+ep:{
+c01:[["駆け足の朝","c01|おはよ！ 今日も走る？\nc01|動詞ってね、毎日使うほど速くなるんだ\nc01|私も最初は、run と ran をよく間違えてた"],["走る理由","c01|なんで走るのかって？\nc01|止まってると、置いていかれる気がして\nc01|……でも今は、隣に誰かいるから、ちょっと違うかも"],["休憩の五分","c01|休憩は五分。タイマー、私が見とく\nc01|あなたが休んでる間、私も休むから\nc01|……ずるくないよ。一緒に休むのも練習のうち"],["落ち葉の音","c01|落ち葉って、踏むと音が楽しいよね\nc01|覚えた単語も、踏むたびに音がする気がする\nc01|今日は、いい音がたくさん鳴ったね"],["ゴールテープ","c01|ゴールテープ、一緒に切ろっか\nc01|一人で切るより、ずっといい\nc01|次のゴールも、隣で走らせてね"]],
+c02:[["しおりの場所","c02|今日はどこまで読みましたか？\nc02|しおり、挟んでおきますね\nc02|続きは、また明日"],["雨の日の書庫","c02|雨の日は、書庫が少し広く感じます\nc02|みんな来ないから……あなたの足音だけ、よく聞こえます"],["名札の話","c02|名詞は名札。じゃあ、私の名札は？\nc02|……栞。挟まれて、待つための名前\nc02|でも最近は、待つのも嫌いじゃないです"],["折れたページ","c02|ページの角を折るのは、少し苦手で\nc02|でも、あなたのノートの折り目は……なんだか、いいなって"],["あなたの物語","c02|あなたの物語にも、しおりを挟ませてください\nc02|途中でも、ちゃんと続きが読めるように"]],
+c03:[["日焼け止め","c03|日焼け止め、塗った？\nc03|英語の勉強も、ちゃんと準備してから出航だよ"],["波待ち","c03|サーフィンってね、ほとんど波を待ってるの\nc03|焦らないのがコツ。勉強もたぶん同じ"],["夏の宿題","c03|夏休みの宿題？ 最終日にまとめて派\nc03|……あなたは真似しないでね。毎日の方が絶対楽だから"],["外国の港","c03|英語ができたら、外国の港も怖くないね\nc03|いつか、一緒に知らない海を見に行こう"],["約束の港","c03|約束、覚えてる？\nc03|色、だいぶ戻ってきたよ。港まで、あと少し\nc03|その笑顔、夏の日差しより強いかも"]],
+c04:[["遅かったじゃない","c04|……遅かったじゃない\nc04|べつに、ずっと待ってたわけじゃないわよ\nc04|今来たところ。ほんとに"],["ノートの字","c04|あなたのノート、字がきれいになったわね\nc04|……見てないわよ。たまたま目に入っただけ"],["雨の図書室","c04|雨、止まないわね\nc04|傘？ 持ってるわよ。……一本だけ\nc04|入れてあげてもいいけど、肩がはみ出ても文句言わないでよ"],["…明日も来るんでしょ？","c04|今日はここまで\nc04|……明日も来るんでしょ？\nc04|聞いてみただけ。深い意味はないわ"],["ハイタッチ","c04|手、出しなさい\nc04|……ハイタッチよ。見れば分かるでしょ\nc04|今日のあなた、悪くなかったから"]],
+c05:[["冷えた指先","c05|指先、冷えていませんか\nc05|手袋、貸します。私は寒いのに慣れているので"],["割れない氷","c05|急がなくて大丈夫。氷は割れません\nc05|あなたが歩く速さで、ちゃんと支えます"],["二本目のマフラー","c05|マフラー、もう一本編んでいるんです\nc05|誰のって……まだ秘密です"],["窓の明かり","c05|寒い日ほど、窓の明かりが優しく見えます\nc05|ここで勉強しているあなたの窓も、きっとそう見えてます"],["春を迎えるまで","c05|二本目のマフラー、できました\nc05|あなたが春を迎えるまで、ここにいます"]],
+c06:[["人見知り","c06|私、人見知りなんです\nc06|……あなたは、平気です。なんでだろう"],["声に出す","c06|単語、声に出すと少し仲良くなれる気がします\nc06|あなたの声で聞くと、もっと"],["閉まらない扉","c06|失敗しても、扉は閉まりませんよ\nc06|私が、押さえておきますから"],["知らない街","c06|知らない街の看板、読めたら楽しそう\nc06|いつか、一緒に読みに行けたら"],["次の扉","c06|次の扉、一緒に開けてみませんか\nc06|あなたとなら、知らない、が怖くないです"]],
+c07:[["ラッキーアイテム","c07|今日のラッキーアイテムは単語帳にゃ\nc07|毎日そうにゃ。気づいたかにゃ"],["横切る猫","c07|前を横切ったけど、不吉じゃないにゃ\nc07|むしろ、いいことあるにゃ"],["日向の移動","c07|日向が動いたから、ついてきたにゃ\nc07|あなたの隣が、いちばん日当たりがいいにゃ"],["おやつの時間","c07|おやつの時間は守ってほしいにゃ\nc07|勉強の休憩も、ちゃんと守るにゃ"],["いい場所","c07|あなたの膝は、いい場所にゃ\nc07|……しばらく動かないでほしいにゃ"]],
+c08:[["イヤホン","c08|イヤホン、片方貸そうか\nc08|走るときの曲。……悪くないだろ"],["タイム","c08|今のタイム、悪くない\nc08|昨日より速い。数字は嘘つかない"],["粘る人","c08|……あんた、粘るね\nc08|嫌いじゃない"],["合図","c08|スタートの合図、私が出す\nc08|あんたは走るだけでいい"],["走ったあとの水","c08|……走ったあとの水、うまいよな\nc08|一本やる。今日は、よく走った"]],
+c09:[["ログイン記録","c09|本日のログイン、記録しました\nc09|連続記録の更新を、推奨します"],["忘却曲線","c09|その単語、忘却曲線の山を越えました\nc09|これは、喜ぶべきデータです"],["バッテリー","c09|バッテリー残量……あなたは、大丈夫ですか\nc09|休息も、学習の一部です"],["声紋","c09|あなたの声紋、登録済みです\nc09|理由は……記録のため、です。たぶん"],["消さない記録","c09|あなたの記録、ひとつも消していません\nc09|容量が足りなくなっても、それだけは残します"]],
+c10:[["水やり","c10|今日はどの芽に水をあげましょう\nc10|毎日少しずつ。あげすぎも、だめなんです"],["帽子と角","c10|この角？ 帽子がかぶれないんです\nc10|……笑わないでくださいね"],["雑草の名前","c10|雑草にだって、名前があるんですよ\nc10|知らない単語も、ちゃんと名前があります"],["つぼみ","c10|あ、つぼみ。昨日はなかったのに\nc10|あなたが来た日は、なぜかよく育つんです"],["あなたの森","c10|あなたの森、少しずつ広がってますね\nc10|いつか、一緒に歩きましょう"]],
+c11:[["寝ぐせ","c11|寝ぐせ、ついてますよ\nc11|……ふふ、今日は本当です"],["浴衣の柄","c11|浴衣の柄、朝顔なんです\nc11|そのままですね。気に入ってるんです"],["夕方にしぼむ","c11|花は、夕方には一度しぼむんです\nc11|でも、次の朝にまた咲きます。疲れた日は、そういう日です"],["支え","c11|つるは、支えがあると高く登れるんです\nc11|あなたの毎日が、私の支えです"],["明日の朝","c11|明日の朝も、ここで咲いて待ってます\nc11|一問目、楽しみにしてますね"]],
+c12:[["肉まん","c12|肉まん、半分あげる\nc12|貸しにはしないわ。今日だけよ"],["鈴の音","c12|鈴が鳴ったら、福の合図よ\nc12|今日のあなたには、よく鳴ってるわ"],["利子","c12|覚えた単語は、利子みたいに増えていくの\nc12|早く始めた人ほど得をする。商売の基本よ"],["売り上げ","c12|今日の売り上げ、なかなかよ\nc12|あなたの分、帳簿につけておいたわ"],["長い取引","c12|あなたとの取引、長く続けたいわね\nc12|……契約書？ いらないわ。信用してるもの"]],
+c13:[["茶が冷めぬうち","c13|茶が冷めぬうちに、もう一問\nc13|うむ、よい手つきじゃ"],["眉間のしわ","c13|そなた、昨日より眉間のしわが浅いの\nc13|迷いが減った証じゃ"],["祖母の着物","c13|この着物？ 祖母の祖母の、そのまた……\nc13|言葉も同じ。受け継がれて、今ここにある"],["縁側","c13|たまには縁側で、ぼんやりするのもよい\nc13|休むのも、修行のうちじゃ"],["書き留める","c13|そなたの名、我が記憶に書き留めておこう\nc13|千年経っても、消えぬようにな"]],
+c14:[["型の確認","c14|一太刀ごとに、型を確かめろ\nc14|単語も同じだ。一つずつ、確実に"],["盾の手入れ","c14|盾の手入れは、毎晩欠かさない\nc14|守るものがあるからな"],["剣の名前","c14|剣の名前？ ……まだ決めていない\nc14|そなたが決めてくれても、いいが"],["引くこと","c14|引くことも、立派な戦術だ\nc14|今日は早めに休め。明日の一撃のために"],["そなたの盾","c14|そなたの盾になろう\nc14|命じられるまでもなく。……これは誓いだ"]],
+c15:[["古い言葉","c15|この語は、とても古い言葉から来ています\nc15|千年前の人も、同じ音で話していたかもしれません"],["エルフの年","c15|エルフの年？ 秘密です\nc15|……あなたより、少しだけ年上です。少しだけ"],["発音","c15|耳がいいので、小さな発音も聞こえますよ\nc15|あなたの発音、前よりやわらかくなりました"],["夜の森","c15|夜の森は、星がよく見えます\nc15|一緒に、名前を知らない星を数えましょう"],["森の小道","c15|森の小道を一本、あなたのために空けておきます\nc15|いつでも、帰ってきてください"]],
+c16:[["陸の歌","c16|陸の歌、また教えて\nc16|水の中だと、全部泡になっちゃうから"],["貝がら","c16|貝がらに耳を当てたら、単語が聞こえるかも\nc16|……聞こえた？ ふふ"],["沈んだ単語","c16|沈んだ単語も、潮が引けば見つかるよ\nc16|焦らなくていいの"],["力を抜く","c16|泳ぎと同じ。力を抜くと進むの\nc16|今日のあなた、少し肩に力が入ってたよ"],["また凪の日に","c16|次に会うときも、凪だといいな\nc16|あなたの声、水の中でもよく届くね"]],
+c17:[["雪の音","c17|雪は、音を吸い込むんです\nc17|だから、ここでは自分の声がよく聞こえます"],["最後の一問","c17|長いテストほど、最後の一問が大事です\nc17|あなたは、最後に手を抜かない人ですね"],["手袋","c17|手袋、片方貸しましょうか\nc17|もう片方は、私が。……おそろいです"],["ゴールの先","c17|ゴールの先にも、道はありますよ\nc17|だから、ゴールは怖くないんです"],["隣を歩く","c17|次の長い道も、隣を歩かせてください\nc17|足跡が二つあると、少し心強いので"]],
+c18:[["お面の由来","c18|このお面？ 祭りの夜にもらったの\nc18|……誰にもらったかは、内緒"],["高い所","c18|高い所は、風が気持ちいい\nc18|あなたも、ここまで来ればいい"],["一番上の景色","c18|一番上の景色、一緒に見たい\nc18|一人で見ても、たぶんつまらない"],["次の目標","c18|次の目標、もう少し高くていいと思う\nc18|あなたなら、届く"],["ずれたお面","c18|……あなたの前でなら、お面がずれてもいい\nc18|見ないで。……やっぱり、見ててもいい"]],
+c19:[["真面目な顔","c19|ふふ、真面目な顔\nc19|嫌いじゃないわ"],["夜更かし","c19|夜更かし？ 私と同じね\nc19|ほどほどに。明日のあなたが困るわ"],["ため息禁止","c19|女王の前で、ため息は禁止よ\nc19|……疲れたなら、そう言いなさい。休ませてあげる"],["優雅な正解","c19|今の正解、なかなか優雅だったわ\nc19|あなた、だんだん私の好みになってきたわね"],["あなたの席","c19|私の夜に、あなたの席を用意したわ\nc19|特等席よ。光栄に思いなさい"]],
+c20:[["羽根のしおり","c20|羽根？ 一枚なら、しおりにどうぞ\nc20|栞さんにも、一枚あげました"],["苦手な単語","c20|天使にも、苦手な単語があるんです\nc20|……sincerely。何度書いても綴りを間違えます"],["分かった顔","c20|あなたの「分かった」の顔、好きです\nc20|見ていると、こっちまで嬉しくなります"],["十数えて","c20|疲れた時は、目を閉じて十数えて\nc20|そのあいだ、私が見守ってます"],["夜明け前","c20|夜明け前がいちばん暗いって、本当なんです\nc20|でも、あなたはもう、明るい方を向いてます"]]
+}};
+
+
+/* ================= v1.36 ================= */
+(function(){
+var toast=function(t,ms){try{V5.toast(t,ms)}catch(e){}};
+/* ---------- DLCモード（テーマ）をなくし、スタイリッシュに統一 ---------- */
+try{var skd=$("skn")&&$("skn").closest(".dop");if(skd)skd.hidden=true}catch(e){}
+
+/* ---------- 起動：帯スラッシュ → そのままホーム（1段階） ---------- */
+(function(){
+  var t0=$("tap0");if(t0)t0.remove();document.body.classList.remove("tap0on");document.body.classList.add("t0done");
+  var hv=$("homeV");if(!hv||hv.hidden)return;
+  var o=document.createElement("div");o.id="bnd";
+  o.innerHTML='<i class="bnb"></i><div class="bnl"><span>ど</span><span>ぱ</span><span>た</span><span>ん</span></div>';
+  document.body.appendChild(o);
+  var started=0,go=function(){
+    if(started)return;started=1;
+    if(G.starter){try{verMark()}catch(e){}enter("dopa");
+      var pc=$("pickCont");if(pc&&!pc.hidden){var bar=document.createElement("div");bar.id="contBar";bar.innerHTML='<span>'+pc.innerHTML+'</span><button type="button" class="main">続きから</button><button type="button" class="cbx">×</button>';document.body.appendChild(bar);
+        bar.querySelector(".main").onclick=function(){bar.remove();pc.click()};bar.querySelector(".cbx").onclick=function(){bar.remove()};
+        var kill=function(){if(T&&bar.parentNode)bar.remove();else if(bar.parentNode)setTimeout(kill,800)};setTimeout(kill,800)}}
+    else{hv.classList.remove("intro");void hv.offsetWidth;hv.classList.add("intro")}
+    o.classList.add("up");
+    setTimeout(function(){o.remove()},700);
+  };
+  requestAnimationFrame(function(){o.classList.add("in")});
+  setTimeout(go,820);
+  /* 最初に画面に触れた時に音を出す（ブラウザの決まりで、触れる前は鳴らせない） */
+  var wake=function(){document.removeEventListener("pointerdown",wake,true);try{var a=ac();if(a&&a.state!=="running"&&a.resume)a.resume()}catch(e){}try{bgmSync()}catch(e){}};
+  document.addEventListener("pointerdown",wake,true);
+})();
+
+/* ---------- 絆（編成中に正解するとたまる） ---------- */
+var BLV=[0,30,100,220,400];
+function bondN(id){return (G.bond&&G.bond[id])||0}
+function bondLv(id){if(!lvOf(id))return 0;var n=bondN(id),l=1;for(var i=1;i<BLV.length;i++)if(n>=BLV[i])l=i+1;return l}
+window.bondLv=bondLv;
+var _judge=judge;
+judge=function(k){
+  var ok=false;try{ok=!!(T&&!T.answered&&T.cur&&k===T.cur.ci)}catch(e){}
+  var r=_judge.apply(this,arguments);
+  if(ok&&SK==="dopa"){G.bond=G.bond||{};var up=[];G.party.forEach(function(id){var b0=bondLv(id);G.bond[id]=bondN(id)+1;if(bondLv(id)>b0)up.push(id)});
+    if(up.length){saveG();var c=cById(up[0]);setTimeout(function(){toast(c.name+" との絆が Lv"+bondLv(up[0])+" に。エピソードが読めます")},600)}}
+  return r;
+};
+
+/* ---------- ストーリー ---------- */
+var STP=0.3; /* ステージの単語の3割に一度でも合格すると、その章が開く */
+function chProg(k){if(k===0)return 1;if(G.clear&&G.clear[k])return 1;var s=stageStat(k);return s.n?Math.min(1,(s.m+s.h)/s.n/STP):0}
+function chOpen(k){return chProg(k)>=1}
+function rd(key){return G.story&&G.story[key]}
+function epOpen(id,i){return lvOf(id)&&bondLv(id)>=i+1}
+function stNew(){var n=0;STORY.ch.forEach(function(c,k){if(chOpen(k)&&!rd("c"+k))n++});CHARS.forEach(function(c){(STORY.ep[c.id]||[]).forEach(function(e,i){if(epOpen(c.id,i)&&!rd(c.id+"e"+i))n++})});return n}
+window.stNew=stNew;
+function stOv(){var o=$("stv");if(!o){o=document.createElement("div");o.id="stv";o.className="inv";document.body.appendChild(o)}return o}
+var STPART=0;
+function storyOpen(part){
+  if(part!=null)STPART=part;else{var nx=STORY.ch.findIndex(function(c,k){return chOpen(k)&&!rd("c"+k)});STPART=nx>=0?Math.floor(nx/5):0}
+  var o=stOv();o.classList.remove("inv");
+  var h='<div class="syw"><div class="syhd"><div><small>STORY · PART '+(STPART+1)+'</small><b>CHAPTERS</b></div><button class="syx" type="button">閉じる</button></div>'+
+    '<div class="sytb">'+[0,1,2,3].map(function(p){return '<button type="button" data-p="'+p+'" class="'+(p===STPART?'on':'')+'">Part'+(p+1)+'</button>'}).join("")+'</div>'+
+    '<p class="syh">ステージの単語の3割に合格すると、その章が開きます。章の仲間を編成して正解すると「絆」がたまり、エピソードが開きます。</p><div class="syl">';
+  for(var k=STPART*5;k<STPART*5+5&&k<STORY.ch.length;k++){
+    var c=CHARS[k],ch=STORY.ch[k],op=chOpen(k),pg=chProg(k),r=rd("c"+k),own=lvOf(c.id),bl=bondLv(c.id),eps=STORY.ep[c.id]||[],eo=eps.filter(function(e,i){return epOpen(c.id,i)}).length;
+    var t=CTH[c.id];
+    h+='<div class="syc'+(op?'':' lk')+(k%2?' r':'')+'" data-k="'+k+'"><div class="syb" style="--b0:'+t.bg[0]+';--b1:'+t.bg[1]+';--b2:'+t.bg[2]+'">'+bustSVG(c.id,cImg(c.id))+'</div>'+
+      '<div class="syt"><small>STAGE '+(k+1)+' · 第'+(k+1)+'章</small><b>'+esc(op?ch[0]:"？？？")+'</b>'+
+      (op?(r?'<span class="tag ok">読んだ</span>':'<span class="tag nw">NEW</span>'):'<span class="sybar"><i style="width:'+(pg*100).toFixed(0)+'%"></i></span><em>あと '+Math.max(1,Math.ceil((1-pg)*100))+'%</em>')+
+      '<button type="button" class="sybd" data-bd="'+c.id+'"'+(own?'':' disabled')+'>'+(own?'絆 Lv'+bl+'　EP '+eo+'/'+eps.length:'仲間にすると絆')+'</button></div></div>';
+  }
+  h+='</div></div>';o.innerHTML=h;
+  o.querySelector(".syx").onclick=function(){o.classList.add("inv");try{if(!$("homeT").hidden)homeRender()}catch(e){}};
+  Array.prototype.forEach.call(o.querySelectorAll(".sytb button"),function(b){b.onclick=function(){storyOpen(+b.getAttribute("data-p"))}});
+  Array.prototype.forEach.call(o.querySelectorAll(".syc"),function(d){d.onclick=function(e){if(e.target.closest(".sybd"))return;var k=+d.getAttribute("data-k");if(chOpen(k))readScene("c"+k,STORY.ch[k],CHARS[k].id,function(){storyOpen(STPART)});else toast("ステージ"+(k+1)+"の単語の3割に合格すると開きます")}});
+  Array.prototype.forEach.call(o.querySelectorAll(".sybd"),function(b){b.onclick=function(){bondOpen(b.getAttribute("data-bd"))}});
+}
+window.storyOpen=storyOpen;
+function bondOpen(id){
+  var o=stOv();o.classList.remove("inv");var c=cById(id),t=CTH[id],bl=bondLv(id),n=bondN(id),nx=BLV[bl]||0,eps=STORY.ep[id]||[];
+  var h='<div class="syw bdw"><div class="syhd"><div><small>BOND · 絆</small><b>'+esc(c.name)+'</b></div><button class="syx" type="button">戻る</button></div>'+
+    '<div class="bdh" style="--b0:'+t.bg[0]+';--b1:'+t.bg[1]+';--b2:'+t.bg[2]+'">'+bustSVG(id,cImg(id))+'<div class="bdn"><span class="tag">'+c.star+'</span></div></div>'+
+    '<div class="bdl"><span>絆</span><b>Lv '+bl+'<i> /5</i></b></div><div class="bdbar">'+[1,2,3,4,5].map(function(l){var a=BLV[l-1],z=BLV[l]||a,f=bl>l?1:bl===l?(l>=5?1:Math.min(1,(n-a)/Math.max(1,z-a))):0;return '<i><b style="width:'+(f*100).toFixed(0)+'%"></b></i>'}).join("")+'</div>'+
+    '<p class="syh">'+(bl>=5?'絆はMAXです。':'編成してテストで正解するたびに絆がたまります（あと '+Math.max(0,nx-n)+' 問で Lv'+(bl+1)+'）')+'</p><div class="bde">'+
+    eps.map(function(e,i){var op=epOpen(id,i),r=rd(id+"e"+i);return '<button type="button" class="bdep'+(op?'':' lk')+'" data-i="'+i+'"><span>EP.'+(i+1)+'</span><b>'+esc(op?e[0]:'？？？（絆 Lv'+(i+1)+'）')+'</b>'+(op&&!r?'<em class="tag nw">NEW</em>':'')+'<i>'+(op?'▶':'🔒')+'</i></button>'}).join("")+'</div></div>';
+  o.innerHTML=h;
+  o.querySelector(".syx").onclick=function(){storyOpen(Math.floor(CHARS.findIndex(function(x){return x.id===id})/5))};
+  Array.prototype.forEach.call(o.querySelectorAll(".bdep"),function(b){b.onclick=function(){var i=+b.getAttribute("data-i");if(!epOpen(id,i)){toast("絆 Lv"+(i+1)+" で開きます");return}readScene(id+"e"+i,eps[i],id,function(){bondOpen(id)})}});
+}
+window.bondOpen=bondOpen;
+/* 読む画面：タップで次の行へ */
+function readScene(key,sc,id,done){
+  var lines=sc[1].split("\n").map(function(l){var p=l.indexOf("|");return [l.slice(0,p),l.slice(p+1)]}),i=0;
+  var o=$("rdv");if(!o){o=document.createElement("div");o.id="rdv";document.body.appendChild(o)}
+  var t=CTH[id];o.className="on";o.style.cssText="--b0:"+t.bg[0]+";--b1:"+t.bg[1]+";--b2:"+t.bg[2];
+  o.innerHTML='<div class="rdt"><small>'+esc(key.charAt(0)==="c"&&key.indexOf("e")<0?"第"+(+key.slice(1)+1)+"章":"EPISODE")+'</small><b>'+esc(sc[0])+'</b><button type="button" class="rdx">スキップ</button></div><div class="rdf"></div><div class="rdbox"><b class="rdn"></b><p class="rdp"></p><span class="rdc"></span></div>';
+  var fig=o.querySelector(".rdf");fig.style.backgroundImage="url("+cImg(id)+")";
+  var fin=function(){
+    o.className="";var first=!rd(key);G.story=G.story||{};G.story[key]=1;
+    if(first){var rw=key.indexOf("e")>0?30:50;G.stones+=rw;G.total+=rw;updStones();toast("読了ボーナス ◆+"+rw)}
+    saveG();try{V7dot()}catch(e){}if(done)done();
+  };
+  var show=function(){
+    var l=lines[i],sp=l[0],c=sp?cById(sp):null;
+    o.querySelector(".rdn").textContent=c?c.name:"";o.querySelector(".rdbox").classList.toggle("nar",!c);
+    fig.classList.toggle("dim",!c);
+    var p=o.querySelector(".rdp");p.textContent=l[1];p.classList.remove("in");void p.offsetWidth;p.classList.add("in");
+    o.querySelector(".rdc").textContent=(i+1)+" / "+lines.length;
+  };
+  o.onclick=function(e){if(e.target.closest(".rdx")){fin();return}i++;if(i>=lines.length)fin();else show()};
+  show();
+}
+function V7dot(){var b=$("hmStory");if(b){var n=stNew();b.querySelector(".stn").textContent=n?n+" 件 NEW":"";}}
+/* ホームに「ストーリー」と「イベント」を足す */
+var _v7=window.V7home;
+window.V7home=function(){
+  try{if(_v7)_v7()}catch(e){}
+  var w=document.querySelector("#homeT .hmw");if(!w||$("hmStory"))return;
+  var nx=STORY.ch.findIndex(function(c,k){return chOpen(k)&&!rd("c"+k)}),k=nx>=0?nx:Math.max(0,STORY.ch.length-1-STORY.ch.slice().reverse().findIndex(function(c,j){return chOpen(STORY.ch.length-1-j)}));
+  var c=CHARS[k],t=CTH[c.id],n=stNew();
+  var sec=document.createElement("section");sec.className="hmsec";sec.id="hmStory";
+  sec.innerHTML='<h4><span>STORY</span>ストーリー<em class="stn">'+(n?n+' 件 NEW':'')+'</em></h4><button type="button" class="hmst2" style="--b0:'+t.bg[0]+';--b1:'+t.bg[1]+';--b2:'+t.bg[2]+'"><i class="hmstb">'+bustSVG(c.id,cImg(c.id))+'</i><span><small>第'+(k+1)+'章</small><b>'+esc(STORY.ch[k][0])+'</b><u>'+(nx>=0?'読む':'章の一覧')+'</u></span></button>';
+  var g=$("hmGoal");var gs=g&&g.closest(".hmsec");if(gs)gs.parentNode.insertBefore(sec,gs.nextSibling);else w.appendChild(sec);
+  sec.querySelector(".hmst2").onclick=function(){if(nx>=0)readScene("c"+nx,STORY.ch[nx],CHARS[nx].id,function(){storyOpen(Math.floor(nx/5))});else storyOpen()};
+  if(XM.on())xmHome(w,sec);
+};
+
+/* ---------- 目標達成：ハンコ ---------- */
+var STQ=0;
+var _v6=window.V6goal;
+window.V6goal=function(a){
+  var g=G.goal,before=g&&g.rw;
+  _v6(a);
+  if(g&&g.rw&&g.rw!==before){G.gdays=G.gdays||{};G.gdays[dayKey()]=1;saveG();STQ=1}
+};
+setInterval(function(){
+  if(!STQ)return;var busy=T||!$("homeV").hidden||document.querySelector("#pull:not(.inv),#gfx.on,#kaku.on,#gt.on,#rdv.on,#stv:not(.inv),#glOv:not(.inv)");
+  if(busy)return;STQ=0;stampShow();
+},700);
+function stampShow(){
+  var g=G.goal;if(!g)return;var per=(g.td&&g.td.per)||0,dn=(((prog.dl||{})[dayKey()]||{}).m)||0,T2={per:per,doneNew:dn};var o=document.createElement("div");o.id="stmp";
+  var dt=new Date(),dd=dt.getDay(),mon=new Date(dt);mon.setDate(dt.getDate()-((dd+6)%7));
+  var wk="月火水木金土日".split("").map(function(d,i){var x=new Date(mon);x.setDate(mon.getDate()+i);var on=G.gdays&&G.gdays[dayKey(x)];return '<div><small>'+d+'</small><i class="'+(on?'on':'')+(i===(dd+6)%7?' td':'')+'"></i></div>'}).join("");
+  var streak=0;for(var i=0;i<400;i++){var x=new Date(dt);x.setDate(dt.getDate()-i);if(G.gdays&&G.gdays[dayKey(x)])streak++;else break}
+  o.innerHTML='<div class="smw"><div class="smg"><small>TODAY\'S GOAL</small><b>新しく '+T2.per+'語 習得＋今日の復習</b><i></i><em>'+Math.min(T2.doneNew,T2.per)+' / '+T2.per+'</em></div>'+
+    '<div class="smk"><b>CLEAR</b><small>'+dt.getFullYear()+'.'+(dt.getMonth()+1)+'.'+dt.getDate()+(streak>1?' · '+streak+'日連続':'')+'</small></div>'+
+    '<div class="smr"><small>REWARD</small><div><span><b>◆30</b><em>目標達成</em></span><span class="b"><b>'+streak+'</b><em>連続日数</em></span></div></div>'+
+    '<div class="smwk">'+wk+'</div><button type="button" class="main smok">OK</button></div>';
+  document.body.appendChild(o);
+  requestAnimationFrame(function(){o.classList.add("on")});
+  setTimeout(function(){o.classList.add("hit");try{var a=ac();if(a){thunk(a.currentTime,180,50,0.3,0.5);nzHit(a.currentTime,0.12,0.12,SFX,900,2);sBell(pf(12),a.currentTime+0.08,0.6,0.05)}}catch(e){}try{if(navigator.vibrate)navigator.vibrate(30)}catch(e){}},520);
+  o.querySelector(".smok").onclick=function(){o.classList.remove("on");setTimeout(function(){o.remove()},300)};
+}
+window.stampShow=stampShow;
+
+/* ---------- クリスマスイベント（12/1〜12/25。?xmas=1 でお試し） ---------- */
+var XM={on:function(){try{if(/[?&]xmas=1/.test(location.search)||localStorage.getItem("dopa:xmas")==="1")return true}catch(e){}var d=new Date();return d.getMonth()===11&&d.getDate()<=25},
+  day:function(){var d=new Date();return d.getMonth()===11?Math.min(25,d.getDate()):Math.min(25,Math.max(1,((dayN()%25)+1)))}};
+window.XM=XM;
+function xmRw(d){return d===25?{t:"冬華（★5）",c:"c05"}:d===24?{t:"雪乃（★5）",c:"c17"}:d%6===0?{s:300}:{s:100}}
+function xmKey(d){var y=new Date().getFullYear();return y+"-12-"+("0"+d).slice(-2)}
+function xmPlayed(){var d=(prog.dl||{})[dayKey()];return !!(d&&d.q>0)}
+function xmHome(w,after){
+  var d=XM.day(),G2=G.xm=G.xm||{o:{}},can=xmPlayed()&&!G2.o[d];
+  var sec=document.createElement("section");sec.className="hmsec";sec.id="hmXm";
+  sec.innerHTML='<h4><span>EVENT</span>ホーリーナイト<em class="stn">'+(can?'窓が開けられます':'')+'</em></h4><button type="button" class="xmb"><small>WINTER EVENT · 12/1 — 12/25</small><b>HOLY <i>NIGHT</i></b><span>毎日1回テストを終えると、カレンダーの窓が1つ開きます</span></button>';
+  after.parentNode.insertBefore(sec,after);
+  sec.querySelector(".xmb").onclick=xmOpen;
+}
+function xmOpen(){
+  var o=stOv();o.classList.remove("inv");var d=XM.day(),G2=G.xm=G.xm||{o:{}},played=xmPlayed();
+  var h='<div class="syw xmw"><div class="syhd"><div><small>WINTER EVENT · 12/1 — 12/25</small><b>HOLY <i>NIGHT</i></b></div><button class="syx" type="button">閉じる</button></div><p class="syh">毎日1回テストを終えると、その日の窓が開けられます。24日と25日は★5の仲間。</p><div class="xmg">';
+  for(var i=1;i<=25;i++){var r=xmRw(i),op=G2.o[i],td=i===d,past=i<d;h+='<button type="button" class="xmc'+(op?' op':'')+(td?' td':'')+(past&&!op?' ms':'')+(i>=24?' sp':'')+'" data-d="'+i+'"><b>'+i+'</b><small>'+(op?'受取済':td?(played?'OPEN':'TODAY'):r.c?'★5':past?'—':'')+'</small></button>'}
+  h+='</div><div class="xmi" id="xmi"></div><button type="button" class="main xmgo" id="xmGo">'+(G2.o[d]?'今日の窓は開けました':played?'今日の窓を開ける':'テストを1回終えると開けられます')+'</button>'+
+    '<button type="button" class="xmgb" id="xmGa">限定スカウト（冬華・雪乃 出現率UP）</button></div>';
+  o.innerHTML=h;
+  var r=xmRw(d);$("xmi").textContent="今日（12/"+d+"）の窓："+(r.c?r.t:"◆"+r.s);
+  o.querySelector(".syx").onclick=function(){o.classList.add("inv");try{homeRender()}catch(e){}};
+  $("xmGo").disabled=!!G2.o[d]||!played;
+  $("xmGo").onclick=function(){
+    if(G2.o[d]||!played)return;G2.o[d]=1;var r=xmRw(d),msg;
+    if(r.c){var res=giveChar(cById(r.c));msg=cById(r.c).name+" "+res}else{G.stones+=r.s;G.total+=r.s;msg="◆+"+r.s}
+    saveG();updStones();try{var a=ac();if(a){sBell(pf(12),a.currentTime,0.6,0.06);sBell(pf(16),a.currentTime+0.12,0.6,0.05);sBell(pf(19),a.currentTime+0.24,0.8,0.05)}}catch(e){}
+    toast("12/"+d+" の窓：" +msg);xmOpen();
+  };
+  $("xmGa").onclick=function(){o.classList.add("inv");var bi=BAN.findIndex(function(b){return b.k==="xms"});if(bi>=0){gBan=bi}tab("G");gView="gacha";renderG("")};
+}
+window.xmOpen=xmOpen;
+if(XM.on()){
+  document.documentElement.classList.add("xmas");
+  BAN.push({m:0,k:"xms",en:"SNOW SCOUT",jp:"スノー・スカウト",tag:"冬華・雪乃 出現率UP",feat:["c05","c17","c11"],up:["c05","c17"]});
+  try{var gb=parseInt(localStorage.getItem("dopa:gban"));if(gb===BAN.length-1)gBan=gb}catch(e){}
+  var _roll=roll;
+  roll=function(min){
+    var B=BAN[gBan];if(!B||!B.up)return _roll(min);
+    if((!min||min<=5)&&Math.random()<0.012)return cById(B.up[Math.random()<0.5?0:1]); /* 上乗せ：約1.2%で冬華か雪乃 */
+    return _roll(min);
+  };
+  var _gDo=gDo;
+  gDo=function(n){var B=BAN[gBan];var r=_gDo(n);if(B&&B.k==="xms"){G.xm=G.xm||{o:{}};G.xm.p=(G.xm.p||0)+n;saveG()}return r};
+  var _rg=renderG;
+  renderG=function(m){
+    var r=_rg.apply(this,arguments);
+    try{var B=BAN[gBan];if(gView!=="party"&&B&&B.k==="xms"){var info=document.querySelector("#gacha .kvinfo");var X=G.xm=G.xm||{o:{}},cr=Math.floor((X.p||0)/10)-(X.u||0)*5;
+      var d=document.createElement("div");d.className="xmcr";d.innerHTML='<span>雪の結晶 <b>'+Math.max(0,cr)+'</b> / 5（10回ごとに1つ）</span><button type="button" class="sm" id="xmEx"'+(cr>=5?'':' disabled')+'>★5と交換</button>';
+      var gi=document.querySelector("#gacha .ginfo");if(gi)gi.parentNode.insertBefore(d,gi);
+      $("xmEx").onclick=function(){if(cr<5)return;var pick=confirm("OK で冬華、キャンセルで雪乃と交換します")?"c05":"c17";X.u=(X.u||0)+1;var res=giveChar(cById(pick));saveG();toast(cById(pick).name+" "+res);renderG("")}}}catch(e){}
+    return r;
+  };
+  /* テスト中は雪を降らせる（軽量モードでは降らせない） */
+  var sn=document.createElement("div");sn.id="xmsnow";var h="";
+  for(var i=0;i<34;i++){var z=(2+Math.random()*3).toFixed(1);h+='<i style="left:'+(Math.random()*100).toFixed(1)+'%;width:'+z+'px;height:'+z+'px;animation-duration:'+(7+Math.random()*9).toFixed(1)+'s;animation-delay:-'+(Math.random()*14).toFixed(1)+'s;opacity:'+(0.25+Math.random()*0.45).toFixed(2)+'"></i>'}
+  sn.innerHTML=h;document.body.appendChild(sn);
+}
+})();
 
 </script>
 </body>
