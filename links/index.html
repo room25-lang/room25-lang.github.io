@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Room_25 | どぱたん リンク集</title>
+<meta name="description" content="英単語アプリ「どぱたん」と開発者 Room_25 の公式リンク集">
+<meta name="theme-color" content="#efeee9">
+<meta property="og:title" content="Room_25 | どぱたん リンク集">
+<meta property="og:image" content="https://room25-lang.github.io/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#efeee9;--ink:#0b0c0e;--sub:#6b6f75;--acc:#d4ff00}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 "Hiragino Sans","Noto Sans JP",system-ui,sans-serif;
+ background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);background-size:24px 24px}
+main{max-width:440px;margin:0 auto;padding:36px 20px 44px}
+.plate{background:var(--ink);color:#f4f4f2;border-radius:6px;padding:22px 22px 18px;position:relative;box-shadow:6px 6px 0 var(--acc)}
+.plate::before,.plate::after{content:"";position:absolute;top:12px;width:7px;height:7px;border-radius:50%;background:#3a3e44}
+.plate::before{left:12px}.plate::after{right:12px}
+.plate small{font:700 10px/1 ui-monospace,Menlo,monospace;letter-spacing:.3em;color:#8a9098}
+.plate b{display:block;font:400 54px/1 "Dela Gothic One",sans-serif;margin:10px 0 4px;letter-spacing:.02em}
+.plate b span{color:var(--acc)}
+.plate p{font-size:12.5px;color:#a9b0b8}
+.knock{margin:30px 0 8px;font:700 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.2em;color:var(--sub)}
+.app{display:flex;gap:14px;align-items:center;background:#fff;border:2px solid var(--ink);border-radius:6px;padding:14px;text-decoration:none;color:var(--ink);transition:transform .1s,box-shadow .1s;box-shadow:4px 4px 0 var(--ink)}
+.app:active{transform:translate(4px,4px);box-shadow:none}
+.app img{width:64px;height:64px;border-radius:12px;flex:none}
+.app b{font:400 22px/1.1 "Dela Gothic One",sans-serif;display:block}
+.app span{font-size:12px;color:var(--sub)}
+.app .go{margin-left:auto;background:var(--acc);border:2px solid var(--ink);font:400 13px/1 "Dela Gothic One",sans-serif;padding:10px 12px;border-radius:4px;white-space:nowrap}
+.soon{margin-top:8px;font-size:12px;color:var(--sub);text-align:right}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tiles a{aspect-ratio:1/0.78;display:flex;flex-direction:column;justify-content:space-between;padding:14px;background:#fff;border:2px solid var(--ink);border-radius:6px;color:var(--ink);text-decoration:none;box-shadow:4px 4px 0 var(--ink);transition:transform .1s,box-shadow .1s,background .1s}
+.tiles a:active,.tiles a:hover{background:var(--acc)}
+.tiles a:active{transform:translate(4px,4px);box-shadow:none}
+.tiles .no{font:700 11px/1 ui-monospace,Menlo,monospace;color:var(--sub)}
+.tiles b{font:400 20px/1.1 "Dela Gothic One",sans-serif}
+.tiles .h{font:12px ui-monospace,Menlo,monospace}
+footer{margin-top:34px;color:var(--sub);font-size:11px;line-height:1.8;text-align:center}
+</style></head><body>
+<main>
+ <div class="plate"><small>DOOR No.</small><b>Room<span>_</span>25</b><p>英単語アプリ「どぱたん」をつくっている部屋。</p></div>
+ <div class="knock">— PLAY</div>
+ <a class="app" id="app" href="#"><img src="../icons/icon-192.png" alt=""><div><b>どぱたん</b><span>ガチャとキャラで覚える英単語<br>NGSL 2809語・無料</span></div><span class="go">遊ぶ</span></a>
+ <div class="soon">Google Play 版は近日公開</div>
+ <div class="knock">— FOLLOW</div>
+ <div class="tiles" id="tiles"></div>
+ <footer>© Room_25<br>キャラクター立ち絵：わたおきば ／ 音声：VOICEVOX</footer>
+</main>
+<script>
+/* ===== リンク設定：ここだけ書き換えればOK ===== */
+const APP = "https://room25-lang.github.io/?ref=links";
+const LINKS = [
+ {pf:"X",         h:"@unlockbuster",  what:"開発ログ・お知らせ", url:"https://x.com/unlockbuster"},
+ {pf:"YouTube",   h:"@room_25_dev",   what:"紹介動画・ショート", url:"https://www.youtube.com/@room_25_dev"},
+ {pf:"TikTok",    h:"@room_25_dev",   what:"ショート動画",       url:"https://www.tiktok.com/@room_25_dev"},
+ {pf:"Instagram", h:"@room_25_dev",   what:"リール",             url:"https://www.instagram.com/room_25_dev/"},
+ {pf:"Discord",   h:"",               what:"コミュニティ",        url:"https://discord.gg/sVujPMhCR", hide:true},
+];
+/* ============================================== */
+document.getElementById("app").href = APP;
+document.getElementById("tiles").innerHTML = LINKS.filter(l=>!l.hide).map((l,i)=>
+ `<a href="${l.url}" target="_blank" rel="noopener"><span class="no">25-0${i+1}</span><b>${l.pf}</b><span class="h">${l.h}</span></a>`).join("");
+</script>
+</body></html>

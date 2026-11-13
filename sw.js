@@ -10,6 +10,8 @@ self.addEventListener("activate",function(e){
 self.addEventListener("fetch",function(e){
   var r=e.request;if(r.method!=="GET")return;
   var u=new URL(r.url);if(u.origin!==location.origin)return;
+  /* リンク集ページ（/links/）はアプリと別ページなので、Service Workerでは扱わない */
+  if(u.pathname.indexOf("/links/")===0)return;
   if(/news\.json$/.test(u.pathname)){e.respondWith(fetch(u.href,{cache:"no-store"}).catch(function(){return new Response("{\"news\":[]}",{headers:{"Content-Type":"application/json"}})}));return}
   var page=r.mode==="navigate"||/\/(index\.html)?$/.test(u.pathname);
   if(page){
