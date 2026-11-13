@@ -2099,6 +2099,43 @@ body.anim .tabs .tab{transition:background-color .15s,color .15s,scale .09s}
 .vin{animation:none!important}
 @media (prefers-reduced-motion:reduce){body.anim button:active,body.anim .zg:active{scale:1}}
 
+/* ================= v1.43 ================= */
+/* 設定：右上にいつでも出る「閉じる」 */
+#ovx{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;z-index:60;display:flex;align-items:center;gap:6px;height:38px;padding:0 14px;border:1px solid var(--acc,#d4ff00)!important;background:rgba(11,12,14,.92)!important;color:var(--acc,#d4ff00)!important;font:800 13px sans-serif;border-radius:0!important;transform:skewX(-10deg);box-shadow:0 4px 14px rgba(0,0,0,.45)}
+#ovx span{font-size:15px;line-height:1}
+#ovx>*{transform:skewX(10deg)}
+#ov.inv #ovx{display:none}
+#ov .sheet>h2{padding-right:110px}
+
+/* テスト：片手で答えやすいように、選択肢とボタンを下（親指の届く所）に */
+body:not(.spmode) #test .card{display:flex!important;flex-direction:column!important}
+body:not(.spmode) #test .card #ch{margin-top:auto!important;gap:10px!important}
+body:not(.spmode) #test .card #ch button{min-height:60px!important;font-size:19px!important}
+body:not(.spmode) #test .card .act{margin-top:10px!important;margin-bottom:2px!important}
+body:not(.spmode) #test .card .act button{min-height:50px!important}
+body:not(.spmode) #test .card #fb{order:0}
+
+/* アニメーションをもっと速く（画面・カード・一覧などのUI） */
+.pgin{animation-duration:.22s!important}
+.pcol,.pcol .pfig,.psep{transition-duration:.24s!important}
+.hb2img{transition-duration:.25s!important}
+.hb2.tap .hb2img{animation-duration:.28s!important}
+#v5end.on{animation-duration:.3s!important}
+.rcard.rin>*,.rcard.rin .rxhd{animation-duration:.3s!important}
+.rcard.rin .donut.pop{animation-duration:.3s!important}
+.kv0,.kv1,.kv2,body.anim .gkv .kvbg{animation-duration:.28s!important}
+#rdv2 .r2title,#rdv2 .r2txt,#rdv2 .r2fig{transition-duration:.25s!important}
+#rdv2 .r2end{animation-duration:.25s!important}
+#rdv2 .r2lv{animation-duration:.25s!important;animation-delay:.12s!important}
+#rdv2 .r2title i{transition-duration:.45s!important;transition-delay:.05s!important}
+.sywipe::before,.sywipe::after{transition-duration:.26s!important}
+body.anim .meaning:not(.inv){animation-duration:.2s!important}
+body.anim .clist .ch{animation-duration:.2s!important}
+.cpcard.tap{animation-duration:.24s!important}
+.donut.pop{animation-duration:.3s!important}
+.stpop.on .sthc.big{animation-duration:.3s!important}
+#v5toast{transition-duration:.12s!important}
+
 </style>
 </head>
 <body class="dopa">
@@ -2440,8 +2477,8 @@ function voxStore(key,u,cb){
 }
 function voxSavedCount(){return Object.keys(VOX.saved).length}
 function voxLoadSaved(done){
-  try{if(localStorage.getItem("dopa:vrev")!=="10")VOX.renew=1}catch(e){}
-  if(VOX.renew){VOX.renew=0;vdbClear(function(){try{localStorage.setItem("dopa:vrev","10")}catch(e){}voxSave();if(done)done(0)});return}
+  try{if(localStorage.getItem("dopa:vrev")!=="11")VOX.renew=1}catch(e){}
+  if(VOX.renew){VOX.renew=0;vdbClear(function(){try{localStorage.setItem("dopa:vrev","11")}catch(e){}voxSave();if(done)done(0)});return}
   vdbAll(function(list){
     list.forEach(function(kv){
       try{if(!VOX.cache[kv[0]]){VOX.cache[kv[0]]=URL.createObjectURL(kv[1])}VOX.saved[kv[0]]=1}catch(e){}
@@ -2557,7 +2594,7 @@ var VBUF={},VEND=0,VSIDE=false,VST={};
 /* 高さを変えずに速くする（WSOLA）。再生速度を上げると声の高さまで上がって、キャラらしさが失われるため */
 function stretchBuf(a,buf,key,rate){
   var ck=key+"@"+rate.toFixed(2);if(VST[ck])return VST[ck];
-  var sr=buf.sampleRate,x=buf.getChannelData(0),n=x.length,N=Math.round(sr*0.032)&~1,H=N>>1,Ha=H*rate,D=Math.round(sr*0.012),i,j,d;
+  var sr=buf.sampleRate,x=buf.getChannelData(0),n=x.length,N=Math.round(sr*0.04)&~1,H=N>>1,Ha=H*rate,D=Math.round(sr*0.015),i,j,d;
   var outLen=Math.floor(n/rate)+N*2,out=new Float32Array(outLen),nrm=new Float32Array(outLen),win=new Float32Array(N);
   for(i=0;i<N;i++)win[i]=0.5-0.5*Math.cos(2*Math.PI*i/N);
   var prev=0,last=0;
@@ -2567,7 +2604,7 @@ function stretchBuf(a,buf,key,rate){
     if(o+N>=outLen||target+N+D>=n)break;
     var ref=prev+H,best=target,bc=-1e30;
     if(ref+H>=n)break;
-    for(d=-D;d<=D;d+=2){var c=target+d;if(c<0||c+N>=n)continue;var sc=0;for(j=0;j<H;j+=2)sc+=x[ref+j]*x[c+j];if(sc>bc){bc=sc;best=c}}
+    for(d=-D;d<=D;d++){var c=target+d;if(c<0||c+N>=n)continue;var sc=0;for(j=0;j<H;j++)sc+=x[ref+j]*x[c+j];if(sc>bc){bc=sc;best=c}}
     for(i=0;i<N;i++){out[o+i]+=x[best+i]*win[i];nrm[o+i]+=win[i]}
     prev=best;last=o+N;
   }
@@ -4486,7 +4523,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.42",VLOG=[
+var VERSION="1.43",VLOG=[
+ ["1.43","2026-11-13",["キャラの声をすべて作り直し：高音質（160kbps）に、速さは声を作る時に決めて再生時に引き伸ばさない（こもり・ゆがみが出ない）","タップした時に表情が変わらないことがあったのを修正","テスト：選択肢と次へ・スキップを画面の下に集めて、片手で答えやすく","立体音響のテスト中は、BGMをすぐ止めるように","設定の右上に、どこからでも閉じられるボタン","キャラは、タップした時だけ話すように（編成に入れた時などは話さない）","画面やカードのアニメーションを速く"]],
  ["1.42","2026-11-13",["キャラのふだんの顔を笑顔に","ホームに置くキャラを選ぶ画面を、編成画面と同じカードのデザインに（選ぶと上で大きく確認できます）","通信が遅い時に、古い最初の画面が出ないように（古い画面を削除）","声の音割れを直しました（音の圧縮をゆるめ、声の音量を少し調整）","「よく使う設定」は初期では表示しないように。設定の「全体」でオン・オフできます","使っていない古いストーリーの仕組みや、使われていない見た目の指定を削除して軽く","ボタン・一覧・画面の切り替えに短いアニメーションを追加"]],
  ["1.41","2026-11-13",["傾きの設定をオンにしても、キャラ自体は動かないように（背景と光だけが動きます）","タップした時のキャラの声を、これまでより少し速く（約1.05倍）","ストーリーの通知を、赤い点からアプリに合った斜めのバッジに","進捗リセットの確認を、アプリの中の画面に。リセット後は新しいタイトル画面から始まります","最初のログインボーナス（3連スロット）をなくし、チュートリアルの無料10連で仲間3人に。チュートリアルを飛ばした場合も同じ3人が仲間になります","ホームに戻る時の音を作り直しました","テストの初期設定を「選択式」に（スペル入力は設定でオンにできます）"]],
  ["1.40","2026-11-13",["初めて開いた時の画面を新しいデザインに（起動の帯がそのままタイトルに）","キャラの声の基準の速さを決め直し：×1.00＝ふつうに話す速さ","立ち絵の光の筋が、文字やボタンにかからないように","ストーリーの「スキップ」と「タップで次へ」を分かりやすく","URLを貼ると、プレイ画面の画像が表示されるように","「キャラを傾きで動かす」を設定に。初期はオフで、オンにした時だけ許可を聞きます"]],
@@ -5431,7 +5469,7 @@ function buySlot(){
 function togEq(id){
   var k=G.party.indexOf(id);
   if(k>=0)G.party.splice(k,1);
-  else{if(G.party.length>=PMAX()){renderG("編成は最大"+PMAX()+"人です（枠は◆で増やせます）。");return}G.party.push(id);charVoice(id)}
+  else{if(G.party.length>=PMAX()){renderG("編成は最大"+PMAX()+"人です（枠は◆で増やせます）。");return}G.party.push(id)}
   saveG();renderG("");voxPrefetch();
 }
 function roll(min){
@@ -7420,9 +7458,9 @@ function bindInfo(){
     if(a==="cp"){openCP(id);return}
     if(a==="back"){PPRE=null;PTAP=null;renderG("");return}
     if(a==="out"){var k=G.party.indexOf(id);if(k>=0){G.party.splice(k,1);saveG();voxPrefetch()}PPRE=null;PTAP=null;PSI=Math.min(PSI,PMAX()-1);renderG(cById(id).name+"を外しました。");return}
-    if(a==="in"){G.party.push(id);saveG();voxPrefetch();charVoice(id);PSI=G.party.length-1;PPRE=null;PTAP=null;renderG(cById(id).name+"を編成しました。");return}
-    if(a==="swapin"){pick("入れ替える相手を選ぶ",G.party.slice(),function(o2){var k=G.party.indexOf(o2);setSlot(k,id);charVoice(id);PSI=k;PPRE=null;PTAP=null;renderG(cById(o2).name+"と"+cById(id).name+"を入れ替えました。")});return}
-    if(a==="swap"||a==="add"){var k2=PSI;pick(a==="add"?"この枠に入れるキャラ":"入れ替えるキャラ",owned().filter(function(x){return x!==id}),function(nid){setSlot(Math.min(k2,G.party.length),nid);charVoice(nid);PSI=G.party.indexOf(nid);PTAP=null;renderG(cById(nid).name+"を編成しました。")});return}
+    if(a==="in"){G.party.push(id);saveG();voxPrefetch();PSI=G.party.length-1;PPRE=null;PTAP=null;renderG(cById(id).name+"を編成しました。");return}
+    if(a==="swapin"){pick("入れ替える相手を選ぶ",G.party.slice(),function(o2){var k=G.party.indexOf(o2);setSlot(k,id);PSI=k;PPRE=null;PTAP=null;renderG(cById(o2).name+"と"+cById(id).name+"を入れ替えました。")});return}
+    if(a==="swap"||a==="add"){var k2=PSI;pick(a==="add"?"この枠に入れるキャラ":"入れ替えるキャラ",owned().filter(function(x){return x!==id}),function(nid){setSlot(Math.min(k2,G.party.length),nid);PSI=G.party.indexOf(nid);PTAP=null;renderG(cById(nid).name+"を編成しました。")});return}
   }});
 }
 var _rg=renderG;
@@ -8379,7 +8417,6 @@ function fvPick(){
   $("fvOk").onclick=function(){
     close();if(sel===cur)return;
     G.fav=sel;saveG();try{homeRender()}catch(e){}
-    try{voxWarm(sel);setTimeout(function(){charVoice(sel)},300)}catch(e){}
   };
   o.classList.remove("inv");o.scrollTop=0;
 }
@@ -8445,6 +8482,42 @@ if(typeof tab==="function"){var _tb=tab;tab=function(t){var wasH=$("homeT")&&!$(
 Array.prototype.forEach.call(document.querySelectorAll(".tabs .tab"),function(b){b.addEventListener("click",function(){A(b,[{scale:.94},{scale:1.03},{scale:1}],{duration:200,easing:"ease-out"})})});
 /* ◆の数が変わった時 */
 (function(){var s=$("stones");if(!s)return;var last=s.textContent;new MutationObserver(function(){if(s.textContent!==last){last=s.textContent;A(s,[{scale:1},{scale:1.12},{scale:1}],{duration:220,easing:"ease-out"})}}).observe(s,{childList:true,subtree:true,characterData:true})})();
+})();
+
+/* ================= v1.43 ================= */
+(function(){
+/* ---------- タップした時の表情：ふだんの笑顔と同じ表情は選ばない（変わらないことがあったため） ---------- */
+var SMI={c01:"b",c02:"b",c03:"b",c04:"b",c05:"h",c06:"h",c07:"e",c08:"b",c09:"b",c10:"b",c11:"b",c12:"b",c13:"b",c14:"g",c15:"g",c16:"b",c17:"b",c18:"b",c19:"b",c20:"f"};
+var _r=cExpR;
+cExpR=function(id,role){
+  var r=((EXPR[id]||{})[role]||[]).filter(function(c){return c!==SMI[id]&&c!=="a"});
+  if(role==="h"&&!r.length){var P=EXPP[id]||{};r=["g","h","b","c","f"].filter(function(c){return P[c]&&c!==SMI[id]})}
+  if(!r.length)return _r(id,role);
+  return r[Math.floor(Math.random()*r.length)];
+};
+
+/* ---------- 立体音響のテスト：BGMをすぐ止め、終わったら戻す ---------- */
+var spWas=0,spT=0;
+spTry=function(snd){
+  if(!spm()&&!snd)return;var a=ac();if(!a)return;
+  if(bgm.on){spWas=1;bgmStop();try{bgm.bus.gain.cancelScheduledValues(a.currentTime);bgm.bus.gain.setValueAtTime(0,a.currentTime)}catch(e){}}
+  clearTimeout(spT);
+  for(var i=0;i<6;i++)(function(i){setTimeout(function(){if(AC){spSide();capRun(0.3,function(){var t=AC.currentTime+0.01;ping(t,i%2?1760:1320,0.2,0.18)})}},60+i*420)})(i);
+  spT=setTimeout(function(){if(spWas){spWas=0;try{bgmSync()}catch(e){}}},60+6*420+600);
+};
+var sp=$("spMode");
+if(sp){sp.onchange=function(){SPMODE=parseInt(sp.value)||0;try{localStorage.setItem("dopa:sp2",sp.value)}catch(e){}
+  if(SPMODE)spTry(true);else if(bgm.on){bgmStop();setTimeout(bgmSync,80)}}}
+var stb=$("spTry");if(stb)stb.onclick=function(){spTry(true)};
+
+/* ---------- 設定：どこからでもすぐ閉じられるボタン ---------- */
+var ov=$("ov");
+if(ov&&!$("ovx")){
+  var x=document.createElement("button");x.id="ovx";x.type="button";x.setAttribute("aria-label","設定を閉じる");x.innerHTML='<span>✕</span><small>閉じる</small>';
+  ov.appendChild(x);
+  x.onclick=function(){var c=$("cls");if(c)c.click();else ov.classList.add("inv")};
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!ov.classList.contains("inv"))x.click()});
+}
 })();
 
 </script>
