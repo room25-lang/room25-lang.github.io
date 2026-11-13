@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>どぱたん</title>
 <meta name="theme-color" content="#0b0c0e">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2158,6 +2158,21 @@ body.tilton #bgfx .b1{animation-duration:16s}
 body.tilton #bgfx .b2{animation-duration:22s}
 body.tilton #bgfx .b3{animation-duration:30s}
 
+/* ===== v1.45 ===== */
+html{touch-action:manipulation}
+@supports (-webkit-touch-callout:none){input[type=text],input[type=password],input[type=search],input:not([type]),textarea,select{font-size:16px!important}}
+.godds{text-align:left!important;padding:10px 12px!important;line-height:1.5}
+.godds .gdh{display:block;font-size:14px;margin-bottom:4px}
+.godds .gds{font-size:12px;margin:8px 0 4px;opacity:.85}
+.godt{width:100%;border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums}
+.godt th,.godt td{padding:3px 6px;border-bottom:1px solid rgba(255,255,255,.12);text-align:right;font-weight:400}
+.godt th:first-child{text-align:left;font-weight:700}
+.godt tr:first-child th{opacity:.7;font-weight:700}
+.godt tr.hz{opacity:.75}
+.gdper{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:11.5px;padding:6px 0}
+.gdn{font-size:11px;opacity:.7;margin-top:8px}
+#fbOpen{margin-top:4px}
+
 </style>
 </head>
 <body class="dopa">
@@ -2245,8 +2260,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <input type="file" id="bgfile" accept="image/*" hidden>
   <div class="hint" id="bgmsg">写真はこの端末の中だけに保存され、どこにも送信されません。</div></div>
   <div class="dop"><h3>フィードバック</h3>
-  <div class="hint">不具合や要望を送れます。Googleフォームを作ったら、そのURLを下に貼り付けてください（この端末に保存されます）。</div>
-  <div class="row2"><input type="text" id="fbUrl" placeholder="https://forms.gle/…" style="flex:1;min-width:0;font-size:12px"><button class="sm" id="fbSave">保存</button></div>
+  <div class="hint">不具合・要望・感想を送れます。下のボタンで、公式のGoogleフォームが開きます（数分で書けます）。</div>
   <button class="main" id="fbOpen" style="width:100%">フィードバックを送る</button><div class="hint" id="fbMsg"></div></div>
   <div class="dop"><details class="dt"><summary>得点とガチャの説明</summary><div class="hint">
     正解で得点：未習得の単語は10点、正解は5点、習得済みは2点。連続正解ボーナス（最大+10、既習の単語は少なめ）も加わります。ミス・スキップは5点減点（0点より下にはなりません）。20問以上のテストを全問正解すると+100点。テストを最後まで終えると、得点がそのまま◆（ガチャ石）になります。中止したテストは加算されません。<br>
@@ -2329,7 +2343,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   </details>
   <details class="dt"><summary>音声（VOICEVOX）</summary>
   <div class="hint">音声はVOICEVOXの各キャラクターの声です。使っている声は、上の「音声についての説明・クレジット」に「VOICEVOX:キャラクター名」の形で表示します。</div>
-  <div class="hint">【規約の要約】VOICEVOX公式の音声ライブラリ利用規約（2026年11月に確認）より<br>・ソフト本体は商用・非商用とも無料。作った音声には、声（キャラクター）ごとの規約が適用されます。<br>・このアプリで使う19人の声は、いずれも「VOICEVOX:キャラクター名」のクレジットを書けば、商用・非商用で利用できます（後鬼は、企業が携わる利用のみ事前確認が必要）。<br>・音声は、このアプリの中で使うためだけに収録しています。音声ファイルを取り出して、素材として再配布することはできません。<br>・各キャラクターの詳しい規約：https://voicevox.hiroshiba.jp/ の各キャラクターのページ</div>
+  <div class="hint">【規約の要約】VOICEVOX公式の音声ライブラリ利用規約（2026年11月に確認）より<br>・ソフト本体は商用・非商用とも無料。作った音声には、声（キャラクター）ごとの規約が適用されます。<br>・このアプリで使う20人の声（21種類）は、いずれも「VOICEVOX:キャラクター名」のクレジットを書けば、商用・非商用で利用できます（後鬼は、企業が携わる利用のみ事前確認が必要）。<br>・音声は、このアプリの中で使うためだけに収録しています。音声ファイルを取り出して、素材として再配布することはできません。<br>・各キャラクターの詳しい規約：https://voicevox.hiroshiba.jp/ の各キャラクターのページ</div>
   </details>
   <h3>管理者コマンド</h3>
   <div class="row2"><input type="password" id="devIn" placeholder="パスワード" autocomplete="off" spellcheck="false" style="flex:1;min-width:0"><button class="sm" id="devGo">認証</button></div>
@@ -4439,10 +4453,7 @@ function bgmSync(){
   sel.onchange=function(){try{localStorage.setItem("dopa:chill",sel.value)}catch(e){}if(bgm.on&&bgm.mode==="chill"){bgmStop();bgmSync()}};
 })();
 (function(){
-  var u="";try{u=localStorage.getItem("dopa:fb")||""}catch(e){}
-  $("fbUrl").value=u;
-  $("fbSave").onclick=function(){var v=($("fbUrl").value||"").trim();if(v&&!/^https:\/\/(docs\.google\.com\/forms|forms\.gle)\//.test(v)){$("fbMsg").textContent="Googleフォームのアドレス（https://forms.gle/… など）を貼り付けてください。";return}try{localStorage.setItem("dopa:fb",v)}catch(e){}$("fbMsg").textContent=v?"保存しました。":"削除しました。"};
-  $("fbOpen").onclick=function(){var v="";try{v=localStorage.getItem("dopa:fb")||""}catch(e){}if(!v){$("fbMsg").textContent="先にフォームのURLを貼り付けて「保存」してください。";return}window.open(v,"_blank")};
+  $("fbOpen").onclick=function(){window.open(FB_URL,"_blank","noopener")};
 })();
 var BGC={m:"stage",c:"#3a0014",d:45};
 try{var bj=JSON.parse(localStorage.getItem("dopa:bg")||"null");if(bj){BGC.m=bj.m||"stage";BGC.c=/^#[0-9a-f]{6}$/i.test(bj.c||"")?bj.c:BGC.c;BGC.d=Math.max(0,Math.min(85,parseInt(bj.d)||45))}}catch(e){}
@@ -4545,7 +4556,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.44",VLOG=[
+var VERSION="1.45",VLOG=[
+ ["1.45","2026-11-14",["フィードバックのボタンから、公式のGoogleフォームがすぐ開くように","画面をピンチで拡大できるように","ガチャの「提供割合」を表にしました（1回／10回・100回それぞれの、レア度ごと・キャラごとの確率）","声の人数の表記を「20人（21種類）」にそろえました"]],
  ["1.44","2026-11-13",["ホームBGMを4セットに（A ミッドナイト・ドライブ／B ネオン・ラウンジ／C ローファイ・ネオン／D シティ・グライド、各3曲）。起動した時刻で自動で切り替え、設定で固定もできます","ヘッダーのBGMボタンの横に、キャラボイスのON/OFFボタン","設定に「設定だけリセット」（進捗は消えません）","傾けると、画面の背景の光と斜線も速く大きく動くように","アプリが裏に回った時・ほかのアプリの音に止められた時に、BGMを確実に止めるように"]],
  ["1.43","2026-11-13",["キャラの声をすべて作り直し：高音質（160kbps）に、速さは声を作る時に決めて再生時に引き伸ばさない（こもり・ゆがみが出ない）","タップした時に表情が変わらないことがあったのを修正","テスト：選択肢と次へ・スキップを画面の下に集めて、片手で答えやすく","立体音響のテスト中は、BGMをすぐ止めるように","設定の右上に、どこからでも閉じられるボタン","キャラは、タップした時だけ話すように（編成に入れた時などは話さない）","画面やカードのアニメーションを速く"]],
  ["1.42","2026-11-13",["キャラのふだんの顔を笑顔に","ホームに置くキャラを選ぶ画面を、編成画面と同じカードのデザインに（選ぶと上で大きく確認できます）","通信が遅い時に、古い最初の画面が出ないように（古い画面を削除）","声の音割れを直しました（音の圧縮をゆるめ、声の音量を少し調整）","「よく使う設定」は初期では表示しないように。設定の「全体」でオン・オフできます","使っていない古いストーリーの仕組みや、使われていない見た目の指定を削除して軽く","ボタン・一覧・画面の切り替えに短いアニメーションを追加"]],
@@ -5024,7 +5036,7 @@ function dlcDelete(id,b){
 })();
 
 /* ---- 共有と公式リンク ---- */
-var APP_URL="https://room25-lang.github.io/",SNS={x:"https://x.com/room_25_dev",yt:"https://youtube.com/channel/UCV8gdlDl7aqnsZ88DIA8KMA",dc:"https://discord.gg/sVujPMhCR"};
+var APP_URL="https://room25-lang.github.io/",SNS={x:"https://x.com/unlockbuster",yt:"https://youtube.com/channel/UCV8gdlDl7aqnsZ88DIA8KMA",dc:"https://discord.gg/sVujPMhCR"};
 function openExt(u){try{var w=window.open(u,"_blank","noopener");if(!w)location.href=u}catch(e){location.href=u}}
 function shareText(){var m=0;try{for(var i=0;i<WORDS.length;i++)if(passes(i)>=2)m++}catch(e){}
   return m?"英単語ガチャ「どぱたん」で、英単語を"+m+"語マスターしました！ #どぱたん":"英単語をガチャとキャラで覚える「どぱたん」をやってます！ #どぱたん"}
@@ -5438,7 +5450,7 @@ function renderG(msg){
   else{
     var B=BAN[gBan],pool=CHARS.filter(function(c){return c.s>=(B.m||1)}),pw=0;pool.forEach(function(c){pw+=c.w});
     var tabs=BAN.map(function(b,i){return '<button class="gtab t-'+b.k+(i===gBan?' on':'')+'" data-gb="'+i+'"><span><img src="'+IMT(b.feat[0])+'" alt=""><b>'+(b.m?'★'+b.m+'↑':'通常')+'</b></span></button>'}).join("");
-    var odds=gHelp?'<div class="godds">'+[7,6,5,4,3,2,1].filter(function(s){return s>=(B.m||1)}).map(function(s){var w=0,n=0;pool.forEach(function(c){if(c.s===s){w+=c.w;n++}});return '★'+s+'（'+n+'体）'+(pr*w/pw*100).toFixed(2)+'%'}).join('　')+'<br>ハズレ '+((1-pr)*100).toFixed(1)+'%（◆'+HAZ_REF+'返還＋ハズレの仲間）</div>':'';
+    var odds=gHelp?oddsHtml(B,pool,pw,pr):'';
     $("gacha").innerHTML='<div class="card gcard'+(stillG?' still':'')+'" style="gap:6px">'+tg+
      '<div class="gtabs">'+tabs+'</div>'+
      '<div class="gkv k-'+B.k+'"><div class="kvbg"></div><div class="kvdots"></div>'+
@@ -5448,7 +5460,7 @@ function renderG(msg){
       '<div class="kvinfo">対象 '+pool.length+'体　キャラ出現率 約'+(pr*100).toFixed(1)+'%/回　10回ごとにキャラ1体確定</div></div>'+odds+
      '<div class="ginfo"><span>所持 <b>◆ '+G.stones+'</b></span><span>図鑑 '+own+'/'+CHARS.length+'　ハズレ '+hzOwn()+'/'+HZ.length+'</span></div>'+
      '<div class="gmsg" id="gmsg">'+esc(msg||"")+'</div>'+
-     '<div class="pair"><button class="sm" data-gh="1">'+(gHelp?'確率を閉じる':'確率を見る')+'</button><button class="sm'+(GSKIP?' on':'')+'" id="gskb">演出スキップ：'+(GSKIP?'ON':'OFF')+'</button></div>'+
+     '<div class="pair"><button class="sm" data-gh="1">'+(gHelp?'提供割合を閉じる':'提供割合（確率）')+'</button><button class="sm'+(GSKIP?' on':'')+'" id="gskb">演出スキップ：'+(GSKIP?'ON':'OFF')+'</button></div>'+
      '<div class="gbtns"><button class="gpb" data-gpull="1"><span>1回<b>◆'+banCost(B,1,E)+'</b></span></button><button class="gpb g10" data-gpull="10"><span>10回<b>◆'+banCost(B,10,E)+'</b></span></button><button class="gpb g100" data-gpull="100"><span>100回<b>◆'+banCost(B,100,E)+'</b></span></button></div>'+
      '<div class="gsp"><span>スカウトPt <b>'+(G.sp||0)+'</b> / '+SPN+'</span><i style="--sp:'+Math.min(100,(G.sp||0)/SPN*100)+'%"></i><button class="sm'+((G.sp||0)>=SPN?' on':'')+'" id="gspx">好きなキャラと交換</button></div></div>';
   }
@@ -8667,6 +8679,21 @@ function setAsk(){
   b.onclick=function(){try{$("ov").classList.add("inv")}catch(e){}setAsk()};
 })();
 })();
+
+/* ===================== v1.45 ===================== */
+var FB_URL="https://docs.google.com/forms/d/e/1FAIpQLSe0LceYsRjmr5DVBkgZkE0K4y7St0qbEsWgRmJmmSezFh7W2Q/viewform";
+/* ガチャの提供割合（実際の抽選の仕組みから計算） */
+function oddsHtml(B,pool,pw,pr){
+  var stars=[7,6,5,4,3,2,1].filter(function(s){return s>=(B.m||1)});
+  var row=function(s,p){var w=0,n=0;pool.forEach(function(c){if(c.s===s){w+=c.w;n++}});return '<tr><th>★'+s+'</th><td>'+n+'体</td><td>'+(p*w/pw*100).toFixed(2)+'%</td><td>'+(n?(p*w/pw/n*100).toFixed(2)+'%':'-')+'</td></tr>'};
+  var tbl=function(p){return '<table class="godt"><tr><th>レア度</th><th>人数</th><th>合計</th><th>1体あたり</th></tr>'+stars.map(function(s){return row(s,p)}).join("")+'<tr class="hz"><th>ハズレ</th><td>-</td><td>'+((1-p)*100).toFixed(2)+'%</td><td>◆'+HAZ_REF+'返還</td></tr></table>'};
+  var per=pool.slice().sort(function(a,b){return b.s-a.s||a.w-b.w}).map(function(c){return '<span>★'+c.s+' '+esc(c.n||c.name||c.id)+' '+(c.w/pw*100).toFixed(2)+'%</span>'}).join("");
+  return '<div class="godds"><b class="gdh">提供割合</b>'+
+   '<div class="gds">1回ずつ引くとき（キャラが出る確率 '+(pr*100).toFixed(1)+'%）</div>'+tbl(pr)+
+   '<div class="gds">10回・100回で引くとき：10回ごとに、必ずキャラ1体＋ハズレ9回（キャラの出る割合は10%）</div>'+tbl(0.1)+
+   '<details class="dt"><summary>キャラが出たとき、それぞれのキャラになる割合</summary><div class="gdper">'+per+'</div></details>'+
+   '<div class="gdn">編成キャラのスキルで「キャラが出る確率」が上がるのは、1回ずつ引くときだけです。100Ptで好きなキャラ1体と交換できます（天井）。◆は勉強でだけ手に入り、お金では買えません。</div></div>';
+}
 
 </script>
 </body>
