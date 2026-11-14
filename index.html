@@ -2308,7 +2308,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <label class="rad"><input type="checkbox" id="liteChk"> 軽量モードにする</label>
   <div class="hint">立ち絵を軽い画質にして、アニメーション・光の演出・残響（エコー）・立体音響を止め、動作を軽くします。発熱やカクつきが気になるときに使ってください。</div></div>
   <div class="dop"><h3>DLC（追加コンテンツ）</h3>
-  <div class="hint">BGMや声は、ここでインストールしたものだけを鳴らします（プレイ中にその場で作らないので、動作が軽くなります）。Wi-Fiでのインストールがおすすめです。BGMパックがないテーマでは、ステージを始めるときにその曲だけを作ります（数秒）。</div>
+  <div class="hint">BGMや声は、ここでインストールしたものだけを鳴らします（プレイ中にその場で作らないので、動作が軽くなります）。Wi-Fiでのインストールがおすすめです。BGMパックが入っていない時は、ステージを始めるときにその曲だけを作ります（数秒）。</div>
   <div id="dlcList" class="dlcl"></div><div class="hint" id="dlcMsg"></div></div>
   <div class="dop"><h3>アニメーション</h3>
   <label class="rad"><input type="checkbox" id="animChk"> 画面の切り替えやボタンなどを動かす</label>
@@ -2333,9 +2333,10 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <div class="dop"><h3>フィードバック</h3>
   <div class="hint">不具合・要望・感想を送れます。下のボタンで、公式のGoogleフォームが開きます（数分で書けます）。</div>
   <button class="main" id="fbOpen" style="width:100%">フィードバックを送る</button><div class="hint" id="fbMsg"></div></div>
-  <div class="dop"><details class="dt"><summary>得点とガチャの説明</summary><div class="hint">
+  <div class="dop"><details class="dt"><summary>ストーリーと絆</summary><div class="hint">キャラ画面の「ストーリー」で、仲間になったキャラの章（全39章）とエピソード（各5話）が読めます。章を初めて読むと、そのキャラのレベルが1つ上がります。エピソードは「絆」がたまると1話ずつ開き、初めて読むと◆30がもらえます。<br>絆は、編成中のキャラがいる時にテストで正解（+1）、ホームの相棒と毎日の復習を終える（+5）、そのキャラの話を初めて読む（+10）、そのキャラのステージを初めて全問正解（+20）でたまります。絆レベルは30・100・220・400で上がり、レベル2〜5で2〜5話目が開きます。</div></details></div>
+<div class="dop"><details class="dt"><summary>得点とガチャの説明</summary><div class="hint">
     正解で得点：未習得の単語は10点、正解は5点、習得済みは2点。連続正解ボーナス（最大+10、既習の単語は少なめ）も加わります。ミス・スキップは5点減点（0点より下にはなりません）。20問以上のテストを全問正解すると+100点。テストを最後まで終えると、得点がそのまま◆（ガチャ石）になります。中止したテストは加算されません。<br>
-    初めてNewGameを押すと、チュートリアルの最後の無料10連で仲間が3人加わります（チュートリアルを飛ばした場合も、同じ3人が仲間になります）。ガチャは1回300◆、10回2700◆、100回27000◆です（10回以上は1割引き）。キャラは全39体で、出現率は1回だけ引くと約10%、10回まとめて引くと必ずキャラ1体（100回なら10体）です。ハズレは◆30が戻ります。ガチャを1回引くごとにスカウトPtが1たまり、100Ptで好きなキャラ1体と交換できます。Lv MAXのキャラが出たときは◆300が戻ります。ハズレのときは「ハズレの仲間」（黒猫・おばけ・ロボット・クマ2種の全5種）のどれかが出て、ハズレ図鑑に記録されます（能力はありません）。同じキャラが出るとレベルが上がります（最大Lv5）。キャラのレア度は★1〜★7です。ガチャには「★2以上」「★3以上」「★4以上」の確定ガチャもあります。これは、当たったときのレア度の最低値が決まるもので、ハズレがなくなるわけではありません（当たりやすさは通常と同じ・価格は1回400／600／1000◆）。毎日ログインするとキャラ1体と◆がもらえます。7日で1周し、1〜6日目は★1〜★4、7日目は★5以上が確定です（1日でも空くと1日目から）。キャラは最初は3人まで編成でき（◆で最大6人まで枠を増やせます）、編成中の能力がテストの得点などに反映されます。<br>キャラはそれぞれのステージに1体ずつ配置されています。そのステージを中心にしたテストで、得点率（正解数÷出題数）が90%以上だと、そのキャラを確定入手します（初回のみ・問題数は問いません）。出題数を絞らない「全問」のテストで100%（全問正解）だと「特別確定演出」が出て、最初からレベルMAXで入手できます（20問だけなど、絞ったテストでは通常の確定になります）。
+    初めてNewGameを押すと、チュートリアルの最後の無料10連で仲間が3人加わります（チュートリアルを飛ばした場合も、同じ3人が仲間になります）。ガチャは1回300◆、10回2700◆、100回27000◆です（10回以上は1割引き）。キャラは全39体で、出現率は1回だけ引くと約10%、10回まとめて引くと必ずキャラ1体（100回なら10体）です。ハズレは◆30が戻ります。ガチャを1回引くごとにスカウトPtが1たまり、100Ptで好きなキャラ1体と交換できます。Lv MAXのキャラが出たときは◆300が戻ります。ハズレのときは「ハズレの仲間」（黒猫・おばけ・ロボット・クマ2種の全5種）のどれかが出て、ハズレ図鑑に記録されます（能力はありません）。同じキャラが出るとレベルが上がります（最大Lv5）。キャラのレア度は★1〜★7です。ガチャには「★2以上」「★3以上」「★4以上」の確定ガチャもあります。これは、当たったときのレア度の最低値が決まるもので、ハズレがなくなるわけではありません（当たりやすさは通常と同じ・価格は1回400／600／1000◆）。毎日ログインするとキャラ1体と◆がもらえます。7日で1周し、1〜6日目は★1〜★4、7日目は★5以上が確定です（1日でも空くと1日目から）。キャラは最初は3人まで編成でき（◆で最大6人まで枠を増やせます）、編成中の能力がテストの得点などに反映されます。<br>キャラはSTAGE 1〜35に1体ずつ配置されています（千歳・ハオ・ユエ・灯真の4人はガチャ限定です）。そのステージを中心にしたテストで、得点率（正解数÷出題数）が90%以上だと、そのキャラを確定入手します（初回のみ・問題数は問いません）。出題数を絞らない「全問」のテストで100%（全問正解）だと「特別確定演出」が出て、最初からレベルMAXで入手できます（20問だけなど、絞ったテストでは通常の確定になります）。
   </div></details>
   </div>
   <h3>ステージ音楽</h3>
@@ -2371,8 +2372,8 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <div class="pair"><button id="voxSaveAll">音声をまとめて保存</button><button id="voxClearSaved">保存した音声を削除</button></div>
   <div class="hint" id="voxSaveMsg"></div>
   <details class="dt"><summary>音声についての説明・クレジット</summary>
-  <div class="hint">声はすべてアプリに収録しています（VOICEVOXで作成）。「音声をまとめて保存」を押すと、選んだ声の掛け声と全20キャラの自己紹介を、すぐ鳴らせる形で端末に保存します。</div>
-  <div class="hint">リーチ・大当たり・確定などの掛け声と、スキル発動の声を、ここで選んだ声（最大3つ）で鳴らします。選べるのはアプリに収録した20人（21種類）の声です。全20キャラにも、それぞれ声を割り当てていて、入手したときや、ガチャ画面で立ち絵を押したときに自己紹介します。速さは掛け声全体に効きます。<br>音声クレジット：<span id="voxCredit"></span></div>
+  <div class="hint">声はすべてアプリに収録しています（VOICEVOXで作成）。「音声をまとめて保存」を押すと、選んだ声の掛け声とキャラの自己紹介を、すぐ鳴らせる形で端末に保存します。</div>
+  <div class="hint">リーチ・大当たり・確定などの掛け声と、スキル発動の声を、ここで選んだ声（最大3つ）で鳴らします。掛け声に選べるのは20人（21種類）の声です。全39キャラにも、それぞれ声を割り当てていて、入手したときや、立ち絵を押したときに話します。速さは掛け声全体に効きます。<br>音声クレジット：<span id="voxCredit"></span></div>
   </details>
   <details class="dt" id="eqBox"><summary>イコライザー</summary>
   <div class="hint">音の高さごとの強さを調整します。おすすめの設定を選ぶだけでも使えます。</div>
@@ -2407,14 +2408,15 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <div class="hint">【変更点】頻度順（SFI順位）をもとにPartとステージへ並べ替え、日本語の意味と品詞を付けています（意味・品詞はアプリ作者による自作）。元のリストの作者がこの内容を推奨・保証するものではありません。</div>
   <div class="hint">【継承】この単語リスト（英単語・日本語の意味・品詞）を再配布・改変する場合は、同じCC BY-SA 4.0で公開し、上記の出典表示を残してください。</div>
   </details>
+  <details class="dt"><summary>例文の英語音声（Kokoro）</summary><div class="hint">例文の英語の読み上げ音声は、音声合成モデル「Kokoro-82M」（hexgrad、Apache License 2.0）で作成し、アプリに収録しています。</div></details>
   <details class="dt"><summary>立ち絵（わたおび／わたおきば）</summary>
   <div class="hint">全キャラクターとハズレの仲間の立ち絵は、わたおびさんの「立ち絵素材 わたおきば」（https://wataokiba.net/）の素材です（縮小・余白の切り取りをしています）。キャラ名・設定はこのアプリ独自のものです。</div>
-  <div class="hint">【キャラと素材ファイル名の対応】<br>c01 楓：josei_01_a<br>c02 栞：josei_07_a<br>c03 夏帆：josei_03_a<br>c04 綾：josei_06_a<br>c05 冬華：josei_04_a<br>c06 結衣：josei_11_a<br>c07 クロ：josei_10_a<br>c08 レン：josei_20_a<br>c09 イオ：josei_16_a<br>c10 萌黄：josei_02_tsuno_a<br>c11 朝顔：josei_09_b_a<br>c12 鈴麗：josei_12_a<br>c13 千代：josei_05_a<br>c14 イリス：josei_15_02_a<br>c15 エルナ：josei_08_a<br>c16 ミナモ：josei_13_a<br>c17 雪乃：josei_17_a<br>c18 鈴音：josei_14_a<br>c19 リリス：josei_19_01_a<br>c20 光：josei_18_01_a<br>ハズレの仲間：animal_01／obake／robot／teddybear_blue／teddybear_brown</div>
+  <div class="hint">【キャラと素材ファイル名の対応】<br>c01 楓：josei_01_a<br>c02 栞：josei_07_a<br>c03 夏帆：josei_03_a<br>c04 綾：josei_06_a<br>c05 冬華：josei_04_a<br>c06 結衣：josei_11_a<br>c07 クロ：josei_10_a<br>c08 レン：josei_20_a<br>c09 イオ：josei_16_a<br>c10 萌黄：josei_02_tsuno_a<br>c11 朝顔：josei_09_b_a<br>c12 鈴麗：josei_12_a<br>c13 千代：josei_05_a<br>c14 イリス：josei_15_02_a<br>c15 エルナ：josei_08_a<br>c16 ミナモ：josei_13_a<br>c17 雪乃：josei_17_a<br>c18 鈴音：josei_14_a<br>c19 リリス：josei_19_01_a<br>c20 光：josei_18_01_a<br>湊：dansei_01_a<br>霞：josei_09_w_a<br>陽太：dansei_05_a<br>透：dansei_06_a<br>朔：dansei_03_a<br>アルト：dansei_02_a<br>宗：dansei_04_a<br>カイ：dansei_09_a<br>奏：dansei_14_a<br>晴：dansei_15_a<br>夜月：dansei_07_b_a<br>白夜：dansei_07_w_a<br>ノクス：dansei_10_b_a<br>ルクス：dansei_10_w_a<br>ヴラド：dansei_08_a<br>千歳：dansei_11_a<br>ハオ：dansei_12_a<br>ユエ：dansei_13_a<br>灯真：dansei_16_a<br>ハズレの仲間：animal_01／obake／robot／teddybear_blue／teddybear_brown</div>
   <div class="hint">【規約の要約】サイトの利用規約・Q&Aより（利用規約の最終改訂は2018年10月13日。変更される場合があるため、公式の最新版を確認してください）<br>・商用・非商用とも無料。ただし著作権は放棄されていません。<br>・クレジット表記や使用報告は必須ではありませんが、表記する場合はサイト名か作者名を書きます。<br>・縮小・拡大・色変更・トリミング・左右反転・表情や小物の追加などの加工はOK。元の絵からかけ離れる加工は控えるよう案内されています。<br>・素材そのものの再配布・販売、自作発言、法に触れる使い方は禁止です。<br>・Q&Aには「使用前に用途を連絡してください」という記載があります。</div>
   </details>
   <details class="dt"><summary>音声（VOICEVOX）</summary>
   <div class="hint">音声はVOICEVOXの各キャラクターの声です。使っている声は、上の「音声についての説明・クレジット」に「VOICEVOX:キャラクター名」の形で表示します。</div>
-  <div class="hint">【規約の要約】VOICEVOX公式の音声ライブラリ利用規約（2026年11月に確認）より<br>・ソフト本体は商用・非商用とも無料。作った音声には、声（キャラクター）ごとの規約が適用されます。<br>・このアプリで使う20人の声（21種類）は、いずれも「VOICEVOX:キャラクター名」のクレジットを書けば、商用・非商用で利用できます（後鬼は、企業が携わる利用のみ事前確認が必要）。<br>・音声は、このアプリの中で使うためだけに収録しています。音声ファイルを取り出して、素材として再配布することはできません。<br>・各キャラクターの詳しい規約：https://voicevox.hiroshiba.jp/ の各キャラクターのページ</div>
+  <div class="hint">【規約の要約】VOICEVOX公式の音声ライブラリ利用規約（2026年11月に確認）より<br>・ソフト本体は商用・非商用とも無料。作った音声には、声（キャラクター）ごとの規約が適用されます。<br>・このアプリで使う28人の声は、いずれも「VOICEVOX:キャラクター名」のクレジットを書けば、商用・非商用で利用できます（後鬼は、企業が携わる利用のみ事前確認が必要）。<br>・VirVox Projectの声（玄野武宏・白上虎太郎など）は、出力した音声を使って新しい音声モデルを学習させることが禁止されています。<br>・音声は、このアプリの中で使うためだけに収録しています。音声ファイルを取り出して、素材として再配布することはできません。<br>・各キャラクターの詳しい規約：https://voicevox.hiroshiba.jp/ の各キャラクターのページ</div>
   </details>
   <h3>管理者コマンド</h3>
   <div class="row2"><input type="password" id="devIn" placeholder="パスワード" autocomplete="off" spellcheck="false" style="flex:1;min-width:0"><button class="sm" id="devGo">認証</button></div>
@@ -4566,7 +4568,7 @@ function applyCustomBg(){
   vis();applyCustomBg();
 })();
 var CREDITS=["VOICEVOX:四国めたん","VOICEVOX:春日部つむぎ","VOICEVOX:雨晴はう","VOICEVOX:冥鳴ひまり","VOICEVOX:九州そら","VOICEVOX:WhiteCUL","VOICEVOX:後鬼","VOICEVOX:櫻歌ミコ","VOICEVOX:小夜/SAYO","VOICEVOX:ナースロボ＿タイプＴ","VOICEVOX:†聖騎士 紅桜†","VOICEVOX:春歌ナナ","VOICEVOX:猫使ビィ","VOICEVOX:中国うさぎ","VOICEVOX:波音リツ","VOICEVOX:あいえるたん","VOICEVOX:琴詠ニア","VOICEVOX:東北ずん子","VOICEVOX:東北きりたん","VOICEVOX:東北イタコ"];
-function credHtml(){return '<b>音声</b><br>'+CREDITS.map(esc).join("<br>")+'<br><br><b>単語リスト</b><br>NGSL（New General Service List）1.2　Browne, C., Culligan, B. &amp; Phillips, J.　CC BY-SA 4.0<br><br><b>イラスト</b><br>立ち絵：わたおび（立ち絵素材 わたおきば https://wataokiba.net/）<br><br>くわしい規約とライセンスは「データ」タブの「クレジット」にあります。'}
+function credHtml(){return '<b>音声</b><br>'+CREDITS.map(esc).join("<br>")+'<br><br><b>単語リスト</b><br>NGSL（New General Service List）1.2　Browne, C., Culligan, B. &amp; Phillips, J.　CC BY-SA 4.0<br>NGSL-GR（New General Service List for Graded Readers）1.0　Browne, C. &amp; Culligan, B.　CC BY-SA 4.0<br><br><b>イラスト</b><br>立ち絵：わたおび（立ち絵素材 わたおきば https://wataokiba.net/）<br><br><b>例文の英語音声</b><br>Kokoro-82M（hexgrad）　Apache License 2.0<br><br>くわしい規約とライセンスは「データ」タブの「クレジット」にあります。'}
 /* ---- 全解放パック（Google Play の買い切り。Google Play版のアプリの中でだけ表示） ---- */
 var IAP_SKU="unlock_all";
 var IAP_ACK="";/* 購入の承認をするサーバーのURL（任意）。空のときは、購入をすぐ「消費」して承認の代わりにします */
@@ -4627,7 +4629,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.56",VLOG=[
+var VERSION="1.57",VLOG=[
+ ["1.57","2026-11-15",["ガチャ画面をすっきり：看板は3人に、ラインナップは「確率・ラインナップ」を開いた時だけ表示","一覧やアイコンで、キャラの顔が真ん中に来るように（全39人）","説明に「ストーリーと絆」を追加。クレジットに新しいキャラの素材・声、NGSL-GR、例文音声（Kokoro）を追加"]],
  ["1.56","2026-11-15",["絆がたまるように：編成してテストで正解・ホームの相棒で毎日の復習・ストーリーを読む・その子のステージで全問正解","キャラのエピソードは、絆のレベルで1話ずつ開くように（もう読んだ話はそのまま）","ストーリーを読んだごほうびを整理：章はレベル+1、エピソードは◆30（どちらも絆+10）","新しい19人の章とエピソード（各5話）を追加。全39章・エピソード195話に"]],
  ["1.55","2026-11-15",["タイトルの「＋」をロゴと同じ太さに。小さい画面で、説明文とボタンが重ならないように","メールをタップするとすぐ消えて読めなかった不具合を修正（開いたまま読めます）","ガチャ：看板に新しい仲間も登場。このガチャで出るキャラを★ごとに並べた「LINE UP」を追加","新しい19人のレア度を見直しました","学習・テストの範囲を「どぱたん（NGSL）」と「＋GR（追加分）」のタブで切り替えるように"]],
  ["1.54","2026-11-15",["画面やシェア文・引き継ぎ・お問い合わせなどの表示を「どぱたん＋」にそろえました"]],
@@ -5449,6 +5452,8 @@ NEWC.ids.forEach(function(id,i){IMGS[id]=IMGS["t"+id]="chars2/"+id+"_a.webp";CVO
 try{while(THEMES.length<STAGES.length)THEMES.push(THEMES[THEMES.length-20])}catch(e){}
 var CROWS=[["楓","catV"],["栞","catN"],["夏帆","catA"],["綾","catD"],["冬華","guard"],["結衣","fresh"],["クロ","jack"],["レン","early"],["イオ","late"],["萌黄","combo"],["朝顔","cap"],["鈴麗","disc"],["千代","mast"],["イリス","rec"],["エルナ","lap2"],["ミナモ","free"],["雪乃","finish"],["鈴音","best"],["リリス","haz"],["光","all"],["湊","catV"],["霞","catN"],["陽太","fresh"],["透","catA"],["朔","catD"],["アルト","early"],["宗","combo"],["カイ","cap"],["奏","mast"],["晴","rec"],["夜月","late"],["白夜","best"],["ノクス","finish"],["ルクス","lap2"],["ヴラド","all"],["千歳","jack"],["ハオ","disc"],["ユエ","free"],["灯真","haz"]];
 var STAR_W={1:12,2:9,3:6,4:4,5:3,6:2,7:1.2},STARS=[1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,1,3,1,1,2,3,3,2,2,2,5,5,6,6,7,4,4,4,3];
+/* v1.57 一覧やアイコンで顔がずれないように、顔を中心に切り出した画像を使う */
+(function(){var X={"M01": 0.512, "F09W": 0.41, "M05": 0.54, "M06": 0.507, "M03": 0.479, "M02": 0.471, "M04": 0.441, "M09": 0.479, "M14": 0.474, "M15": 0.544, "M07B": 0.524, "M07W": 0.524, "M10B": 0.5, "M10W": 0.5, "M08": 0.582, "M11": 0.39, "M12": 0.547, "M13": 0.52, "M16": 0.568};for(var k in X)CCX[k]=X[k];for(var i=1;i<=20;i++)IMGS["tc"+(i<10?"0":"")+i]="chars2/t_c"+(i<10?"0":"")+i+".webp";NEWC.ids.forEach(function(id){IMGS["t"+id]="chars2/t_"+id+".webp"})})();
 var CHARS=CROWS.map(function(r,k){var s=STARS[k];return {id:k<20?"c"+(k<9?"0":"")+(k+1):NEWC.ids[k-20],name:r[0],st:k<STAGES.length?k:-1,s:s,star:"★"+s,w:STAR_W[s],ab:r[1]}});
 function cById(id){return CHARS.filter(function(c){return c.id===id})[0]}
 function cSk(c){return ABIL[c.ab].sk}
@@ -5544,10 +5549,10 @@ function renderG(msg){
       B.feat.map(function(id,i){return '<img class="kvc kv'+i+'" src="'+cImg(id)+'" alt="">'}).join("")+
       '<div class="kvt"><div class="kven">'+B.en+'</div><div class="kvjp">'+B.jp+'</div></div>'+
       '<div class="kvtag">'+B.tag+'</div>'+
-      '<div class="kvinfo">対象 '+pool.length+'体　キャラ出現率 約'+(pr*100).toFixed(1)+'%/回　10回ごとにキャラ1体確定</div></div>'+gLineup(pool)+odds+
+      '<div class="kvinfo">'+pool.length+'人　出現率 約'+Math.round(pr*100)+'%/回　10回で1人確定</div></div>'+(gHelp?gLineup(pool):'')+odds+
      '<div class="ginfo"><span>所持 <b>◆ '+G.stones+'</b></span><span>図鑑 '+own+'/'+CHARS.length+'　ハズレ '+hzOwn()+'/'+HZ.length+'</span></div>'+
      '<div class="gmsg" id="gmsg">'+esc(msg||"")+'</div>'+
-     '<div class="pair"><button class="sm" data-gh="1">'+(gHelp?'提供割合を閉じる':'提供割合（確率）')+'</button><button class="sm'+(GSKIP?' on':'')+'" id="gskb">演出スキップ：'+(GSKIP?'ON':'OFF')+'</button></div>'+
+     '<div class="pair"><button class="sm" data-gh="1">'+(gHelp?'閉じる':'確率・ラインナップ')+'</button><button class="sm'+(GSKIP?' on':'')+'" id="gskb">演出スキップ：'+(GSKIP?'ON':'OFF')+'</button></div>'+
      '<div class="gbtns"><button class="gpb" data-gpull="1"><span>1回<b>◆'+banCost(B,1,E)+'</b></span></button><button class="gpb g10" data-gpull="10"><span>10回<b>◆'+banCost(B,10,E)+'</b></span></button><button class="gpb g100" data-gpull="100"><span>100回<b>◆'+banCost(B,100,E)+'</b></span></button></div>'+
      '<div class="gsp"><span>スカウトPt <b>'+(G.sp||0)+'</b> / '+SPN+'</span><i style="--sp:'+Math.min(100,(G.sp||0)/SPN*100)+'%"></i><button class="sm'+((G.sp||0)>=SPN?' on':'')+'" id="gspx">好きなキャラと交換</button></div></div>';
   }
@@ -5606,10 +5611,10 @@ function roll(min){
   return P[0];
 }
 var PMIN={2:400,3:600,4:1000};
-var BAN=[{m:0,k:"std",en:"STANDARD SCOUT",jp:"スタンダード・スカウト",tag:"全キャラ対象",feat:["M08","c20","M07B","c07","c01"]},
- {m:2,k:"blu",en:"BLUE SCOUT",jp:"ブルー・スカウト",tag:"★2以上 確定",feat:["c07","M14","c05","M03","c08"]},
- {m:3,k:"vio",en:"VIOLET SCOUT",jp:"バイオレット・スカウト",tag:"★3以上 確定",feat:["c10","M02","c09","M04","c12"]},
- {m:4,k:"gld",en:"GOLD SCOUT",jp:"ゴールド・スカウト",tag:"★4以上 確定",feat:["c19","M10B","c20","M10W","c16"]}];
+var BAN=[{m:0,k:"std",en:"STANDARD SCOUT",jp:"スタンダード・スカウト",tag:"全キャラ対象",feat:["M08","c20","c01"]},
+ {m:2,k:"blu",en:"BLUE SCOUT",jp:"ブルー・スカウト",tag:"★2以上 確定",feat:["c07","M14","c05"]},
+ {m:3,k:"vio",en:"VIOLET SCOUT",jp:"バイオレット・スカウト",tag:"★3以上 確定",feat:["c10","M02","c09"]},
+ {m:4,k:"gld",en:"GOLD SCOUT",jp:"ゴールド・スカウト",tag:"★4以上 確定",feat:["c19","M10B","c16"]}];
 var gBan=0;try{gBan=Math.max(0,Math.min(3,parseInt(localStorage.getItem("dopa:gban"))||0))}catch(e){}
 var GSKIP=false;try{GSKIP=localStorage.getItem("dopa:gskip")==="1"}catch(e){}
 function gskipSet(v){GSKIP=!!v;try{localStorage.setItem("dopa:gskip",GSKIP?"1":"0")}catch(e){}}
@@ -6908,7 +6913,7 @@ function endShow(){
   var el=$("v5end");if(!el){el=document.createElement("div");el.id="v5end";document.body.appendChild(el)}
   var cs=CHARS.map(function(c){return '<div class="ecr"><img src="'+IMT(c.id)+'" alt=""><b>'+esc(c.name)+'</b><small>'+esc(cSk(c))+'</small></div>'}).join("");
   el.innerHTML='<div class="eroll"><div class="et1">ALL CLEAR</div><div class="et2">'+nBase()+'語 制覇</div><div class="et3">'+esc(G.end||dayKey())+'</div><div class="ecast">'+cs+'</div>'+
-   '<div class="ecred"><h4>単語リスト</h4><p>NGSL 1.2　Browne, C., Culligan, B. &amp; Phillips, J.</p><h4>立ち絵</h4><p>わたおび（立ち絵素材 わたおきば）</p><h4>声</h4><p>'+CREDITS.map(esc).join("<br>")+'</p><h4>制作</h4><p>25号室</p><h4>そして</h4><p>ここまで続けた、あなた</p></div><div class="et4">THANK YOU FOR PLAYING</div></div><button class="eskip">タップで閉じる</button>';
+   '<div class="ecred"><h4>単語リスト</h4><p>NGSL 1.2　Browne, C., Culligan, B. &amp; Phillips, J.<br>NGSL-GR 1.0　Browne, C. &amp; Culligan, B.</p><h4>立ち絵</h4><p>わたおび（立ち絵素材 わたおきば）</p><h4>例文の英語音声</h4><p>Kokoro-82M（hexgrad）</p><h4>声</h4><p>'+CREDITS.map(esc).join("<br>")+'</p><h4>制作</h4><p>25号室</p><h4>そして</h4><p>ここまで続けた、あなた</p></div><div class="et4">THANK YOU FOR PLAYING</div></div><button class="eskip">タップで閉じる</button>';
   el.className="on";el.onclick=function(){el.className=""};
   try{var a=ac();if(a)capRun(4,function(){var t=a.currentTime+0.05;[0,4,7,12,16,19,24].forEach(function(n,i){sBell(pf(5+n),t+i*0.16,1.2,0.07)});[0,4,7].forEach(function(n){tone(pf(5+n),t+1.3,2.4,"triangle",0.04)})})}catch(e){}
 }
