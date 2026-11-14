@@ -2173,6 +2173,17 @@ html{touch-action:manipulation}
 .gdn{font-size:11px;opacity:.7;margin-top:8px}
 #fbOpen{margin-top:4px}
 
+/* ===== v1.46 クラウド保存 ===== */
+#clBox{margin-bottom:6px}
+#clBox .clst{color:var(--acc,#d4ff00)}
+#clBox .pair{margin-top:6px}
+#rsc .clbody{font-size:13px;line-height:1.6;text-align:left}
+#rsc .clbody p{margin:6px 0}
+#rsc .clbody small{opacity:.75}
+#rsc .clbody input{width:100%;box-sizing:border-box;font:700 18px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-align:center;padding:10px;margin:6px 0}
+#rsc .clcode{font:900 24px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-align:center;padding:12px 6px;margin:6px 0;border:1px dashed var(--acc,#d4ff00);color:var(--acc,#d4ff00);user-select:all;-webkit-user-select:all}
+#rsc .clmsg{min-height:1.4em;font-size:12px;color:#ffb3b3}
+
 </style>
 </head>
 <body class="dopa">
@@ -2251,7 +2262,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <details class="dt"><summary>更新履歴</summary><div id="verlog"></div></details></div>
   <div class="dop"><h3>このアプリについて（クレジット）</h3>
   <div class="hint" id="credAll"></div>
-  <div class="hint">プライバシーポリシー：<a href="privacy.html" target="_blank" rel="noopener" style="color:var(--acc)">privacy.html</a>（このアプリは、学習の記録などをすべて端末の中だけに保存し、外部に送りません）</div></div>
+  <div class="hint">プライバシーポリシー：<a href="privacy.html" target="_blank" rel="noopener" style="color:var(--acc)">privacy.html</a>（学習の記録などは端末の中に保存します。「クラウド保存」をONにした場合だけ、記録をサーバーに保存します）</div></div>
   <div class="dop"><h3>背景</h3>
   <div class="row2">表示 <select id="bgm"><option value="stage">標準（ステージごとの色）</option><option value="color">好きな色</option><option value="photo">自分の写真</option></select></div>
   <div class="row2" id="bgcw">色 <input type="color" id="bgc" value="#3a0014" style="width:56px;height:36px;padding:0">
@@ -4556,7 +4567,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.45",VLOG=[
+var VERSION="1.46",VLOG=[
+ ["1.46","2026-11-14",["クラウド保存と引き継ぎコードを追加（設定 → データ）。ONにすると記録が自動でサーバーに保存され、機種変更やデータが消えたあとも、コードで元に戻せます","プライバシーポリシーを更新"]],
  ["1.45","2026-11-14",["フィードバックのボタンから、公式のGoogleフォームがすぐ開くように","画面をピンチで拡大できるように","ガチャの「提供割合」を表にしました（1回／10回・100回それぞれの、レア度ごと・キャラごとの確率）","声の人数の表記を「20人（21種類）」にそろえました"]],
  ["1.44","2026-11-13",["ホームBGMを4セットに（A ミッドナイト・ドライブ／B ネオン・ラウンジ／C ローファイ・ネオン／D シティ・グライド、各3曲）。起動した時刻で自動で切り替え、設定で固定もできます","ヘッダーのBGMボタンの横に、キャラボイスのON/OFFボタン","設定に「設定だけリセット」（進捗は消えません）","傾けると、画面の背景の光と斜線も速く大きく動くように","アプリが裏に回った時・ほかのアプリの音に止められた時に、BGMを確実に止めるように"]],
  ["1.43","2026-11-13",["キャラの声をすべて作り直し：高音質（160kbps）に、速さは声を作る時に決めて再生時に引き伸ばさない（こもり・ゆがみが出ない）","タップした時に表情が変わらないことがあったのを修正","テスト：選択肢と次へ・スキップを画面の下に集めて、片手で答えやすく","立体音響のテスト中は、BGMをすぐ止めるように","設定の右上に、どこからでも閉じられるボタン","キャラは、タップした時だけ話すように（編成に入れた時などは話さない）","画面やカードのアニメーションを速く"]],
@@ -8320,7 +8332,7 @@ setTimeout(function(){
 var toast=function(t,ms){try{V5.toast(t,ms)}catch(e){}};
 
 /* ---------- 進捗リセット：アプリの中の確認画面で。消したら新しいタイトルから ---------- */
-var KEEP=/^dopa:(st0|vox|volB|volS|anim|lite|eq|sp2|aspd|snd|oskb|tmpo2|gskip|skin|vrev|tilt|bgm|lbgm|bgmset|cvoff)$/;
+var KEEP=/^dopa:(st0|vox|volB|volS|anim|lite|eq|sp2|aspd|snd|oskb|tmpo2|gskip|skin|vrev|tilt|bgm|lbgm|bgmset|cvoff|cloud)$/;
 function rsAsk(o){
   var w=document.createElement("div");w.id="rsc";
   w.innerHTML='<div class="rsb'+(o.danger?' dg':'')+'"><div class="rsh"><i></i><b>'+o.title+'</b></div><p>'+o.body+'</p><div class="rsa"><button type="button" class="rsn">やめる</button><button type="button" class="rsy">'+o.ok+'</button></div></div>';
@@ -8694,6 +8706,114 @@ function oddsHtml(B,pool,pw,pr){
    '<details class="dt"><summary>キャラが出たとき、それぞれのキャラになる割合</summary><div class="gdper">'+per+'</div></details>'+
    '<div class="gdn">編成キャラのスキルで「キャラが出る確率」が上がるのは、1回ずつ引くときだけです。100Ptで好きなキャラ1体と交換できます（天井）。◆は勉強でだけ手に入り、お金では買えません。</div></div>';
 }
+
+
+/* ===================== v1.46：クラウド保存・引き継ぎ（Supabase） ===================== */
+(function(){
+var CU=window.__CLURL||"https://jamsmctvxjcxpzgbafng.supabase.co",CK="sb_publishable_C5skJ9Q5Oip2brQlcpGB0g_H3fcnVXY";
+var toast=function(t,ms){try{V5.toast(t,ms)}catch(e){}};
+var S=null;try{S=JSON.parse(localStorage.getItem("dopa:cloud")||"null")}catch(e){}
+var put=function(){try{S?localStorage.setItem("dopa:cloud",JSON.stringify(S)):localStorage.removeItem("dopa:cloud")}catch(e){}};
+var on=function(){return !!(S&&S.on)};
+function req(path,opt,tok){
+  opt=opt||{};var h={"apikey":CK,"Content-Type":"application/json"};if(tok)h.Authorization="Bearer "+tok;
+  Object.keys(opt.h||{}).forEach(function(k){h[k]=opt.h[k]});
+  return fetch(CU+path,{method:opt.m||"GET",headers:h,body:opt.b==null?undefined:JSON.stringify(opt.b)}).then(function(r){
+    return r.text().then(function(t){var j=null;try{j=t?JSON.parse(t):null}catch(e){}if(!r.ok){var er=new Error((j&&(j.message||j.msg||j.error_description||j.error))||("HTTP "+r.status));er.st=r.status;throw er}return j});
+  });
+}
+function keep(j){S=S||{};S.uid=j.user&&j.user.id||S.uid;S.at=j.access_token;S.rt=j.refresh_token;S.exp=Date.now()+((j.expires_in||3600)-60)*1000;put()}
+function signIn(){return req("/auth/v1/signup",{m:"POST",b:{data:{}}}).then(function(j){keep(j);return S.at})}
+function tok(){
+  if(S&&S.at&&S.exp>Date.now())return Promise.resolve(S.at);
+  if(S&&S.rt)return req("/auth/v1/token?grant_type=refresh_token",{m:"POST",b:{refresh_token:S.rt}}).then(function(j){keep(j);return S.at});
+  return signIn();
+}
+function payload(){return {v:4,p:prog.p,l:prog.l,f:prog.f,n:prog.n,dl:prog.dl,w:CUSTOM,g:G}}
+var busy=0,dirty=0,tm=0;
+function saveNow(quiet){
+  if(!on())return Promise.resolve(false);if(busy){dirty=1;return Promise.resolve(false)}
+  busy=1;dirty=0;
+  return tok().then(function(t){return req("/rest/v1/saves?on_conflict=user_id",{m:"POST",h:{"Prefer":"resolution=merge-duplicates,return=minimal"},b:{user_id:S.uid,data:payload(),app_ver:VERSION,updated_at:new Date().toISOString()}},t)})
+   .then(function(){busy=0;S.last=Date.now();put();ui();if(!quiet)toast("クラウドに保存しました",1400);if(dirty)sched();return true})
+   .catch(function(e){busy=0;S.err=String(e.message||e);put();ui();if(!quiet)toast("クラウドに保存できませんでした（"+S.err+"）",2600);return false});
+}
+function sched(){if(!on())return;dirty=1;clearTimeout(tm);tm=setTimeout(function(){saveNow(true)},20000)}
+["saveG","save"].forEach(function(nm){var f=window[nm];if(typeof f!=="function")return;window[nm]=function(){var r=f.apply(this,arguments);try{sched()}catch(e){}return r}});
+try{saveG=window.saveG;save=window.save}catch(e){}
+document.addEventListener("visibilitychange",function(){if(document.hidden&&on()&&dirty){clearTimeout(tm);saveNow(true)}});
+window.cloudSaveNow=saveNow;
+
+function apply(o){
+  if(Array.isArray(o.w)){WORDS.length=BASE.length;CUSTOM=[];o.w.forEach(addCustomRaw);saveCustom()}
+  prog=fix(o,o.v===4?4:(o.v===3?3:(o.v===2?2:1)));save();if(o.g){G=fixG(o.g);saveG();updStones()}
+}
+var ago=function(t){if(!t)return "まだ保存していません";var m=Math.round((Date.now()-t)/60000);return m<1?"たった今":m<60?m+"分前":m<1440?Math.round(m/60)+"時間前":Math.round(m/1440)+"日前"};
+function ui(){
+  var b=$("clBox");if(!b)return;
+  b.querySelector(".clst").textContent=on()?"ON：最後に保存したのは "+ago(S.last)+(S.err&&!S.last?"（エラー："+S.err+"）":""):"OFF（記録はこの端末の中だけにあります）";
+  b.querySelector(".clon").hidden=on();b.querySelectorAll(".clx").forEach(function(x){x.hidden=!on()});
+}
+function dlg(html,btns){
+  var w=document.createElement("div");w.id="rsc";
+  w.innerHTML='<div class="rsb"><div class="rsh"><i></i><b>'+html.t+'</b></div><div class="clbody">'+html.b+'</div><div class="rsa"></div></div>';
+  var a=w.querySelector(".rsa"),close=function(){w.classList.remove("on");setTimeout(function(){w.remove()},200)};
+  btns.forEach(function(x){var e=document.createElement("button");e.type="button";e.className=x.c||"rsn";e.textContent=x.t;e.onclick=function(){if(x.f&&x.f(w)===false)return;close()};a.appendChild(e)});
+  w.onclick=function(e){if(e.target===w)close()};document.body.appendChild(w);requestAnimationFrame(function(){w.classList.add("on")});return w;
+}
+function start(){
+  dlg({t:"クラウド保存をはじめる",b:'<p>学習の記録・キャラ・◆を、どぱたんのサーバー（Supabase）に保存します。端末を変えたり、ブラウザのデータが消えたりしても、引き継ぎコードで元に戻せます。</p><p><small>名前やメールアドレスは使いません。保存するのは、アプリの記録だけです。くわしくはプライバシーポリシーをご覧ください。</small></p>'},
+   [{t:"やめる"},{t:"はじめる",c:"rsy",f:function(){
+     S=S||{};S.on=1;S.err="";put();ui();toast("クラウドに接続しています…",1200);
+     saveNow(false).then(function(ok){if(!ok){S.on=0;put();ui()}});
+   }}]);
+}
+function issue(){
+  if(!on())return;toast("引き継ぎコードを作っています…",1200);
+  saveNow(true).then(function(ok){if(!ok)throw new Error(S.err||"保存できませんでした");return tok()}).then(function(t){return req("/rest/v1/rpc/issue_transfer",{m:"POST",b:{}},t)})
+   .then(function(code){
+     code=String(code||"");var show=code.replace(/(.{4})(?=.)/g,"$1-");
+     var w=dlg({t:"引き継ぎコード",b:'<div class="clcode">'+show+'</div><p>新しい端末のどぱたんで「設定 → データ → コードで引き継ぐ」に入力すると、この記録が移ります。</p><p><small>このコードは、新しく作り直すまで使えます（最後に使ってから180日間）。スクリーンショットかメモで、人に見せずに保管してください。</small></p>'},
+      [{t:"コピー",c:"rsn",f:function(){try{navigator.clipboard.writeText(code);toast("コピーしました",1200)}catch(e){}return false}},{t:"閉じる",c:"rsy"}]);
+   }).catch(function(e){toast("コードを作れませんでした（"+(e.message||e)+"）",2800)});
+}
+function claim(){
+  dlg({t:"コードで引き継ぐ",b:'<p>前の端末で出した12文字の引き継ぎコードを入力してください。</p><input type="text" id="clIn" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX-XXXX" maxlength="20"><p><small>この端末の今の記録は、引き継いだ記録で<b>上書き</b>されます。</small></p><div class="clmsg" id="clMsg"></div>'},
+   [{t:"やめる"},{t:"引き継ぐ",c:"rsy",f:function(w){
+     var c=(w.querySelector("#clIn").value||"").toUpperCase().replace(/[^A-Z0-9]/g,""),m=w.querySelector("#clMsg");
+     if(c.length!==12){m.textContent="12文字のコードを入力してください。";return false}
+     m.textContent="確認しています…";
+     tok().then(function(t){return req("/rest/v1/rpc/claim_transfer",{m:"POST",b:{p_code:c}},t)}).then(function(d){
+       if(!d||!d.p)throw new Error("データが空です");
+       apply(d);S.on=1;S.last=Date.now();S.err="";put();
+       m.textContent="引き継ぎました。読み込み直します…";setTimeout(function(){location.reload()},900);
+     }).catch(function(e){m.textContent=/invalid code/.test(e.message)?"コードが違うか、期限が切れています。":"引き継げませんでした（"+(e.message||e)+"）"});
+     return false;
+   }}]);
+}
+function stop(){
+  dlg({t:"クラウド保存をやめる",b:'<p>サーバーに保存した記録と引き継ぎコードを削除して、この端末だけの保存に戻します。この端末の記録は消えません。</p>'},
+   [{t:"やめない"},{t:"削除してやめる",c:"rsy",f:function(){
+     tok().then(function(t){return req("/rest/v1/saves?user_id=eq."+S.uid,{m:"DELETE",h:{"Prefer":"return=minimal"}},t)})
+      .then(function(){S.on=0;S.last=0;put();ui();toast("クラウドの記録を削除しました",1800)})
+      .catch(function(e){toast("削除できませんでした（"+(e.message||e)+"）",2600)});
+   }}]);
+}
+(function(){
+  var io=$("io");if(!io||$("clBox"))return;var h3=io.previousElementSibling;
+  var d=document.createElement("div");d.id="clBox";
+  d.innerHTML='<h3>クラウド保存・引き継ぎ</h3><div class="hint">記録をサーバーに保存しておくと、機種変更やブラウザのデータ削除のあとも、引き継ぎコードで元に戻せます。保存は自動です（テストのあとなど）。</div><div class="hint clst"></div>'+
+   '<button class="main clon" type="button" style="width:100%">クラウド保存をはじめる</button>'+
+   '<div class="pair clx"><button type="button" class="clsv">今すぐ保存</button><button type="button" class="clis">引き継ぎコードを出す</button></div>'+
+   '<div class="pair"><button type="button" class="clcl">コードで引き継ぐ</button><button type="button" class="clx clst2">クラウド保存をやめる</button></div>';
+  var sc=h3&&h3.getAttribute&&h3.getAttribute("data-sc");if(sc)d.setAttribute("data-sc",sc);
+  (h3&&h3.tagName==="H3"?h3:io).parentNode.insertBefore(d,h3&&h3.tagName==="H3"?h3:io);
+  d.querySelector(".clon").onclick=start;d.querySelector(".clsv").onclick=function(){saveNow(false)};
+  d.querySelector(".clis").onclick=issue;d.querySelector(".clcl").onclick=claim;d.querySelector(".clst2").onclick=stop;
+  ui();setInterval(ui,30000);
+})();
+if(on())setTimeout(function(){saveNow(true)},8000);
+})();
 
 </script>
 </body>
