@@ -2184,6 +2184,10 @@ html{touch-action:manipulation}
 #rsc .clcode{font:900 24px/1.2 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-align:center;padding:12px 6px;margin:6px 0;border:1px dashed var(--acc,#d4ff00);color:var(--acc,#d4ff00);user-select:all;-webkit-user-select:all}
 #rsc .clmsg{min-height:1.4em;font-size:12px;color:#ffb3b3}
 
+/* ===== v1.47 ===== */
+.nrk{display:flex;flex-direction:column;gap:6px;padding-bottom:10px;margin-bottom:6px;border-bottom:1px solid rgba(255,255,255,.12)}
+.nrk .rk.me{outline:1px solid var(--acc,#d4ff00)}
+
 </style>
 </head>
 <body class="dopa">
@@ -4567,7 +4571,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.46",VLOG=[
+var VERSION="1.47",VLOG=[
+ ["1.47","2026-11-14",["全国ランキングを追加（記録 → ランキング。参加すると名前と累計ポイントだけを送ります）","ほかのアプリから戻った時に、BGMが急に大きく鳴ることがあるのを修正（約2秒かけてゆっくり戻します）"]],
  ["1.46","2026-11-14",["クラウド保存と引き継ぎコードを追加（設定 → データ）。ONにすると記録が自動でサーバーに保存され、機種変更やデータが消えたあとも、コードで元に戻せます","プライバシーポリシーを更新"]],
  ["1.45","2026-11-14",["フィードバックのボタンから、公式のGoogleフォームがすぐ開くように","画面をピンチで拡大できるように","ガチャの「提供割合」を表にしました（1回／10回・100回それぞれの、レア度ごと・キャラごとの確率）","声の人数の表記を「20人（21種類）」にそろえました"]],
  ["1.44","2026-11-13",["ホームBGMを4セットに（A ミッドナイト・ドライブ／B ネオン・ラウンジ／C ローファイ・ネオン／D シティ・グライド、各3曲）。起動した時刻で自動で切り替え、設定で固定もできます","ヘッダーのBGMボタンの横に、キャラボイスのON/OFFボタン","設定に「設定だけリセット」（進捗は消えません）","傾けると、画面の背景の光と斜線も速く大きく動くように","アプリが裏に回った時・ほかのアプリの音に止められた時に、BGMを確実に止めるように"]],
@@ -8332,7 +8337,7 @@ setTimeout(function(){
 var toast=function(t,ms){try{V5.toast(t,ms)}catch(e){}};
 
 /* ---------- 進捗リセット：アプリの中の確認画面で。消したら新しいタイトルから ---------- */
-var KEEP=/^dopa:(st0|vox|volB|volS|anim|lite|eq|sp2|aspd|snd|oskb|tmpo2|gskip|skin|vrev|tilt|bgm|lbgm|bgmset|cvoff|cloud)$/;
+var KEEP=/^dopa:(st0|vox|volB|volS|anim|lite|eq|sp2|aspd|snd|oskb|tmpo2|gskip|skin|vrev|tilt|bgm|lbgm|bgmset|cvoff|cloud|rkjoin)$/;
 function rsAsk(o){
   var w=document.createElement("div");w.id="rsc";
   w.innerHTML='<div class="rsb'+(o.danger?' dg':'')+'"><div class="rsh"><i></i><b>'+o.title+'</b></div><p>'+o.body+'</p><div class="rsa"><button type="button" class="rsn">やめる</button><button type="button" class="rsy">'+o.ok+'</button></div></div>';
@@ -8743,6 +8748,7 @@ function sched(){if(!on())return;dirty=1;clearTimeout(tm);tm=setTimeout(function
 try{saveG=window.saveG;save=window.save}catch(e){}
 document.addEventListener("visibilitychange",function(){if(document.hidden&&on()&&dirty){clearTimeout(tm);saveNow(true)}});
 window.cloudSaveNow=saveNow;
+window.CLD={tok:tok,req:req,url:CU,key:CK};
 
 function apply(o){
   if(Array.isArray(o.w)){WORDS.length=BASE.length;CUSTOM=[];o.w.forEach(addCustomRaw);saveCustom()}
@@ -8813,6 +8819,69 @@ function stop(){
   ui();setInterval(ui,30000);
 })();
 if(on())setTimeout(function(){saveNow(true)},8000);
+})();
+
+/* ===================== v1.47：全国ランキング／戻った時のBGMをゆっくり ===================== */
+(function(){
+/* ---- ほかのアプリから戻った時、音をゆっくり戻す（急に大きくならないように） ---- */
+var RAMP=2.2,RET=0;
+document.addEventListener("visibilitychange",function(){
+  if(document.hidden)return;RET=Date.now();
+  try{if(AC&&OUTG){var n=AC.currentTime;OUTG.gain.cancelScheduledValues(n);OUTG.gain.setValueAtTime(0,n)}}catch(e){}
+},true);
+var fadeIn=function(sec){try{if(AC&&OUTG){var n=AC.currentTime,v=Math.min(OUTG.gain.value,0.05);OUTG.gain.cancelScheduledValues(n);OUTG.gain.setValueAtTime(v,n);OUTG.gain.linearRampToValueAtTime(1,n+sec)}}catch(e){}};
+if(typeof audWake==="function"){var _aw=audWake;audWake=function(){var a=AC;if(!a||a.state!=="running")return;_aw();fadeIn(RAMP);try{bgm.xfNext=3}catch(e){}}}
+if(typeof softMute==="function"){var _sm=softMute;softMute=function(on){if(!on&&Date.now()-RET<4000){fadeIn(RAMP);return}return _sm(on)}}
+/* BGMの音量の上限（どんな経路でも、設定した音量より大きくしない） */
+if(typeof bgBase==="function"){var _bb=bgBase;bgBase=function(){return Math.min(_bb(),0.2*volB/50*2.2)}}
+
+/* ---- 全国ランキング（Supabase） ---- */
+var ls=function(k){try{return localStorage.getItem(k)}catch(e){return null}},lset=function(k,v){try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}};
+var joined=function(){return ls("dopa:rkjoin")==="1"};
+var RK={list:null,me:null,err:"",t:0,busy:0};
+var C=function(){return window.CLD};
+function pub(path,h){var c=C();var hd={apikey:c.key};Object.keys(h||{}).forEach(function(k){hd[k]=h[k]});return fetch(c.url+path,{headers:hd})}
+function nm(){return (G.name||"").trim().slice(0,12)}
+function submit(){
+  if(!joined()||!C()||G.inf||!nm())return Promise.resolve(false);
+  return C().tok().then(function(t){var c=C();return c.req("/rest/v1/ranking?on_conflict=user_id",{m:"POST",h:{"Prefer":"resolution=merge-duplicates,return=minimal"},b:{user_id:JSON.parse(ls("dopa:cloud")).uid,name:nm(),total:Math.max(0,Math.floor(G.total||0)),updated_at:new Date().toISOString()}},t)}).then(function(){RK.err="";return true}).catch(function(e){RK.err=String(e.message||e);return false});
+}
+function load(){
+  if(!C())return Promise.resolve();RK.busy=1;
+  return pub("/rest/v1/ranking?select=name,total&order=total.desc&limit=50").then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json()}).then(function(L){
+    RK.list=L;RK.t=Date.now();
+    if(!joined())return;
+    return pub("/rest/v1/ranking?select=name&total=gt."+Math.floor(G.total||0),{"Prefer":"count=exact","Range":"0-0"}).then(function(r){var cr=r.headers.get("content-range")||"";var n=parseInt(cr.split("/")[1]);RK.me=isNaN(n)?null:n+1});
+  }).catch(function(e){RK.err=String(e.message||e)}).then(function(){RK.busy=0});
+}
+function block(){
+  var h='<div class="nrk"><div class="stat"><b>全国ランキング（累計ポイント）</b></div>';
+  if(!joined())h+='<div class="hint">参加すると、名前と累計ポイントだけがサーバーに送られて、全国の順位が出ます（いつでもやめられます）。</div><button class="main" type="button" id="nrkJoin" style="width:100%">全国ランキングに参加する</button>';
+  else h+='<div class="hint">'+(G.inf?'管理者モード中は送信しません。':(RK.me?'あなたは <b>'+RK.me+'位</b>（'+esc(nm())+'・'+(G.total||0)+'）':'順位を確認しています…'))+'</div>';
+  if(RK.list){h+=RK.list.length?RK.list.map(function(x,i){var mine=joined()&&x.name===nm()&&x.total===Math.floor(G.total||0);return '<div class="rk'+(mine?' me':'')+'"><span>'+(i+1)+'位</span><span>'+esc(x.name)+'</span><b>'+x.total+'</b><span></span></div>'}).join(""):'<div class="hint">まだ誰もいません。</div>'}
+  else h+='<div class="hint">'+(RK.err?'読み込めませんでした（'+esc(RK.err)+'）':'読み込んでいます…')+'</div>';
+  if(joined())h+='<div class="pair"><button type="button" class="sm" id="nrkRe">更新</button><button type="button" class="sm" id="nrkQuit">参加をやめる</button></div>';
+  if(RK.err&&RK.list)h+='<div class="hint">（'+esc(RK.err)+'）</div>';
+  return h+'</div>';
+}
+function mount(){
+  if(recView!=="r")return;var card=$("rec")&&$("rec").querySelector(".card");if(!card)return;
+  var old=card.querySelector(".nrk");if(old)old.remove();
+  var st=card.querySelector(".stat");var d=document.createElement("div");d.innerHTML=block();var el=d.firstChild;
+  if(st){st.parentNode.insertBefore(el,st);st.innerHTML="<b>友達ランキング（コードの交換）</b>"}else card.appendChild(el);
+  var j=$("nrkJoin");if(j)j.onclick=function(){
+    if(!nm()){var n=prompt("ランキングに出す名前（12文字まで。本名は使わないでください）","");if(!n||!n.trim())return;G.name=n.trim().slice(0,12);saveG()}
+    lset("dopa:rkjoin","1");RK.me=null;mount();submit().then(load).then(mount);
+  };
+  var r=$("nrkRe");if(r)r.onclick=function(){submit().then(load).then(mount)};
+  var q=$("nrkQuit");if(q)q.onclick=function(){
+    if(!confirm("全国ランキングから、あなたの名前と記録を消しますか？"))return;
+    C().tok().then(function(t){return C().req("/rest/v1/ranking?user_id=eq."+JSON.parse(ls("dopa:cloud")).uid,{m:"DELETE",h:{"Prefer":"return=minimal"}},t)}).catch(function(){}).then(function(){lset("dopa:rkjoin",null);RK.me=null;return load()}).then(mount);
+  };
+}
+if(typeof renderR==="function"){var _rr=renderR;renderR=function(){var r=_rr.apply(this,arguments);try{if(recView==="r"){mount();if(!RK.busy&&Date.now()-RK.t>30000){(joined()?submit():Promise.resolve()).then(load).then(mount)}}}catch(e){}return r}}
+/* テストのあとなど、記録が変わったら少し待って送る */
+var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.apply(this,arguments);if(joined()){clearTimeout(tm);tm=setTimeout(submit,30000)}return r}}
 })();
 
 </script>
