@@ -1,5 +1,5 @@
 /* どぱたん＋ Service Worker：本体はネット優先、画像・声・曲は保存したものを優先 */
-var V="dopaplus-0.1.0";
+var V="dopaplus-0.2.0";
 var CORE=["./",
 "index.html",
 "manifest.webmanifest",
