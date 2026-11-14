@@ -11,7 +11,7 @@
 <meta name="apple-mobile-web-app-title" content="どぱたん＋">
 <meta name="description" content="NGSL・NGSL-GRの5051語をガチャとキャラで覚える英単語アプリ">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="どぱたん">
+<meta property="og:site_name" content="どぱたん＋">
 <meta property="og:title" content="どぱたん＋｜ガチャとキャラで覚える英単語アプリ">
 <meta property="og:description" content="よく使われる英単語5051語（NGSL・NGSL-GR）を、テスト・ガチャ・39人のキャラと一緒に覚える無料の英単語アプリ。">
 <meta property="og:url" content="https://room25-lang.github.io/">
@@ -2284,7 +2284,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <div class="pair"><button class="main" id="iapBuy">全解放パックを購入</button><button id="iapRest">購入を復元</button></div>
   <div class="hint" id="iapMsg"></div></div>
   <div class="dop"><h3>バージョン</h3>
-  <div class="hint">どぱたん ver <b id="verno"></b></div>
+  <div class="hint">どぱたん＋ ver <b id="verno"></b></div>
   <details class="dt"><summary>更新履歴</summary><div id="verlog"></div></details></div>
   <div class="dop"><h3>このアプリについて（クレジット）</h3>
   <div class="hint" id="credAll"></div>
@@ -2399,7 +2399,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
 <div class="ov inv" id="vdl" style="z-index:12"><div class="sheet" id="vdlbody"></div></div>
 <div class="cpg inv" id="cpg"></div><div class="inv" id="rfx"></div><div class="inv" id="bint"></div><div class="ov inv" id="pull"><button class="pclose" id="pullx">✕ 閉じる</button><div class="sheet" id="pullbody"></div></div>
 <div class="ov inv" id="shr" style="z-index:15"><div class="sheet">
-  <div class="pbig" style="font-size:20px">どぱたんをシェア</div>
+  <div class="pbig" style="font-size:20px">どぱたん＋をシェア</div>
   <div class="hint" id="shrTxt" style="text-align:center"></div>
   <button class="main" id="shrX">𝕏　Xに投稿</button>
   <button id="shrAny">LINE・ほかのアプリで共有</button>
@@ -4593,7 +4593,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.53",VLOG=[
+var VERSION="1.54",VLOG=[
+ ["1.54","2026-11-15",["画面やシェア文・引き継ぎ・お問い合わせなどの表示を「どぱたん＋」にそろえました"]],
  ["1.53","2026-11-14",["追加の2,242語（Part5〜7）に、例文と和訳を付けました","追加分の例文の英語音声も収録（「例文を聞く」で再生）"]],
  ["1.52","2026-11-14",["新しい19人の本人の声（自己紹介・タップのセリフ・スキル・ボス、418本）を収録しました"]],
  ["1.51","2026-11-14",["声とキャラの見直し：キャラ本人の声（自己紹介・タップ・スキル・ボス）に加えて、ホームのお気に入りのキャラが「相棒」として、あいさつ・久しぶり・節目・連続正解・目標達成の時に話すように","続けた日数（4・10・21・42日）で、相棒の話し方が親しくなります。10日目に呼び名を聞きます（名前は文字だけで、声では呼びません）","設定に「相棒のセリフ」（多め／ふつう／少なめ／文字だけ）","キャラのセリフ中は、BGMを小さくするように","新しい19人の、本人のセリフ（自己紹介・タップ・スキル・ボス）を追加（声は準備中）"]],
@@ -4654,7 +4655,7 @@ function verHtml(n){return VLOG.slice(0,n||VLOG.length).map(function(v){return '
 function verSeen(){var v="";try{v=localStorage.getItem("dopa:ver")||""}catch(e){}return v}
 function verMark(){try{localStorage.setItem("dopa:ver",VERSION)}catch(e){}}
 function verShow(cb){
-  $("verbody").innerHTML='<div class="vtop"><div class="vbig">UPDATE</div><div class="pbig" style="font-size:20px">どぱたん ver '+VERSION+' に更新しました</div></div>'+verHtml(1)+'<details class="dt"><summary>これまでの更新</summary>'+verHtml().split('<div class="vlg">').slice(2).map(function(x){return '<div class="vlg">'+x}).join("")+'</details><button class="main" id="verok">はじめる</button>';
+  $("verbody").innerHTML='<div class="vtop"><div class="vbig">UPDATE</div><div class="pbig" style="font-size:20px">どぱたん＋ ver '+VERSION+' に更新しました</div></div>'+verHtml(1)+'<details class="dt"><summary>これまでの更新</summary>'+verHtml().split('<div class="vlg">').slice(2).map(function(x){return '<div class="vlg">'+x}).join("")+'</details><button class="main" id="verok">はじめる</button>';
   $("verov").classList.remove("inv");
   $("verok").onclick=function(){$("verov").classList.add("inv");verMark();if(cb)cb()};
 }
@@ -5084,13 +5085,13 @@ function dlcDelete(id,b){
 var APP_URL="https://room25-lang.github.io/",SNS={x:"https://x.com/room_25_dev",yt:"https://www.youtube.com/@room_25_dev",tt:"https://www.tiktok.com/@room_25_dev",ig:"https://www.instagram.com/room_25_dev/",ln:"https://room25-lang.github.io/links/"};
 function openExt(u){try{var w=window.open(u,"_blank","noopener");if(!w)location.href=u}catch(e){location.href=u}}
 function shareText(){var m=0;try{for(var i=0;i<WORDS.length;i++)if(passes(i)>=2)m++}catch(e){}
-  return m?"英単語ガチャ「どぱたん」で、英単語を"+m+"語マスターしました！ #どぱたん":"英単語をガチャとキャラで覚える「どぱたん」をやってます！ #どぱたん"}
+  return m?"英単語ガチャ「どぱたん＋」で、英単語を"+m+"語マスターしました！ #どぱたん":"英単語をガチャとキャラで覚える「どぱたん＋」をやってます！ #どぱたん"}
 function shrOpen(){$("shrTxt").textContent=shareText();$("shrMsg").textContent="";$("shr").classList.remove("inv")}
 $("shareBtn").onclick=shrOpen;
 $("shrCls").onclick=function(){$("shr").classList.add("inv")};
 $("shrX").onclick=function(){openExt("https://x.com/intent/post?text="+encodeURIComponent(shareText()+" @room_25_dev")+"&url="+encodeURIComponent(APP_URL))};
 $("shrAny").onclick=function(){
-  if(navigator.share){navigator.share({title:"どぱたん",text:shareText(),url:APP_URL}).catch(function(){});return}
+  if(navigator.share){navigator.share({title:"どぱたん＋",text:shareText(),url:APP_URL}).catch(function(){});return}
   $("shrCopy").onclick();
 };
 $("shrCopy").onclick=function(){
@@ -6774,9 +6775,9 @@ finish=function(){
   if(notes.length)setTimeout(function(){toast(notes.join("　"),3400)},2600);
   /* C11：特別な結果は共有ボタンを出す */
   var sh="";
-  if(B&&B.hp<=0)sh="どぱたんでボスの"+cById(B.id).name+"を撃破！ "+ids.length*2+"問を"+Math.round(rate*100)+"%で突破しました #どぱたん";
-  else if(perfect)sh="どぱたんで"+ids.length*2+"問PERFECT！ 英単語"+mastered()+"語マスター中 #どぱたん";
-  else if(clr1>clr0&&full)sh="どぱたん STAGE "+(TT.stage+1)+"「"+STAGES[TT.stage].l+"」をクリア！ #どぱたん";
+  if(B&&B.hp<=0)sh="どぱたん＋でボスの"+cById(B.id).name+"を撃破！ "+ids.length*2+"問を"+Math.round(rate*100)+"%で突破しました #どぱたん";
+  else if(perfect)sh="どぱたん＋で"+ids.length*2+"問PERFECT！ 英単語"+mastered()+"語マスター中 #どぱたん";
+  else if(clr1>clr0&&full)sh="どぱたん＋ STAGE "+(TT.stage+1)+"「"+STAGES[TT.stage].l+"」をクリア！ #どぱたん";
   if(sh){var c=$("test").querySelector(".rcard");if(c){var b=document.createElement("button");b.className="v5shr";b.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg> この結果を共有';b.onclick=function(){shrSpecial(sh)};c.insertBefore(b,c.children[1]||null)}}
 };
 function shrSpecial(t){SHRT=t;shrOpen()}
@@ -6791,7 +6792,7 @@ showPull=function(res,title,fx){
   if(fx===undefined||fx===null)return;
   var best=null;res.forEach(function(r){if(r.c&&(!best||r.c.s>best.s))best=r.c});
   if(!best||best.s<5)return;
-  var txt="どぱたんで★"+best.s+"の"+best.name+"をスカウト！ #どぱたん",n=0;
+  var txt="どぱたん＋で★"+best.s+"の"+best.name+"をスカウト！ #どぱたん",n=0;
   var iv=setInterval(function(){
     if(++n>60||$("pull").classList.contains("inv")){clearInterval(iv);return}
     var ok=$("pullok");if(ok&&ok.style.visibility!=="hidden"&&!$("pullShr")){var b=document.createElement("button");b.id="pullShr";b.className="v5shr";b.textContent="★"+best.s+"をスカウトしたことを共有";b.onclick=function(){shrSpecial(txt)};ok.parentNode.insertBefore(b,ok.nextSibling);clearInterval(iv)}
@@ -6828,7 +6829,7 @@ var ACH=[
  ["m500","読み手","習得500語",function(){return mastered()>=500},500],
  ["m1000","語り部","習得1000語",function(){return mastered()>=1000},1000],
  ["m2000","賢者","習得2000語",function(){return mastered()>=2000},2000],
- ["m2809","どぱたんマスター","全"+nBase()+"語を習得",function(){return mastered()>=nBase()},5000],
+ ["m2809","どぱたん＋マスター","全"+nBase()+"語を習得",function(){return mastered()>=nBase()},5000],
  ["b1","挑戦者","ボスを初めて撃破",function(){return Object.keys(G.bw).length>=1},300],
  ["b20","ボスハンター","20人全員のボスを撃破",function(){return Object.keys(G.bw).length>=20},3000],
  ["pf10","パーフェクショニスト","PERFECTを10回",function(){return (G.pfc||0)>=10},1000],
@@ -6914,13 +6915,13 @@ function bkSave(){
   var name="dopatan_backup_"+dayKey().replace(/-/g,"")+".json",js=bkJson();
   try{
     var f=new File([js],name,{type:"application/json"});
-    if(navigator.canShare&&navigator.canShare({files:[f]})&&navigator.share){navigator.share({files:[f],title:"どぱたんのバックアップ"}).then(bkDone,function(e){if(e&&e.name!=="AbortError")bkDl(js,name)});return}
+    if(navigator.canShare&&navigator.canShare({files:[f]})&&navigator.share){navigator.share({files:[f],title:"どぱたん＋のバックアップ"}).then(bkDone,function(e){if(e&&e.name!=="AbortError")bkDl(js,name)});return}
   }catch(e){}
   bkDl(js,name);
 }
 function bkDl(js,name){try{var u=URL.createObjectURL(new Blob([js],{type:"application/json"})),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(u);a.remove()},2000);bkDone()}catch(e){toast("保存できませんでした")}}
 function bkRestore(o){
-  if(!o||o.app!=="dopatan"||!o.ls){toast("どぱたんのバックアップファイルではありません");return}
+  if(!o||o.app!=="dopatan"||!o.ls){toast("どぱたん＋のバックアップファイルではありません");return}
   if(!confirm("バックアップ（"+String(o.date||"").slice(0,10)+"・習得"+(o.m||0)+"語）で、いまのデータを上書きします。よろしいですか？"))return;
   try{var ks=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("dopa")===0)ks.push(k)}ks.forEach(function(k){localStorage.removeItem(k)});Object.keys(o.ls).forEach(function(k){if(k.indexOf("dopa")===0)localStorage.setItem(k,o.ls[k])})}catch(e){toast("復元できませんでした（"+e+"）");return}
   alert("復元しました。アプリを読み込み直します。");location.reload();
@@ -7721,7 +7722,7 @@ function tcOpen(){
   o.innerHTML='<div class="sheet tcs"><div class="tch"><small>TRANSFER</small><b>端末の引き継ぎ</b></div>'+
    '<div class="tcstep"><i>1</i><div><b>今の端末で</b><p>「コードを作る」→「送る」で、LINEのKeepやメモ、自分宛てのメールなどに送ります。</p></div></div>'+
    '<div class="pair"><button class="main" id="tcMk">コードを作る</button><button id="tcSh" disabled>送る・コピー</button></div><textarea id="tcOut" readonly placeholder="ここにコードが出ます"></textarea>'+
-   '<div class="tcstep"><i>2</i><div><b>新しい端末で</b><p>どぱたんを開き、ここにコードを貼り付けて「引き継ぐ」。</p></div></div>'+
+   '<div class="tcstep"><i>2</i><div><b>新しい端末で</b><p>どぱたん＋を開き、ここにコードを貼り付けて「引き継ぐ」。</p></div></div>'+
    '<textarea id="tcIn" placeholder="DPT1. から始まるコードを貼り付け"></textarea><button class="main" id="tcGo">引き継ぐ</button><div class="hint" id="tcMsg"></div>'+
    '<button class="sm" id="tcX">閉じる</button></div>';
   o.classList.remove("inv");
@@ -7729,7 +7730,7 @@ function tcOpen(){
   $("tcX").onclick=function(){o.classList.add("inv")};
   $("tcMk").onclick=function(){msg("作成中…");tcMake().then(function(c){$("tcOut").value=c;$("tcSh").disabled=false;msg("コードを作りました（"+Math.ceil(c.length/1000)+"千文字）。中身は今の進捗・キャラ・設定です。")},function(e){msg(String(e))})};
   $("tcSh").onclick=function(){var c=$("tcOut").value;if(!c)return;
-    if(navigator.share){navigator.share({title:"どぱたん 引き継ぎコード",text:c}).catch(function(){})}
+    if(navigator.share){navigator.share({title:"どぱたん＋ 引き継ぎコード",text:c}).catch(function(){})}
     else if(navigator.clipboard){navigator.clipboard.writeText(c).then(function(){msg("コピーしました")},function(){$("tcOut").select()})}else $("tcOut").select()};
   $("tcGo").onclick=function(){tcRead($("tcIn").value).then(function(obj){V5.bkRestore(obj)},function(e){msg(typeof e==="string"?e:"コードを読み取れませんでした。最後まで貼り付けられているか確認してください。")})};
 }
@@ -7740,7 +7741,7 @@ var FB_FORM="",FB_MAIL="bluecustomsecond14@gmail.com";
 function fbOpen(){
   var info="ver "+VERSION+" / "+(navigator.userAgent||"").replace(/\s+/g," ").slice(0,160);
   if(FB_FORM){openExt(FB_FORM+(FB_FORM.indexOf("?")<0?"?":"&")+"usp=pp_url");return}
-  location.href="mailto:"+FB_MAIL+"?subject="+encodeURIComponent("どぱたん ご意見・不具合")+"&body="+encodeURIComponent("（ここに内容を書いてください）\n\n\n---\n"+info);
+  location.href="mailto:"+FB_MAIL+"?subject="+encodeURIComponent("どぱたん＋ ご意見・不具合")+"&body="+encodeURIComponent("（ここに内容を書いてください）\n\n\n---\n"+info);
 }
 window.fbOpen=fbOpen;
 
@@ -8801,7 +8802,7 @@ function dlg(html,btns){
   w.onclick=function(e){if(e.target===w)close()};document.body.appendChild(w);requestAnimationFrame(function(){w.classList.add("on")});return w;
 }
 function start(){
-  dlg({t:"クラウド保存をはじめる",b:'<p>学習の記録・キャラ・◆を、どぱたんのサーバー（Supabase）に保存します。端末を変えたり、ブラウザのデータが消えたりしても、引き継ぎコードで元に戻せます。</p><p><small>名前やメールアドレスは使いません。保存するのは、アプリの記録だけです。くわしくはプライバシーポリシーをご覧ください。</small></p>'},
+  dlg({t:"クラウド保存をはじめる",b:'<p>学習の記録・キャラ・◆を、どぱたん＋のサーバー（Supabase）に保存します。端末を変えたり、ブラウザのデータが消えたりしても、引き継ぎコードで元に戻せます。</p><p><small>名前やメールアドレスは使いません。保存するのは、アプリの記録だけです。くわしくはプライバシーポリシーをご覧ください。</small></p>'},
    [{t:"やめる"},{t:"はじめる",c:"rsy",f:function(){
      S=S||{};S.on=1;S.err="";put();ui();toast("クラウドに接続しています…",1200);
      saveNow(false).then(function(ok){if(!ok){S.on=0;put();ui()}});
@@ -8812,7 +8813,7 @@ function issue(){
   saveNow(true).then(function(ok){if(!ok)throw new Error(S.err||"保存できませんでした");return tok()}).then(function(t){return req("/rest/v1/rpc/issue_transfer",{m:"POST",b:{}},t)})
    .then(function(code){
      code=String(code||"");var show=code.replace(/(.{4})(?=.)/g,"$1-");
-     var w=dlg({t:"引き継ぎコード",b:'<div class="clcode">'+show+'</div><p>新しい端末のどぱたんで「設定 → データ → コードで引き継ぐ」に入力すると、この記録が移ります。</p><p><small>このコードは、新しく作り直すまで使えます（最後に使ってから180日間）。スクリーンショットかメモで、人に見せずに保管してください。</small></p>'},
+     var w=dlg({t:"引き継ぎコード",b:'<div class="clcode">'+show+'</div><p>新しい端末のどぱたん＋で「設定 → データ → コードで引き継ぐ」に入力すると、この記録が移ります。</p><p><small>このコードは、新しく作り直すまで使えます（最後に使ってから180日間）。スクリーンショットかメモで、人に見せずに保管してください。</small></p>'},
       [{t:"コピー",c:"rsn",f:function(){try{navigator.clipboard.writeText(code);toast("コピーしました",1200)}catch(e){}return false}},{t:"閉じる",c:"rsy"}]);
    }).catch(function(e){toast("コードを作れませんでした（"+(e.message||e)+"）",2800)});
 }
