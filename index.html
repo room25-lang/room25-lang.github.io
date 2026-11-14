@@ -4593,7 +4593,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.52",VLOG=[
+var VERSION="1.53",VLOG=[
+ ["1.53","2026-11-14",["追加の2,242語（Part5〜7）に、例文と和訳を付けました","追加分の例文の英語音声も収録（「例文を聞く」で再生）"]],
  ["1.52","2026-11-14",["新しい19人の本人の声（自己紹介・タップのセリフ・スキル・ボス、418本）を収録しました"]],
  ["1.51","2026-11-14",["声とキャラの見直し：キャラ本人の声（自己紹介・タップ・スキル・ボス）に加えて、ホームのお気に入りのキャラが「相棒」として、あいさつ・久しぶり・節目・連続正解・目標達成の時に話すように","続けた日数（4・10・21・42日）で、相棒の話し方が親しくなります。10日目に呼び名を聞きます（名前は文字だけで、声では呼びません）","設定に「相棒のセリフ」（多め／ふつう／少なめ／文字だけ）","キャラのセリフ中は、BGMを小さくするように","新しい19人の、本人のセリフ（自己紹介・タップ・スキル・ボス）を追加（声は準備中）"]],
  ["1.50","2026-11-14",["アプリの名前を「どぱたん＋」に。これまでの記録はそのまま引き継がれます","NGSL-GRで増えた英単語2,242語を、Part5〜7（STAGE 21〜35）として追加。全5,051語に","新しいキャラ19人を追加（STAGE 21〜35のキャラ15人＋ガチャ限定4人）。全39人に","新しいキャラは、それぞれの声で話します（タップ・入手・スキル発動）"]],
@@ -4757,7 +4758,7 @@ function auStep(){
     },(l1?2300:1700)*sp);
   },(l1?2500:3300)*sp);
 }
-var LAUTO=false,lastP=-1,IRR={draw:"drew|drawn",shake:"shook|shaken",mistake:"mistook|mistaken",feed:"fed",hurt:"hurt",spread:"spread",cost:"cost",bear:"bore|born"};
+var LAUTO=false,lastP=-1,IRR={draw:"drew|drawn",shake:"shook|shaken",mistake:"mistook|mistaken",feed:"fed",hurt:"hurt",spread:"spread",cost:"cost",bear:"bore|born",rebuild:"rebuilt",mislead:"misled",shrink:"shrank|shrunk",creep:"crept",cling:"clung",weep:"wept",handwrite:"handwrote|handwritten",sting:"stung"};
 try{LAUTO=localStorage.getItem("dopa:lauto")==="1"}catch(e){}
 function exHl(en,w){
   var e=esc(en),st=w.replace(/(e|y)$/,""),ir=IRR[w],re;
@@ -4772,7 +4773,7 @@ function render(){
   $("word").textContent=w[0];$("word").classList.toggle("inv",l2&&!shown);
   $("meaning").textContent=w[1];
   $("meaning").classList.toggle("inv",l2?false:!shown);
-  var ex=order[pos]<2809?EXS[String(order[pos]+1)]:null;
+  var ex=EXS[String(order[pos]+1)]||null;
   $("exs").classList.toggle("inv",!(shown&&ex));
   if(ex){$("exen").innerHTML=exHl(ex[0],WORDS[order[pos]][0]);$("exja").textContent=ex[1]}
   if(LAUTO&&!AU.on&&lastP!==pos){lastP=pos;clearTimeout(window.LATM);var p0=pos,w0=w[0];window.LATM=setTimeout(function(){if(pos===p0&&LAUTO&&!AU.on&&!$("lstudy").hidden)speak(w0,0.9)},380)}
