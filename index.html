@@ -2210,6 +2210,35 @@ body.noanim .ptpop{animation:none}
 #cbub i{width:40px;height:40px;border-radius:50%;background-color:#222;background-repeat:no-repeat;flex:0 0 auto}
 .hb2gr.cpop{animation:cpop .35s ease-out}
 @keyframes cpop{0%{opacity:.2;transform:translateY(4px)}100%{opacity:1;transform:none}}
+
+/* v1.55 タイトルの＋ */
+#t2w .t2band b .t2p{display:inline-block;position:relative;width:.6em;height:.6em;margin-left:.06em;vertical-align:.08em;transform:skewX(-10deg)}
+#t2w .t2band b .t2p::before,#t2w .t2band b .t2p::after{content:"";position:absolute;background:currentColor;border-radius:.03em}
+#t2w .t2band b .t2p::before{left:0;right:0;top:50%;height:.18em;margin-top:-.09em}
+#t2w .t2band b .t2p::after{top:0;bottom:0;left:50%;width:.18em;margin-left:-.09em}
+@media (max-width:380px){#t2w .t2band b{font-size:46px}}
+@media (max-height:740px){#t2w .t2band{top:33%}#t2w .t2cap{top:calc(33% + 66px)}#t2w .t2bot{gap:9px}}
+/* v1.55 メール：開いたものは読みやすく */
+.ml.done.open,#homeT .ml.done.open{opacity:1}
+/* v1.55 ガチャ：5人の看板とラインナップ */
+.kv3{right:14%;height:86%;z-index:2;opacity:.9;animation:kvin .5s .12s ease-out both}
+.kv4{right:68%;height:72%;z-index:0;opacity:.75;animation:kvin .5s .22s ease-out both}
+.glu{display:flex;flex-direction:column;gap:5px;border:2px solid var(--line,#444);border-radius:6px;padding:7px 8px;background:rgba(0,0,0,.25)}
+.gluh{display:flex;align-items:baseline;gap:8px}.gluh b{font:900 italic 13px "Arial Black",sans-serif;letter-spacing:.12em;color:var(--acc,#d4ff00)}.gluh small{font-size:11px;color:var(--sub,#aaa)}
+.glul{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;align-items:stretch;scrollbar-width:thin}
+.glus{flex:0 0 auto;writing-mode:vertical-rl;font:900 11px/1 sans-serif;letter-spacing:.1em;padding:4px 2px;border-radius:3px;background:#222;color:#fff;align-self:center}
+.glus.s7{background:linear-gradient(#ff5fa2,#7a5cff,#4df3ff)}.glus.s6{background:#d4a017;color:#111}.glus.s5{background:#c0c4cc;color:#111}.glus.s4{background:#8a5cff}
+.gluc{flex:0 0 auto;position:relative;width:58px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:0;background:none;border:0;color:inherit}
+.gluc img{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid var(--line,#555);background:#222}
+.gluc.s7 img{border-color:#ff5fa2}.gluc.s6 img{border-color:#d4a017}.gluc.s5 img{border-color:#c0c4cc}
+.gluc b{font-size:10px;font-weight:700;max-width:58px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gluc.no img{filter:grayscale(1) brightness(.55)}.gluc.no b{color:var(--sub,#888)}
+.gluc em{position:absolute;top:-2px;right:0;font:900 italic 8px/1 "Arial Black",sans-serif;background:var(--acc,#d4ff00);color:#111;padding:2px 3px;border-radius:2px}
+/* v1.55 範囲：どぱたん／＋GR */
+.bkg{display:flex;gap:6px}
+.bkgb{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 4px;border:2px solid var(--line,#555);border-radius:6px;background:rgba(255,255,255,.04);color:inherit}
+.bkgb b{font-size:14px;font-weight:900}.bkgb small{font-size:10.5px;color:var(--sub,#aaa)}
+body .bkg .bkgb.on{background:var(--acc,#d4ff00)!important;border-color:var(--acc,#d4ff00)!important;color:var(--acc-ink,#111)!important}body .bkg .bkgb.on b,body .bkg .bkgb.on small{color:var(--acc-ink,#111)!important}body .bkg .bkgb.on small{opacity:.75}
 </style>
 </head>
 <body class="dopa">
@@ -2219,7 +2248,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
 <main>
   <div class="homev t2" id="homeV">
     <i class="hc tl"></i><i class="hc tr"></i><i class="hc bl"></i><i class="hc br"></i>
-    <div id="t2w"><div class="t2top">ENGLISH VOCABULARY SYSTEM</div><div class="t2band"><i></i><b>どぱたん＋</b></div><div class="t2cap"><small>NGSL-GR 5051 WORDS · GACHA · CHARACTERS</small><span>英単語5051語を、ガチャとキャラで覚える</span></div>
+    <div id="t2w"><div class="t2top">ENGLISH VOCABULARY SYSTEM</div><div class="t2band"><i></i><b>どぱたん<i class="t2p" aria-label="＋"></i></b></div><div class="t2cap"><small>NGSL-GR 5051 WORDS · GACHA · CHARACTERS</small><span>英単語5051語を、ガチャとキャラで覚える</span></div>
       <div class="t2bot"><button class="pk pkS" id="pickStart"><span>NEW GAME</span><small>はじめる</small></button><div class="hint" id="homeNote" style="text-align:center"></div><div class="hsns"><button data-sns="x" aria-label="公式X"><i>𝕏</i>公式</button><button data-sns="yt" aria-label="公式YouTube"><i>▶</i>YouTube</button><button data-sns="ln" aria-label="公式リンク集"><i>≡</i>リンク集</button></div><div class="hver" id="hver"></div></div>
     </div>
     <div class="hbot" hidden><div class="hint" id="homeInfo"></div></div>
@@ -4593,7 +4622,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.54",VLOG=[
+var VERSION="1.55",VLOG=[
+ ["1.55","2026-11-15",["タイトルの「＋」をロゴと同じ太さに。小さい画面で、説明文とボタンが重ならないように","メールをタップするとすぐ消えて読めなかった不具合を修正（開いたまま読めます）","ガチャ：看板に新しい仲間も登場。このガチャで出るキャラを★ごとに並べた「LINE UP」を追加","新しい19人のレア度を見直しました","学習・テストの範囲を「どぱたん（NGSL）」と「＋GR（追加分）」のタブで切り替えるように"]],
  ["1.54","2026-11-15",["画面やシェア文・引き継ぎ・お問い合わせなどの表示を「どぱたん＋」にそろえました"]],
  ["1.53","2026-11-14",["追加の2,242語（Part5〜7）に、例文と和訳を付けました","追加分の例文の英語音声も収録（「例文を聞く」で再生）"]],
  ["1.52","2026-11-14",["新しい19人の本人の声（自己紹介・タップのセリフ・スキル・ボス、418本）を収録しました"]],
@@ -4892,7 +4922,7 @@ function renderR(msg){
   h+='<div class="stat"><b>ステージ別の進捗</b></div>';
   for(var bi=0;bi<BOOKS.length;bi++){
     var bs=bookStat(bi);
-    h+='<div class="hint" style="margin-top:2px;line-height:1.4"><b>Part'+(bi+1)+'</b>　'+bs.m+'+'+bs.h+' / '+bs.n+'</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:0 12px">';
+    if(bi===0||bi===4)h+='<div class="stat"><b>'+(bi?'＋GR（追加 2242語）':'どぱたん（NGSL 2809語）')+'</b></div>';h+='<div class="hint" style="margin-top:2px;line-height:1.4"><b>Part'+(bi+1)+'</b>　'+bs.m+'+'+bs.h+' / '+bs.n+'</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:0 12px">';
     STAGES.forEach(function(s,k){if(bookOf(k)!==bi)return;var st=stageStat(k);h+=stacked("S"+(k+1)+" "+s.l.split(" ")[0].replace("副詞・その他","副詞他"),st.m,st.h,st.n)});
     h+='</div>';
   }
@@ -5412,7 +5442,7 @@ NEWC.ids.forEach(function(id,i){IMGS[id]=IMGS["t"+id]="chars2/"+id+"_a.webp";CVO
 (function(){var B={"M01": "c01", "F09W": "c11", "M05": "c04", "M06": "c04", "M03": "c08", "M02": "c15", "M04": "c13", "M09": "c14", "M14": "c02", "M15": "c06", "M07B": "c11", "M07W": "c17", "M10B": "c19", "M10W": "c20", "M08": "c19", "M11": "c13", "M12": "c12", "M13": "c12", "M16": "c06"},D={"M01": [210, 760], "F09W": [330, 760], "M05": [270, 760], "M06": [146, 760], "M03": [177, 760], "M02": [261, 760], "M04": [244, 760], "M09": [212, 760], "M14": [167, 760], "M15": [178, 760], "M07B": [235, 760], "M07W": [235, 760], "M10B": [658, 760], "M10W": [658, 760], "M08": [254, 760], "M11": [436, 760], "M12": [529, 760], "M13": [469, 760], "M16": [254, 760]},X={"M01": 0.538, "F09W": 0.393, "M05": 0.507, "M06": 0.521, "M03": 0.497, "M02": 0.472, "M04": 0.442, "M09": 0.482, "M14": 0.481, "M15": 0.541, "M07B": 0.494, "M07W": 0.494, "M10B": 0.502, "M10W": 0.502, "M08": 0.615, "M11": 0.383, "M12": 0.547, "M13": 0.504, "M16": 0.568};NEWC.ids.forEach(function(id,i){var b=B[id];CARDIM[id]=D[id];CCX[id]=X[id];CSEED[id]=40+i;if(CTH[b])CTH[id]=CTH[b]})})();
 try{while(THEMES.length<STAGES.length)THEMES.push(THEMES[THEMES.length-20])}catch(e){}
 var CROWS=[["楓","catV"],["栞","catN"],["夏帆","catA"],["綾","catD"],["冬華","guard"],["結衣","fresh"],["クロ","jack"],["レン","early"],["イオ","late"],["萌黄","combo"],["朝顔","cap"],["鈴麗","disc"],["千代","mast"],["イリス","rec"],["エルナ","lap2"],["ミナモ","free"],["雪乃","finish"],["鈴音","best"],["リリス","haz"],["光","all"],["湊","catV"],["霞","catN"],["陽太","fresh"],["透","catA"],["朔","catD"],["アルト","early"],["宗","combo"],["カイ","cap"],["奏","mast"],["晴","rec"],["夜月","late"],["白夜","best"],["ノクス","finish"],["ルクス","lap2"],["ヴラド","all"],["千歳","jack"],["ハオ","disc"],["ユエ","free"],["灯真","haz"]];
-var STAR_W={1:12,2:9,3:6,4:4,5:3,6:2,7:1.2},STARS=[1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,1,2,2,3,3,3,4,4,5,5,5,5,6,6,7,2,3,4,6];
+var STAR_W={1:12,2:9,3:6,4:4,5:3,6:2,7:1.2},STARS=[1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,5,5,6,6,7,1,3,1,1,2,3,3,2,2,2,5,5,6,6,7,4,4,4,3];
 var CHARS=CROWS.map(function(r,k){var s=STARS[k];return {id:k<20?"c"+(k<9?"0":"")+(k+1):NEWC.ids[k-20],name:r[0],st:k<STAGES.length?k:-1,s:s,star:"★"+s,w:STAR_W[s],ab:r[1]}});
 function cById(id){return CHARS.filter(function(c){return c.id===id})[0]}
 function cSk(c){return ABIL[c.ab].sk}
@@ -5508,7 +5538,7 @@ function renderG(msg){
       B.feat.map(function(id,i){return '<img class="kvc kv'+i+'" src="'+cImg(id)+'" alt="">'}).join("")+
       '<div class="kvt"><div class="kven">'+B.en+'</div><div class="kvjp">'+B.jp+'</div></div>'+
       '<div class="kvtag">'+B.tag+'</div>'+
-      '<div class="kvinfo">対象 '+pool.length+'体　キャラ出現率 約'+(pr*100).toFixed(1)+'%/回　10回ごとにキャラ1体確定</div></div>'+odds+
+      '<div class="kvinfo">対象 '+pool.length+'体　キャラ出現率 約'+(pr*100).toFixed(1)+'%/回　10回ごとにキャラ1体確定</div></div>'+gLineup(pool)+odds+
      '<div class="ginfo"><span>所持 <b>◆ '+G.stones+'</b></span><span>図鑑 '+own+'/'+CHARS.length+'　ハズレ '+hzOwn()+'/'+HZ.length+'</span></div>'+
      '<div class="gmsg" id="gmsg">'+esc(msg||"")+'</div>'+
      '<div class="pair"><button class="sm" data-gh="1">'+(gHelp?'提供割合を閉じる':'提供割合（確率）')+'</button><button class="sm'+(GSKIP?' on':'')+'" id="gskb">演出スキップ：'+(GSKIP?'ON':'OFF')+'</button></div>'+
@@ -5531,6 +5561,7 @@ function renderG(msg){
   for(var r=0;r<ps.length;r++)(function(b){b.onclick=function(){pull(parseInt(b.getAttribute("data-pull")))}})(ps[r]);
   var vi=$("gacha").querySelectorAll(".clist img[data-v]");
   for(var z=0;z<vi.length;z++)(function(m){m.onclick=function(){openCP(m.getAttribute("data-v"))}})(vi[z]);
+  Array.prototype.forEach.call($("gacha").querySelectorAll("[data-glu]"),function(b){b.onclick=function(){var id=b.getAttribute("data-glu");if(lvOf(id)){try{openCP(id)}catch(e){}}else toast("まだ仲間になっていないキャラです")}});
   cgBind();
   var sls=$("gacha").querySelectorAll(".slot[data-sl]");
   for(var z2=0;z2<sls.length;z2++)(function(m){
@@ -5541,6 +5572,11 @@ function renderG(msg){
       window.SLT={id:id,t:now};clearTimeout(window.SLTT);window.SLTT=setTimeout(function(){if(window.SLT&&window.SLT.id===id)cgGo(id)},430);
     };
   })(sls[z2]);
+}
+function gLineup(pool){
+  var L=pool.slice().sort(function(a,b){return b.s-a.s||CHARS.indexOf(a)-CHARS.indexOf(b)}),h='',cur=0;
+  L.forEach(function(c){if(c.s!==cur){cur=c.s;h+='<span class="glus s'+cur+'">★'+cur+'</span>'}var own=lvOf(c.id);h+='<button type="button" class="gluc s'+c.s+(own?'':' no')+'" data-glu="'+c.id+'"><img src="'+IMT(c.id)+'" alt=""><b>'+esc(own?c.name:'？？？')+'</b>'+(c.id[0]!=="c"?'<em>NEW</em>':'')+'</button>'});
+  return '<div class="glu"><div class="gluh"><b>LINE UP</b><small>このガチャで出るキャラ（'+pool.length+'人）</small></div><div class="glul">'+h+'</div></div>';
 }
 function recParty(){
   var own=CHARS.filter(function(c){return lvOf(c.id)}).sort(function(a,b){return b.s-a.s||lvOf(b.id)-lvOf(a.id)||a.st-b.st});
@@ -5564,10 +5600,10 @@ function roll(min){
   return P[0];
 }
 var PMIN={2:400,3:600,4:1000};
-var BAN=[{m:0,k:"std",en:"STANDARD SCOUT",jp:"スタンダード・スカウト",tag:"全キャラ対象",feat:["c20","c07","c01"]},
- {m:2,k:"blu",en:"BLUE SCOUT",jp:"ブルー・スカウト",tag:"★2以上 確定",feat:["c07","c05","c08"]},
- {m:3,k:"vio",en:"VIOLET SCOUT",jp:"バイオレット・スカウト",tag:"★3以上 確定",feat:["c10","c09","c12"]},
- {m:4,k:"gld",en:"GOLD SCOUT",jp:"ゴールド・スカウト",tag:"★4以上 確定",feat:["c20","c19","c16"]}];
+var BAN=[{m:0,k:"std",en:"STANDARD SCOUT",jp:"スタンダード・スカウト",tag:"全キャラ対象",feat:["M08","c20","M07B","c07","c01"]},
+ {m:2,k:"blu",en:"BLUE SCOUT",jp:"ブルー・スカウト",tag:"★2以上 確定",feat:["c07","M14","c05","M03","c08"]},
+ {m:3,k:"vio",en:"VIOLET SCOUT",jp:"バイオレット・スカウト",tag:"★3以上 確定",feat:["c10","M02","c09","M04","c12"]},
+ {m:4,k:"gld",en:"GOLD SCOUT",jp:"ゴールド・スカウト",tag:"★4以上 確定",feat:["c19","M10B","c20","M10W","c16"]}];
 var gBan=0;try{gBan=Math.max(0,Math.min(3,parseInt(localStorage.getItem("dopa:gban"))||0))}catch(e){}
 var GSKIP=false;try{GSKIP=localStorage.getItem("dopa:gskip")==="1"}catch(e){}
 function gskipSet(v){GSKIP=!!v;try{localStorage.setItem("dopa:gskip",GSKIP?"1":"0")}catch(e){}}
@@ -5864,15 +5900,17 @@ function bookStat(b){var r=BK_R[b],m=0,h=0,n=0;for(var i=r[0]-1;i<Math.min(r[1],
 var TS={set:{},bk:0};
 function selPrim(){var k=setKeys(TS);return k.length?k[0]:-1}
 function chipsHtml(S){
-  var h='<div class="hint" style="text-align:center">'+(S.multi?'複数選択中：タップで選択／解除':'ステージを選びます（複数は下のボタン）')+'</div><div class="bk">';
-  for(var bi=0;bi<BOOKS.length;bi++){var bs0=bookStat(bi);h+='<button class="bkb'+(S.bk===bi?' on':'')+'" data-bk="'+bi+'">Part'+(bi+1)+'<small>'+bs0.m+'+'+bs0.h+'/'+bs0.n+'</small></button>'}
+  var h='<div class="hint" style="text-align:center">'+(S.multi?'複数選択中：タップで選択／解除':'ステージを選びます（複数は下のボタン）')+'</div>';
+  var gr=S.bk>=4;h+='<div class="bkg"><button type="button" class="bkgb'+(gr?'':' on')+'" data-bkg="0"><b>どぱたん</b><small>NGSL 2809語・Part1〜4</small></button><button type="button" class="bkgb'+(gr?' on':'')+'" data-bkg="1"><b>＋GR</b><small>追加 2242語・Part5〜7</small></button></div><div class="bk">';
+  for(var bi=gr?4:0;bi<(gr?BOOKS.length:4);bi++){var bs0=bookStat(bi);h+='<button class="bkb'+(S.bk===bi?' on':'')+'" data-bk="'+bi+'">Part'+(bi+1)+'<small>'+bs0.m+'+'+bs0.h+'/'+bs0.n+'</small></button>'}
   h+='</div><div class="stgs">';
   STAGES.forEach(function(st,k){if(bookOf(k)!==S.bk)return;var ss=stageStat(k),fm=ss.n>0&&ss.m>=ss.n;h+='<button class="stgb'+(S.set[k]?' on':'')+(fm?' mst':'')+'" data-stg="'+k+'"><b>S'+(k+1)+'</b> '+st.l.replace('副詞・その他','副詞他')+'<small>'+(fm?ICO("check",11)+' ':'')+ss.m+'+'+ss.h+'/'+ss.n+(SK==="dopa"&&G.clear[k]?(G.perf[k]?' ★★':' ★'):'')+(S!==LS&&!fm&&G.lock["k"+stageRange(k)[0]+"_"+stageRange(k)[1]+"_all"]>Date.now()?' '+ICO("lock",11):'')+'</small></button>'});
   return h+'</div><div class="pair" style="flex:0 0 auto"><button class="sm mulb'+(S.multi?' on':'')+'">複数選択：'+(S.multi?'ON':'OFF')+'</button><button class="sm clrb">選択を解除</button></div>';
 }
 function chipsMark(root,S){Array.prototype.forEach.call(root.querySelectorAll(".stgb"),function(x){x.classList.toggle("on",!!S.set[parseInt(x.getAttribute("data-stg"))])})}
 function chipsBind(root,S,cb){
-  Array.prototype.forEach.call(root.querySelectorAll(".bkb"),function(b){b.onclick=function(){S.bk=parseInt(b.getAttribute("data-bk"));cb("bk")}});
+  Array.prototype.forEach.call(root.querySelectorAll(".bkb"),function(b){b.onclick=function(){S.bk=parseInt(b.getAttribute("data-bk"));S["bkm"+(S.bk>=4?1:0)]=S.bk;cb("bk")}});
+  Array.prototype.forEach.call(root.querySelectorAll(".bkgb"),function(b){b.onclick=function(){var g=+b.getAttribute("data-bkg");if((S.bk>=4?1:0)===g)return;S["bkm"+(S.bk>=4?1:0)]=S.bk;var m=S["bkm"+g];S.bk=(typeof m==="number")?m:(g?4:0);cb("bk")}});
   Array.prototype.forEach.call(root.querySelectorAll(".stgb"),function(b){b.onclick=function(){var k=parseInt(b.getAttribute("data-stg"));if(S.multi){if(S.set[k])delete S.set[k];else S.set[k]=1}else{var was=!!S.set[k]&&setKeys(S).length===1;S.set={};if(!was)S.set[k]=1}chipsMark(root,S);cb("stg")}});
   var mb=root.querySelector(".mulb");if(mb)mb.onclick=function(){S.multi=!S.multi;if(!S.multi){var ks=setKeys(S);S.set={};if(ks.length)S.set[ks[0]]=1}cb("bk")};
   var c=root.querySelector(".clrb");if(c)c.onclick=function(){S.set={};chipsMark(root,S);cb("stg")};
@@ -7002,7 +7040,7 @@ function ibxRender(){
   var all=now.concat(old);
   var LB=$("homeMail")||$("ibxl");if(!LB)return;
   LB.innerHTML=(all.length?"":'<div class="hint" style="text-align:center">メールはありません</div>')+now.map(function(x){return card(x,all.indexOf(x))}).join("")+(old.length?'<div class="mgrp">処理済み</div>'+old.map(function(x){return card(x,all.indexOf(x))}).join(""):"");
-  Array.prototype.forEach.call(LB.querySelectorAll("[data-mi]"),function(el){el.onclick=function(e){if(e.target.closest("[data-ma]"))return;el.classList.toggle("open");var x=all[parseInt(el.getAttribute("data-mi"))];if(x&&x.ntf&&!x.done){x.f();setTimeout(ibxRender,350)}}});
+  Array.prototype.forEach.call(LB.querySelectorAll("[data-mi]"),function(el){el.onclick=function(e){if(e.target.closest("[data-ma]"))return;el.classList.toggle("open");var x=all[parseInt(el.getAttribute("data-mi"))];if(x&&x.ntf&&!x.done){x.f();x.done=true;el.classList.add("done");var mb=el.querySelector("[data-ma]");if(mb)mb.remove();ntfDotV()}}});
   Array.prototype.forEach.call(LB.querySelectorAll("[data-ma]"),function(b){b.onclick=function(e){e.stopPropagation();var x=all[parseInt(b.getAttribute("data-ma"))];if(!x)return;var el=b.closest(".ml");if(el&&!x.keep)el.classList.add("fly");try{var a=ac();if(a&&a.state==="running")sBell(pf(10),a.currentTime+0.01,0.18,0.05)}catch(er){}setTimeout(function(){x.f();ntfDotV();if($("homeMail"))ibxRender()},x.keep?0:240)}});
   ntfDotV();
 }
@@ -8295,7 +8333,7 @@ var hv=$("homeV");
 if(hv){
   hv.classList.add("t2");
   var w=$("t2w");
-  if(!w){w=document.createElement("div");w.id="t2w";w.innerHTML='<div class="t2top">ENGLISH VOCABULARY SYSTEM</div><div class="t2band"><i></i><b>どぱたん＋</b></div><div class="t2cap"><small>NGSL-GR 5051 WORDS · GACHA · CHARACTERS</small><span>英単語5051語を、ガチャとキャラで覚える</span></div><div class="t2bot"></div>';
+  if(!w){w=document.createElement("div");w.id="t2w";w.innerHTML='<div class="t2top">ENGLISH VOCABULARY SYSTEM</div><div class="t2band"><i></i><b>どぱたん<i class="t2p" aria-label="＋"></i></b></div><div class="t2cap"><small>NGSL-GR 5051 WORDS · GACHA · CHARACTERS</small><span>英単語5051語を、ガチャとキャラで覚える</span></div><div class="t2bot"></div>';
   hv.appendChild(w);}
   var bot=w.querySelector(".t2bot");["pickStart","pickCont","homeNote"].forEach(function(id){var e=$(id);if(e)bot.appendChild(e)});
   var sns=hv.querySelector(".hsns");if(sns)bot.appendChild(sns);var hvv=$("hver");if(hvv)bot.appendChild(hvv);
