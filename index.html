@@ -1750,7 +1750,7 @@ body.noanim .rcard.rin>*,body.noanim .rcard.rin .rxhd{animation:none!important}
 #bnd .bnl{position:absolute;left:0;right:0;top:50%;margin-top:-30px;display:flex;justify-content:center;gap:2px;transform:rotate(-14deg);font:900 italic 56px/60px "DopaLogo","Arial Black",sans-serif;color:#0b0c0e;letter-spacing:-.02em}
 #bnd .bnl span{opacity:0;transform:translateY(-40px) scale(1.6);transition:opacity .12s,transform .2s cubic-bezier(.2,1.4,.4,1)}
 #bnd.in .bnl span{opacity:1;transform:none}
-#bnd.in .bnl span:nth-child(1){transition-delay:.3s}#bnd.in .bnl span:nth-child(2){transition-delay:.36s}#bnd.in .bnl span:nth-child(3){transition-delay:.42s}#bnd.in .bnl span:nth-child(4){transition-delay:.48s}
+#bnd.in .bnl span:nth-child(1){transition-delay:.3s}#bnd.in .bnl span:nth-child(2){transition-delay:.36s}#bnd.in .bnl span:nth-child(3){transition-delay:.42s}#bnd.in .bnl span:nth-child(4){transition-delay:.48s}#bnd.in .bnl span:nth-child(5){transition-delay:.56s}#bnd .bnp{display:inline-flex;align-items:center}#bnd .bnp .t2p{display:inline-block;position:relative;width:.6em;height:.6em;margin-left:.08em;transform:skewX(-10deg) translateY(-.04em)}#bnd .bnp .t2p::before,#bnd .bnp .t2p::after{content:"";position:absolute;background:currentColor;border-radius:.03em}#bnd .bnp .t2p::before{left:0;right:0;top:50%;height:.18em;margin-top:-.09em}#bnd .bnp .t2p::after{top:0;bottom:0;left:50%;width:.18em;margin-left:-.09em}
 #bnd.up{background:transparent;transition:background .3s ease}
 #bnd.up .bnb{transform:rotate(-14deg) translateY(-62vh) scaleY(.4);opacity:0;transition:transform .5s cubic-bezier(.6,0,.2,1),opacity .4s ease .15s}
 #bnd.up .bnl{transform:rotate(-14deg) translateY(-62vh) scale(.5);opacity:0;transition:transform .5s cubic-bezier(.6,0,.2,1),opacity .4s ease .15s}
@@ -4799,7 +4799,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.72",VLOG=[
+var VERSION="1.73",VLOG=[
+ ["1.73","2026-11-16",["起動の帯の「どぱたん」に「＋」を付けました"]],
  ["1.72","2026-11-15",["落ちた時に自動で入っていた軽量モードを元に戻しました（ホームのキャラの絵が小さく暗くなる・起動の帯が出ない、の原因）。軽量モードは設定でいつでもオンにできます"]],
  ["1.71","2026-11-15",["止めた背景の位置を、これまで動いていた時と同じあたりに直しました"]],
  ["1.70","2026-11-15",["iPhone のホーム画面に追加したアプリで、ホームを開いて数秒後に落ちる問題を直しました（背景の動くアニメーションが原因だったため、背景を止めた表示にしました）"]],
@@ -8124,7 +8125,7 @@ try{var skd=$("skn")&&$("skn").closest(".dop");if(skd)skd.hidden=true}catch(e){}
   var t0=$("tap0");if(t0)t0.remove();document.body.classList.remove("tap0on");document.body.classList.add("t0done");
   var hv=$("homeV");if(!hv||hv.hidden)return;
   var o=document.createElement("div");o.id="bnd";
-  o.innerHTML='<i class="bnb"></i><div class="bnl"><span>ど</span><span>ぱ</span><span>た</span><span>ん</span></div>';
+  o.innerHTML='<i class="bnb"></i><div class="bnl"><span>ど</span><span>ぱ</span><span>た</span><span>ん</span><span class="bnp"><i class="t2p"></i></span></div>';
   document.body.appendChild(o);
   var started=0,go=function(){
     if(started)return;started=1;
