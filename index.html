@@ -7,6 +7,7 @@ var prevN=parseInt(L.getItem("dopa:boot")||"0",10)||0;
 if(prevN>=1&&L.getItem("dopa:crumb"))L.setItem("dopa:crumbPrev",L.getItem("dopa:crumb"));
 var put=function(){try{L.setItem("dopa:crumb",JSON.stringify({v:"",ua:navigator.userAgent,at:new Date(T0).toLocaleString(),r:R}))}catch(e){}};
 var C=window.crumb=function(m){R.push(((Date.now()-T0)/1000).toFixed(1)+" "+m);if(R.length>700)R.splice(0,R.length-700);put()};
+if(!L.getItem("dopa:litefix1")){L.setItem("dopa:litefix1","1");if(L.getItem("dopa:lite")==="1")L.setItem("dopa:lite","0");L.removeItem("dopa:dbg");L.removeItem("dopa:bis");L.removeItem("dopa:autolite")}
 var BC=[["bg","fx","an","hb","vp","hv"],["bg","fx","an","hb","vp"],["hv"],["hb"],["fx"],["an"],["bg"],["vp"]];window.BISC=BC;
 var BS=null;try{BS=JSON.parse(L.getItem("dopa:bis")||"null")}catch(e){}
 if(BS&&BS.on){if(BS.cur>=0&&prevN>=1)BS.res[BS.cur]="落ちた";BS.cur++;
@@ -42,7 +43,7 @@ try{var MP=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=funct
 document.addEventListener("animationstart",function(e){var t=e.target;C("アニメ "+e.animationName+" "+(t.id||String(t.className&&t.className.baseVal!==undefined?t.className.baseVal:t.className).slice(0,20)))},true);
 }catch(e){}})();</script>
 <script>(function(){try{var L=localStorage,n=parseInt(L.getItem("dopa:boot")||"0",10)||0;
-if(n>=2&&L.getItem("dopa:lite")!=="1"&&!L.getItem("dopa:bis")){L.setItem("dopa:lite","1");L.setItem("dopa:autolite","1")}
+
 L.setItem("dopa:boot",String(n+1));
 var ok=function(){try{L.setItem("dopa:boot","0")}catch(e){}};setTimeout(ok,60000);
 document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")ok()});window.addEventListener("pagehide",ok);
@@ -4798,7 +4799,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.71",VLOG=[
+var VERSION="1.72",VLOG=[
+ ["1.72","2026-11-15",["落ちた時に自動で入っていた軽量モードを元に戻しました（ホームのキャラの絵が小さく暗くなる・起動の帯が出ない、の原因）。軽量モードは設定でいつでもオンにできます"]],
  ["1.71","2026-11-15",["止めた背景の位置を、これまで動いていた時と同じあたりに直しました"]],
  ["1.70","2026-11-15",["iPhone のホーム画面に追加したアプリで、ホームを開いて数秒後に落ちる問題を直しました（背景の動くアニメーションが原因だったため、背景を止めた表示にしました）"]],
  ["1.69","2026-11-15",["不具合の調査用：途中で終了したあとの記録の画面から、原因を自動で切り分けられるようにしました"]],
