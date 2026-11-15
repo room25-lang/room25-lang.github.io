@@ -1,16 +1,16 @@
 :root{
-  --bg:#f4f6fb;--card:#fff;--ink:#1b2333;--sub:#5d6880;--line:#dde3ee;
-  --accent:#2f6df6;--accent-soft:#e6eeff;--warn:#b3261e;
-  --r:14px;
+  --bg:#fff;--card:#fff;--ink:#111;--sub:#666;--line:#d9d9d9;
+  --accent:#111;--on-accent:#fff;--accent-soft:#f4f4f4;--warn:#111;
+  --r:12px;
 }
 @media (prefers-color-scheme:dark){
-  :root{--bg:#10141c;--card:#1a202b;--ink:#e8ecf4;--sub:#9aa5ba;--line:#2c3442;--accent:#6f9bff;--accent-soft:#22304d;--warn:#ff8a80}
+  :root{--bg:#000;--card:#000;--ink:#f2f2f2;--sub:#999;--line:#333;--accent:#f2f2f2;--on-accent:#000;--accent-soft:#141414;--warn:#f2f2f2}
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif}
 .top{padding:20px 16px 6px;max-width:720px;margin:0 auto}
-.top h1{margin:0;font-size:26px;letter-spacing:.04em;color:var(--accent)}
+.top h1{margin:0;font-size:24px;letter-spacing:.08em;font-weight:800}
 .tag{margin:2px 0 0;color:var(--sub);font-size:14px}
 main{max-width:720px;margin:0 auto;padding:8px 12px 24px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:10px 0}
@@ -20,17 +20,17 @@ main{max-width:720px;margin:0 auto;padding:8px 12px 24px}
 .lbl:first-child{margin-top:0}
 textarea,input[type=text],input[type=date]{width:100%;font:inherit;color:inherit;background:transparent;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 textarea{resize:vertical}
-textarea:focus,input:focus{outline:2px solid var(--accent);outline-offset:-1px}
+textarea:focus,input:focus{outline:2px solid var(--ink);outline-offset:-1px}
 .row{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
 .row input{flex:1;min-width:0}
 .btn{font:inherit;border:0;border-radius:999px;padding:9px 16px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
-.btn.main{background:var(--accent);color:#fff;font-weight:700;flex:1;padding:12px 16px}
-.btn.sub{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.btn.main{background:var(--accent);color:var(--on-accent);font-weight:700;flex:1;padding:12px 16px}
+.btn.sub{background:transparent;color:var(--ink);border:1px solid var(--ink);font-weight:600}
 .btn.ghost{background:transparent;color:var(--sub);border:1px solid var(--line)}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{flex:none;font:inherit;font-size:14px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:7px 14px;cursor:pointer}
-.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
-.sub-box{margin-top:10px;padding:10px;border-radius:10px;background:var(--accent-soft)}
+.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.sub-box{margin-top:10px;padding:10px;border-radius:10px;background:var(--accent-soft);border:1px solid var(--line)}
 .sub-box label{font-size:13px;color:var(--sub);display:flex;flex-direction:column;gap:4px;flex:1}
 .msg{font-size:13px;color:var(--sub);margin:8px 0 0}
 .cands,.saved{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
@@ -42,10 +42,11 @@ textarea:focus,input:focus{outline:2px solid var(--accent);outline-offset:-1px}
 .manual summary,.more summary,.raw summary{cursor:pointer;color:var(--sub);font-size:13px}
 .more{margin-top:14px}
 .toggles{display:flex;flex-direction:column;gap:6px;margin-top:12px;font-size:14px}
-.sticky{position:sticky;bottom:8px;box-shadow:0 6px 24px rgba(0,0,0,.08)}
+.sticky{position:sticky;bottom:8px;border-color:var(--ink)}
 .summary{margin:0 0 6px;font-weight:600}
 .raw code{display:block;word-break:break-all;font-size:12px;background:var(--bg);padding:8px;border-radius:8px;margin-top:6px}
-.warn{color:var(--warn);font-size:13px;margin:6px 0 0}
+.warn{color:var(--warn);font-size:13px;font-weight:700;margin:6px 0 0}
+.warn::before{content:"！ "}
 .saved li{display:flex;gap:6px;align-items:center}
 .saved .use{flex:1;text-align:left;font:inherit;font-size:13px;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:7px 10px;cursor:pointer}
 .saved .del{font:inherit;background:transparent;border:0;color:var(--sub);cursor:pointer;padding:6px 8px}
