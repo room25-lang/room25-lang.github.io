@@ -355,7 +355,7 @@ button[data-pm]{min-height:0!important;padding:10px 4px!important;font-size:15px
 .kvbg{position:absolute;inset:0;background:linear-gradient(115deg,var(--k3) 0 38%,var(--k1) 38% 44%,var(--k3) 44% 48%,var(--k2) 48% 100%)}
 .kvdots{position:absolute;inset:0;background:radial-gradient(rgba(0,0,0,.28) 1.3px,transparent 1.6px) 0 0/7px 7px;mix-blend-mode:multiply}
 .kvc{position:absolute;bottom:-6%;height:112%;object-fit:contain;filter:drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 3px 0 #fff) drop-shadow(5px 6px 0 rgba(0,0,0,.6))}
-.kv0{right:-2%;z-index:3;animation:kvin .5s ease-out both}.kv1{right:30%;height:92%;z-index:2;opacity:.95;animation:kvin .5s .08s ease-out both}.kv2{right:52%;height:80%;z-index:1;opacity:.85;animation:kvin .5s .16s ease-out both}
+.kv0{right:-2%;z-index:3;animation:kvin .5s ease-out both}.kv1{right:30%;height:88%;z-index:2;opacity:.95;animation:kvin .5s .08s ease-out both}.kv2{right:52%;height:74%;z-index:1;opacity:.85;animation:kvin .5s .16s ease-out both}
 @keyframes kvin{from{transform:translateX(30px);opacity:0}}
 .kvt{position:absolute;left:8px;top:8px;z-index:4;transform:skewX(-10deg)}
 .kven{font-family:"Arial Black","Dela Gothic One",sans-serif;font-weight:900;font-style:italic;font-size:26px;line-height:.95;color:#fff;-webkit-text-stroke:1.5px #000;text-shadow:3px 3px 0 #000;max-width:62%;letter-spacing:-.02em}
@@ -4392,8 +4392,8 @@ function loopBuf(buf,xf,gap){
   var now=AC.currentTime+0.03,d=xf||5;
   if(gap){
     /* だんだん小さく（3秒）→ 一瞬無音（0.9秒）→ 次の曲を頭から */
-    try{if(bgm.src){var og2=bgm.sg,os2=bgm.src;if(og2){og2.gain.cancelScheduledValues(now);og2.gain.setValueAtTime(Math.max(0.0001,og2.gain.value),now);og2.gain.exponentialRampToValueAtTime(0.0001,now+3)}os2.stop(now+3.1)}}catch(e){}
-    var s2=AC.createBufferSource(),g2=AC.createGain(),n2=AC.createGain(),st2=now+3.9;s2.buffer=buf;s2.loop=true;n2.gain.value=CT&&CT.gm?normGain(buf):1;s2.connect(n2);n2.connect(g2);g2.connect(bgm.bus);
+    try{if(bgm.src){var og2=bgm.sg,os2=bgm.src;if(og2){og2.gain.cancelScheduledValues(now);og2.gain.setValueAtTime(Math.max(0.0001,og2.gain.value),now);og2.gain.exponentialRampToValueAtTime(0.0001,now+1.2)}os2.stop(now+1.3)}}catch(e){}
+    var s2=AC.createBufferSource(),g2=AC.createGain(),n2=AC.createGain(),st2=now+1.35;s2.buffer=buf;s2.loop=true;n2.gain.value=CT&&CT.gm?normGain(buf):1;s2.connect(n2);n2.connect(g2);g2.connect(bgm.bus);
     g2.gain.setValueAtTime(0.0001,st2);g2.gain.exponentialRampToValueAtTime(1,st2+0.5);
     s2.start(st2,0);bgm.src=s2;bgm.sg=g2;bgm.ready=1;bgm.pstart=st2;bgm.pdur=buf.duration;bgm.curK=CT?"c"+CT.id:"";
     return;
@@ -4406,7 +4406,7 @@ function loopBuf(buf,xf,gap){
 }
 function chPeek(){var st=bgm.mode==="study",L=st?studyL():homeL(),v=st?-1:parseInt($("chillSel").value);return L[isNaN(v)||v<0?(chillIdx+1)%L.length:v]}
 var DECB={},DECK=[];
-function decPut(k,b){if(!b||DECB[k])return;DECB[k]=b;DECK.push(k);while(DECK.length>2)delete DECB[DECK.shift()]}
+function decPut(k,b){if(!b||DECB[k])return;DECB[k]=b;DECK.push(k);while(DECK.length>3)delete DECB[DECK.shift()]}
 function chPlay(C){
   var mode=bgm.mode,ck=chKey(C),cached=DECB[ck];
   (cached?function(C2,cb){cb(true,{arrayBuffer:function(){return Promise.resolve(null)}})}:chEnsure)(C,function(ok,blob){
@@ -4419,11 +4419,12 @@ function chPlay(C){
         clearTimeout(bgm.rotT);clearTimeout(bgm.peekT);
         var auto=mode==="study"||$("chillSel").value==="-1";
         if(auto){
-          var nx=chPeek();if(nx&&nx!==C)bgm.peekT=setTimeout(function(){if(bgm.on&&bgm.mode===mode)chEnsure(nx,function(){})},15000);
+          var L0=homeL(),nk=L0.length<2?0:(function(){var k;do{k=Math.floor(Math.random()*L0.length)}while(L0[k]===C);return k})(),nx=L0[nk];bgm.nxK=nk;
+          if(nx&&nx!==C)bgm.peekT=setTimeout(function(){if(bgm.on&&bgm.mode===mode)chEnsure(nx,function(ok,bl){try{var k2=chKey(nx);if(ok&&bl&&bl.arrayBuffer&&!DECB[k2])bl.arrayBuffer().then(function(ab){var p=AC.decodeAudioData(ab,function(b){decPut(k2,b)},function(){});if(p&&p.catch)p.catch(function(){})})}catch(e){}})},8000);
           /* 曲の切れ目（ループのつなぎ目）に合わせて、次の曲へ重ねる */
           /* 1曲＝約4〜5分。ループのつなぎ目でフェードアウトを始める */
           var loops=Math.max(2,Math.round(270/buf.duration)),wait=loops*buf.duration-3;
-          bgm.rotT=setTimeout(function(){if(!bgm.on||bgm.mode!==mode)return;posSave();if(CT)delete POSM["c"+CT.id];chillNext();bgm.gapNext=1;chPlay(CT)},Math.max(30,wait)*1000);
+          bgm.rotT=setTimeout(function(){if(!bgm.on||bgm.mode!==mode)return;posSave();if(CT)delete POSM["c"+CT.id];if(bgm.nxK!=null&&bgm.nxK<homeL().length){CHL=homeL();setChill(bgm.nxK)}else chillNext();bgm.nxK=null;bgm.xfNext=4;chPlay(CT)},Math.max(30,wait)*1000);
         }
       };
       if(cached){done(cached);return}
@@ -4702,7 +4703,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.60",VLOG=[
+var VERSION="1.61",VLOG=[
+ ["1.61","2026-11-15",["ガチャの画面で、キャラ同士が重なりすぎないように並べ直し","iPhoneの「動きの使用」の確認で「キャンセル」を押したら、傾きの機能をオフにして、もう聞かないように（説明が出続ける不具合も修正）","キャラの声が割れることがあったのを修正","キャラを切り替えたら、前のキャラのセリフを止めてから話すように（セリフが後ろに溜まらない）","長いセリフが途中で切れることがあったのを修正","お気に入り・編成のキャラの声を先に読み込んで、タップしてから声が出るまでを短く","セリフ中はBGMをはっきり小さくするように（ストーリーの声も）","キャラ選びの画面で、顔の位置をそろえました","ホームの曲が切り替わるときの無音を、ほぼなくしました"]],
  ["1.60","2026-11-15",["はじめて開いたときの通信量を約半分に（使わなくなった古い声のデータを読まないように）","起動直後に、持っていないキャラの立ち絵まで読み込んでいたのを、仲間のキャラだけに","設定の「DLC」に「オフライン用の全データ」を追加。アプリ版の「すべてダウンロードする」でも、全キャラの声・立ち絵・例文の音声まで保存するように"]],
  ["1.59","2026-11-15",["立ち絵を元の画像そのままの画質に（全39人の立ち絵と表情・ハズレの仲間。顔のアイコンも2倍の解像度に）","元の20人のエピソードを、場面の説明つきで長くしました（追加キャラの話と同じくらいの長さに）","ガチャの「確率・ラインナップ」に、基本の確率と、いまの編成のスキルで上がった後の確率の両方を表示","ルール・得点とガチャ・ストーリーと絆・ステージの説明を、表と図で見やすく","単語の状態の呼び方を「未習得／仮習得（リーチ）／習得済み」に","設定を整理：こだわりの設定（背景・色・自分の曲・イコライザー・立体音響・単語の追加）は「詳細」タブに。説明は「ヘルプ」タブに","最初に始めるときの待ち時間を短く：確認画面を出さず、声だけ数秒で準備してすぐ始まります（BGMは裏で作ります）","説明文の古い数字を今の仕様に（BGMは全ステージ分、声の人数、DLCの説明、実績の名前など）。BGM準備中の「先に進む」ボタンを早めに表示","ストーリーに「MAIN」を追加：男女のキャラが一緒に出てくる共通の話（全8章）。キャラの章を読むほど先が開きます","ストーリーのセリフに声がつきました（全キャラ）。追加キャラの話の呼び方も、やわらかく（きみ）","全39人のセリフを、キャラごとに書き直した台本に（タップ・スキル・ボス・相棒のセリフ）","全39人の声を作り直し：昔のどぱたんと同じ声のキャラに合わせ、声の特徴と性格に合わせて速さ・抑揚・高さ・句読点の間をキャラごとに調整。読み間違いも修正"]],
  ["1.58","2026-11-15",["設定の「表示」に「アクセントカラー」：ボタン・枠・光など、ライム色だった部分の色を、色の円で自由に選べるように","使っていない古いカラーテーマ（設定・説明・見た目の指定）を削除"]],
@@ -5630,7 +5632,7 @@ function renderG(msg){
     $("gacha").innerHTML='<div class="card gcard'+(stillG?' still':'')+'" style="gap:6px">'+tg+
      '<div class="gtabs">'+tabs+'</div>'+
      '<div class="gkv k-'+B.k+'"><div class="kvbg"></div><div class="kvdots"></div>'+
-      B.feat.map(function(id,i){return '<img class="kvc kv'+i+'" src="'+cImg(id)+'" alt="">'}).join("")+
+      B.feat.map(function(id,i){return '<img class="kvc kv'+i+'" src="'+cImg(id)+'" alt="" style="right:auto;left:'+[76,48,22][i]+'%;translate:-'+((CCX[id]||.5)*100).toFixed(1)+'% 0">'}).join("")+
       '<div class="kvt"><div class="kven">'+B.en+'</div><div class="kvjp">'+B.jp+'</div></div>'+
       '<div class="kvtag">'+B.tag+'</div>'+
       '<div class="kvinfo">'+pool.length+'人　出現率 約'+Math.round(pr*100)+'%/回　10回で1人確定</div></div>'+(gHelp?gLineup(pool):'')+odds+
@@ -6330,7 +6332,8 @@ function bossVoice(id,k,delay){
   if(VOX.mode==="off"||!CBOSS[id])return;var line=CBOSS[id][k],sp=cvoice(id);
   setTimeout(function(){voxDirect(sp,line,function(b){if(!b)return;try{voxPlay(URL.createObjectURL(b),line,sp)}catch(e){}})},delay||0);
 }
-function bossFace(id){var x=(CCX[id]||0.5)*100;return 'background-image:url('+IMT(id)+');background-size:auto '+(id==="c16"?"170%":"215%")+';background-position:'+x.toFixed(1)+'% '+(id==="c16"?"10%":"0%")}
+var FYT={"c01": 0.178, "c02": 0.134, "c03": 0.195, "c04": 0.31, "c05": 0.172, "c06": 0.146, "c07": 0.282, "c08": 0.209, "c09": 0.167, "c10": 0.134, "c11": 0.24, "c12": 0.215, "c13": 0.187, "c14": 0.098, "c15": 0.207, "c16": 0.265, "c17": 0.194, "c18": 0.215, "c19": 0.181, "c20": 0.245, "M01": 0.214, "F09W": 0.241, "M05": 0.28, "M06": 0.201, "M03": 0.163, "M02": 0.107, "M04": 0.252, "M09": 0.165, "M14": 0.224, "M15": 0.135, "M07B": 0.23, "M07W": 0.216, "M10B": 0.349, "M10W": 0.349, "M08": 0.192, "M11": 0.2, "M12": 0.188, "M13": 0.109, "M16": 0.143};
+function bossFace(id){var fy=FYT[id]||0.2,py=(0.56-2.98*fy)/(1.386-2.98)*100;return 'background-image:url('+IMT(id)+');background-size:217% auto;background-repeat:no-repeat;background-position:50% '+py.toFixed(1)+'%'}
 function bossIntro(id){
   var el=$("bint");if(!el)return;var c=cById(id);
   el.innerHTML='<div class="bibar"></div><i class="bifig" id="bifig" style="'+bossFace(id)+'"></i><div class="bitx">BOSS BATTLE</div><div class="binm"><b>'+esc(c.name)+'</b><span>'+c.star+'</span></div>';
@@ -8481,7 +8484,7 @@ var bd=$("bnd");if(bd&&!G.starter)bd.classList.add("stay");
 /* ---------- 設定：キャラを傾きで動かす（初期はオフ。オンにした時だけ許可を聞く） ---------- */
 var q=document.querySelector(".v5q");
 if(q&&!$("tiltChk")){
-  var l=document.createElement("label");l.className="rad";l.innerHTML='<input type="checkbox" id="tiltChk"> キャラを傾きで動かす<small style="display:block;font-size:11.5px;opacity:.7;margin-left:28px">スマホを傾けると、立ち絵と背景の光が動きます。iPhoneでは、アプリを起動するたびに最初のタップで「動きの使用」の確認が出ることがあります（オンのままでOK）。</small>';
+  var l=document.createElement("label");l.className="rad";l.innerHTML='<input type="checkbox" id="tiltChk"> キャラを傾きで動かす<small style="display:block;font-size:11.5px;opacity:.7;margin-left:28px">スマホを傾けると、立ち絵と背景の光が動きます。iPhoneでは、オンの間はアプリを起動するたびに最初のタップで「動きの使用」の確認が出ます（iPhoneの決まりです）。「キャンセル」を押すと、この機能はオフになります。</small>';
   q.appendChild(l);
   var c=$("tiltChk");c.checked=window.tiltOn&&tiltOn();
   c.onchange=function(){
@@ -9100,7 +9103,7 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
   window.addEventListener("deviceorientation",function(e){if(e.gamma!=null)got=true},{passive:true});
   var ask=function(){
     if(done||got)return;if(!(window.tiltOn&&tiltOn()))return;done=true;
-    try{DeviceOrientationEvent.requestPermission().then(function(r){if(r!=="granted"){try{V5.toast("傾きの動きを使うには、表示された確認で「許可」を押してください（設定からいつでもオフにできます）",3200)}catch(e){}done=false}}).catch(function(){done=false})}catch(e){done=false}
+    try{DeviceOrientationEvent.requestPermission().then(function(r){if(r!=="granted"){try{localStorage.setItem("dopa:tilt","0")}catch(e){}try{tiltReset()}catch(e){}try{V5.toast("傾きで動かす機能をオフにしました（設定の「キャラを傾きで動かす」からオンに戻せます）",2600)}catch(e){}}}).catch(function(){try{localStorage.setItem("dopa:tilt","0")}catch(e){}})}catch(e){}
   };
   ["click","touchend"].forEach(function(ev){document.addEventListener(ev,ask,{capture:true,passive:true})});
 })();
@@ -9324,6 +9327,60 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
     }
     localStorage.setItem("dopa:blen",String(BASE.length));
   }catch(e){}
+})();
+
+/* ===================== v1.61 声 ===================== */
+(function(){
+  /* 9. セリフ中のBGM：はっきり下げる（効果音の短い下げに上書きされないように） */
+  var DK=0;window.DKU=0;
+  window.bgmDuck=function(ms){
+    try{if(!bgm.on||!bgm.bus||!AC)return;var g=bgm.bus.gain,n=AC.currentTime,b=bgBase();ms=ms||3200;window.DKU=n+ms/1000;
+      g.cancelScheduledValues(n);g.setValueAtTime(g.value,n);g.linearRampToValueAtTime(b*0.16,n+0.18);
+      clearTimeout(DK);DK=setTimeout(function(){try{var n2=AC.currentTime;window.DKU=0;g.cancelScheduledValues(n2);g.setValueAtTime(g.value,n2);g.linearRampToValueAtTime(bgBase(),n2+0.8)}catch(e){}},ms)}catch(e){}
+  };
+  var _dk=duck;duck=function(d){try{if(AC&&AC.currentTime<window.DKU)return}catch(e){}return _dk(d)};
+  /* 10. キャラのセリフは、前のセリフを止めてから話す（後ろに溜まらない） */
+  var LIVE=[],STT;window.VINT=0;
+  var talkish=function(){return window.VINT||STT[VTXT]||/^__c:/.test(VTXT)||isTalk(VTXT)};
+  var vstop=function(a){var n=a.currentTime;LIVE.forEach(function(x){try{x.g.gain.cancelScheduledValues(n);x.g.gain.setValueAtTime(x.g.gain.value,n);x.g.gain.linearRampToValueAtTime(0.0001,n+0.06);x.s.stop(n+0.08)}catch(e){}});LIVE=[];VEND=0};
+  window.voxStopTalk=function(){try{if(AC)vstop(AC)}catch(e){}};
+  /* 4. 音割れ：波形の山に合わせて音量の上限を決める */
+  var pk=function(buf){if(buf.__pk)return buf.__pk;var d=buf.getChannelData(0),m=0;for(var i=0;i<d.length;i+=2){var v=d[i]<0?-d[i]:d[i];if(v>m)m=v}return buf.__pk=Math.max(0.05,m)};
+  voxPlayBuf=function(u,cb,sp){
+    var RT=sp!==undefined?vRate(sp):VOX.rate,a=ac(),tk=talkish();
+    if(a&&a.state!=="running"){try{a.resume()}catch(e){}}
+    if(!a||!MASTER||typeof a.decodeAudioData!=="function"){cb(false);return}
+    var my=tk?(window.VTOK2=(window.VTOK2||0)+1):0;
+    var go=function(buf){
+      try{
+        if(tk&&my!==window.VTOK2){cb(true);return}
+        if(Math.abs(RT-1)>0.02)buf=stretchBuf(a,buf,u,RT);
+        if(tk)vstop(a);
+        var s=a.createBufferSource();s.buffer=buf;
+        var now=a.currentTime,st=tk?now+0.01:Math.max(now,VEND+0.12);
+        if(st-now>2.4){cb(true);return}
+        var g=a.createGain(),vol0=Math.min(1.0,Math.max(0.04,volS/40*0.62));vol0=Math.min(vol0,0.8/pk(buf));
+        g.gain.setValueAtTime(0.0001,st);g.gain.linearRampToValueAtTime(vol0,st+0.012);
+        var cap=tk?60:(CAPU[u]||2.0),dur=Math.min(buf.duration,cap);if(buf.duration>cap){g.gain.setValueAtTime(vol0,st+cap-0.15);g.gain.linearRampToValueAtTime(0.0001,st+cap)}
+        var vp=null;if(spm()&&SPM[spm()].vw&&a.createStereoPanner){vp=a.createStereoPanner();vp.pan.value=(VSIDE=!VSIDE)?-SPM[spm()].vw:SPM[spm()].vw;s.connect(g);g.connect(vp);vp.connect(MASTER)}else{s.connect(g);g.connect(MASTER)}
+        s.start(st);if(buf.duration>cap)s.stop(st+cap+0.03);VEND=st+dur;
+        if(tk){var x={s:s,g:g};LIVE.push(x);s.onended=function(){LIVE=LIVE.filter(function(y){return y!==x})};try{bgmDuck(dur*1000+450)}catch(e){}}else duck(1.3);
+        cb(true);
+      }catch(e){cb(false)}
+    };
+    if(VBUF[u]){go(VBUF[u]);return}
+    try{
+      fetch(u).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer()}).then(function(ab){
+        return new Promise(function(res,rej){var p=a.decodeAudioData(ab,res,rej);if(p&&p.catch)p.catch(rej)});
+      }).then(function(buf){VBUF[u]=buf;go(buf)}).catch(function(){cb(false)});
+    }catch(e){cb(false)}
+  };
+  /* ストーリーの声も、同じ扱い（前の行を止める・BGMを下げる） */
+  STT={};if(typeof stVoice==="function"){var _sv=stVoice;stVoice=function(sp,t){if(t)STT[t]=1;return _sv.apply(this,arguments)}}
+  /* 5. タップから声までを短く：お気に入りと編成のキャラの声を先に読み込む */
+  var pre=function(){try{if(SK!=="dopa"||VOX.mode==="off")return;var ids=[G.fav].concat(G.party||[]).filter(function(x,i,a){return x&&a.indexOf(x)===i&&lvOf(x)});ids.slice(0,5).forEach(function(id,i){setTimeout(function(){packLoad("s"+id,function(){});packLoad("p"+id,function(){})},400+i*500)})}catch(e){}};
+  setTimeout(pre,2500);setInterval(pre,20000);
+  if(typeof saveG==="function"){var _sg=saveG,pt=0;saveG=function(){var r=_sg.apply(this,arguments);clearTimeout(pt);pt=setTimeout(pre,600);return r}}
 })();
 
 </script>
