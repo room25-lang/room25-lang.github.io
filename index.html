@@ -428,7 +428,7 @@ body.dopa.thx .stat b{color:var(--acc)}
 body.dopa.thx .bar{background:var(--Tin)}body.dopa.thx .bar i{background:var(--Tbar)}
 body.dopa.thx .ov{background:var(--bg)}
 /* スタイリッシュ：黒×白×ライム、角ばった形 */
-body.dopa.th-sty{--bg:#0b0c0e;--card:#16181b;--ink:#f4f4f2;--sub:#a9b0b8;--line:#5a6068;--acc:var(--uacc,#d4ff00);--acc-ink:var(--uink,#0b0c0e);--r:3px;--rc:4px;--Tbd:#e8e8e8;--Tbd2:#000;--Tglow:color-mix(in srgb,var(--uacc,#d4ff00) 25%,transparent);--Tb1:#24272b;--Tb2:#15171a;--Tmain:var(--uacc,#d4ff00);--Tmink:#000;--Tmbd:#000;--Tmsh:#5f7300;--Tch:#f4f4f2;--Tchink:#0b0c0e;--Tin:#0b0c0e;--Tbar:var(--uacc,#d4ff00);--Tlogo:var(--uacc,#d4ff00);--Tlogo2:#000}
+body.dopa.th-sty{--bg:#0b0c0e;--card:#16181b;--ink:#f4f4f2;--sub:#a9b0b8;--line:#5a6068;--acc:var(--uacc,#d4ff00);--acc-ink:var(--uink,#0b0c0e);--r:3px;--rc:4px;--Tbd:#e8e8e8;--Tbd2:#000;--Tglow:color-mix(in srgb,var(--uacc,#d4ff00) 25%,transparent);--Tb1:#24272b;--Tb2:#15171a;--Tmain:var(--uacc,#d4ff00);--Tmink:#000;--Tmbd:#000;--Tmsh:color-mix(in srgb,var(--uacc,#d4ff00) 45%,#000);--Tch:#f4f4f2;--Tchink:#0b0c0e;--Tin:#0b0c0e;--Tbar:var(--uacc,#d4ff00);--Tlogo:var(--uacc,#d4ff00);--Tlogo2:#000}
 body.dopa.th-sty button.main,body.dopa.th-sty .tab.on{clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%)}
 body.dopa.th-sty .card{box-shadow:6px 6px 0 #000,0 0 calc(24px*var(--pulse,0)) var(--Tglow)}
 
@@ -876,37 +876,37 @@ body.learnon #bgmF{display:none!important}
 @keyframes bitx{0%{opacity:0;transform:translateX(-40px) skewX(-10deg)}15%{opacity:1;transform:skewX(-10deg)}80%{opacity:1}100%{opacity:0;transform:translateX(30px) skewX(-10deg)}}
 /* v1.16 編成画面：ゼンゼロ風 */
 .card.pcard{background:#0b0b0e;border-color:#2a2a30}
-.zhead{flex:0 0 auto;display:flex;align-items:baseline;gap:10px;padding:2px 2px 0;border-bottom:2px solid #d7f20a}
-.zhead{white-space:nowrap}.zhead b{font:900 italic 22px "Arial Black",sans-serif;letter-spacing:1px;color:#fff;transform:skewX(-8deg)}.zhead span{font:700 13px monospace;color:#d7f20a}.zhead em{margin-left:auto;font-style:normal;font-size:10px;color:#8a8a92}
+.zhead{flex:0 0 auto;display:flex;align-items:baseline;gap:10px;padding:2px 2px 0;border-bottom:2px solid var(--uacc,#d7f20a)}
+.zhead{white-space:nowrap}.zhead b{font:900 italic 22px "Arial Black",sans-serif;letter-spacing:1px;color:#fff;transform:skewX(-8deg)}.zhead span{font:700 13px monospace;color:var(--uacc,#d7f20a)}.zhead em{margin-left:auto;font-style:normal;font-size:10px;color:#8a8a92}
 .cgs.zz{flex-direction:row;align-items:stretch;gap:0;position:relative;padding:8px 0 4px;min-height:min(56vh,520px)}
 .zbg{position:absolute;inset:0;overflow:hidden;z-index:0;background:linear-gradient(115deg,color-mix(in srgb,var(--zc) 55%,#000) 0 38%,#121216 38% 100%)}
 .zbg::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 2px,transparent 2px 14px)}
-.zht{position:absolute;right:-10%;bottom:-10%;width:70%;height:60%;background:radial-gradient(circle,rgba(215,242,10,.22) 1.2px,transparent 1.6px) 0 0/9px 9px;-webkit-mask-image:radial-gradient(circle at 70% 70%,#000,transparent 70%);mask-image:radial-gradient(circle at 70% 70%,#000,transparent 70%)}
+.zht{position:absolute;right:-10%;bottom:-10%;width:70%;height:60%;background:radial-gradient(circle,color-mix(in srgb,var(--uacc,#d7f20a) 22%,transparent) 1.2px,transparent 1.6px) 0 0/9px 9px;-webkit-mask-image:radial-gradient(circle at 70% 70%,#000,transparent 70%);mask-image:radial-gradient(circle at 70% 70%,#000,transparent 70%)}
 .zno{position:absolute;right:-6px;top:-18px;font:900 italic 150px/1 "Arial Black",sans-serif;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.1)}
 .zz .cgc{position:relative;z-index:1;height:auto;width:58%;max-width:none;aspect-ratio:586/1000;align-self:center;margin-left:1%;transform:rotate(-2deg)}
 .zinf{position:relative;z-index:1;flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;padding:4px 8px 4px 12px;color:#fff}
-.ztag{font:700 10px monospace;letter-spacing:2px;color:#8a8a92}.ztag b{color:#d7f20a}
+.ztag{font:700 10px monospace;letter-spacing:2px;color:#8a8a92}.ztag b{color:var(--uacc,#d7f20a)}
 .znm{color:#fff;-webkit-text-fill-color:#fff;font:900 italic clamp(28px,9vw,40px)/1.05 "Arial Black",sans-serif;letter-spacing:1px;transform:skewX(-6deg);transform-origin:left;text-shadow:3px 3px 0 #000,0 0 14px color-mix(in srgb,var(--zc) 80%,transparent)}
 .zrow{display:flex;gap:6px;align-items:center}
 .zrk{font:900 italic 13px "Arial Black",sans-serif;padding:2px 10px;background:#9aa3ad;color:#000;transform:skewX(-14deg)}.zrk.r3,.zrk.r4{background:#c98552}.zrk.r5,.zrk.r6{background:#e9c35a}.zrk.r7{background:linear-gradient(90deg,#ff9ad5,#ffe27a,#8fe3ff)}
-.zin{font-size:11px;font-weight:900;padding:2px 8px;background:#d7f20a;color:#000;transform:skewX(-14deg)}
+.zin{font-size:11px;font-weight:900;padding:2px 8px;background:var(--uacc,#d7f20a);color:#000;transform:skewX(-14deg)}
 .zlv{display:flex;align-items:baseline;gap:4px;margin-top:4px}.zlv span{font:700 11px monospace;color:#8a8a92}.zlv b{font:900 italic 34px/1 "Arial Black",sans-serif}.zlv em{font-style:normal;font:700 13px monospace;color:#8a8a92}
-.zseg{display:flex;gap:3px}.zseg i{flex:1;height:6px;background:#2c2c33;transform:skewX(-20deg)}.zseg i.f{background:#d7f20a;box-shadow:0 0 6px rgba(215,242,10,.6)}
-.zsk{margin-top:4px;padding:7px 9px;background:rgba(255,255,255,.05);border-left:3px solid #d7f20a;clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%)}
-.zsk em{display:block;font:700 9px monospace;letter-spacing:2px;color:#8a8a92;font-style:normal}.zsk b{font-size:14px;color:#d7f20a}.zsk p{margin:3px 0 0;font-size:11.5px;line-height:1.45;color:#e8e8ec}
+.zseg{display:flex;gap:3px}.zseg i{flex:1;height:6px;background:#2c2c33;transform:skewX(-20deg)}.zseg i.f{background:var(--uacc,#d7f20a);box-shadow:0 0 6px color-mix(in srgb,var(--uacc,#d7f20a) 60%,transparent)}
+.zsk{margin-top:4px;padding:7px 9px;background:rgba(255,255,255,.05);border-left:3px solid var(--uacc,#d7f20a);clip-path:polygon(0 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%)}
+.zsk em{display:block;font:700 9px monospace;letter-spacing:2px;color:#8a8a92;font-style:normal}.zsk b{font-size:14px;color:var(--uacc,#d7f20a)}.zsk p{margin:3px 0 0;font-size:11.5px;line-height:1.45;color:#e8e8ec}
 .zmeta{font-size:10px;line-height:1.5;color:#8a8a92}
-.zeq{margin-top:auto;min-height:40px!important;font-weight:900!important;font-size:15px!important;background:#d7f20a!important;color:#000!important;border:0!important;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);border-radius:0!important}
+.zeq{margin-top:auto;min-height:40px!important;font-weight:900!important;font-size:15px!important;background:var(--uacc,#d7f20a)!important;color:#000!important;border:0!important;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%);border-radius:0!important}
 .zeq.on{background:#2c2c33!important;color:#fff!important}
 .zz.lk .znm{color:#555}.zz.lk .cglk{top:44%}
 .pcard .cths{gap:4px;padding:6px 2px 8px;border-bottom:1px solid #2a2a30}
 .pcard .cth{flex:0 0 46px;width:46px;height:58px;border-radius:0!important;transform:skewX(-10deg);overflow:hidden;background:#1c1c22!important;border:0!important;border-bottom:3px solid #9aa3ad!important;opacity:.6;position:relative}
 .pcard .cth>i{position:absolute;inset:0 -8px;transform:skewX(10deg);background-size:300% auto;background-repeat:no-repeat}
 .pcard .cth.r3,.pcard .cth.r4{border-bottom-color:#c98552!important}.pcard .cth.r5,.pcard .cth.r6{border-bottom-color:#e9c35a!important}.pcard .cth.r7{border-bottom-color:#ff9ad5!important}
-.pcard .cth.on{opacity:1;transform:skewX(-10deg) translateY(-3px);box-shadow:0 0 0 2px #d7f20a!important}
-.pcard .cth.eq::after{content:"";position:absolute;right:2px;top:2px;width:8px;height:8px;background:#d7f20a;transform:skewX(10deg)}
+.pcard .cth.on{opacity:1;transform:skewX(-10deg) translateY(-3px);box-shadow:0 0 0 2px var(--uacc,#d7f20a)!important}
+.pcard .cth.eq::after{content:"";position:absolute;right:2px;top:2px;width:8px;height:8px;background:var(--uacc,#d7f20a);transform:skewX(10deg)}
 .pcard .cth.lk{filter:none}.pcard .cth.lk>i{filter:brightness(0) opacity(.7)}
 .pcard .slots{grid-template-columns:repeat(6,1fr);gap:4px}
-.pcard .slot{height:66px;transform:skewX(-8deg);background:#1c1c22;border-bottom:3px solid #d7f20a}
+.pcard .slot{height:66px;transform:skewX(-8deg);background:#1c1c22;border-bottom:3px solid var(--uacc,#d7f20a)}
 .pcard .slot .cimg{object-fit:cover;object-position:50% 0;width:100%;height:160%;align-self:flex-start}
 .pcard .slot .nm{font-size:9px;line-height:1.2}
 .pcard .slot.lk,.pcard .slot.em{height:66px;border-bottom-color:#2c2c33;font-size:9px}.pcard .slot.lk .sm{font-size:9px;min-height:0;padding:2px}
@@ -929,23 +929,23 @@ body.learnon #bgmF{display:none!important}
 /* 表示の切り替え */
 .zvw{margin-left:auto;display:flex;gap:2px}
 .zvw button{min-height:0!important;padding:3px 12px!important;font-size:11px!important;font-weight:900!important;border:0!important;border-radius:0!important;background:#2c2c33!important;color:#aaa!important;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%)}
-.zvw button.on{background:#d7f20a!important;color:#000!important}
+.zvw button.on{background:var(--uacc,#d7f20a)!important;color:#000!important}
 /* ひし形タイルの一覧（方眼） */
 .zgrid{flex:0 0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:6px 0;padding:6px 4px 2px;margin-right:-8px}
 .zg{position:relative;aspect-ratio:1/1.22;min-height:0!important;padding:0!important;border:0!important;border-radius:0!important;background:linear-gradient(160deg,#26262e,#141418)!important;clip-path:polygon(22% 0,100% 0,78% 100%,0 100%);margin-right:-12%;overflow:hidden;cursor:pointer}
 .zg>i{position:absolute;inset:0 6% 0 6%;background-repeat:no-repeat;-webkit-mask-image:linear-gradient(#000 60%,transparent 92%);mask-image:linear-gradient(#000 60%,transparent 92%)}
 .zg>span{position:absolute;left:0;right:0;bottom:0;padding:14px 0 6px;display:flex;flex-direction:column;align-items:center;line-height:1.1;background:linear-gradient(transparent,rgba(0,0,0,.85) 55%)}
-.zg>span b{font-size:11px;color:#fff;font-weight:900}.zg>span em{font:italic 900 10px "Arial Black",sans-serif;color:#d7f20a}
+.zg>span b{font-size:11px;color:#fff;font-weight:900}.zg>span em{font:italic 900 10px "Arial Black",sans-serif;color:var(--uacc,#d7f20a)}
 .zg::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:#9aa3ad}
 .zg.r3::after,.zg.r4::after{background:#c98552}.zg.r5::after,.zg.r6::after{background:#e9c35a}.zg.r7::after{background:linear-gradient(90deg,#ff9ad5,#ffe27a,#8fe3ff)}
-.zg.eq::before{content:"";position:absolute;right:22%;top:0;width:0;height:0;border-top:16px solid #d7f20a;border-left:16px solid transparent;z-index:2}
+.zg.eq::before{content:"";position:absolute;right:22%;top:0;width:0;height:0;border-top:16px solid var(--uacc,#d7f20a);border-left:16px solid transparent;z-index:2}
 .zg.lk>i{filter:brightness(0) opacity(.75)}.zg.lk>span b{color:#666}
 .zg:active{filter:brightness(1.3)}
 
 /* v1.19 ガチャ演出（古いテレビの砂嵐 → 信号） */
 #gfx.g3{background:#050506;cursor:pointer;--gc:#fff}
 .g3 .g3bg{position:absolute;inset:0;background:repeating-linear-gradient(115deg,#0d0d10 0 22px,#08080a 22px 44px)}
-.g3 .g3hz{position:absolute;left:-10%;right:-10%;bottom:9%;height:26px;background:repeating-linear-gradient(-45deg,#d7f20a 0 16px,#111 16px 32px);transform:rotate(-3deg);opacity:.85}
+.g3 .g3hz{position:absolute;left:-10%;right:-10%;bottom:9%;height:26px;background:repeating-linear-gradient(-45deg,var(--uacc,#d7f20a) 0 16px,#111 16px 32px);transform:rotate(-3deg);opacity:.85}
 .g3 .g3tv{position:absolute;left:50%;top:44%;width:min(84vw,420px);aspect-ratio:4/3;transform:translate(-50%,-50%) scale(.92);border-radius:22px;background:#1b1b20;padding:14px;box-shadow:0 0 0 3px #2c2c33,0 18px 40px rgba(0,0,0,.7);transition:transform .3s}
 .g3.go .g3tv{transform:translate(-50%,-50%) scale(1)}
 .g3 .g3scr{position:relative;width:100%;height:100%;border-radius:14px/18px;overflow:hidden;background:#111}
@@ -2263,6 +2263,12 @@ body .bkg .bkgb.on{background:var(--acc,var(--uacc,#d4ff00))!important;border-co
 #ov label.rad:has(>small){display:grid!important;grid-template-columns:auto 1fr;align-items:center;column-gap:8px}
 #ov label.rad>small{grid-column:1/-1;margin-left:0!important}
 #ov .sheet[data-st="x"] [data-sc]:not([data-sc="x"]){display:none}
+
+.topr #cvBtn{border-color:color-mix(in srgb,var(--acc,var(--uacc,#d4ff00)) 55%,transparent)!important}
+.topr #cvBtn i{color:var(--acc,var(--uacc,#d4ff00))!important}
+#ov .sheet[data-st="u"] [data-sc]:not([data-sc="u"]){display:none}
+#ov .tbsel select{width:100%;margin-top:4px}
+#ov .stab button.on{background:var(--acc)!important;color:var(--acc-ink)!important;border-color:var(--acc)!important}
 </style>
 </head>
 <body class="dopa">
@@ -2534,7 +2540,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
 </div></div>
 <div class="ov inv" id="appdl" style="z-index:16"><div class="sheet">
   <div class="pbig" style="font-size:22px">アプリ版へようこそ</div>
-  <div class="hint" style="font-size:14px;line-height:1.7">すべてのデータ（掛け声・全キャラの声・立ち絵・例文の音声・全テーマのBGM、約337MB）を、いまこの端末にダウンロードしますか？<br>ダウンロードすると、ネットがなくても全部の声と曲が使えます（Wi-Fi推奨・数分かかります）。</div>
+  <div class="hint" style="font-size:14px;line-height:1.7">すべてのデータ（掛け声・全キャラの声・立ち絵・例文の音声・全テーマのBGM、約362MB）を、いまこの端末にダウンロードしますか？<br>ダウンロードすると、ネットがなくても全部の声と曲が使えます（Wi-Fi推奨・数分かかります）。</div>
   <button class="main" id="appdlYes">すべてダウンロードする</button>
   <button id="appdlNo">あとで（設定の「DLC」からいつでもできます）</button>
 </div></div>
@@ -3208,7 +3214,7 @@ function cImg(id){if(CIMU[id])return CIMU[id];var u=IMF(id)||IMT(id);
 /* キャラごとのページ（ゼンゼロ風）：左右にめくる・カードをタップでセリフ・Lvでセリフが増える */
 var CGI=0,CGV='grid';try{CGV=localStorage.getItem('dopa:cgv2')==='card'?'card':'grid'}catch(e){}
 function cgHtml(){
-  var own=CHARS.filter(function(c){return lvOf(c.id)}),lk=CHARS.filter(function(c){return !lvOf(c.id)}),L=own.concat(lk);
+  var own=CHARS.filter(function(c){return lvOf(c.id)}),lk=CHARS.filter(function(c){return !lvOf(c.id)}),L=bySt(own).concat(bySt(lk));
   CGI=Math.min(CGI,L.length-1);
   var sl=CGV!=='card'?'':L.map(function(c){var id=c.id,lv=lvOf(id),eq=G.party.indexOf(id)>=0,n=cplN(lv,id),t=CTH[id],no=("0"+(CHARS.indexOf(c)+1)).slice(-2),seg="";
     for(var q=1;q<=5;q++)seg+='<i'+(q<=lv?' class="f"':'')+'></i>';
@@ -4336,6 +4342,27 @@ function musicPrepare(show,th){
   })();
   return true;
 }
+/* テストBGM（mp3）：dopa:tbm = auto（午前A・午後C）／A／C／old（これまでの曲） */
+function tbMode(){try{return localStorage.getItem("dopa:tbm")||"auto"}catch(e){return "auto"}}
+function tbSet(){var m=tbMode();if(m==="old")return "";if(m==="A"||m==="C")return m;var h=new Date().getHours();return (h>=4&&h<12)?"A":"C"}
+var TBB={};
+function loadTB(k,lap){
+  var set=bgm.tb||tbSet(),u="bgm/t"+set+("0"+(k%35+1)).slice(-2)+".mp3",rate=function(){return tmpf()*LPB[lap||0]};
+  var go=function(buf){
+    if(!bgm.on||!bgm.pre||!bgm.tb||bgm.stage!==k)return;
+    var now=AC.currentTime,tf=rate();
+    if(bgm.src&&bgm.curK===u){try{bgm.src.playbackRate.setTargetAtTime(tf,now,0.3);bgm.ngn.gain.setTargetAtTime(normGain(buf)*[1,1.04,1.08,1.12][lap||0],now,0.3)}catch(e){}bgm.pdur=buf.duration/tf;return}
+    var off=0,pm=POSM["t"+k];off=(pm!==undefined?pm:0)*buf.duration;
+    try{if(bgm.src){var og=bgm.sg;if(og){og.gain.cancelScheduledValues(now);og.gain.setValueAtTime(og.gain.value,now);og.gain.linearRampToValueAtTime(0,now+0.6)}bgm.src.stop(now+0.65)}}catch(e){}
+    var s=AC.createBufferSource(),sg=AC.createGain(),ngn=AC.createGain();s.buffer=buf;s.loop=true;ngn.gain.value=normGain(buf)*[1,1.04,1.08,1.12][lap||0];s.connect(ngn);ngn.connect(sg);sg.connect(bgm.bus);
+    sg.gain.setValueAtTime(0.0001,now);sg.gain.linearRampToValueAtTime(1,now+(bgm.src?0.6:0.3));
+    s.playbackRate.value=tf;s.start(now,off);bgm.src=s;bgm.sg=sg;bgm.ngn=ngn;bgm.pstart=now-off/tf;bgm.pdur=buf.duration/tf;bgm.curK=u;
+    bgm.preS=1;bgm.bus.gain.value=bgBase();bgm.ready=1;
+  };
+  var fail=function(){if(bgm.on&&bgm.pre&&bgm.tb){bgm.tb=0;bgm.pre=false;bgm.custom=false;startGen()}};
+  if(TBB[u]){go(TBB[u]);return}
+  fetch(u).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer()}).then(function(ab){var done=function(b){Object.keys(TBB).forEach(function(x){if(x!==u)delete TBB[x]});TBB[u]=b;go(b)};var p=AC.decodeAudioData(ab,done,fail);if(p&&p.then)p.then(done,fail)}).catch(fail);
+}
 function loadPre(k,lap){
   trackGet(preKey(k,lap),function(blob){
     if(!bgm.on||!bgm.pre||bgm.stage!==k)return;
@@ -4457,11 +4484,12 @@ function bgmStart(mode){
   var fg=a.createGain(),fnow=a.currentTime,fd=(Date.now()-LASTVIS<4000)?0.5:(bgm.started?0.25:0.9);bgm.started=1;fg.gain.setValueAtTime(0,fnow);fg.gain.linearRampToValueAtTime(1,fnow+fd);fg.connect(bgmDest());bgm.bus.connect(fg);bgm.fg=fg;
   if(!LITE){var rs=a.createGain();rs.gain.value=0.15;fg.connect(rs);rs.connect(REVB)}
   bgm.on=true;bgm.ready=0;
-  bgm.pre=false;
+  bgm.pre=false;bgm.tb=0;
   if(mode==="test"&&RH.on&&RH.has){bgm.custom=true;bgm.rhy=true;bgm.bus.gain.value=bgBase();rhLoad(rhStart)}
   else if(mode==="test"&&HAS[st]){bgm.custom=true;bgm.bus.gain.value=bgBase();loadTrack(st)}
   else if(mode==="test"&&UT.all){bgm.custom=true;bgm.bus.gain.value=bgBase();loadTrack("tall")}
   else if(mode==="chill"&&UT.home){bgm.custom=true;bgm.bus.gain.value=bgBase();loadTrack("thome")}
+  else if(mode==="test"&&tbSet()){bgm.custom=true;bgm.pre=true;bgm.tb=tbSet();bgm.arr=bgLevel();bgm.preS=1;bgm.bus.gain.value=bgBase();loadTB(st,bgm.arr)}
   else if(mode==="test"&&PREH[st]){bgm.custom=true;bgm.pre=true;bgm.arr=bgLevel();bgm.preS=1;bgm.bus.gain.value=bgBase();loadPre(st,bgLevel())}
   else if(mode==="test"&&OCOK()){bgm.custom=true;bgm.pre=true;bgm.arr=bgLevel();bgm.preS=1;bgm.bus.gain.value=bgBase();preStage(st,function(ok){if(!bgm.on||bgm.stage!==st||bgm.mode!=="test")return;if(ok)loadPre(st,bgm.arr);else{bgm.pre=false;bgm.custom=false;startGen()}})}
   else if((mode==="chill"||mode==="study")&&OCOK()){bgm.custom=true;bgm.bus.gain.value=bgBase();chPlay(CT)}
@@ -4485,7 +4513,7 @@ function lvSound(a){
 function bgmArr(a){
   if(!bgm.on||bgm.mode!=="test"||(bgm.arr||0)===a)return;
   var up=a>(bgm.arr||0);
-  if(bgm.pre){bgm.arr=a;loadPre(bgm.stage,a);if(up)lvSound(a);return}
+  if(bgm.pre){bgm.arr=a;if(bgm.tb)loadTB(bgm.stage,a);else loadPre(bgm.stage,a);if(up)lvSound(a);return}
   if(bgm.custom){bgm.arr=a;if(bgm.rhy)return;try{if(bgm.src&&bgm.src.playbackRate)bgm.src.playbackRate.value=LPB[a]}catch(e){}return}
   var tn=bgm.t0+bgm.n*SD;
   bgm.arr=a;BPM=regBpm()*LM[a];SD=60/BPM/4;KSH=TH.sh+REGSH[REG]+LK[a];bgm.t0=tn-bgm.n*SD;
@@ -4703,7 +4731,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.61",VLOG=[
+var VERSION="1.62",VLOG=[
+ ["1.62","2026-11-15",["テストのBGMを新しく：午前は落ち着いたローファイ、午後は夜の街のエレクトロ。ステージごとに別の曲（設定の「音」で、いつも同じ雰囲気にもできます）","設定を整理：「声」と「音」を「音」にまとめ、背景・色・アニメーション・傾きなど見た目の設定を「画面」タブに","アクセントカラーを変えても、ボタンの形が変わる所などに前のライム色が残っていたのを修正","VOICEボタンの色も、アクセントカラーに合わせるように","キャラ選びの画面を、レア度の高い順に並べるように","キャラ選びの画面で、顔の大きさをそろえました"]],
  ["1.61","2026-11-15",["ガチャの画面で、キャラ同士が重なりすぎないように並べ直し","iPhoneの「動きの使用」の確認で「キャンセル」を押したら、傾きの機能をオフにして、もう聞かないように（説明が出続ける不具合も修正）","キャラの声が割れることがあったのを修正","キャラを切り替えたら、前のキャラのセリフを止めてから話すように（セリフが後ろに溜まらない）","長いセリフが途中で切れることがあったのを修正","お気に入り・編成のキャラの声を先に読み込んで、タップしてから声が出るまでを短く","セリフ中はBGMをはっきり小さくするように（ストーリーの声も）","キャラ選びの画面で、顔の位置をそろえました","ホームの曲が切り替わるときの無音を、ほぼなくしました"]],
  ["1.60","2026-11-15",["はじめて開いたときの通信量を約半分に（使わなくなった古い声のデータを読まないように）","起動直後に、持っていないキャラの立ち絵まで読み込んでいたのを、仲間のキャラだけに","設定の「DLC」に「オフライン用の全データ」を追加。アプリ版の「すべてダウンロードする」でも、全キャラの声・立ち絵・例文の音声まで保存するように"]],
  ["1.59","2026-11-15",["立ち絵を元の画像そのままの画質に（全39人の立ち絵と表情・ハズレの仲間。顔のアイコンも2倍の解像度に）","元の20人のエピソードを、場面の説明つきで長くしました（追加キャラの話と同じくらいの長さに）","ガチャの「確率・ラインナップ」に、基本の確率と、いまの編成のスキルで上がった後の確率の両方を表示","ルール・得点とガチャ・ストーリーと絆・ステージの説明を、表と図で見やすく","単語の状態の呼び方を「未習得／仮習得（リーチ）／習得済み」に","設定を整理：こだわりの設定（背景・色・自分の曲・イコライザー・立体音響・単語の追加）は「詳細」タブに。説明は「ヘルプ」タブに","最初に始めるときの待ち時間を短く：確認画面を出さず、声だけ数秒で準備してすぐ始まります（BGMは裏で作ります）","説明文の古い数字を今の仕様に（BGMは全ステージ分、声の人数、DLCの説明、実績の名前など）。BGM準備中の「先に進む」ボタンを早めに表示","ストーリーに「MAIN」を追加：男女のキャラが一緒に出てくる共通の話（全8章）。キャラの章を読むほど先が開きます","ストーリーのセリフに声がつきました（全キャラ）。追加キャラの話の呼び方も、やわらかく（きみ）","全39人のセリフを、キャラごとに書き直した台本に（タップ・スキル・ボス・相棒のセリフ）","全39人の声を作り直し：昔のどぱたんと同じ声のキャラに合わせ、声の特徴と性格に合わせて速さ・抑揚・高さ・句読点の間をキャラごとに調整。読み間違いも修正"]],
@@ -5137,7 +5166,7 @@ function dlcRender(){
   var lf=dlcLeft(),mins=Math.max(1,Math.round((lf.v*0.05+lf.b*0.45)/60));
   var top=DLCQ?'<div class="dlall"><b>まとめてインストール中（'+DLCQ.i+' / '+DLCQ.ids.length+'）</b><button class="sm" id="dlcStopB">中止</button></div>':
     ((lf.v+lf.b)>0?'<button class="main" id="dlcAllB">残りをまとめてインストール（約'+mins+'分）</button><div class="hint">声 '+lf.v+' 個・BGM '+lf.b+' 曲が残っています。Wi-Fiで、画面を開いたまま待つのがおすすめです。</div>':'<div class="dlall"><b>すべてインストール済みです</b></div>');
-  var ofl='<div class="dlc" id="oflBox"><div class="dlh"><span class="dlt">まとめて</span><b>オフライン用の全データ</b></div><div class="hint">全キャラの声（本人・相棒・ストーリー）・立ち絵・例文の音声・ホームの曲を、この端末に保存します（約337MB。Wi-Fi推奨）。保存すると、ネットがなくても使えます。</div><div class="vbar"><i id="oflBar" style="width:0%"></i></div><div class="dls" id="oflSt">'+(OFQ?'保存中… '+OFQ.i+' / '+OFL.length:'確認中…')+'</div><div class="pair"><button class="sm" id="oflGo"'+(OFQ?' disabled':'')+'>保存する</button></div></div>';
+  var ofl='<div class="dlc" id="oflBox"><div class="dlh"><span class="dlt">まとめて</span><b>オフライン用の全データ</b></div><div class="hint">全キャラの声（本人・相棒・ストーリー）・立ち絵・例文の音声・ホームの曲を、この端末に保存します（約362MB。Wi-Fi推奨）。保存すると、ネットがなくても使えます。</div><div class="vbar"><i id="oflBar" style="width:0%"></i></div><div class="dls" id="oflSt">'+(OFQ?'保存中… '+OFQ.i+' / '+OFL.length:'確認中…')+'</div><div class="pair"><button class="sm" id="oflGo"'+(OFQ?' disabled':'')+'>保存する</button></div></div>';
   el.innerHTML=top+ofl+rows.map(function(r){
     var st=r[4],done=st&&st[0]>=st[1],pc=st?Math.round(st[0]/st[1]*100):0,busy=(r[0].charAt(0)==="v"&&VOX.saving&&DLCB===r[0])||(r[0].charAt(0)==="b"&&MP.on&&MP.th===r[0].slice(2));
     return '<div class="dlc'+(done?' done':'')+'"><div class="dlh"><span class="dlt">'+r[1]+'</span><b>'+r[2]+'</b></div><div class="hint">'+r[3]+'</div>'+
@@ -5232,7 +5261,7 @@ function themeMeta(){try{var bg=getComputedStyle(document.body).getPropertyValue
 setTimeout(themeMeta,0);
 /* ---- アプリ版（ホーム画面・Google Play）：最初に開いたとき、全データDLを選べる ---- */
 function isApp(){try{return (window.matchMedia&&(matchMedia("(display-mode: standalone)").matches||matchMedia("(display-mode: fullscreen)").matches))||navigator.standalone===true||(document.referrer||"").indexOf("android-app://")===0}catch(e){return false}}
-var OFL=["chars2/F09W_a.webp", "chars2/F09W_b.webp", "chars2/F09W_e.webp", "chars2/F09W_g.webp", "chars2/M01_a.webp", "chars2/M01_b.webp", "chars2/M01_e.webp", "chars2/M01_g.webp", "chars2/M02_a.webp", "chars2/M02_b.webp", "chars2/M02_e.webp", "chars2/M02_g.webp", "chars2/M03_a.webp", "chars2/M03_b.webp", "chars2/M03_e.webp", "chars2/M03_g.webp", "chars2/M04_a.webp", "chars2/M04_b.webp", "chars2/M04_e.webp", "chars2/M04_g.webp", "chars2/M05_a.webp", "chars2/M05_b.webp", "chars2/M05_e.webp", "chars2/M05_g.webp", "chars2/M06_a.webp", "chars2/M06_b.webp", "chars2/M06_e.webp", "chars2/M06_g.webp", "chars2/M07B_a.webp", "chars2/M07B_b.webp", "chars2/M07B_e.webp", "chars2/M07B_g.webp", "chars2/M07W_a.webp", "chars2/M07W_b.webp", "chars2/M07W_e.webp", "chars2/M07W_g.webp", "chars2/M08_a.webp", "chars2/M08_b.webp", "chars2/M08_e.webp", "chars2/M08_g.webp", "chars2/M09_a.webp", "chars2/M09_b.webp", "chars2/M09_e.webp", "chars2/M09_g.webp", "chars2/M10B_a.webp", "chars2/M10B_b.webp", "chars2/M10B_e.webp", "chars2/M10B_g.webp", "chars2/M10W_a.webp", "chars2/M10W_b.webp", "chars2/M10W_e.webp", "chars2/M10W_g.webp", "chars2/M11_a.webp", "chars2/M11_b.webp", "chars2/M11_e.webp", "chars2/M11_g.webp", "chars2/M12_a.webp", "chars2/M12_b.webp", "chars2/M12_e.webp", "chars2/M12_g.webp", "chars2/M13_a.webp", "chars2/M13_b.webp", "chars2/M13_e.webp", "chars2/M13_g.webp", "chars2/M14_a.webp", "chars2/M14_b.webp", "chars2/M14_e.webp", "chars2/M14_g.webp", "chars2/M15_a.webp", "chars2/M15_b.webp", "chars2/M15_e.webp", "chars2/M15_g.webp", "chars2/M16_a.webp", "chars2/M16_b.webp", "chars2/M16_e.webp", "chars2/M16_g.webp", "chars2/c01.webp", "chars2/c02.webp", "chars2/c03.webp", "chars2/c04.webp", "chars2/c05.webp", "chars2/c06.webp", "chars2/c07.webp", "chars2/c08.webp", "chars2/c09.webp", "chars2/c10.webp", "chars2/c11.webp", "chars2/c12.webp", "chars2/c13.webp", "chars2/c14.webp", "chars2/c15.webp", "chars2/c16.webp", "chars2/c17.webp", "chars2/c18.webp", "chars2/c19.webp", "chars2/c20.webp", "chars2/h1.webp", "chars2/h2.webp", "chars2/h3.webp", "chars2/h4.webp", "chars2/h5.webp", "chars2/t_F09W.webp", "chars2/t_M01.webp", "chars2/t_M02.webp", "chars2/t_M03.webp", "chars2/t_M04.webp", "chars2/t_M05.webp", "chars2/t_M06.webp", "chars2/t_M07B.webp", "chars2/t_M07W.webp", "chars2/t_M08.webp", "chars2/t_M09.webp", "chars2/t_M10B.webp", "chars2/t_M10W.webp", "chars2/t_M11.webp", "chars2/t_M12.webp", "chars2/t_M13.webp", "chars2/t_M14.webp", "chars2/t_M15.webp", "chars2/t_M16.webp", "chars2/t_c01.webp", "chars2/t_c02.webp", "chars2/t_c03.webp", "chars2/t_c04.webp", "chars2/t_c05.webp", "chars2/t_c06.webp", "chars2/t_c07.webp", "chars2/t_c08.webp", "chars2/t_c09.webp", "chars2/t_c10.webp", "chars2/t_c11.webp", "chars2/t_c12.webp", "chars2/t_c13.webp", "chars2/t_c14.webp", "chars2/t_c15.webp", "chars2/t_c16.webp", "chars2/t_c17.webp", "chars2/t_c18.webp", "chars2/t_c19.webp", "chars2/t_c20.webp", "voices/e1.mp3", "voices/e10.mp3", "voices/e11.mp3", "voices/e12.mp3", "voices/e13.mp3", "voices/e14.mp3", "voices/e15.mp3", "voices/e16.mp3", "voices/e17.mp3", "voices/e18.mp3", "voices/e19.mp3", "voices/e2.mp3", "voices/e20.mp3", "voices/e21.mp3", "voices/e22.mp3", "voices/e23.mp3", "voices/e24.mp3", "voices/e25.mp3", "voices/e26.mp3", "voices/e27.mp3", "voices/e28.mp3", "voices/e29.mp3", "voices/e3.mp3", "voices/e30.mp3", "voices/e31.mp3", "voices/e32.mp3", "voices/e33.mp3", "voices/e34.mp3", "voices/e35.mp3", "voices/e4.mp3", "voices/e5.mp3", "voices/e6.mp3", "voices/e7.mp3", "voices/e8.mp3", "voices/e9.mp3", "voices/v10.mp3", "voices/v107.mp3", "voices/v108.mp3", "voices/v109.mp3", "voices/v14.mp3", "voices/v16.mp3", "voices/v2.mp3", "voices/v23.mp3", "voices/v27.mp3", "voices/v43.mp3", "voices/v46.mp3", "voices/v47.mp3", "voices/v51.mp3", "voices/v54.mp3", "voices/v58.mp3", "voices/v6.mp3", "voices/v61.mp3", "voices/v65.mp3", "voices/v68.mp3", "voices/v74.mp3", "voices/v8.mp3", "voices/vpF09W.mp3", "voices/vpM01.mp3", "voices/vpM02.mp3", "voices/vpM03.mp3", "voices/vpM04.mp3", "voices/vpM05.mp3", "voices/vpM06.mp3", "voices/vpM07B.mp3", "voices/vpM07W.mp3", "voices/vpM08.mp3", "voices/vpM09.mp3", "voices/vpM10B.mp3", "voices/vpM10W.mp3", "voices/vpM11.mp3", "voices/vpM12.mp3", "voices/vpM13.mp3", "voices/vpM14.mp3", "voices/vpM15.mp3", "voices/vpM16.mp3", "voices/vpc01.mp3", "voices/vpc02.mp3", "voices/vpc03.mp3", "voices/vpc04.mp3", "voices/vpc05.mp3", "voices/vpc06.mp3", "voices/vpc07.mp3", "voices/vpc08.mp3", "voices/vpc09.mp3", "voices/vpc10.mp3", "voices/vpc11.mp3", "voices/vpc12.mp3", "voices/vpc13.mp3", "voices/vpc14.mp3", "voices/vpc15.mp3", "voices/vpc16.mp3", "voices/vpc17.mp3", "voices/vpc18.mp3", "voices/vpc19.mp3", "voices/vpc20.mp3", "voices/vsF09W.mp3", "voices/vsM01.mp3", "voices/vsM02.mp3", "voices/vsM03.mp3", "voices/vsM04.mp3", "voices/vsM05.mp3", "voices/vsM06.mp3", "voices/vsM07B.mp3", "voices/vsM07W.mp3", "voices/vsM08.mp3", "voices/vsM09.mp3", "voices/vsM10B.mp3", "voices/vsM10W.mp3", "voices/vsM11.mp3", "voices/vsM12.mp3", "voices/vsM13.mp3", "voices/vsM14.mp3", "voices/vsM15.mp3", "voices/vsM16.mp3", "voices/vsc01.mp3", "voices/vsc02.mp3", "voices/vsc03.mp3", "voices/vsc04.mp3", "voices/vsc05.mp3", "voices/vsc06.mp3", "voices/vsc07.mp3", "voices/vsc08.mp3", "voices/vsc09.mp3", "voices/vsc10.mp3", "voices/vsc11.mp3", "voices/vsc12.mp3", "voices/vsc13.mp3", "voices/vsc14.mp3", "voices/vsc15.mp3", "voices/vsc16.mp3", "voices/vsc17.mp3", "voices/vsc18.mp3", "voices/vsc19.mp3", "voices/vsc20.mp3", "voices/vtF09W.mp3", "voices/vtM01.mp3", "voices/vtM02.mp3", "voices/vtM03.mp3", "voices/vtM04.mp3", "voices/vtM05.mp3", "voices/vtM06.mp3", "voices/vtM07B.mp3", "voices/vtM07W.mp3", "voices/vtM08.mp3", "voices/vtM09.mp3", "voices/vtM10B.mp3", "voices/vtM10W.mp3", "voices/vtM11.mp3", "voices/vtM12.mp3", "voices/vtM13.mp3", "voices/vtM14.mp3", "voices/vtM15.mp3", "voices/vtM16.mp3", "voices/vtc01.mp3", "voices/vtc02.mp3", "voices/vtc03.mp3", "voices/vtc04.mp3", "voices/vtc05.mp3", "voices/vtc06.mp3", "voices/vtc07.mp3", "voices/vtc08.mp3", "voices/vtc09.mp3", "voices/vtc10.mp3", "voices/vtc11.mp3", "voices/vtc12.mp3", "voices/vtc13.mp3", "voices/vtc14.mp3", "voices/vtc15.mp3", "voices/vtc16.mp3", "voices/vtc17.mp3", "voices/vtc18.mp3", "voices/vtc19.mp3", "voices/vtc20.mp3", "bgm/hA1.mp3", "bgm/hA2.mp3", "bgm/hA3.mp3", "bgm/hB1.mp3", "bgm/hB2.mp3", "bgm/hB3.mp3", "bgm/hC1.mp3", "bgm/hC2.mp3", "bgm/hC3.mp3", "bgm/hD1.mp3", "bgm/hD2.mp3", "bgm/hD3.mp3"],OFQ=null;
+var OFL=["chars2/F09W_a.webp", "chars2/F09W_b.webp", "chars2/F09W_e.webp", "chars2/F09W_g.webp", "chars2/M01_a.webp", "chars2/M01_b.webp", "chars2/M01_e.webp", "chars2/M01_g.webp", "chars2/M02_a.webp", "chars2/M02_b.webp", "chars2/M02_e.webp", "chars2/M02_g.webp", "chars2/M03_a.webp", "chars2/M03_b.webp", "chars2/M03_e.webp", "chars2/M03_g.webp", "chars2/M04_a.webp", "chars2/M04_b.webp", "chars2/M04_e.webp", "chars2/M04_g.webp", "chars2/M05_a.webp", "chars2/M05_b.webp", "chars2/M05_e.webp", "chars2/M05_g.webp", "chars2/M06_a.webp", "chars2/M06_b.webp", "chars2/M06_e.webp", "chars2/M06_g.webp", "chars2/M07B_a.webp", "chars2/M07B_b.webp", "chars2/M07B_e.webp", "chars2/M07B_g.webp", "chars2/M07W_a.webp", "chars2/M07W_b.webp", "chars2/M07W_e.webp", "chars2/M07W_g.webp", "chars2/M08_a.webp", "chars2/M08_b.webp", "chars2/M08_e.webp", "chars2/M08_g.webp", "chars2/M09_a.webp", "chars2/M09_b.webp", "chars2/M09_e.webp", "chars2/M09_g.webp", "chars2/M10B_a.webp", "chars2/M10B_b.webp", "chars2/M10B_e.webp", "chars2/M10B_g.webp", "chars2/M10W_a.webp", "chars2/M10W_b.webp", "chars2/M10W_e.webp", "chars2/M10W_g.webp", "chars2/M11_a.webp", "chars2/M11_b.webp", "chars2/M11_e.webp", "chars2/M11_g.webp", "chars2/M12_a.webp", "chars2/M12_b.webp", "chars2/M12_e.webp", "chars2/M12_g.webp", "chars2/M13_a.webp", "chars2/M13_b.webp", "chars2/M13_e.webp", "chars2/M13_g.webp", "chars2/M14_a.webp", "chars2/M14_b.webp", "chars2/M14_e.webp", "chars2/M14_g.webp", "chars2/M15_a.webp", "chars2/M15_b.webp", "chars2/M15_e.webp", "chars2/M15_g.webp", "chars2/M16_a.webp", "chars2/M16_b.webp", "chars2/M16_e.webp", "chars2/M16_g.webp", "chars2/c01.webp", "chars2/c02.webp", "chars2/c03.webp", "chars2/c04.webp", "chars2/c05.webp", "chars2/c06.webp", "chars2/c07.webp", "chars2/c08.webp", "chars2/c09.webp", "chars2/c10.webp", "chars2/c11.webp", "chars2/c12.webp", "chars2/c13.webp", "chars2/c14.webp", "chars2/c15.webp", "chars2/c16.webp", "chars2/c17.webp", "chars2/c18.webp", "chars2/c19.webp", "chars2/c20.webp", "chars2/h1.webp", "chars2/h2.webp", "chars2/h3.webp", "chars2/h4.webp", "chars2/h5.webp", "chars2/t_F09W.webp", "chars2/t_M01.webp", "chars2/t_M02.webp", "chars2/t_M03.webp", "chars2/t_M04.webp", "chars2/t_M05.webp", "chars2/t_M06.webp", "chars2/t_M07B.webp", "chars2/t_M07W.webp", "chars2/t_M08.webp", "chars2/t_M09.webp", "chars2/t_M10B.webp", "chars2/t_M10W.webp", "chars2/t_M11.webp", "chars2/t_M12.webp", "chars2/t_M13.webp", "chars2/t_M14.webp", "chars2/t_M15.webp", "chars2/t_M16.webp", "chars2/t_c01.webp", "chars2/t_c02.webp", "chars2/t_c03.webp", "chars2/t_c04.webp", "chars2/t_c05.webp", "chars2/t_c06.webp", "chars2/t_c07.webp", "chars2/t_c08.webp", "chars2/t_c09.webp", "chars2/t_c10.webp", "chars2/t_c11.webp", "chars2/t_c12.webp", "chars2/t_c13.webp", "chars2/t_c14.webp", "chars2/t_c15.webp", "chars2/t_c16.webp", "chars2/t_c17.webp", "chars2/t_c18.webp", "chars2/t_c19.webp", "chars2/t_c20.webp", "voices/e1.mp3", "voices/e10.mp3", "voices/e11.mp3", "voices/e12.mp3", "voices/e13.mp3", "voices/e14.mp3", "voices/e15.mp3", "voices/e16.mp3", "voices/e17.mp3", "voices/e18.mp3", "voices/e19.mp3", "voices/e2.mp3", "voices/e20.mp3", "voices/e21.mp3", "voices/e22.mp3", "voices/e23.mp3", "voices/e24.mp3", "voices/e25.mp3", "voices/e26.mp3", "voices/e27.mp3", "voices/e28.mp3", "voices/e29.mp3", "voices/e3.mp3", "voices/e30.mp3", "voices/e31.mp3", "voices/e32.mp3", "voices/e33.mp3", "voices/e34.mp3", "voices/e35.mp3", "voices/e4.mp3", "voices/e5.mp3", "voices/e6.mp3", "voices/e7.mp3", "voices/e8.mp3", "voices/e9.mp3", "voices/v10.mp3", "voices/v107.mp3", "voices/v108.mp3", "voices/v109.mp3", "voices/v14.mp3", "voices/v16.mp3", "voices/v2.mp3", "voices/v23.mp3", "voices/v27.mp3", "voices/v43.mp3", "voices/v46.mp3", "voices/v47.mp3", "voices/v51.mp3", "voices/v54.mp3", "voices/v58.mp3", "voices/v6.mp3", "voices/v61.mp3", "voices/v65.mp3", "voices/v68.mp3", "voices/v74.mp3", "voices/v8.mp3", "voices/vpF09W.mp3", "voices/vpM01.mp3", "voices/vpM02.mp3", "voices/vpM03.mp3", "voices/vpM04.mp3", "voices/vpM05.mp3", "voices/vpM06.mp3", "voices/vpM07B.mp3", "voices/vpM07W.mp3", "voices/vpM08.mp3", "voices/vpM09.mp3", "voices/vpM10B.mp3", "voices/vpM10W.mp3", "voices/vpM11.mp3", "voices/vpM12.mp3", "voices/vpM13.mp3", "voices/vpM14.mp3", "voices/vpM15.mp3", "voices/vpM16.mp3", "voices/vpc01.mp3", "voices/vpc02.mp3", "voices/vpc03.mp3", "voices/vpc04.mp3", "voices/vpc05.mp3", "voices/vpc06.mp3", "voices/vpc07.mp3", "voices/vpc08.mp3", "voices/vpc09.mp3", "voices/vpc10.mp3", "voices/vpc11.mp3", "voices/vpc12.mp3", "voices/vpc13.mp3", "voices/vpc14.mp3", "voices/vpc15.mp3", "voices/vpc16.mp3", "voices/vpc17.mp3", "voices/vpc18.mp3", "voices/vpc19.mp3", "voices/vpc20.mp3", "voices/vsF09W.mp3", "voices/vsM01.mp3", "voices/vsM02.mp3", "voices/vsM03.mp3", "voices/vsM04.mp3", "voices/vsM05.mp3", "voices/vsM06.mp3", "voices/vsM07B.mp3", "voices/vsM07W.mp3", "voices/vsM08.mp3", "voices/vsM09.mp3", "voices/vsM10B.mp3", "voices/vsM10W.mp3", "voices/vsM11.mp3", "voices/vsM12.mp3", "voices/vsM13.mp3", "voices/vsM14.mp3", "voices/vsM15.mp3", "voices/vsM16.mp3", "voices/vsc01.mp3", "voices/vsc02.mp3", "voices/vsc03.mp3", "voices/vsc04.mp3", "voices/vsc05.mp3", "voices/vsc06.mp3", "voices/vsc07.mp3", "voices/vsc08.mp3", "voices/vsc09.mp3", "voices/vsc10.mp3", "voices/vsc11.mp3", "voices/vsc12.mp3", "voices/vsc13.mp3", "voices/vsc14.mp3", "voices/vsc15.mp3", "voices/vsc16.mp3", "voices/vsc17.mp3", "voices/vsc18.mp3", "voices/vsc19.mp3", "voices/vsc20.mp3", "voices/vtF09W.mp3", "voices/vtM01.mp3", "voices/vtM02.mp3", "voices/vtM03.mp3", "voices/vtM04.mp3", "voices/vtM05.mp3", "voices/vtM06.mp3", "voices/vtM07B.mp3", "voices/vtM07W.mp3", "voices/vtM08.mp3", "voices/vtM09.mp3", "voices/vtM10B.mp3", "voices/vtM10W.mp3", "voices/vtM11.mp3", "voices/vtM12.mp3", "voices/vtM13.mp3", "voices/vtM14.mp3", "voices/vtM15.mp3", "voices/vtM16.mp3", "voices/vtc01.mp3", "voices/vtc02.mp3", "voices/vtc03.mp3", "voices/vtc04.mp3", "voices/vtc05.mp3", "voices/vtc06.mp3", "voices/vtc07.mp3", "voices/vtc08.mp3", "voices/vtc09.mp3", "voices/vtc10.mp3", "voices/vtc11.mp3", "voices/vtc12.mp3", "voices/vtc13.mp3", "voices/vtc14.mp3", "voices/vtc15.mp3", "voices/vtc16.mp3", "voices/vtc17.mp3", "voices/vtc18.mp3", "voices/vtc19.mp3", "voices/vtc20.mp3", "bgm/hA1.mp3", "bgm/hA2.mp3", "bgm/hA3.mp3", "bgm/hB1.mp3", "bgm/hB2.mp3", "bgm/hB3.mp3", "bgm/hC1.mp3", "bgm/hC2.mp3", "bgm/hC3.mp3", "bgm/hD1.mp3", "bgm/hD2.mp3", "bgm/hD3.mp3", "bgm/tA01.mp3", "bgm/tA02.mp3", "bgm/tA03.mp3", "bgm/tA04.mp3", "bgm/tA05.mp3", "bgm/tA06.mp3", "bgm/tA07.mp3", "bgm/tA08.mp3", "bgm/tA09.mp3", "bgm/tA10.mp3", "bgm/tA11.mp3", "bgm/tA12.mp3", "bgm/tA13.mp3", "bgm/tA14.mp3", "bgm/tA15.mp3", "bgm/tA16.mp3", "bgm/tA17.mp3", "bgm/tA18.mp3", "bgm/tA19.mp3", "bgm/tA20.mp3", "bgm/tA21.mp3", "bgm/tA22.mp3", "bgm/tA23.mp3", "bgm/tA24.mp3", "bgm/tA25.mp3", "bgm/tA26.mp3", "bgm/tA27.mp3", "bgm/tA28.mp3", "bgm/tA29.mp3", "bgm/tA30.mp3", "bgm/tA31.mp3", "bgm/tA32.mp3", "bgm/tA33.mp3", "bgm/tA34.mp3", "bgm/tA35.mp3", "bgm/tC01.mp3", "bgm/tC02.mp3", "bgm/tC03.mp3", "bgm/tC04.mp3", "bgm/tC05.mp3", "bgm/tC06.mp3", "bgm/tC07.mp3", "bgm/tC08.mp3", "bgm/tC09.mp3", "bgm/tC10.mp3", "bgm/tC11.mp3", "bgm/tC12.mp3", "bgm/tC13.mp3", "bgm/tC14.mp3", "bgm/tC15.mp3", "bgm/tC16.mp3", "bgm/tC17.mp3", "bgm/tC18.mp3", "bgm/tC19.mp3", "bgm/tC20.mp3", "bgm/tC21.mp3", "bgm/tC22.mp3", "bgm/tC23.mp3", "bgm/tC24.mp3", "bgm/tC25.mp3", "bgm/tC26.mp3", "bgm/tC27.mp3", "bgm/tC28.mp3", "bgm/tC29.mp3", "bgm/tC30.mp3", "bgm/tC31.mp3", "bgm/tC32.mp3", "bgm/tC33.mp3", "bgm/tC34.mp3", "bgm/tC35.mp3"],OFQ=null;
 function oflHave(cb){if(!window.caches){cb(0);return}var n=0,i=0;(function nx(){if(i>=OFL.length){cb(n);return}caches.match(OFL[i++]).then(function(r){if(r)n++;nx()}).catch(function(){nx()})})()}
 function cacheAllVoices(){if(OFQ||!window.caches)return;OFQ={i:0};var go=function(){if(!OFQ)return;if(OFQ.i>=OFL.length){OFQ=null;try{dlcRender()}catch(e){}return}var u=OFL[OFQ.i++];
   caches.match(u).then(function(r){if(r)return;return fetch(u).then(function(x){if(x.ok)return caches.open("dopa-offline").then(function(c){return c.put(u,x)})})}).catch(function(){}).then(function(){if(OFQ&&OFQ.i%10===0)try{dlcRender()}catch(e){}setTimeout(go,30)})};go()}
@@ -6333,7 +6362,8 @@ function bossVoice(id,k,delay){
   setTimeout(function(){voxDirect(sp,line,function(b){if(!b)return;try{voxPlay(URL.createObjectURL(b),line,sp)}catch(e){}})},delay||0);
 }
 var FYT={"c01": 0.178, "c02": 0.134, "c03": 0.195, "c04": 0.31, "c05": 0.172, "c06": 0.146, "c07": 0.282, "c08": 0.209, "c09": 0.167, "c10": 0.134, "c11": 0.24, "c12": 0.215, "c13": 0.187, "c14": 0.098, "c15": 0.207, "c16": 0.265, "c17": 0.194, "c18": 0.215, "c19": 0.181, "c20": 0.245, "M01": 0.214, "F09W": 0.241, "M05": 0.28, "M06": 0.201, "M03": 0.163, "M02": 0.107, "M04": 0.252, "M09": 0.165, "M14": 0.224, "M15": 0.135, "M07B": 0.23, "M07W": 0.216, "M10B": 0.349, "M10W": 0.349, "M08": 0.192, "M11": 0.2, "M12": 0.188, "M13": 0.109, "M16": 0.143};
-function bossFace(id){var fy=FYT[id]||0.2,py=(0.56-2.98*fy)/(1.386-2.98)*100;return 'background-image:url('+IMT(id)+');background-size:217% auto;background-repeat:no-repeat;background-position:50% '+py.toFixed(1)+'%'}
+var FZ={"c01":[194,50.5,-10.1],"c02":[217,50.0,-7.3],"c03":[214,49.3,-2.1],"c04":[194,53.7,-4.8],"c05":[197,50.6,-8.6],"c06":[203,47.9,-1.7],"c07":[222,49.9,13.0],"c08":[220,48.6,1.8],"c09":[203,52.5,-5.7],"c10":[192,52.5,-2.7],"c11":[221,50.3,5.9],"c12":[211,52.1,2.7],"c13":[204,49.1,-3.4],"c14":[221,57.1,-3.4],"c15":[202,48.9,-1.4],"c16":[181,53.1,3.8],"c17":[248,42.6,7.9],"c18":[216,61.3,1.8],"c19":[239,50.8,1.1],"c20":[217,50.0,11.5],"M01":[223,53.6,1.4],"F09W":[237,50.4,8.5],"M05":[210,46.9,12.4],"M06":[197,51.4,-3.9],"M03":[204,53.4,-12.0],"M02":[227,54.3,-1.4],"M04":[236,56.2,2.1],"M09":[218,51.4,-7.3],"M14":[216,50.7,2.0],"M15":[258,48.9,9.0],"M07B":[171,50.1,-7.0],"M07W":[185,52.8,-2.3],"M10B":[225,56.9,38.0],"M10W":[247,56.5,39.6],"M08":[212,52.5,-3.0],"M11":[236,50.0,7.5],"M12":[258,66.1,13.5],"M13":[258,22.7,9.6],"M16":[249,53.4,2.9]};
+function bossFace(id){var z=FZ[id];if(!z){var fy=FYT[id]||0.2;z=[217,50,(0.56-2.98*fy)/(1.386-2.98)*100]}return 'background-image:url('+IMT(id)+');background-size:'+z[0]+'% auto;background-repeat:no-repeat;background-position:'+z[1]+'% '+z[2]+'%'}
 function bossIntro(id){
   var el=$("bint");if(!el)return;var c=cById(id);
   el.innerHTML='<div class="bibar"></div><i class="bifig" id="bifig" style="'+bossFace(id)+'"></i><div class="bitx">BOSS BATTLE</div><div class="binm"><b>'+esc(c.name)+'</b><span>'+c.star+'</span></div>';
@@ -7662,7 +7692,7 @@ function bindStage(){
 function pick(title,cand,cb){
   var o=$("ppick");if(!o){o=document.createElement("div");o.id="ppick";o.className="ov inv";document.body.appendChild(o)}
   o.innerHTML='<div class="sheet ppk"><div class="ppkh"><b>'+title+'</b><button class="sm" id="ppkx">閉じる</button></div>'+
-    (cand.length?'<div class="zgrid">'+cand.map(function(id){var c=cById(id),eq=G.party.indexOf(id)>=0;return '<button class="zg r'+c.s+(eq?' eq':'')+'" data-pk="'+id+'"><i style="'+bossFace(id)+'"></i><span><b>'+esc(c.name)+'</b><em>Lv'+lvOf(id)+'</em></span></button>'}).join("")+'</div>':'<div class="hint" style="text-align:center">選べるキャラがいません</div>')+'</div>';
+    (cand.length?'<div class="zgrid">'+bySt(cand).map(function(id){var c=cById(id),eq=G.party.indexOf(id)>=0;return '<button class="zg r'+c.s+(eq?' eq':'')+'" data-pk="'+id+'"><i style="'+bossFace(id)+'"></i><span><b>'+esc(c.name)+'</b><em>Lv'+lvOf(id)+'</em></span></button>'}).join("")+'</div>':'<div class="hint" style="text-align:center">選べるキャラがいません</div>')+'</div>';
   o.classList.remove("inv");
   $("ppkx").onclick=function(){o.classList.add("inv")};
   o.onclick=function(e){if(e.target===o)o.classList.add("inv")};
@@ -8652,8 +8682,9 @@ function smStart(){
 setTimeout(smStart,800);
 
 /* ---------- ホームに置くキャラ：編成画面と同じカードで選ぶ ---------- */
+function bySt(a){return a.map(function(c,i){return [c,i]}).sort(function(x,y){return ((cById(y[0].id||y[0])||{}).s-(cById(x[0].id||x[0])||{}).s)||(x[1]-y[1])}).map(function(x){return x[0]})}
 function fvPick(){
-  var own=CHARS.filter(function(c){return lvOf(c.id)});if(!own.length)return;
+  var own=bySt(CHARS.filter(function(c){return lvOf(c.id)}));if(!own.length)return;
   var o=$("favOv2");if(!o){o=document.createElement("div");o.id="favOv2";o.className="ov inv";document.body.appendChild(o)}
   var cur=favId(),sel=cur;
   var pv=function(id){
@@ -9381,6 +9412,37 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
   var pre=function(){try{if(SK!=="dopa"||VOX.mode==="off")return;var ids=[G.fav].concat(G.party||[]).filter(function(x,i,a){return x&&a.indexOf(x)===i&&lvOf(x)});ids.slice(0,5).forEach(function(id,i){setTimeout(function(){packLoad("s"+id,function(){});packLoad("p"+id,function(){})},400+i*500)})}catch(e){}};
   setTimeout(pre,2500);setInterval(pre,20000);
   if(typeof saveG==="function"){var _sg=saveG,pt=0;saveG=function(){var r=_sg.apply(this,arguments);clearTimeout(pt);pt=setTimeout(pre,600);return r}}
+})();
+
+/* ===================== v1.62 設定：「音」と「画面」 ===================== */
+(function(){
+  var sh=document.querySelector("#ov .sheet");if(!sh)return;var nav=sh.querySelector(".stab");if(!nav)return;
+  var U=/^(カラーテーマ|アニメーション|背景|アクセントカラー|傾き|軽量モード)/,inU=false,lastOld=null;
+  Array.prototype.forEach.call(sh.querySelectorAll("[data-sc]"),function(el){
+    if(el.classList.contains("dop"))return;
+    var old=el.getAttribute("data-sc"),key="";
+    if(el.tagName==="H3")key=el.textContent;else if(el.tagName==="DETAILS")key=((el.querySelector("summary")||{}).textContent||"");
+    key=key.trim();
+    if(key){inU=U.test(key);lastOld=old}else if(old!==lastOld)inU=false;
+    el.setAttribute("data-sc",inU?"u":(old==="v"?"s":old));
+  });
+  Array.prototype.forEach.call(sh.querySelectorAll(".dop"),function(d){
+    if(d.classList.contains("v141h")){var o=d.getAttribute("data-sc");d.setAttribute("data-sc",o==="x"?"u":o==="v"?"s":o);return}
+    var ks=[];Array.prototype.forEach.call(d.children,function(c){var k=c.getAttribute("data-sc");if(k&&ks.indexOf(k)<0)ks.push(k)});
+    if(ks.length===1)d.setAttribute("data-sc",ks[0]);else d.removeAttribute("data-sc");
+  });
+  /* テストのBGM（音タブ） */
+  var vol=null;Array.prototype.forEach.call(sh.querySelectorAll("h3"),function(h){if(!vol&&/^音量/.test(h.textContent.trim()))vol=h});
+  var box=document.createElement("div");box.className="dop tbsel";box.setAttribute("data-sc","s");
+  box.innerHTML='<h3 data-sc="s">テストのBGM</h3><label data-sc="s">曲の選び方<select id="tbmSel"><option value="auto">時間で切り替え（午前：ローファイ／午後：夜の街）</option><option value="A">いつもローファイ</option><option value="C">いつも夜の街</option><option value="old">これまでの曲</option></select></label><small class="hint" data-sc="s">ステージごとに別の曲が流れます。午前は4時〜12時です。</small>';
+  var anc=vol?(vol.parentNode.classList.contains("dop")?vol.parentNode:vol):null;
+  if(anc&&anc.parentNode)anc.parentNode.insertBefore(box,anc.nextSibling);else sh.appendChild(box);
+  var ts=$("tbmSel");ts.value=tbMode();ts.onchange=function(){try{localStorage.setItem("dopa:tbm",ts.value)}catch(e){}try{if(bgm.on&&bgm.mode==="test"){bgmStop();setTimeout(bgmSync,200)}}catch(e){}};
+  /* タブ：全体／音／画面／ヘルプ／データ／詳細 */
+  var C=[["g","全体"],["s","音"],["u","画面"],["a","ヘルプ"],["d","データ"],["x","詳細"]];nav.innerHTML="";
+  C.forEach(function(x){var b=document.createElement("button");b.textContent=x[1];b.setAttribute("data-t",x[0]);nav.appendChild(b)});
+  var cur=sh.getAttribute("data-st");if(cur==="v")cur="s";if(!/^[gsuadx]$/.test(cur||""))cur="g";
+  var b0=nav.querySelector('[data-t="'+cur+'"]');if(b0)b0.click();
 })();
 
 </script>
