@@ -22,7 +22,7 @@ var OP=window.OfflineAudioContext&&window.OfflineAudioContext.prototype;
 if(OP&&OP.startRendering){var SR=OP.startRendering;OP.startRendering=function(){C("合成開始 "+this.length);var p=SR.apply(this,arguments);if(p&&p.then)p.then(function(){C("合成完了")},function(){C("合成失敗")});return p}}
 if(window.IDBObjectStore){var P=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(v,k){C("保存 "+this.name+" "+String(k).slice(0,40)+(v&&v.size?" "+Math.round(v.size/1024)+"KB":""));return P.apply(this,arguments)}}
 if(window.speechSynthesis){var SP=speechSynthesis.speak.bind(speechSynthesis);speechSynthesis.speak=function(u){C("端末の声 "+(u&&u.text||"").slice(0,20));return SP(u)}}
-var HB=0;setInterval(function(){HB++;C("動作中 "+HB+" dom="+document.getElementsByTagName("*").length)},500);
+var TP=0;document.addEventListener("pointerdown",function(){TP++;if(TP<=40)C("タップ "+TP)},true);var HB=0;setInterval(function(){HB++;C("動作中 "+HB+" dom="+document.getElementsByTagName("*").length)},500);
 try{var IS=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,"src");Object.defineProperty(HTMLImageElement.prototype,"src",{configurable:true,enumerable:true,get:function(){return IS.get.call(this)},set:function(v){var u=String(v);C("画像 "+(u.indexOf("data:")===0?"data "+Math.round(u.length/1024)+"KB":u.replace(location.origin,"").slice(0,50)));IS.set.call(this,v)}})}catch(e){}
 try{var SA=Element.prototype.setAttribute;Element.prototype.setAttribute=function(k,v){if((k==="href"||k==="xlink:href")&&this.tagName&&this.tagName.toLowerCase()==="image"){var u=String(v);C("SVG画像 "+(u.indexOf("data:")===0?"data "+Math.round(u.length/1024)+"KB":u.replace(location.origin,"").slice(0,50)))}return SA.apply(this,arguments)}}catch(e){}
 try{var GC=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k){C("キャンバス "+k+" "+this.width+"x"+this.height);return GC.apply(this,arguments)};
@@ -2781,11 +2781,14 @@ var SIL="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZ
 function voxUnlock(){
   try{
     if(!VA){VA=new Audio();VA.preload="auto"}
-    if(!window.SUNL&&window.speechSynthesis){window.SUNL=1;var uu=new SpeechSynthesisUtterance(" ");uu.volume=0;speechSynthesis.speak(uu)}
-    if(VAok)return;
-    VA.src=SIL;VA.volume=0;
+    
+    if(VAok||window.VAP)return;
+    var now=Date.now();if(now-(window.VAT||0)<3000)return;window.VAT=now;
+    window.VAN=(window.VAN||0)+1;if(window.VAN>4){VAok=true;return}
+    window.VAP=1;var fin=function(ok){window.VAP=0;if(ok){VAok=true;try{VA.pause()}catch(e){}}try{crumb("無音の再生 "+(ok?"成功":"失敗"))}catch(e){}};
+    if(!VA.src)VA.src=SIL;VA.volume=0;
     var p=VA.play();
-    if(p&&p.then)p.then(function(){VAok=true;try{VA.pause()}catch(e){}},function(){});else VAok=true;
+    if(p&&p.then){p.then(function(){fin(true)},function(){fin(false)});setTimeout(function(){if(window.VAP)fin(false)},2500)}else fin(true);
   }catch(e){}
 }
 function reviveAudio(){
@@ -4775,7 +4778,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.66",VLOG=[
+var VERSION="1.67",VLOG=[
+ ["1.67","2026-11-15",["iPhone で、起動してしばらくすると落ちることがある問題の対策（音を鳴らす準備を、タップのたびにやり直さないようにしました）"]],
  ["1.66","2026-11-15",["不具合の調査用の記録を細かくしました"]],
  ["1.65","2026-11-15",["アプリが途中で終了したとき、次に開くとその直前の記録を表示するようにしました（不具合の調査用。コピーして送れます）"]],
  ["1.64","2026-11-15",["起動してしばらくすると落ちて、最初から開き直しになることがある問題を減らしました（声のデータを必要な分だけ読み出す・BGMを持ちすぎない）","起動してすぐ落ちるのが続いたときは、次から軽量モードで起動します"]],

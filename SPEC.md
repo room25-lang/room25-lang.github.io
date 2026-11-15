@@ -393,3 +393,4 @@
 - v1.64（patch_d71）：落ちにくくする。packLoad / exPack は声パックを Blob に一括で切り出さず、キーを読んだ時に1つずつ作る（getter。起動時の Blob 約1570個→約90個）。DECB（デコード済みホーム曲）は2曲まで、LITE なら1曲。<head> 直後で dopa:boot を数え、60秒動くか画面が隠れたら0に戻す。2回続けて途中で落ちたら dopa:lite=1・dopa:autolite=1 にして軽量モードで起動し、お知らせを出す。
 - v1.65（patch_d72）：落ちる原因の調査用の記録。<head> の最初で window.crumb を用意し、取得（fetch）・AudioContext/OfflineAudioContext の作成・デコード開始/完了・合成・IndexedDB の保存・端末の声・画面・ホーム曲・声パック・エラー・3秒ごとの「動作中」を、最新400件まで localStorage（dopa:crumb）に書く。起動時に dopa:boot が1以上（前回が途中で終わった）なら dopa:crumbPrev に移し、次に開いた時にダイアログで最後の150件を見せる（コピー可・閉じると消す）。
 - v1.66（patch_d73）：調査用の記録を追加。0.5秒ごとの「動作中」、画像の src、SVG の image href、キャンバスの作成・PNG化、8KB を超える innerHTML の書き換え、AudioBufferSource の再生（Offline は除く）、メディア再生、CSS アニメの開始。最新700件まで保存、表示は最後の200件。
+- v1.67（patch_d74）：voxUnlock の無音 wav 再生を、待っている間・3秒以内は重ねない、src を毎回入れ直さない、4回でやめる（2.5秒で返事がなければ失敗扱い）。起動時の speechSynthesis.speak(" ")（空読み）をやめる。記録にタップ（最初の40回）を追加。iPhone（iOS 18.7・Safari 27.2）でタップのたびに無音の再生が積み重なり、その後落ちていたため。
