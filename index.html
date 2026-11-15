@@ -6,7 +6,7 @@ var L=localStorage,T0=Date.now(),R=[],last=0;
 var prevN=parseInt(L.getItem("dopa:boot")||"0",10)||0;
 if(prevN>=1&&L.getItem("dopa:crumb"))L.setItem("dopa:crumbPrev",L.getItem("dopa:crumb"));
 var put=function(){try{L.setItem("dopa:crumb",JSON.stringify({v:"",ua:navigator.userAgent,at:new Date(T0).toLocaleString(),r:R}))}catch(e){}};
-var C=window.crumb=function(m){R.push(((Date.now()-T0)/1000).toFixed(1)+" "+m);if(R.length>400)R.splice(0,R.length-400);put()};
+var C=window.crumb=function(m){R.push(((Date.now()-T0)/1000).toFixed(1)+" "+m);if(R.length>700)R.splice(0,R.length-700);put()};
 C("起動");
 window.addEventListener("error",function(e){C("ERR "+(e.message||"")+" "+(e.filename||"").split("/").pop()+":"+(e.lineno||""))});
 window.addEventListener("unhandledrejection",function(e){var r=e.reason;C("REJ "+(r&&(r.message||r.name)||String(r)).slice(0,80))});
@@ -22,7 +22,16 @@ var OP=window.OfflineAudioContext&&window.OfflineAudioContext.prototype;
 if(OP&&OP.startRendering){var SR=OP.startRendering;OP.startRendering=function(){C("合成開始 "+this.length);var p=SR.apply(this,arguments);if(p&&p.then)p.then(function(){C("合成完了")},function(){C("合成失敗")});return p}}
 if(window.IDBObjectStore){var P=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(v,k){C("保存 "+this.name+" "+String(k).slice(0,40)+(v&&v.size?" "+Math.round(v.size/1024)+"KB":""));return P.apply(this,arguments)}}
 if(window.speechSynthesis){var SP=speechSynthesis.speak.bind(speechSynthesis);speechSynthesis.speak=function(u){C("端末の声 "+(u&&u.text||"").slice(0,20));return SP(u)}}
-setInterval(function(){var m=performance&&performance.memory?" mem="+Math.round(performance.memory.usedJSHeapSize/1e6)+"MB":"";C("動作中 dom="+document.getElementsByTagName("*").length+m)},3000);
+var HB=0;setInterval(function(){HB++;C("動作中 "+HB+" dom="+document.getElementsByTagName("*").length)},500);
+try{var IS=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,"src");Object.defineProperty(HTMLImageElement.prototype,"src",{configurable:true,enumerable:true,get:function(){return IS.get.call(this)},set:function(v){var u=String(v);C("画像 "+(u.indexOf("data:")===0?"data "+Math.round(u.length/1024)+"KB":u.replace(location.origin,"").slice(0,50)));IS.set.call(this,v)}})}catch(e){}
+try{var SA=Element.prototype.setAttribute;Element.prototype.setAttribute=function(k,v){if((k==="href"||k==="xlink:href")&&this.tagName&&this.tagName.toLowerCase()==="image"){var u=String(v);C("SVG画像 "+(u.indexOf("data:")===0?"data "+Math.round(u.length/1024)+"KB":u.replace(location.origin,"").slice(0,50)))}return SA.apply(this,arguments)}}catch(e){}
+try{var GC=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k){C("キャンバス "+k+" "+this.width+"x"+this.height);return GC.apply(this,arguments)};
+var TB=HTMLCanvasElement.prototype.toBlob;if(TB)HTMLCanvasElement.prototype.toBlob=function(){C("PNG化 "+this.width+"x"+this.height);return TB.apply(this,arguments)};
+var TD=HTMLCanvasElement.prototype.toDataURL;HTMLCanvasElement.prototype.toDataURL=function(){C("dataURL化 "+this.width+"x"+this.height);return TD.apply(this,arguments)}}catch(e){}
+try{var IH=Object.getOwnPropertyDescriptor(Element.prototype,"innerHTML");Object.defineProperty(Element.prototype,"innerHTML",{configurable:true,enumerable:true,get:function(){return IH.get.call(this)},set:function(v){var n=v&&v.length||0;if(n>8000)C("書き換え "+(this.id||String(this.className).slice(0,20))+" "+Math.round(n/1024)+"KB");IH.set.call(this,v)}})}catch(e){}
+try{var SS=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(){var oc=window.OfflineAudioContext&&this.context instanceof window.OfflineAudioContext;if(!oc)C("音 "+(this.buffer?this.buffer.duration.toFixed(1)+"s":"-")+(this.loop?" ループ":""));return SS.apply(this,arguments)}}catch(e){}
+try{var MP=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){C("メディア再生 "+String(this.currentSrc||this.src).slice(0,30));return MP.apply(this,arguments)}}catch(e){}
+document.addEventListener("animationstart",function(e){var t=e.target;C("アニメ "+e.animationName+" "+(t.id||String(t.className&&t.className.baseVal!==undefined?t.className.baseVal:t.className).slice(0,20)))},true);
 }catch(e){}})();</script>
 <script>(function(){try{var L=localStorage,n=parseInt(L.getItem("dopa:boot")||"0",10)||0;
 if(n>=2&&L.getItem("dopa:lite")!=="1"){L.setItem("dopa:lite","1");L.setItem("dopa:autolite","1")}
@@ -4766,7 +4775,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.65",VLOG=[
+var VERSION="1.66",VLOG=[
+ ["1.66","2026-11-15",["不具合の調査用の記録を細かくしました"]],
  ["1.65","2026-11-15",["アプリが途中で終了したとき、次に開くとその直前の記録を表示するようにしました（不具合の調査用。コピーして送れます）"]],
  ["1.64","2026-11-15",["起動してしばらくすると落ちて、最初から開き直しになることがある問題を減らしました（声のデータを必要な分だけ読み出す・BGMを持ちすぎない）","起動してすぐ落ちるのが続いたときは、次から軽量モードで起動します"]],
  ["1.63","2026-11-15",["BGMと掛け声を「寄り添い」と「ノリノリ」の2つに分けました。チュートリアルで選べて、設定の「音」でいつでも変えられます","寄り添い：ホームはやわらかいローファイの新曲3曲、テストは午前・午後で雰囲気の変わる曲。掛け声のかわりに、相棒が自分の声でやさしく声をかけます。テスト中も曲の高さは変わりません","ノリノリ：これまでのアップテンポな曲と、にぎやかな掛け声","夏帆・イリス・エルナ・ミナモ・宗・白夜の声を変更（セリフ・相棒のセリフ・ストーリーすべて）"]],
@@ -9531,7 +9541,7 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
   try{var _cp=chPlay;chPlay=function(C){try{crumb("ホーム曲 "+(C&&C.id))}catch(e){}return _cp.apply(this,arguments)}}catch(e){}
   try{var _pl=packLoad;packLoad=function(pid,cb){try{crumb("声パック "+pid)}catch(e){}return _pl.apply(this,arguments)}}catch(e){}
   var show=function(raw){var o;try{o=JSON.parse(raw)}catch(e){return}
-    var txt="どぱたん "+VERSION+" / "+o.at+"\n"+o.ua+"\n"+(o.r||[]).slice(-150).join("\n");
+    var txt="どぱたん "+VERSION+" / "+o.at+"\n"+o.ua+"\n"+(o.r||[]).slice(-200).join("\n");
     var d=document.createElement("div");d.id="crumbov";d.style.cssText="position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px";
     d.innerHTML='<div style="background:#fff;color:#222;border-radius:14px;padding:16px;max-width:30em;width:100%;font-size:14px"><b style="font-size:17px">前回、アプリが途中で終了しました</b><p style="margin:8px 0">原因を調べるための記録です。「コピー」を押して、開発者に送ってください。</p><textarea readonly style="width:100%;height:40vh;font-size:11px;font-family:monospace">'+txt.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</textarea><div style="display:flex;gap:8px;margin-top:10px"><button id="crumbcp" class="main" style="flex:1">コピー</button><button id="crumbx" style="flex:1">閉じる</button></div></div>';
     document.body.appendChild(d);try{var ta=d.querySelector("textarea");ta.scrollTop=ta.scrollHeight}catch(e){}
