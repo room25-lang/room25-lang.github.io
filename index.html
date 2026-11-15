@@ -2327,6 +2327,8 @@ html.dbg-an *,html.dbg-an *::before,html.dbg-an *::after{animation:none!importan
 html.dbg-hb .hb2,html.dbg-hb #hb2Card{display:none!important}
 
 html.dbg-hv #homeV{display:none!important}
+
+#bgfx i{animation:none!important}
 </style>
 </head>
 <body class="dopa">
@@ -4793,7 +4795,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.69",VLOG=[
+var VERSION="1.70",VLOG=[
+ ["1.70","2026-11-15",["iPhone のホーム画面に追加したアプリで、ホームを開いて数秒後に落ちる問題を直しました（背景の動くアニメーションが原因だったため、背景を止めた表示にしました）"]],
  ["1.69","2026-11-15",["不具合の調査用：途中で終了したあとの記録の画面から、原因を自動で切り分けられるようにしました"]],
  ["1.68","2026-11-15",["不具合の調査用：途中で終了したあとの記録の画面で、次の起動で止めるもの（背景のアニメ・影やぼかし・画面の動き・ホームのキャラの絵・声の先読み）を選べるようにしました"]],
  ["1.67","2026-11-15",["iPhone で、起動してしばらくすると落ちることがある問題の対策（音を鳴らす準備を、タップのたびにやり直さないようにしました）"]],
