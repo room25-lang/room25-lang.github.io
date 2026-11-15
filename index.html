@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script>(function(){try{
+var L=localStorage,T0=Date.now(),R=[],last=0;
+var prevN=parseInt(L.getItem("dopa:boot")||"0",10)||0;
+if(prevN>=1&&L.getItem("dopa:crumb"))L.setItem("dopa:crumbPrev",L.getItem("dopa:crumb"));
+var put=function(){try{L.setItem("dopa:crumb",JSON.stringify({v:"",ua:navigator.userAgent,at:new Date(T0).toLocaleString(),r:R}))}catch(e){}};
+var C=window.crumb=function(m){R.push(((Date.now()-T0)/1000).toFixed(1)+" "+m);if(R.length>400)R.splice(0,R.length-400);put()};
+C("起動");
+window.addEventListener("error",function(e){C("ERR "+(e.message||"")+" "+(e.filename||"").split("/").pop()+":"+(e.lineno||""))});
+window.addEventListener("unhandledrejection",function(e){var r=e.reason;C("REJ "+(r&&(r.message||r.name)||String(r)).slice(0,80))});
+document.addEventListener("visibilitychange",function(){C("表示:"+document.visibilityState)});
+var F=window.fetch;if(F)window.fetch=function(u){var s=String(u&&u.url||u).replace(location.origin,"").slice(0,60);C("取得 "+s);return F.apply(this,arguments).then(function(r){C("取得済 "+s+" "+r.status);return r},function(e){C("取得失敗 "+s);throw e})};
+var wrapAC=function(name){var A=window[name];if(!A)return;try{var W=function(){var a=arguments,o=a.length===0?new A():a.length===1?new A(a[0]):new A(a[0],a[1],a[2]);C(name+" 作成 "+(o.sampleRate||"")+(a.length>1?" len="+a[1]:""));return o};W.prototype=A.prototype;window[name]=W}catch(e){}};
+wrapAC("AudioContext");wrapAC("webkitAudioContext");wrapAC("OfflineAudioContext");wrapAC("webkitOfflineAudioContext");
+var BP=(window.BaseAudioContext||window.AudioContext||{}).prototype;
+if(BP&&BP.decodeAudioData){var D=BP.decodeAudioData;BP.decodeAudioData=function(ab,ok,ng){var n=ab&&ab.byteLength,id=Math.random().toString(36).slice(2,5);C("デコード開始 "+id+" "+Math.round(n/1024)+"KB");
+  var ok2=function(b){C("デコード完了 "+id+" "+(b?Math.round(b.duration)+"s "+b.numberOfChannels+"ch "+b.sampleRate:""));if(ok)ok(b)},ng2=function(e){C("デコード失敗 "+id);if(ng)ng(e)};
+  return D.call(this,ab,ok2,ng2)}}
+var OP=window.OfflineAudioContext&&window.OfflineAudioContext.prototype;
+if(OP&&OP.startRendering){var SR=OP.startRendering;OP.startRendering=function(){C("合成開始 "+this.length);var p=SR.apply(this,arguments);if(p&&p.then)p.then(function(){C("合成完了")},function(){C("合成失敗")});return p}}
+if(window.IDBObjectStore){var P=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(v,k){C("保存 "+this.name+" "+String(k).slice(0,40)+(v&&v.size?" "+Math.round(v.size/1024)+"KB":""));return P.apply(this,arguments)}}
+if(window.speechSynthesis){var SP=speechSynthesis.speak.bind(speechSynthesis);speechSynthesis.speak=function(u){C("端末の声 "+(u&&u.text||"").slice(0,20));return SP(u)}}
+setInterval(function(){var m=performance&&performance.memory?" mem="+Math.round(performance.memory.usedJSHeapSize/1e6)+"MB":"";C("動作中 dom="+document.getElementsByTagName("*").length+m)},3000);
+}catch(e){}})();</script>
 <script>(function(){try{var L=localStorage,n=parseInt(L.getItem("dopa:boot")||"0",10)||0;
 if(n>=2&&L.getItem("dopa:lite")!=="1"){L.setItem("dopa:lite","1");L.setItem("dopa:autolite","1")}
 L.setItem("dopa:boot",String(n+1));
@@ -4743,7 +4766,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.64",VLOG=[
+var VERSION="1.65",VLOG=[
+ ["1.65","2026-11-15",["アプリが途中で終了したとき、次に開くとその直前の記録を表示するようにしました（不具合の調査用。コピーして送れます）"]],
  ["1.64","2026-11-15",["起動してしばらくすると落ちて、最初から開き直しになることがある問題を減らしました（声のデータを必要な分だけ読み出す・BGMを持ちすぎない）","起動してすぐ落ちるのが続いたときは、次から軽量モードで起動します"]],
  ["1.63","2026-11-15",["BGMと掛け声を「寄り添い」と「ノリノリ」の2つに分けました。チュートリアルで選べて、設定の「音」でいつでも変えられます","寄り添い：ホームはやわらかいローファイの新曲3曲、テストは午前・午後で雰囲気の変わる曲。掛け声のかわりに、相棒が自分の声でやさしく声をかけます。テスト中も曲の高さは変わりません","ノリノリ：これまでのアップテンポな曲と、にぎやかな掛け声","夏帆・イリス・エルナ・ミナモ・宗・白夜の声を変更（セリフ・相棒のセリフ・ストーリーすべて）"]],
  ["1.62","2026-11-15",["テストのBGMを新しく：午前は落ち着いたローファイ、午後は夜の街のエレクトロ。ステージごとに別の曲（設定の「音」で、いつも同じ雰囲気にもできます）","設定を整理：「声」と「音」を「音」にまとめ、背景・色・アニメーション・傾きなど見た目の設定を「画面」タブに","アクセントカラーを変えても、ボタンの形が変わる所などに前のライム色が残っていたのを修正","VOICEボタンの色も、アクセントカラーに合わせるように","キャラ選びの画面を、レア度の高い順に並べるように","キャラ選びの画面で、顔の大きさをそろえました"]],
@@ -9500,6 +9524,22 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
 /* ===================== v1.64 続けて落ちたときの知らせ ===================== */
 (function(){try{if(localStorage.getItem("dopa:autolite")==="1"){localStorage.removeItem("dopa:autolite");
   setTimeout(function(){try{renderG("前回うまく動かなかったため、軽量モードで起動しました（設定でいつでも戻せます）")}catch(e){}},2500)}}catch(e){}})();
+
+/* ===================== v1.65 落ちる直前の記録を見せる ===================== */
+(function(){
+  try{var _en=enter;enter=function(x){try{crumb("画面 "+x)}catch(e){}return _en.apply(this,arguments)}}catch(e){}
+  try{var _cp=chPlay;chPlay=function(C){try{crumb("ホーム曲 "+(C&&C.id))}catch(e){}return _cp.apply(this,arguments)}}catch(e){}
+  try{var _pl=packLoad;packLoad=function(pid,cb){try{crumb("声パック "+pid)}catch(e){}return _pl.apply(this,arguments)}}catch(e){}
+  var show=function(raw){var o;try{o=JSON.parse(raw)}catch(e){return}
+    var txt="どぱたん "+VERSION+" / "+o.at+"\n"+o.ua+"\n"+(o.r||[]).slice(-150).join("\n");
+    var d=document.createElement("div");d.id="crumbov";d.style.cssText="position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px";
+    d.innerHTML='<div style="background:#fff;color:#222;border-radius:14px;padding:16px;max-width:30em;width:100%;font-size:14px"><b style="font-size:17px">前回、アプリが途中で終了しました</b><p style="margin:8px 0">原因を調べるための記録です。「コピー」を押して、開発者に送ってください。</p><textarea readonly style="width:100%;height:40vh;font-size:11px;font-family:monospace">'+txt.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</textarea><div style="display:flex;gap:8px;margin-top:10px"><button id="crumbcp" class="main" style="flex:1">コピー</button><button id="crumbx" style="flex:1">閉じる</button></div></div>';
+    document.body.appendChild(d);try{var ta=d.querySelector("textarea");ta.scrollTop=ta.scrollHeight}catch(e){}
+    $("crumbcp").onclick=function(){var t=d.querySelector("textarea");try{navigator.clipboard.writeText(txt).then(function(){$("crumbcp").textContent="コピーしました"},function(){t.select();document.execCommand("copy");$("crumbcp").textContent="コピーしました"})}catch(e){t.select();document.execCommand("copy")}};
+    $("crumbx").onclick=function(){d.remove();try{localStorage.removeItem("dopa:crumbPrev")}catch(e){}};
+  };
+  try{var p=localStorage.getItem("dopa:crumbPrev");if(p)setTimeout(function(){show(p)},800)}catch(e){}
+})();
 
 </script>
 </body>
