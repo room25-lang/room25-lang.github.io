@@ -8689,7 +8689,7 @@ function smStart(){
 setTimeout(smStart,800);
 
 /* ---------- ホームに置くキャラ：編成画面と同じカードで選ぶ ---------- */
-function bySt(a){return a.map(function(c,i){return [c,i]}).sort(function(x,y){return ((cById(y[0].id||y[0])||{}).s-(cById(x[0].id||x[0])||{}).s)||(x[1]-y[1])}).map(function(x){return x[0]})}
+window.bySt=function(a){return a.map(function(c,i){return [c,i]}).sort(function(x,y){return ((cById(y[0].id||y[0])||{}).s-(cById(x[0].id||x[0])||{}).s)||(x[1]-y[1])}).map(function(x){return x[0]})};
 function fvPick(){
   var own=bySt(CHARS.filter(function(c){return lvOf(c.id)}));if(!own.length)return;
   var o=$("favOv2");if(!o){o=document.createElement("div");o.id="favOv2";o.className="ov inv";document.body.appendChild(o)}

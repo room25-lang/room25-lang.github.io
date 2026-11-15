@@ -8624,7 +8624,7 @@ function smStart(){
 setTimeout(smStart,800);
 
 /* ---------- ホームに置くキャラ：編成画面と同じカードで選ぶ ---------- */
-function bySt(a){return a.map(function(c,i){return [c,i]}).sort(function(x,y){return ((cById(y[0].id||y[0])||{}).s-(cById(x[0].id||x[0])||{}).s)||(x[1]-y[1])}).map(function(x){return x[0]})}
+window.bySt=function(a){return a.map(function(c,i){return [c,i]}).sort(function(x,y){return ((cById(y[0].id||y[0])||{}).s-(cById(x[0].id||x[0])||{}).s)||(x[1]-y[1])}).map(function(x){return x[0]})};
 function fvPick(){
   var own=bySt(CHARS.filter(function(c){return lvOf(c.id)}));if(!own.length)return;
   var o=$("favOv2");if(!o){o=document.createElement("div");o.id="favOv2";o.className="ov inv";document.body.appendChild(o)}
@@ -9435,7 +9435,7 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
 
   /* 全コンテンツ解放：全キャラLv5・編成6枠・全タブ・全ストーリー・テストのロックなし */
   epOpen=function(id,i){return !!lvOf(id)};mOpen=function(){return true};
-  var openAll=function(){try{if(!G.starter||GT.on||localStorage.getItem("dopa:gt")!=="1")return;var ch=false;
+  var openAll=function(){try{if(GT.on||localStorage.getItem("dopa:gt")!=="1")return;var ch=!G.starter;
     CHARS.forEach(function(c){if(lvOf(c.id)<5)ch=true});
     if(ch||G.slots<6)fullApply();
     if(!G.unl||!G.unl.g||!G.unl.p||!G.unl.b){G.unl={g:1,p:1,b:1,v:1};ch=true}
