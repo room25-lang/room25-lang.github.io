@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>しぼるん｜選ぶだけで、ほしい情報にしぼれるGoogle検索</title>
+<meta name="description" content="コマンドを知らなくても、目的を選ぶだけで「公式サイトだけ」「PDFだけ」「Q&Aサイトを除外」などの高度なGoogle検索ができます。">
+<meta name="theme-color" content="#2f6df6">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <h1>しぼるん</h1>
+  <p class="tag">選ぶだけで、ほしい情報にしぼれるGoogle検索</p>
+</header>
+
+<main>
+  <section class="card">
+    <label class="lbl" for="q">調べたいこと</label>
+    <textarea id="q" rows="2" placeholder="例：去年以降の文科省の資料が見たい／iPhone 評判"></textarea>
+    <div class="row">
+      <button id="auto" class="btn sub" type="button">文章から条件を自動で作る</button>
+      <button id="reset" class="btn ghost" type="button">リセット</button>
+    </div>
+    <p id="autoMsg" class="msg" hidden></p>
+  </section>
+
+  <section class="card">
+    <h2>どこから探す？</h2>
+    <div class="chips" id="g-source"></div>
+    <div id="officialBox" class="sub-box" hidden>
+      <label class="lbl" for="orgName">公式サイトを探したい名前（会社・団体・作品など）</label>
+      <div class="row">
+        <input id="orgName" type="text" placeholder="例：文部科学省、任天堂、東京大学">
+        <button id="findOfficial" class="btn sub" type="button">探す</button>
+      </div>
+      <p id="officialMsg" class="msg"></p>
+      <ul id="officialList" class="cands"></ul>
+      <details class="manual">
+        <summary>見つからないときはドメインを直接入力</summary>
+        <div class="row">
+          <input id="manualDomain" type="text" placeholder="例：example.co.jp" inputmode="url">
+          <button id="useManual" class="btn sub" type="button">使う</button>
+        </div>
+      </details>
+    </div>
+
+    <h2>じゃまなサイトを外す</h2>
+    <div class="chips" id="g-ex"></div>
+    <p id="exNote" class="msg" hidden>探す場所をしぼっているので、ここは使われません。</p>
+
+    <h2>形式</h2>
+    <div class="chips" id="g-ft"></div>
+
+    <h2>期間</h2>
+    <div class="chips" id="g-period"></div>
+    <div id="customBox" class="sub-box row" hidden>
+      <label>この日以降 <input id="after" type="date"></label>
+      <label>この日より前 <input id="before" type="date"></label>
+    </div>
+
+    <details class="more">
+      <summary>こだわり条件</summary>
+      <label class="lbl" for="exact">必ずこの言葉どおりに含む（「、」で区切って複数）</label>
+      <input id="exact" type="text" placeholder="例：入学試験要項">
+      <label class="lbl" for="intitle">ページのタイトルに含む</label>
+      <input id="intitle" type="text" placeholder="例：募集要項">
+      <label class="lbl" for="notWords">この言葉を含むページは出さない（「、」で区切って複数）</label>
+      <input id="notWords" type="text" placeholder="例：中古、ブログ">
+      <div class="toggles">
+        <label><input id="web" type="checkbox" checked> AI概要なしのWeb結果だけ</label>
+        <label><input id="ja" type="checkbox"> 日本語のページだけ</label>
+        <label><input id="nfpr" type="checkbox"> 自動で言い換えない（入力どおりに検索）</label>
+      </div>
+    </details>
+  </section>
+
+  <section class="card sticky">
+    <p id="summary" class="summary"></p>
+    <details class="raw">
+      <summary>実際の検索ワードを見る</summary>
+      <code id="rawQuery"></code>
+      <p id="wordWarn" class="warn" hidden></p>
+    </details>
+    <div class="row">
+      <a id="go" class="btn main" href="https://www.google.com/" target="_blank" rel="noopener">Googleで検索</a>
+      <button id="fav" class="btn ghost" type="button" title="この条件を保存">☆ 保存</button>
+    </div>
+  </section>
+
+  <section class="card" id="savedCard" hidden>
+    <h2>保存した条件</h2>
+    <ul id="favList" class="saved"></ul>
+    <h2>最近の検索</h2>
+    <ul id="histList" class="saved"></ul>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>検索はGoogleで行います。しぼるんは検索結果を取得・保存しません。保存した条件はこの端末の中だけに残ります。公式サイトの判定には <a href="https://www.wikidata.org/" target="_blank" rel="noopener">Wikidata</a> を使っています。</p>
+</footer>
+
+<script src="core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

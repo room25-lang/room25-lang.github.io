@@ -1,0 +1,7 @@
+{
+  "_note": "除外リスト。ここを書き換えるだけで、アプリの除外対象が変わります。1つの -site: が検索1語ぶんになるので、増やしすぎないこと（Googleは1回の検索で約32語まで）。",
+  "qa": ["chiebukuro.yahoo.co.jp", "oshiete.goo.ne.jp", "okwave.jp", "quora.com"],
+  "matome": ["togetter.com", "posfie.com", "my-best.com"],
+  "sns": ["x.com", "twitter.com", "instagram.com", "tiktok.com", "facebook.com", "threads.com"],
+  "video": ["youtube.com", "nicovideo.jp"]
+}

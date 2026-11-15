@@ -10,6 +10,8 @@ self.addEventListener("activate",function(e){
 self.addEventListener("fetch",function(e){
   var r=e.request;if(r.method!=="GET")return;
   var u=new URL(r.url);if(u.origin!==location.origin)return;
+  /* 同じサイトに置いた別アプリ（しぼるん）には関わらない */
+  if(u.pathname.indexOf("/shiborun/")===0||u.pathname==="/shiborun")return;
   if(/news\.json$/.test(u.pathname)){e.respondWith(fetch(u.href,{cache:"no-store"}).catch(function(){return new Response("{\"news\":[]}",{headers:{"Content-Type":"application/json"}})}));return}
   var page=r.mode==="navigate"||/\/(index\.html)?$/.test(u.pathname);
   if(page){
