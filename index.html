@@ -7,7 +7,8 @@ var prevN=parseInt(L.getItem("dopa:boot")||"0",10)||0;
 if(prevN>=1&&L.getItem("dopa:crumb"))L.setItem("dopa:crumbPrev",L.getItem("dopa:crumb"));
 var put=function(){try{L.setItem("dopa:crumb",JSON.stringify({v:"",ua:navigator.userAgent,at:new Date(T0).toLocaleString(),r:R}))}catch(e){}};
 var C=window.crumb=function(m){R.push(((Date.now()-T0)/1000).toFixed(1)+" "+m);if(R.length>700)R.splice(0,R.length-700);put()};
-C("起動");
+var DB=(L.getItem("dopa:dbg")||"").split(",").filter(Boolean);window.DBG={};DB.forEach(function(k){DBG[k]=1;document.documentElement.classList.add("dbg-"+k)});
+C("起動 止めたもの:"+(DB.join(",")||"なし")+" 軽量:"+(L.getItem("dopa:lite")==="1"?"ON":"OFF")+" 動き:"+(L.getItem("dopa:anim")==="0"?"OFF":"ON")+" BGM:"+(L.getItem("dopa:bgm")==="0"?"OFF":"ON"));
 window.addEventListener("error",function(e){C("ERR "+(e.message||"")+" "+(e.filename||"").split("/").pop()+":"+(e.lineno||""))});
 window.addEventListener("unhandledrejection",function(e){var r=e.reason;C("REJ "+(r&&(r.message||r.name)||String(r)).slice(0,80))});
 document.addEventListener("visibilitychange",function(){C("表示:"+document.visibilityState)});
@@ -2312,6 +2313,11 @@ body .bkg .bkgb.on{background:var(--acc,var(--uacc,#d4ff00))!important;border-co
 .mdp button{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:12px 14px;min-height:0}
 .mdp button b{font-size:18px}.mdp button small{font-size:13px;line-height:1.5;opacity:.85}
 .mdp button.on{background:var(--acc)!important;color:var(--acc-ink)!important;border-color:var(--acc)!important}
+
+html.dbg-bg #bgfx,html.dbg-bg #xmsnow,html.dbg-bg #bnd{display:none!important}
+html.dbg-fx *,html.dbg-fx *::before,html.dbg-fx *::after{filter:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important;text-shadow:none!important;mix-blend-mode:normal!important;-webkit-mask-image:none!important;mask-image:none!important;will-change:auto!important}
+html.dbg-an *,html.dbg-an *::before,html.dbg-an *::after{animation:none!important;transition:none!important}
+html.dbg-hb .hb2,html.dbg-hb #hb2Card{display:none!important}
 </style>
 </head>
 <body class="dopa">
@@ -4778,7 +4784,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.67",VLOG=[
+var VERSION="1.68",VLOG=[
+ ["1.68","2026-11-15",["不具合の調査用：途中で終了したあとの記録の画面で、次の起動で止めるもの（背景のアニメ・影やぼかし・画面の動き・ホームのキャラの絵・声の先読み）を選べるようにしました"]],
  ["1.67","2026-11-15",["iPhone で、起動してしばらくすると落ちることがある問題の対策（音を鳴らす準備を、タップのたびにやり直さないようにしました）"]],
  ["1.66","2026-11-15",["不具合の調査用の記録を細かくしました"]],
  ["1.65","2026-11-15",["アプリが途中で終了したとき、次に開くとその直前の記録を表示するようにしました（不具合の調査用。コピーして送れます）"]],
@@ -9461,7 +9468,7 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
   /* ストーリーの声も、同じ扱い（前の行を止める・BGMを下げる） */
   STT={};if(typeof stVoice==="function"){var _sv=stVoice;stVoice=function(sp,t){if(t)STT[t]=1;return _sv.apply(this,arguments)}}
   /* 5. タップから声までを短く：お気に入りと編成のキャラの声を先に読み込む */
-  var pre=function(){try{if(SK!=="dopa"||VOX.mode==="off")return;var ids=[G.fav].concat(G.party||[]).filter(function(x,i,a){return x&&a.indexOf(x)===i&&lvOf(x)});ids.slice(0,5).forEach(function(id,i){setTimeout(function(){packLoad("s"+id,function(){});packLoad("p"+id,function(){})},400+i*500)})}catch(e){}};
+  var pre=function(){try{if(SK!=="dopa"||VOX.mode==="off")return;var ids=[G.fav].concat(G.party||[]).filter(function(x,i,a){return x&&a.indexOf(x)===i&&lvOf(x)});if(window.DBG&&DBG.vp)return;ids.slice(0,5).forEach(function(id,i){setTimeout(function(){packLoad("s"+id,function(){});packLoad("p"+id,function(){})},400+i*500)})}catch(e){}};
   setTimeout(pre,2500);setInterval(pre,20000);
   if(typeof saveG==="function"){var _sg=saveG,pt=0;saveG=function(){var r=_sg.apply(this,arguments);clearTimeout(pt);pt=setTimeout(pre,600);return r}}
 })();
@@ -9547,10 +9554,12 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
   var show=function(raw){var o;try{o=JSON.parse(raw)}catch(e){return}
     var txt="どぱたん "+VERSION+" / "+o.at+"\n"+o.ua+"\n"+(o.r||[]).slice(-200).join("\n");
     var d=document.createElement("div");d.id="crumbov";d.style.cssText="position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px";
-    d.innerHTML='<div style="background:#fff;color:#222;border-radius:14px;padding:16px;max-width:30em;width:100%;font-size:14px"><b style="font-size:17px">前回、アプリが途中で終了しました</b><p style="margin:8px 0">原因を調べるための記録です。「コピー」を押して、開発者に送ってください。</p><textarea readonly style="width:100%;height:40vh;font-size:11px;font-family:monospace">'+txt.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</textarea><div style="display:flex;gap:8px;margin-top:10px"><button id="crumbcp" class="main" style="flex:1">コピー</button><button id="crumbx" style="flex:1">閉じる</button></div></div>';
+    d.innerHTML='<div style="background:#fff;color:#222;border-radius:14px;padding:16px;max-width:30em;width:100%;font-size:14px;max-height:92vh;overflow:auto"><b style="font-size:17px">前回、アプリが途中で終了しました</b><p style="margin:8px 0">原因を調べるための記録です。「コピー」を押して、開発者に送ってください。</p><textarea readonly style="width:100%;height:28vh;font-size:11px;font-family:monospace">'+txt.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</textarea><div id="crumbdbg" style="margin-top:10px;font-size:13px;line-height:1.9"><b>次の起動で止めるもの（原因の切り分け用）</b><br><label><input type="checkbox" data-k="bg"> 背景のアニメーション</label><br><label><input type="checkbox" data-k="fx"> 影・ぼかし・切り抜き</label><br><label><input type="checkbox" data-k="an"> 画面の動き（すべてのアニメーション）</label><br><label><input type="checkbox" data-k="hb"> ホームのキャラの絵</label><br><label><input type="checkbox" data-k="vp"> 声の先読み</label></div><div style="display:flex;gap:8px;margin-top:10px"><button id="crumbcp" class="main" style="flex:1">コピー</button><button id="crumbx" style="flex:1">閉じる</button></div></div>';
     document.body.appendChild(d);try{var ta=d.querySelector("textarea");ta.scrollTop=ta.scrollHeight}catch(e){}
     $("crumbcp").onclick=function(){var t=d.querySelector("textarea");try{navigator.clipboard.writeText(txt).then(function(){$("crumbcp").textContent="コピーしました"},function(){t.select();document.execCommand("copy");$("crumbcp").textContent="コピーしました"})}catch(e){t.select();document.execCommand("copy")}};
-    $("crumbx").onclick=function(){d.remove();try{localStorage.removeItem("dopa:crumbPrev")}catch(e){}};
+    var cur=(localStorage.getItem("dopa:dbg")||"").split(",");Array.prototype.forEach.call(d.querySelectorAll("#crumbdbg input"),function(x){x.checked=cur.indexOf(x.getAttribute("data-k"))>=0});
+    $("crumbx").onclick=function(){var ks=[];Array.prototype.forEach.call(d.querySelectorAll("#crumbdbg input"),function(x){if(x.checked)ks.push(x.getAttribute("data-k"))});var nv=ks.join(","),ch=nv!==(localStorage.getItem("dopa:dbg")||"");
+      try{localStorage.setItem("dopa:dbg",nv);localStorage.removeItem("dopa:crumbPrev")}catch(e){}d.remove();if(ch)location.reload()};
   };
   try{var p=localStorage.getItem("dopa:crumbPrev");if(p)setTimeout(function(){show(p)},800)}catch(e){}
 })();
