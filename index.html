@@ -7785,12 +7785,12 @@ function fbOpen(){
 window.fbOpen=fbOpen;
 
 /* ---- アクセス統計（GoatCounter）：GC_CODE にサイト名を入れると有効。個人を特定しない数え方 ---- */
-var GC_CODE="";
+var GC_CODE="room25";
 (function(){
   if(!GC_CODE||location.hostname.indexOf("github.io")<0)return;
   window.goatcounter={no_onload:true,allow_local:false};
   var s=document.createElement("script");s.async=true;s.src="https://gc.zgo.at/count.js";s.setAttribute("data-goatcounter","https://"+GC_CODE+".goatcounter.com/count");
-  s.onload=function(){gcHit("/")};document.head.appendChild(s);
+  s.onload=function(){gcHit("/","どぱたん＋")};document.head.appendChild(s);
 })();
 function gcHit(p,title){try{if(window.goatcounter&&goatcounter.count)goatcounter.count({path:p,title:title||p,event:p.indexOf("/ev/")===0})}catch(e){}}
 window.gcHit=gcHit;
