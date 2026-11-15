@@ -2534,7 +2534,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
 </div></div>
 <div class="ov inv" id="appdl" style="z-index:16"><div class="sheet">
   <div class="pbig" style="font-size:22px">アプリ版へようこそ</div>
-  <div class="hint" style="font-size:14px;line-height:1.7">すべてのデータ（掛け声・全キャラの声・全テーマのBGM）を、いまこの端末にダウンロードしますか？<br>ダウンロードすると、ネットがなくても全部の声と曲が使えます（Wi-Fi推奨・数分かかります）。</div>
+  <div class="hint" style="font-size:14px;line-height:1.7">すべてのデータ（掛け声・全キャラの声・立ち絵・例文の音声・全テーマのBGM、約337MB）を、いまこの端末にダウンロードしますか？<br>ダウンロードすると、ネットがなくても全部の声と曲が使えます（Wi-Fi推奨・数分かかります）。</div>
   <button class="main" id="appdlYes">すべてダウンロードする</button>
   <button id="appdlNo">あとで（設定の「DLC」からいつでもできます）</button>
 </div></div>
@@ -4702,7 +4702,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.59",VLOG=[
+var VERSION="1.60",VLOG=[
+ ["1.60","2026-11-15",["はじめて開いたときの通信量を約半分に（使わなくなった古い声のデータを読まないように）","起動直後に、持っていないキャラの立ち絵まで読み込んでいたのを、仲間のキャラだけに","設定の「DLC」に「オフライン用の全データ」を追加。アプリ版の「すべてダウンロードする」でも、全キャラの声・立ち絵・例文の音声まで保存するように"]],
  ["1.59","2026-11-15",["立ち絵を元の画像そのままの画質に（全39人の立ち絵と表情・ハズレの仲間。顔のアイコンも2倍の解像度に）","元の20人のエピソードを、場面の説明つきで長くしました（追加キャラの話と同じくらいの長さに）","ガチャの「確率・ラインナップ」に、基本の確率と、いまの編成のスキルで上がった後の確率の両方を表示","ルール・得点とガチャ・ストーリーと絆・ステージの説明を、表と図で見やすく","単語の状態の呼び方を「未習得／仮習得（リーチ）／習得済み」に","設定を整理：こだわりの設定（背景・色・自分の曲・イコライザー・立体音響・単語の追加）は「詳細」タブに。説明は「ヘルプ」タブに","最初に始めるときの待ち時間を短く：確認画面を出さず、声だけ数秒で準備してすぐ始まります（BGMは裏で作ります）","説明文の古い数字を今の仕様に（BGMは全ステージ分、声の人数、DLCの説明、実績の名前など）。BGM準備中の「先に進む」ボタンを早めに表示","ストーリーに「MAIN」を追加：男女のキャラが一緒に出てくる共通の話（全8章）。キャラの章を読むほど先が開きます","ストーリーのセリフに声がつきました（全キャラ）。追加キャラの話の呼び方も、やわらかく（きみ）","全39人のセリフを、キャラごとに書き直した台本に（タップ・スキル・ボス・相棒のセリフ）","全39人の声を作り直し：昔のどぱたんと同じ声のキャラに合わせ、声の特徴と性格に合わせて速さ・抑揚・高さ・句読点の間をキャラごとに調整。読み間違いも修正"]],
  ["1.58","2026-11-15",["設定の「表示」に「アクセントカラー」：ボタン・枠・光など、ライム色だった部分の色を、色の円で自由に選べるように","使っていない古いカラーテーマ（設定・説明・見た目の指定）を削除"]],
  ["1.57","2026-11-15",["ガチャ画面をすっきり：看板は3人に、ラインナップは「確率・ラインナップ」を開いた時だけ表示","一覧やアイコンで、キャラの顔が真ん中に来るように（全39人）","説明に「ストーリーと絆」を追加。クレジットに新しいキャラの素材・声、NGSL-GR、例文音声（Kokoro）を追加"]],
@@ -5130,16 +5131,20 @@ function dlcRender(){
   var el=$("dlcList");if(!el)return;
   var vs=function(jobs){var h=0;jobs.forEach(function(j){if(VOX.saved[j[2]])h++});return [h,jobs.length]};
   var rows=[["v:shout","ボイス","掛け声パック","リーチ・大当たりなどの掛け声（声1〜3）",vs(dlcShoutJobs())],["v:char","ボイス","キャラボイスパック","全キャラの自己紹介とスキル発動の声",vs(dlcCharJobs())]];
-  Object.keys(SKN).forEach(function(th){var s=DLCS[th];rows.push(["b:"+th,"BGM",SKN[th].n.replace(/（.*）/,"")+" BGMパック","テスト20曲×4段階＋ホームの曲3曲"+(th===SKC?"（使用中のテーマ）":""),s||null])});
+  Object.keys(SKN).forEach(function(th){var s=DLCS[th];rows.push(["b:"+th,"BGM",SKN[th].n.replace(/（.*）/,"")+" BGMパック","テスト"+STAGES.length+"曲×4段階＋ホームの曲3曲"+(th===SKC?"（使用中のテーマ）":""),s||null])});
   var lf=dlcLeft(),mins=Math.max(1,Math.round((lf.v*0.05+lf.b*0.45)/60));
   var top=DLCQ?'<div class="dlall"><b>まとめてインストール中（'+DLCQ.i+' / '+DLCQ.ids.length+'）</b><button class="sm" id="dlcStopB">中止</button></div>':
     ((lf.v+lf.b)>0?'<button class="main" id="dlcAllB">残りをまとめてインストール（約'+mins+'分）</button><div class="hint">声 '+lf.v+' 個・BGM '+lf.b+' 曲が残っています。Wi-Fiで、画面を開いたまま待つのがおすすめです。</div>':'<div class="dlall"><b>すべてインストール済みです</b></div>');
-  el.innerHTML=top+rows.map(function(r){
+  var ofl='<div class="dlc" id="oflBox"><div class="dlh"><span class="dlt">まとめて</span><b>オフライン用の全データ</b></div><div class="hint">全キャラの声（本人・相棒・ストーリー）・立ち絵・例文の音声・ホームの曲を、この端末に保存します（約337MB。Wi-Fi推奨）。保存すると、ネットがなくても使えます。</div><div class="vbar"><i id="oflBar" style="width:0%"></i></div><div class="dls" id="oflSt">'+(OFQ?'保存中… '+OFQ.i+' / '+OFL.length:'確認中…')+'</div><div class="pair"><button class="sm" id="oflGo"'+(OFQ?' disabled':'')+'>保存する</button></div></div>';
+  el.innerHTML=top+ofl+rows.map(function(r){
     var st=r[4],done=st&&st[0]>=st[1],pc=st?Math.round(st[0]/st[1]*100):0,busy=(r[0].charAt(0)==="v"&&VOX.saving&&DLCB===r[0])||(r[0].charAt(0)==="b"&&MP.on&&MP.th===r[0].slice(2));
     return '<div class="dlc'+(done?' done':'')+'"><div class="dlh"><span class="dlt">'+r[1]+'</span><b>'+r[2]+'</b></div><div class="hint">'+r[3]+'</div>'+
       '<div class="vbar"><i style="width:'+pc+'%"></i></div><div class="dls">'+(st?(done?'インストール済み':'保存済み '+st[0]+' / '+st[1]+'（'+pc+'%）'):'確認中…')+(busy?'　<b>インストール中…</b>':'')+'</div>'+
       '<div class="pair"><button class="sm" data-dl="'+r[0]+'"'+(done||busy?' disabled':'')+'>'+(st&&st[0]>0&&!done?'続きをインストール':'インストール')+'</button><button class="sm" data-dd="'+r[0]+'"'+(st&&st[0]>0&&!busy?'':' disabled')+'>削除</button></div></div>';
   }).join("");
+  if($("oflGo"))$("oflGo").onclick=function(){cacheAllVoices();dlcRender()};
+  if(!OFQ)oflHave(function(n){var b=$("oflBar"),t=$("oflSt");if(!b||!t)return;var pc=Math.round(n/OFL.length*100);b.style.width=pc+"%";t.textContent=n>=OFL.length?"保存済み":"保存済み "+n+" / "+OFL.length+"（"+pc+"%）";if(n>=OFL.length&&$("oflGo"))$("oflGo").disabled=true});
+  else{var b0=$("oflBar");if(b0)b0.style.width=Math.round(OFQ.i/OFL.length*100)+"%"}
   Object.keys(SKN).forEach(function(th){if(!DLCS[th]||DLCS[th].stale){DLCS[th]=DLCS[th]||null;dlcBgmScan(th,function(h,n){var o=DLCS[th];DLCS[th]=[h,n];if(!o||o[0]!==h)dlcRender()})}});
   if($("dlcAllB"))$("dlcAllB").onclick=dlcAll;if($("dlcStopB"))$("dlcStopB").onclick=dlcStop;
   Array.prototype.forEach.call(el.querySelectorAll("[data-dl]"),function(b){b.onclick=function(){dlcInstall(b.getAttribute("data-dl"))}});
@@ -5225,7 +5230,11 @@ function themeMeta(){try{var bg=getComputedStyle(document.body).getPropertyValue
 setTimeout(themeMeta,0);
 /* ---- アプリ版（ホーム画面・Google Play）：最初に開いたとき、全データDLを選べる ---- */
 function isApp(){try{return (window.matchMedia&&(matchMedia("(display-mode: standalone)").matches||matchMedia("(display-mode: fullscreen)").matches))||navigator.standalone===true||(document.referrer||"").indexOf("android-app://")===0}catch(e){return false}}
-function cacheAllVoices(){try{Object.keys(PACKIDS).concat(["c"]).forEach(function(p,i){setTimeout(function(){try{fetch("voices/v"+p+".mp3").catch(function(){})}catch(e){}},i*150)})}catch(e){}}
+var OFL=["chars2/F09W_a.webp", "chars2/F09W_b.webp", "chars2/F09W_e.webp", "chars2/F09W_g.webp", "chars2/M01_a.webp", "chars2/M01_b.webp", "chars2/M01_e.webp", "chars2/M01_g.webp", "chars2/M02_a.webp", "chars2/M02_b.webp", "chars2/M02_e.webp", "chars2/M02_g.webp", "chars2/M03_a.webp", "chars2/M03_b.webp", "chars2/M03_e.webp", "chars2/M03_g.webp", "chars2/M04_a.webp", "chars2/M04_b.webp", "chars2/M04_e.webp", "chars2/M04_g.webp", "chars2/M05_a.webp", "chars2/M05_b.webp", "chars2/M05_e.webp", "chars2/M05_g.webp", "chars2/M06_a.webp", "chars2/M06_b.webp", "chars2/M06_e.webp", "chars2/M06_g.webp", "chars2/M07B_a.webp", "chars2/M07B_b.webp", "chars2/M07B_e.webp", "chars2/M07B_g.webp", "chars2/M07W_a.webp", "chars2/M07W_b.webp", "chars2/M07W_e.webp", "chars2/M07W_g.webp", "chars2/M08_a.webp", "chars2/M08_b.webp", "chars2/M08_e.webp", "chars2/M08_g.webp", "chars2/M09_a.webp", "chars2/M09_b.webp", "chars2/M09_e.webp", "chars2/M09_g.webp", "chars2/M10B_a.webp", "chars2/M10B_b.webp", "chars2/M10B_e.webp", "chars2/M10B_g.webp", "chars2/M10W_a.webp", "chars2/M10W_b.webp", "chars2/M10W_e.webp", "chars2/M10W_g.webp", "chars2/M11_a.webp", "chars2/M11_b.webp", "chars2/M11_e.webp", "chars2/M11_g.webp", "chars2/M12_a.webp", "chars2/M12_b.webp", "chars2/M12_e.webp", "chars2/M12_g.webp", "chars2/M13_a.webp", "chars2/M13_b.webp", "chars2/M13_e.webp", "chars2/M13_g.webp", "chars2/M14_a.webp", "chars2/M14_b.webp", "chars2/M14_e.webp", "chars2/M14_g.webp", "chars2/M15_a.webp", "chars2/M15_b.webp", "chars2/M15_e.webp", "chars2/M15_g.webp", "chars2/M16_a.webp", "chars2/M16_b.webp", "chars2/M16_e.webp", "chars2/M16_g.webp", "chars2/c01.webp", "chars2/c02.webp", "chars2/c03.webp", "chars2/c04.webp", "chars2/c05.webp", "chars2/c06.webp", "chars2/c07.webp", "chars2/c08.webp", "chars2/c09.webp", "chars2/c10.webp", "chars2/c11.webp", "chars2/c12.webp", "chars2/c13.webp", "chars2/c14.webp", "chars2/c15.webp", "chars2/c16.webp", "chars2/c17.webp", "chars2/c18.webp", "chars2/c19.webp", "chars2/c20.webp", "chars2/h1.webp", "chars2/h2.webp", "chars2/h3.webp", "chars2/h4.webp", "chars2/h5.webp", "chars2/t_F09W.webp", "chars2/t_M01.webp", "chars2/t_M02.webp", "chars2/t_M03.webp", "chars2/t_M04.webp", "chars2/t_M05.webp", "chars2/t_M06.webp", "chars2/t_M07B.webp", "chars2/t_M07W.webp", "chars2/t_M08.webp", "chars2/t_M09.webp", "chars2/t_M10B.webp", "chars2/t_M10W.webp", "chars2/t_M11.webp", "chars2/t_M12.webp", "chars2/t_M13.webp", "chars2/t_M14.webp", "chars2/t_M15.webp", "chars2/t_M16.webp", "chars2/t_c01.webp", "chars2/t_c02.webp", "chars2/t_c03.webp", "chars2/t_c04.webp", "chars2/t_c05.webp", "chars2/t_c06.webp", "chars2/t_c07.webp", "chars2/t_c08.webp", "chars2/t_c09.webp", "chars2/t_c10.webp", "chars2/t_c11.webp", "chars2/t_c12.webp", "chars2/t_c13.webp", "chars2/t_c14.webp", "chars2/t_c15.webp", "chars2/t_c16.webp", "chars2/t_c17.webp", "chars2/t_c18.webp", "chars2/t_c19.webp", "chars2/t_c20.webp", "voices/e1.mp3", "voices/e10.mp3", "voices/e11.mp3", "voices/e12.mp3", "voices/e13.mp3", "voices/e14.mp3", "voices/e15.mp3", "voices/e16.mp3", "voices/e17.mp3", "voices/e18.mp3", "voices/e19.mp3", "voices/e2.mp3", "voices/e20.mp3", "voices/e21.mp3", "voices/e22.mp3", "voices/e23.mp3", "voices/e24.mp3", "voices/e25.mp3", "voices/e26.mp3", "voices/e27.mp3", "voices/e28.mp3", "voices/e29.mp3", "voices/e3.mp3", "voices/e30.mp3", "voices/e31.mp3", "voices/e32.mp3", "voices/e33.mp3", "voices/e34.mp3", "voices/e35.mp3", "voices/e4.mp3", "voices/e5.mp3", "voices/e6.mp3", "voices/e7.mp3", "voices/e8.mp3", "voices/e9.mp3", "voices/v10.mp3", "voices/v107.mp3", "voices/v108.mp3", "voices/v109.mp3", "voices/v14.mp3", "voices/v16.mp3", "voices/v2.mp3", "voices/v23.mp3", "voices/v27.mp3", "voices/v43.mp3", "voices/v46.mp3", "voices/v47.mp3", "voices/v51.mp3", "voices/v54.mp3", "voices/v58.mp3", "voices/v6.mp3", "voices/v61.mp3", "voices/v65.mp3", "voices/v68.mp3", "voices/v74.mp3", "voices/v8.mp3", "voices/vpF09W.mp3", "voices/vpM01.mp3", "voices/vpM02.mp3", "voices/vpM03.mp3", "voices/vpM04.mp3", "voices/vpM05.mp3", "voices/vpM06.mp3", "voices/vpM07B.mp3", "voices/vpM07W.mp3", "voices/vpM08.mp3", "voices/vpM09.mp3", "voices/vpM10B.mp3", "voices/vpM10W.mp3", "voices/vpM11.mp3", "voices/vpM12.mp3", "voices/vpM13.mp3", "voices/vpM14.mp3", "voices/vpM15.mp3", "voices/vpM16.mp3", "voices/vpc01.mp3", "voices/vpc02.mp3", "voices/vpc03.mp3", "voices/vpc04.mp3", "voices/vpc05.mp3", "voices/vpc06.mp3", "voices/vpc07.mp3", "voices/vpc08.mp3", "voices/vpc09.mp3", "voices/vpc10.mp3", "voices/vpc11.mp3", "voices/vpc12.mp3", "voices/vpc13.mp3", "voices/vpc14.mp3", "voices/vpc15.mp3", "voices/vpc16.mp3", "voices/vpc17.mp3", "voices/vpc18.mp3", "voices/vpc19.mp3", "voices/vpc20.mp3", "voices/vsF09W.mp3", "voices/vsM01.mp3", "voices/vsM02.mp3", "voices/vsM03.mp3", "voices/vsM04.mp3", "voices/vsM05.mp3", "voices/vsM06.mp3", "voices/vsM07B.mp3", "voices/vsM07W.mp3", "voices/vsM08.mp3", "voices/vsM09.mp3", "voices/vsM10B.mp3", "voices/vsM10W.mp3", "voices/vsM11.mp3", "voices/vsM12.mp3", "voices/vsM13.mp3", "voices/vsM14.mp3", "voices/vsM15.mp3", "voices/vsM16.mp3", "voices/vsc01.mp3", "voices/vsc02.mp3", "voices/vsc03.mp3", "voices/vsc04.mp3", "voices/vsc05.mp3", "voices/vsc06.mp3", "voices/vsc07.mp3", "voices/vsc08.mp3", "voices/vsc09.mp3", "voices/vsc10.mp3", "voices/vsc11.mp3", "voices/vsc12.mp3", "voices/vsc13.mp3", "voices/vsc14.mp3", "voices/vsc15.mp3", "voices/vsc16.mp3", "voices/vsc17.mp3", "voices/vsc18.mp3", "voices/vsc19.mp3", "voices/vsc20.mp3", "voices/vtF09W.mp3", "voices/vtM01.mp3", "voices/vtM02.mp3", "voices/vtM03.mp3", "voices/vtM04.mp3", "voices/vtM05.mp3", "voices/vtM06.mp3", "voices/vtM07B.mp3", "voices/vtM07W.mp3", "voices/vtM08.mp3", "voices/vtM09.mp3", "voices/vtM10B.mp3", "voices/vtM10W.mp3", "voices/vtM11.mp3", "voices/vtM12.mp3", "voices/vtM13.mp3", "voices/vtM14.mp3", "voices/vtM15.mp3", "voices/vtM16.mp3", "voices/vtc01.mp3", "voices/vtc02.mp3", "voices/vtc03.mp3", "voices/vtc04.mp3", "voices/vtc05.mp3", "voices/vtc06.mp3", "voices/vtc07.mp3", "voices/vtc08.mp3", "voices/vtc09.mp3", "voices/vtc10.mp3", "voices/vtc11.mp3", "voices/vtc12.mp3", "voices/vtc13.mp3", "voices/vtc14.mp3", "voices/vtc15.mp3", "voices/vtc16.mp3", "voices/vtc17.mp3", "voices/vtc18.mp3", "voices/vtc19.mp3", "voices/vtc20.mp3", "bgm/hA1.mp3", "bgm/hA2.mp3", "bgm/hA3.mp3", "bgm/hB1.mp3", "bgm/hB2.mp3", "bgm/hB3.mp3", "bgm/hC1.mp3", "bgm/hC2.mp3", "bgm/hC3.mp3", "bgm/hD1.mp3", "bgm/hD2.mp3", "bgm/hD3.mp3"],OFQ=null;
+function oflHave(cb){if(!window.caches){cb(0);return}var n=0,i=0;(function nx(){if(i>=OFL.length){cb(n);return}caches.match(OFL[i++]).then(function(r){if(r)n++;nx()}).catch(function(){nx()})})()}
+function cacheAllVoices(){if(OFQ||!window.caches)return;OFQ={i:0};var go=function(){if(!OFQ)return;if(OFQ.i>=OFL.length){OFQ=null;try{dlcRender()}catch(e){}return}var u=OFL[OFQ.i++];
+  caches.match(u).then(function(r){if(r)return;return fetch(u).then(function(x){if(x.ok)return caches.open("dopa-offline").then(function(c){return c.put(u,x)})})}).catch(function(){}).then(function(){if(OFQ&&OFQ.i%10===0)try{dlcRender()}catch(e){}setTimeout(go,30)})};go()}
+window.cacheAllVoices=cacheAllVoices;
 function appdlCheck(){
   if(!isApp())return;
   try{if(localStorage.getItem("dopa:appdl"))return}catch(e){return}
@@ -6099,7 +6108,7 @@ function start(){
   skLast={};
   T={mode:mode,ids:ids,lap:1,q:0,order:shuf(ids.slice()),res:{},answered:false,streak:0,score:0,best:0,stage:stageOf(ids),full:isFull,lockKey:(isFull&&!rangeM)?lkey:""};
   ids.forEach(function(i){T.res[i]=[null,null]});
-  if(SK==="dopa"&&BOSSON&&mode==="all"&&lim===0&&ids.length*2>=KAKU_MIN){var bc=CHARS[T.stage];if(bc){var mx=Math.ceil(ids.length*2*0.9);T.boss={id:bc.id,max:mx,hp:mx,said:{},intro:0};(function(B){cExpPre(B.id,['d1','d2','s']);cExp(B.id,cExpR(B.id,'i'),function(u){B.iu=u;var f=$('bfig');if(f&&T&&T.boss===B&&!(B.fu&&Date.now()<B.ft))f.style.backgroundImage='url('+u+')'});cExp(B.id,cExpR(B.id,'k'),function(u){B.ku=u})})(T.boss);try{packLoad("c",function(){})}catch(e){}}}
+  if(SK==="dopa"&&BOSSON&&mode==="all"&&lim===0&&ids.length*2>=KAKU_MIN){var bc=CHARS[T.stage];if(bc){var mx=Math.ceil(ids.length*2*0.9);T.boss={id:bc.id,max:mx,hp:mx,said:{},intro:0};(function(B){cExpPre(B.id,['d1','d2','s']);cExp(B.id,cExpR(B.id,'i'),function(u){B.iu=u;var f=$('bfig');if(f&&T&&T.boss===B&&!(B.fu&&Date.now()<B.ft))f.style.backgroundImage='url('+u+')'});cExp(B.id,cExpR(B.id,'k'),function(u){B.ku=u})})(T.boss);}}
   try{voxPrefetch()}catch(e){}
   ask();
 }
@@ -8241,7 +8250,7 @@ GTS=[
 var toast=function(t,ms){try{V5.toast(t,ms)}catch(e){}};
 /* ---------- 声：パックを先に読んで、1文ごとの速さ補正を使えるように ---------- */
 setTimeout(function(){try{updStones();unlTabs()}catch(e){}},950);
-setTimeout(function(){try{packLoad("c",function(){});(FXS||[]).forEach(function(sp){packLoad(String(sp),function(){})})}catch(e){}},1500);
+setTimeout(function(){try{(FXS||[]).forEach(function(sp){packLoad(String(sp),function(){})})}catch(e){}},1500);
 
 /* ---------- 進捗リセット：本当に全部消して、最初の画面へ ---------- */
 var KEEP=/^dopa:(st0|vox|volB|volS|anim|lite|eq|sp|snd|oskb|tmpo2|gskip|skin|vrev)/;
@@ -8626,7 +8635,7 @@ function smStart(){
   if(LITE)return;
   if(!window.IMGFULL||!Object.keys(EXPP).length){if(++smTry<120)setTimeout(smStart,500);return}
   var own=[];try{own=[favId()].concat(G.party||[]).concat(CHARS.filter(function(c){return lvOf(c.id)}).map(function(c){return c.id}))}catch(e){}
-  var all=own.concat(CHARS.map(function(c){return c.id})),seen={},list=all.filter(function(id){if(!id||seen[id])return false;seen[id]=1;return true});
+  var all=own,seen={},list=all.filter(function(id){if(!id||seen[id])return false;seen[id]=1;return true});
   var nOwn=own.filter(function(id,i){return id&&own.indexOf(id)===i}).length,i=0,got=0;
   var next=function(){
     if(i>=list.length){if(got)refresh();return}
