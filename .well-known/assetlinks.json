@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "ここをパッケージ名に（例：io.github.ユーザー名.dopatan）",
+    "sha256_cert_fingerprints": ["ここをPlay Consoleの『アプリの署名鍵の証明書』のSHA-256に"]
+  }
+}]

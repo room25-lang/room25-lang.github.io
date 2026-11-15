@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script>(function(){try{var L=localStorage,n=parseInt(L.getItem("dopa:boot")||"0",10)||0;
+if(n>=2&&L.getItem("dopa:lite")!=="1"){L.setItem("dopa:lite","1");L.setItem("dopa:autolite","1")}
+L.setItem("dopa:boot",String(n+1));
+var ok=function(){try{L.setItem("dopa:boot","0")}catch(e){}};setTimeout(ok,60000);
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")ok()});window.addEventListener("pagehide",ok);
+}catch(e){}})();</script>
 <meta charset="utf-8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -2879,7 +2885,7 @@ function packLoad(pid,cb){
   try{
     fetch("voices/v"+pid+".mp3").then(function(r){if(!r.ok)throw "HTTP "+r.status;return r.arrayBuffer()}).then(function(ab){
       var n=new DataView(ab).getUint32(0,true),ix=JSON.parse(new TextDecoder().decode(new Uint8Array(ab,4,n))),m={};
-      Object.keys(ix).forEach(function(k){var x=ix[k];if(x[2])VRT[pid+"|"+k]=x[2];m[k]=new Blob([new Uint8Array(ab,4+n+x[0],x[1])],{type:"audio/mpeg"})});
+      Object.keys(ix).forEach(function(k){var x=ix[k];if(x[2])VRT[pid+"|"+k]=x[2];(function(o,kk,a,b){Object.defineProperty(o,kk,{configurable:true,enumerable:true,get:function(){var v=new Blob([new Uint8Array(ab,a,b)],{type:"audio/mpeg"});Object.defineProperty(o,kk,{value:v,enumerable:true});return v}})})(m,k,4+n+x[0],x[1])});
       fin(m);
     }).catch(function(e){fin(null,typeof e==="string"?"同梱の音声を読めません（"+e+"）":"同梱の音声を読めません（ファイルが見つからない・通信できない）")});
   }catch(e){fin(null,"同梱の音声を読めません")}
@@ -4439,7 +4445,7 @@ function loopBuf(buf,xf,gap){
 }
 function chPeek(){var st=bgm.mode==="study",L=st?studyL():homeL(),v=st?-1:parseInt($("chillSel").value);return L[isNaN(v)||v<0?(chillIdx+1)%L.length:v]}
 var DECB={},DECK=[];
-function decPut(k,b){if(!b||DECB[k])return;DECB[k]=b;DECK.push(k);while(DECK.length>3)delete DECB[DECK.shift()]}
+function decPut(k,b){if(!b||DECB[k])return;DECB[k]=b;DECK.push(k);while(DECK.length>(LITE?1:2))delete DECB[DECK.shift()]}
 function chPlay(C){
   var mode=bgm.mode,ck=chKey(C),cached=DECB[ck];
   (cached?function(C2,cb){cb(true,{arrayBuffer:function(){return Promise.resolve(null)}})}:chEnsure)(C,function(ok,blob){
@@ -4737,7 +4743,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.63",VLOG=[
+var VERSION="1.64",VLOG=[
+ ["1.64","2026-11-15",["起動してしばらくすると落ちて、最初から開き直しになることがある問題を減らしました（声のデータを必要な分だけ読み出す・BGMを持ちすぎない）","起動してすぐ落ちるのが続いたときは、次から軽量モードで起動します"]],
  ["1.63","2026-11-15",["BGMと掛け声を「寄り添い」と「ノリノリ」の2つに分けました。チュートリアルで選べて、設定の「音」でいつでも変えられます","寄り添い：ホームはやわらかいローファイの新曲3曲、テストは午前・午後で雰囲気の変わる曲。掛け声のかわりに、相棒が自分の声でやさしく声をかけます。テスト中も曲の高さは変わりません","ノリノリ：これまでのアップテンポな曲と、にぎやかな掛け声","夏帆・イリス・エルナ・ミナモ・宗・白夜の声を変更（セリフ・相棒のセリフ・ストーリーすべて）"]],
  ["1.62","2026-11-15",["テストのBGMを新しく：午前は落ち着いたローファイ、午後は夜の街のエレクトロ。ステージごとに別の曲（設定の「音」で、いつも同じ雰囲気にもできます）","設定を整理：「声」と「音」を「音」にまとめ、背景・色・アニメーション・傾きなど見た目の設定を「画面」タブに","アクセントカラーを変えても、ボタンの形が変わる所などに前のライム色が残っていたのを修正","VOICEボタンの色も、アクセントカラーに合わせるように","キャラ選びの画面を、レア度の高い順に並べるように","キャラ選びの画面で、顔の大きさをそろえました"]],
  ["1.61","2026-11-15",["ガチャの画面で、キャラ同士が重なりすぎないように並べ直し","iPhoneの「動きの使用」の確認で「キャンセル」を押したら、傾きの機能をオフにして、もう聞かないように（説明が出続ける不具合も修正）","キャラの声が割れることがあったのを修正","キャラを切り替えたら、前のキャラのセリフを止めてから話すように（セリフが後ろに溜まらない）","長いセリフが途中で切れることがあったのを修正","お気に入り・編成のキャラの声を先に読み込んで、タップしてから声が出るまでを短く","セリフ中はBGMをはっきり小さくするように（ストーリーの声も）","キャラ選びの画面で、顔の位置をそろえました","ホームの曲が切り替わるときの無音を、ほぼなくしました"]],
@@ -8189,7 +8196,7 @@ function exPack(k,cb){
   var fin=function(m){var l=EXQ[k]||[];delete EXQ[k];if(m)EXP[k]=m;l.forEach(function(f){f(m)})};
   try{fetch("voices/e"+(k+1)+".mp3").then(function(r){if(!r.ok)throw 0;return r.arrayBuffer()}).then(function(ab){
     var n=new DataView(ab).getUint32(0,true),ix=JSON.parse(new TextDecoder().decode(new Uint8Array(ab,4,n))),m={};
-    Object.keys(ix).forEach(function(key){var x=ix[key];m[key]=new Blob([new Uint8Array(ab,4+n+x[0],x[1])],{type:"audio/mpeg"})});fin(m)}).catch(function(){fin(null)})}catch(e){fin(null)}
+    Object.keys(ix).forEach(function(key){var x=ix[key];(function(o,kk,a,b){Object.defineProperty(o,kk,{configurable:true,enumerable:true,get:function(){var v=new Blob([new Uint8Array(ab,a,b)],{type:"audio/mpeg"});Object.defineProperty(o,kk,{value:v,enumerable:true});return v}})})(m,key,4+n+x[0],x[1])});fin(m)}).catch(function(){fin(null)})}catch(e){fin(null)}
 }
 window.exSay=function(n,fallback){
   var k=exStage(n),done=false;
@@ -9489,6 +9496,10 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
   var NVSP={"M01": 11, "F09W": 122, "M05": 32, "M06": 11, "M03": 99, "M02": 52, "M04": 52, "M09": 100, "M14": 73, "M15": 73, "M07B": 52, "M07W": 41, "M10B": 73, "M10W": 73, "M08": 51, "M11": 32, "M12": 101, "M13": 51, "M16": 41};var _vn=vname;vname=function(sp){if(sp>=9000&&sp<9100){var id=NEWC.ids[sp-9000];if(NVSP[id]!==undefined)return _vn(NVSP[id])}return _vn(sp)};
   try{chillOpts()}catch(e){}
 })();
+
+/* ===================== v1.64 続けて落ちたときの知らせ ===================== */
+(function(){try{if(localStorage.getItem("dopa:autolite")==="1"){localStorage.removeItem("dopa:autolite");
+  setTimeout(function(){try{renderG("前回うまく動かなかったため、軽量モードで起動しました（設定でいつでも戻せます）")}catch(e){}},2500)}}catch(e){}})();
 
 </script>
 </body>
