@@ -7,82 +7,7 @@ var chk=function(a){try{if(a&&a.state==="interrupted"&&a.suspend){a.suspend();tr
 setInterval(function(){(window.ACS||[]).forEach(chk)},500);
 }catch(e){}})();</script>
 <script>(function(){try{var u=navigator.userAgent||"";window.NOCONV=/iP(hone|ad|od)/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1)||(/AppleWebKit/.test(u)&&/Safari/.test(u)&&!/Chrome|Chromium|CriOS|Edg|OPR|Android|Firefox|FxiOS/.test(u))||/CriOS|FxiOS|EdgiOS/.test(u)}catch(e){}})();</script>
-<script>(function(){try{
-var L=localStorage,T0=Date.now(),R=[],last=0;
-var prevN=parseInt(L.getItem("dopa:boot")||"0",10)||0;
-if(prevN>=1&&L.getItem("dopa:crumb")){var cp=L.getItem("dopa:crumb");try{var cj=JSON.parse(cp),rn=L.getItem("dopa:run")||"";cj.r.push("★最後に実行中だった処理："+(rn||"なし（タイマー・イベントの外）"));cp=JSON.stringify(cj)}catch(e){}L.setItem("dopa:crumbPrev",cp)}
-try{L.setItem("dopa:run","")}catch(e){}
-var put=function(){try{L.setItem("dopa:crumb",JSON.stringify({v:"",ua:navigator.userAgent,at:new Date(T0).toLocaleString(),r:R}))}catch(e){}};
-var C=window.crumb=function(m){R.push(((Date.now()-T0)/1000).toFixed(1)+" "+m);if(R.length>700)R.splice(0,R.length-700);put()};
-if(!L.getItem("dopa:litefix1")){L.setItem("dopa:litefix1","1");if(L.getItem("dopa:lite")==="1")L.setItem("dopa:lite","0");L.removeItem("dopa:dbg");L.removeItem("dopa:bis");L.removeItem("dopa:autolite")}
-var BC=[["au"],["sm"],[],["au","sm"],["hv"],["au"],["sm"],[],["au","sm"],["hv"]];window.BISC=BC;
-var BS=null;try{BS=JSON.parse(L.getItem("dopa:bis")||"null")}catch(e){}
-if(BS&&BS.on){if(BS.cur>=0&&prevN>=1)BS.res[BS.cur]="落ちた";BS.cur++;
-  if(BS.cur>=BC.length){BS.on=0;BS.done=1;L.setItem("dopa:dbg",BS.dbg0||"");L.setItem("dopa:lite",BS.lite0||"0")}else{L.setItem("dopa:dbg",BC[BS.cur].join(","));L.setItem("dopa:lite","0")}
-  L.setItem("dopa:bis",JSON.stringify(BS));
-  if(BS.on)setTimeout(function(){try{var b2=JSON.parse(L.getItem("dopa:bis"));b2.res[b2.cur]="OK";L.setItem("dopa:bis",JSON.stringify(b2));location.reload()}catch(e){}},30000)}
-window.BIS=BS;
-if(!(BS&&BS.on)){var DN=parseInt(L.getItem("dopa:dbgn")||"0",10)||0;if(L.getItem("dopa:dbg")){if(DN<=0)L.setItem("dopa:dbg","");else L.setItem("dopa:dbgn",String(DN-1))}}
-var DB=(L.getItem("dopa:dbg")||"").split(",").filter(Boolean);window.DBG={};DB.forEach(function(k){DBG[k]=1;document.documentElement.classList.add("dbg-"+k)});
-if(DBG.au){try{window.AudioContext=undefined;window.webkitAudioContext=undefined;window.OfflineAudioContext=undefined;window.webkitOfflineAudioContext=undefined;
-  HTMLMediaElement.prototype.play=function(){return Promise.reject(new Error("dbg-au"))};
-  if(window.speechSynthesis){speechSynthesis.speak=function(){};}}catch(e){}}
-C("起動 止めたもの:"+(DB.join(",")||"なし")+" 軽量:"+(L.getItem("dopa:lite")==="1"?"ON":"OFF")+" 動き:"+(L.getItem("dopa:anim")==="0"?"OFF":"ON")+" BGM:"+(L.getItem("dopa:bgm")==="0"?"OFF":"ON"));
-window.addEventListener("error",function(e){C("ERR "+(e.message||"")+" "+(e.filename||"").split("/").pop()+":"+(e.lineno||""))});
-window.addEventListener("unhandledrejection",function(e){var r=e.reason;C("REJ "+(r&&(r.message||r.name)||String(r)).slice(0,80))});
-document.addEventListener("visibilitychange",function(){C("表示:"+document.visibilityState)});
-var F=window.fetch;if(F)window.fetch=function(u){var s=String(u&&u.url||u).replace(location.origin,"").slice(0,60);C("取得 "+s);return F.apply(this,arguments).then(function(r){C("取得済 "+s+" "+r.status);return r},function(e){C("取得失敗 "+s);throw e})};
-var wrapAC=function(name){var A=window[name];if(!A)return;try{var W=function(){var a=arguments,o=a.length===0?new A():a.length===1?new A(a[0]):new A(a[0],a[1],a[2]);C(name+" 作成 "+(o.sampleRate||"")+(a.length>1?" len="+a[1]:""));return o};W.prototype=A.prototype;window[name]=W}catch(e){}};
-wrapAC("AudioContext");wrapAC("webkitAudioContext");wrapAC("OfflineAudioContext");wrapAC("webkitOfflineAudioContext");
-var BP=(window.BaseAudioContext||window.AudioContext||{}).prototype;
-if(BP&&BP.decodeAudioData){var D=BP.decodeAudioData;BP.decodeAudioData=function(ab,ok,ng){var n=ab&&ab.byteLength,id=Math.random().toString(36).slice(2,5);C("デコード開始 "+id+" "+Math.round(n/1024)+"KB");
-  var ok2=function(b){C("デコード完了 "+id+" "+(b?Math.round(b.duration)+"s "+b.numberOfChannels+"ch "+b.sampleRate:""));if(ok)ok(b)},ng2=function(e){C("デコード失敗 "+id);if(ng)ng(e)};
-  return D.call(this,ab,ok2,ng2)}}
-var OP=window.OfflineAudioContext&&window.OfflineAudioContext.prototype;
-if(OP&&OP.startRendering){var SR=OP.startRendering;OP.startRendering=function(){C("合成開始 "+this.length);var p=SR.apply(this,arguments);if(p&&p.then)p.then(function(){C("合成完了")},function(){C("合成失敗")});return p}}
-if(window.IDBObjectStore){var P=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(v,k){C("保存 "+this.name+" "+String(k).slice(0,40)+(v&&v.size?" "+Math.round(v.size/1024)+"KB":""));return P.apply(this,arguments)}}
-if(window.speechSynthesis){var SP=speechSynthesis.speak.bind(speechSynthesis);speechSynthesis.speak=function(u){C("端末の声 "+(u&&u.text||"").slice(0,20));return SP(u)}}
-var TP=0;document.addEventListener("pointerdown",function(){TP++;if(TP<=40)C("タップ "+TP)},true);if(L.getItem("dopa:dbgrun")==="1"){var M=window.MEMC={buf:0,bufN:0,dec:0,node:0,osc:0,src:0,aud:0,blob:0,blobN:0,url:0,get:0,img:0,cv:0,tm:0,ab:0};
-try{var BP2=(window.BaseAudioContext||window.AudioContext||window.webkitAudioContext).prototype;
- var CB=BP2.createBuffer;BP2.createBuffer=function(c,l,r){M.bufN++;M.buf+=c*l*4;return CB.apply(this,arguments)};
- ["createGain","createBiquadFilter","createConvolver","createDelay","createWaveShaper","createDynamicsCompressor","createStereoPanner","createAnalyser","createScriptProcessor","createMediaElementSource","createConstantSource","createPanner"].forEach(function(k){var f=BP2[k];if(f)BP2[k]=function(){M.node++;return f.apply(this,arguments)}});
- var CO=BP2.createOscillator;BP2.createOscillator=function(){M.osc++;return CO.apply(this,arguments)};
- var CS=BP2.createBufferSource;BP2.createBufferSource=function(){M.src++;return CS.apply(this,arguments)};
- if(window.AudioBuffer){var AB0=window.AudioBuffer;window.AudioBuffer=function(o){M.bufN++;M.buf+=(o.numberOfChannels||1)*o.length*4;return new AB0(o)};window.AudioBuffer.prototype=AB0.prototype}
-}catch(e){}
-try{var AU=window.Audio;window.Audio=function(x){M.aud++;return arguments.length?new AU(x):new AU()};window.Audio.prototype=AU.prototype}catch(e){}
-try{var BL=window.Blob;window.Blob=function(a,o){var b=arguments.length>1?new BL(a,o):arguments.length?new BL(a):new BL();M.blobN++;M.blob+=b.size;return b};window.Blob.prototype=BL.prototype}catch(e){}
-try{var CU=URL.createObjectURL;URL.createObjectURL=function(x){M.url++;return CU.apply(URL,arguments)}}catch(e){}
-try{var RA=Response.prototype.arrayBuffer;Response.prototype.arrayBuffer=function(){return RA.apply(this,arguments).then(function(b){M.get+=b.byteLength;return b})}}catch(e){}
-try{var IM=window.Image;window.Image=function(w,h){M.img++;return arguments.length>1?new IM(w,h):arguments.length?new IM(w):new IM()};window.Image.prototype=IM.prototype}catch(e){}
-try{var GC2=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(){M.cv+=this.width*this.height*4;return GC2.apply(this,arguments)}}catch(e){}
-var RC="",DRN=L.getItem("dopa:dbgrun")==="1",RSET=function(v){if(!DRN||v===RC)return;RC=v;try{L.setItem("dopa:run",v)}catch(e){}};
-var RUN=function(tag,f){if(!DRN||typeof f!=="function")return f;try{if(f.__w)return f.__w}catch(e){}
- var src=tag+" "+String(f).replace(/\s+/g," ").slice(0,150);
- var w=function(){var p=RC;RSET(((Date.now()-T0)/1000).toFixed(1)+" "+src);try{return f.apply(this,arguments)}finally{RSET(p)}};
- try{Object.defineProperty(f,"__w",{value:w})}catch(e){}return w};
-try{var ST=window.setTimeout;window.setTimeout=function(f){M.tm++;var a=Array.prototype.slice.call(arguments);a[0]=RUN("timeout("+(a[1]||0)+")",f);return ST.apply(window,a)}}catch(e){}
-try{var SI=window.setInterval;window.setInterval=function(f){var a=Array.prototype.slice.call(arguments);a[0]=RUN("interval("+(a[1]||0)+")",f);return SI.apply(window,a)}}catch(e){}
-try{var RF=window.requestAnimationFrame;window.requestAnimationFrame=function(f){return RF.call(window,RUN("raf",f))}}catch(e){}
-try{var AE=EventTarget.prototype.addEventListener,RE=EventTarget.prototype.removeEventListener;
- EventTarget.prototype.addEventListener=function(t,f,o){return AE.call(this,t,RUN("ev:"+t,f),o)};
- EventTarget.prototype.removeEventListener=function(t,f,o){var w=f;try{if(f&&f.__w)w=f.__w}catch(e){}return RE.call(this,t,w,o)}}catch(e){}
-try{var PT=Promise.prototype.then;Promise.prototype.then=function(a,b){return PT.call(this,RUN("then",a),RUN("then",b))}}catch(e){}
-[[window.HTMLElement,"onload"],[window.HTMLElement,"onerror"],[window.HTMLElement,"onclick"],[window.AudioScheduledSourceNode,"onended"],[window.IDBRequest,"onsuccess"],[window.IDBTransaction,"oncomplete"],[window.XMLHttpRequest,"onload"],[window.FileReader,"onload"]].forEach(function(x){try{var d=Object.getOwnPropertyDescriptor(x[0].prototype,x[1]);if(!d||!d.set)return;Object.defineProperty(x[0].prototype,x[1],{configurable:true,enumerable:d.enumerable,get:function(){return d.get.call(this)},set:function(f){d.set.call(this,RUN(x[1],f))}})}catch(e){}});
-try{var F32=window.Float32Array;var PX=new Proxy(F32,{construct:function(t,a,nt){var o=Reflect.construct(t,a,nt);if(o.byteLength>65536)M.ab+=o.byteLength;return o}});window.Float32Array=PX}catch(e){}
-}var mb=function(n){return Math.round(n/1048576)};if(!window.MEMC){var M=window.MEMC={buf:0,bufN:0,ab:0,osc:0,src:0,node:0,aud:0,blob:0,blobN:0,url:0,get:0,img:0,cv:0,tm:0}}else var M=window.MEMC;
-var HB=0;setInterval(function(){HB++;var a="-";try{if(window.AC)a=AC.state+"/"+AC.currentTime.toFixed(1)}catch(e){}
- C("動作中 "+HB+" dom="+document.getElementsByTagName("*").length+" ac="+a+" buf="+mb(M.buf)+"MB/"+M.bufN+" f32="+mb(M.ab)+"MB osc="+M.osc+" src="+M.src+" node="+M.node+" aud="+M.aud+" blob="+mb(M.blob)+"MB/"+M.blobN+" url="+M.url+" get="+mb(M.get)+"MB img="+M.img+" cv="+mb(M.cv)+"MB tm="+M.tm)},500);
-try{var IS=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,"src");Object.defineProperty(HTMLImageElement.prototype,"src",{configurable:true,enumerable:true,get:function(){return IS.get.call(this)},set:function(v){var u=String(v);C("画像 "+(u.indexOf("data:")===0?"data "+Math.round(u.length/1024)+"KB":u.replace(location.origin,"").slice(0,50)));IS.set.call(this,v)}})}catch(e){}
-try{var SA=Element.prototype.setAttribute;Element.prototype.setAttribute=function(k,v){if((k==="href"||k==="xlink:href")&&this.tagName&&this.tagName.toLowerCase()==="image"){var u=String(v);C("SVG画像 "+(u.indexOf("data:")===0?"data "+Math.round(u.length/1024)+"KB":u.replace(location.origin,"").slice(0,50)))}return SA.apply(this,arguments)}}catch(e){}
-try{var GC=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k){C("キャンバス "+k+" "+this.width+"x"+this.height);return GC.apply(this,arguments)};
-var TB=HTMLCanvasElement.prototype.toBlob;if(TB)HTMLCanvasElement.prototype.toBlob=function(){C("PNG化 "+this.width+"x"+this.height);return TB.apply(this,arguments)};
-var TD=HTMLCanvasElement.prototype.toDataURL;HTMLCanvasElement.prototype.toDataURL=function(){C("dataURL化 "+this.width+"x"+this.height);return TD.apply(this,arguments)}}catch(e){}
-try{var IH=Object.getOwnPropertyDescriptor(Element.prototype,"innerHTML");Object.defineProperty(Element.prototype,"innerHTML",{configurable:true,enumerable:true,get:function(){return IH.get.call(this)},set:function(v){var n=v&&v.length||0;if(n>8000)C("書き換え "+(this.id||String(this.className).slice(0,20))+" "+Math.round(n/1024)+"KB");IH.set.call(this,v)}})}catch(e){}
-try{var SS=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(){var oc=window.OfflineAudioContext&&this.context instanceof window.OfflineAudioContext;if(!oc)C("音 "+(this.buffer?this.buffer.duration.toFixed(1)+"s":"-")+(this.loop?" ループ":""));return SS.apply(this,arguments)}}catch(e){}
-try{var MP=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){C("メディア再生 "+String(this.currentSrc||this.src).slice(0,30));return MP.apply(this,arguments)}}catch(e){}
-document.addEventListener("animationstart",function(e){var t=e.target;C("アニメ "+e.animationName+" "+(t.id||String(t.className&&t.className.baseVal!==undefined?t.className.baseVal:t.className).slice(0,20)))},true);
-}catch(e){}})();</script>
+<script>window.crumb=function(){};window.UG=!((window.navigator&&navigator.standalone===true)||(window.matchMedia&&matchMedia("(display-mode: standalone)").matches));["touchstart","pointerdown","mousedown","keydown"].forEach(function(ev){document.addEventListener(ev,function(){window.UG=true},{capture:true,passive:true})});try{var L=localStorage;if(!L.getItem("dopa:dbgclean1")){["dopa:crumb","dopa:crumbPrev","dopa:run","dopa:bis","dopa:dbg","dopa:dbgn","dopa:dbgrun","dopa:autolite","dopa:bgcv","dopa:bgcvOn"].forEach(function(k){L.removeItem(k)});L.setItem("dopa:dbgclean1","1")}}catch(e){}</script>
 <script>(function(){try{var L=localStorage,n=parseInt(L.getItem("dopa:boot")||"0",10)||0;
 
 L.setItem("dopa:boot",String(n+1));
@@ -2363,13 +2288,6 @@ body .bkg .bkgb.on{background:var(--acc,var(--uacc,#d4ff00))!important;border-co
 .mdp button b{font-size:18px}.mdp button small{font-size:13px;line-height:1.5;opacity:.85}
 .mdp button.on{background:var(--acc)!important;color:var(--acc-ink)!important;border-color:var(--acc)!important}
 
-html.dbg-bg #bgfx,html.dbg-bg #xmsnow,html.dbg-bg #bnd{display:none!important}
-html.dbg-fx *,html.dbg-fx *::before,html.dbg-fx *::after{filter:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:none!important;text-shadow:none!important;mix-blend-mode:normal!important;-webkit-mask-image:none!important;mask-image:none!important;will-change:auto!important}
-html.dbg-an *,html.dbg-an *::before,html.dbg-an *::after{animation:none!important;transition:none!important}
-html.dbg-hb .hb2,html.dbg-hb #hb2Card{display:none!important}
-
-html.dbg-hv #homeV{display:none!important}
-
 
 
 #bgcv{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
@@ -3385,7 +3303,7 @@ function cExp(id,ch,cb){
   try{
     var b=new Image(),p=new Image(),n=0,x=EXPP[id][ch];
     var go=function(){if(++n<2)return;try{var c=document.createElement("canvas");c.width=b.naturalWidth;c.height=b.naturalHeight;var g=c.getContext("2d");g.drawImage(b,0,0);g.clearRect(x[0],x[1],x[2],x[3]);g.drawImage(p,x[0],x[1]);
-      if(c.toBlob)c.toBlob(function(bl){done(bl?URL.createObjectURL(bl):c.toDataURL())},"image/png");else done(c.toDataURL())}catch(e){done(null)}};
+      if(c.toBlob)c.toBlob(function(bl){done(bl?URL.createObjectURL(bl):c.toDataURL());c.width=c.height=0},"image/png");else{done(c.toDataURL());c.width=c.height=0}}catch(e){done(null)}};
     b.onload=go;p.onload=go;b.onerror=p.onerror=function(){done(null)};b.src=cImg(id);p.src=x[4];
   }catch(e){done(null)}
 }
@@ -3452,7 +3370,7 @@ try{var vb=parseInt(localStorage.getItem("dopa:volB")),vsv=parseInt(localStorage
 function bgBase(){var v=0.2*volB/50;if(bgm.custom&&(bgm.pre||bgm.gmh))return v*2.2;return v*(bgm.custom&&!bgm.pre?2.5:1)*((REG===2&&bgm.mode==="test"&&!bgm.custom)?1.45:1)}
 function applyVol(){if(SFX)SFX.gain.value=2*volS/50;if(bgm.on&&bgm.bus)bgm.bus.gain.value=bgBase()}
 function ac(){
-  if(SK!=="dopa")return null;
+  if(SK!=="dopa"||!window.UG)return null;
   try{
     if(!AC){
       var C=window.AudioContext||window.webkitAudioContext;if(!C)return null;
@@ -4571,20 +4489,20 @@ function chPlay(C){
       };
       if(cached){done(cached);return}
       var dn2=function(b){decPut(ck,b);done(b)};
-      var p=AC.decodeAudioData(ab,dn2,function(){});if(p&&p.then)p.then(dn2,function(){});
+      var g1=0,dn1=function(b){if(g1++)return;dn2(b)};if(PREW[ck]){PREW[ck].push(function(b){if(b)done(b);else{var p2=AC.decodeAudioData(ab,dn1,function(){});if(p2&&p2.then)p2.then(dn1,function(){})}});return}var p=AC.decodeAudioData(ab,dn1,function(){});if(p&&p.then)p.then(dn1,function(){});
     }).catch(function(){});
   });
 }
 /* 起動直後、最初に流すホーム曲を先に選んで、裏でデコードしておく */
-var PREK=null;
+var PREK=null,PREW={};
 function bgmPreload(){
   try{
-    if(SK!=="dopa"||!bgmPref||!OCOK()||PREK!==null||bgm.on)return;
+    if(SK!=="dopa"||!window.UG||!bgmPref||!OCOK()||PREK!==null||bgm.on)return;
     if(parseInt($("chillSel").value)>=0)return;
     CHL=homeL();var k=chRand();PREK=k;var C=CHL[k],ck=chKey(C);
     chEnsure(C,function(ok,blob){
       if(!ok||!blob||!blob.arrayBuffer||DECB[ck])return;
-      blob.arrayBuffer().then(function(ab){var O=window.OfflineAudioContext||window.webkitOfflineAudioContext,oc=new O(2,48000,48000);var d=function(b){decPut(ck,b)};var p=oc.decodeAudioData(ab,d,function(){});if(p&&p.then)p.then(d,function(){})}).catch(function(){});
+      PREW[ck]=[];var fl=function(b){var w=PREW[ck];delete PREW[ck];if(w)w.forEach(function(f){try{f(b)}catch(e){}})};blob.arrayBuffer().then(function(ab){var O=window.OfflineAudioContext||window.webkitOfflineAudioContext,oc=new O(2,48000,48000),g=0;var d=function(b){if(g++)return;decPut(ck,b);fl(b)};var p=oc.decodeAudioData(ab,d,function(){if(!g++)fl(null)});if(p&&p.then)p.then(d,function(){if(!g++)fl(null)})}).catch(function(){fl(null)});
     });
   }catch(e){}
 }
@@ -4846,7 +4764,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.85",VLOG=[
+var VERSION="1.86",VLOG=[
+ ["1.86","2026-11-16",["落ちる原因を調べるために入れていた記録の仕組みを外しました（少し軽くなります）","iPhone のアプリで、起動してから画面に触れるまでメモリが増え続ける問題を直しました（音の準備を、最初に触れた時に始めます）","起動直後に同じBGMを2回読み込んでいたのを1回にし、表情の合成に使った下書きもすぐ片付けるようにしました（起動直後のメモリを減らします）"]],
  ["1.85","2026-11-16",["iPhone のアプリで、ホームを開いてしばらくすると落ちる問題を直しました（原因は、音の種類の指定でした。iPhone に「控えめな音」と伝えていたのをやめ、標準にしました）","残響（エコー）を元に戻しました"]],
  ["1.84","2026-11-16",["iPhone のアプリで落ちる問題の対策：ほかの音などで音が中断された時は、音の仕組みを一時停止にするようにしました（中断のまま動かし続けると、メモリが増え続けていたため）。画面に触れると再開します"]],
  ["1.83","2026-11-16",["iPhone のアプリで、ホームを開いてしばらくすると落ちる問題を直しました（原因は効果音の残響の仕組みでした。iPhone・iPad・Mac の Safari では残響なしで鳴らします）","背景の動く光と斜線を元に戻しました"]],
@@ -8792,7 +8711,7 @@ cExp=function(id,ch,cb){
   try{
     var b=new Image(),p=new Image(),n=0,x=EXPP[id][ch];
     var go=function(){if(++n<2)return;try{var c=document.createElement("canvas");c.width=b.naturalWidth;c.height=b.naturalHeight;var g=c.getContext("2d");g.drawImage(b,0,0);g.clearRect(x[0],x[1],x[2],x[3]);g.drawImage(p,x[0],x[1]);
-      if(c.toBlob)c.toBlob(function(bl){done(bl?URL.createObjectURL(bl):c.toDataURL())},"image/png");else done(c.toDataURL())}catch(e){done(null)}};
+      if(c.toBlob)c.toBlob(function(bl){done(bl?URL.createObjectURL(bl):c.toDataURL());c.width=c.height=0},"image/png");else{done(c.toDataURL());c.width=c.height=0}}catch(e){done(null)}};
     b.onload=go;p.onload=go;b.onerror=p.onerror=function(){done(null)};b.src=raw(id);p.src=x[4];
   }catch(e){done(null)}
 };
@@ -9624,36 +9543,6 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
 /* ===================== v1.64 続けて落ちたときの知らせ ===================== */
 (function(){try{if(localStorage.getItem("dopa:autolite")==="1"){localStorage.removeItem("dopa:autolite");
   setTimeout(function(){try{renderG("前回うまく動かなかったため、軽量モードで起動しました（設定でいつでも戻せます）")}catch(e){}},2500)}}catch(e){}})();
-
-/* ===================== v1.65 落ちる直前の記録を見せる ===================== */
-(function(){
-  try{var _en=enter;enter=function(x){try{crumb("画面 "+x)}catch(e){}return _en.apply(this,arguments)}}catch(e){}
-  try{var _cp=chPlay;chPlay=function(C){try{crumb("ホーム曲 "+(C&&C.id))}catch(e){}return _cp.apply(this,arguments)}}catch(e){}
-  try{var _pl=packLoad;packLoad=function(pid,cb){try{crumb("声パック "+pid)}catch(e){}return _pl.apply(this,arguments)}}catch(e){}
-  var show=function(raw){var o;try{o=JSON.parse(raw)}catch(e){return}
-    var txt="どぱたん "+VERSION+" / "+o.at+"\n"+o.ua+"\n"+(o.r||[]).slice(-200).join("\n");
-    var d=document.createElement("div");d.id="crumbov";d.style.cssText="position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px";
-    d.innerHTML='<div style="background:#fff;color:#222;border-radius:14px;padding:16px;max-width:30em;width:100%;font-size:14px;max-height:92vh;overflow:auto"><b style="font-size:17px">前回、アプリが途中で終了しました</b><p style="margin:8px 0">原因を調べるための記録です。「コピー」を押して、開発者に送ってください。</p><textarea readonly style="width:100%;height:28vh;font-size:11px;font-family:monospace">'+txt.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</textarea><div id="crumbdbg" style="margin-top:10px;font-size:13px;line-height:1.9"><b>次の起動で止めるもの（原因の切り分け用）</b><br><label><input type="checkbox" data-k="bg"> 背景のアニメーション</label><br><label><input type="checkbox" data-k="fx"> 影・ぼかし・切り抜き</label><br><label><input type="checkbox" data-k="an"> 画面の動き（すべてのアニメーション）</label><br><label><input type="checkbox" data-k="hb"> ホームのキャラの絵</label><br><label><input type="checkbox" data-k="vp"> 声の先読み</label><br><label><input type="checkbox" data-k="au"> 音すべて</label><br><label><input type="checkbox" data-k="sm"> 表情の合成</label><br><small>選んだものは、このあと3回の起動のあいだだけ止まり、そのあと自動で元に戻ります。</small></div><button id="crumbbis" class="main" style="width:100%;margin-top:10px">自動で原因を調べる（10回起動・約5分）</button><div style="display:flex;gap:8px;margin-top:10px"><button id="crumbcp" class="main" style="flex:1">コピー</button><button id="crumbx" style="flex:1">閉じる</button></div></div>';
-    document.body.appendChild(d);try{var ta=d.querySelector("textarea");ta.scrollTop=ta.scrollHeight}catch(e){}
-    $("crumbcp").onclick=function(){var t=d.querySelector("textarea");try{navigator.clipboard.writeText(txt).then(function(){$("crumbcp").textContent="コピーしました"},function(){t.select();document.execCommand("copy");$("crumbcp").textContent="コピーしました"})}catch(e){t.select();document.execCommand("copy")}};
-    var cur=(localStorage.getItem("dopa:dbg")||"").split(",");Array.prototype.forEach.call(d.querySelectorAll("#crumbdbg input"),function(x){x.checked=cur.indexOf(x.getAttribute("data-k"))>=0});
-    $("crumbbis").onclick=function(){try{localStorage.setItem("dopa:bis",JSON.stringify({on:1,cur:-1,res:{},dbg0:localStorage.getItem("dopa:dbg")||"",lite0:localStorage.getItem("dopa:lite")||"0"}));localStorage.removeItem("dopa:crumbPrev")}catch(e){}location.reload()};
-    $("crumbx").onclick=function(){var ks=[];Array.prototype.forEach.call(d.querySelectorAll("#crumbdbg input"),function(x){if(x.checked)ks.push(x.getAttribute("data-k"))});var nv=ks.join(","),ch=nv!==(localStorage.getItem("dopa:dbg")||"");
-      try{localStorage.setItem("dopa:dbg",nv);localStorage.setItem("dopa:dbgn",nv?"3":"0");localStorage.removeItem("dopa:crumbPrev")}catch(e){}d.remove();if(ch)location.reload()};
-  };
-  var NM={bg:"背景のアニメ",fx:"影・ぼかし・切り抜き",an:"画面の動き",hb:"ホームのキャラの絵",vp:"声の先読み",hv:"ホーム画面ぜんぶ",au:"音すべて",sm:"表情の合成"},lbl=function(c){return c.length?c.map(function(k){return NM[k]||k}).join("・"):"なし"};
-  var B=window.BIS;
-  if(B&&B.on){var bn=document.createElement("div");bn.style.cssText="position:fixed;left:8px;right:8px;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);z-index:99999;background:#222;color:#fff;border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.5";
-    bn.innerHTML="原因を調べています（"+(B.cur+1)+" / "+BISC.length+"）。止めているもの："+lbl(BISC[B.cur])+"<br>そのまま20秒待ってください。落ちたら、もう一度アプリを開いてください。";document.body.appendChild(bn)}
-  else if(B&&B.done){
-    var txt="切り分けの結果（どぱたん "+VERSION+"）\n"+BISC.map(function(c,i){return (i+1)+". 止めたもの："+lbl(c)+" → "+(B.res[i]||"?")}).join("\n");
-    setTimeout(function(){var d=document.createElement("div");d.style.cssText="position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px";
-      d.innerHTML='<div style="background:#fff;color:#222;border-radius:14px;padding:16px;max-width:30em;width:100%;font-size:14px"><b style="font-size:17px">切り分けの結果</b><textarea readonly style="width:100%;height:40vh;font-size:12px;margin-top:8px">'+txt.replace(/</g,"&lt;")+'</textarea><div style="display:flex;gap:8px;margin-top:10px"><button id="bisc" class="main" style="flex:1">コピー</button><button id="bisx" style="flex:1">閉じる</button></div></div>';
-      document.body.appendChild(d);
-      $("bisc").onclick=function(){var t=d.querySelector("textarea");try{navigator.clipboard.writeText(txt).then(function(){$("bisc").textContent="コピーしました"},function(){t.select();document.execCommand("copy")})}catch(e){t.select();document.execCommand("copy")}};
-      $("bisx").onclick=function(){d.remove();try{localStorage.removeItem("dopa:bis")}catch(e){}}},800)}
-  else{try{var p=localStorage.getItem("dopa:crumbPrev");if(p)setTimeout(function(){show(p)},800)}catch(e){}}
-})();
 
 /* ===================== v1.77 動く光（小さなキャンバス1枚） ===================== */
 (function(){
