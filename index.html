@@ -2373,6 +2373,9 @@ html.bgcv body.dopa:not(.lite) #bgfx{background:repeating-linear-gradient(115deg
 body.lite #bgcv{display:none}
 
 button,.hdtg,[role=button],a{touch-action:manipulation}
+
+body.dopa .card,.v5cont{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+body.dopa .card{background:linear-gradient(color-mix(in srgb,var(--c1,#1c1f23) 74%,transparent),color-mix(in srgb,var(--c2,#121417) 80%,transparent))!important}
 </style>
 </head>
 <body class="dopa">
@@ -4839,7 +4842,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.78",VLOG=[
+var VERSION="1.79",VLOG=[
+ ["1.79","2026-11-16",["iPhone のアプリで落ちる問題の対策：カードのすりガラスの効果をやめました（動く光の上で、メモリを使い続けていたため）","背景の動く光を、もう一度オンにしました（もし途中で終了したら、次から自動で止めた背景に戻ります）"]],
  ["1.78","2026-11-16",["ホームでキャラをタップした時、左に出る文字を、話しているセリフと同じにしました","セリフ中に BGM を下げすぎないようにしました","iPhone で、起動直後などに BGM の設定が勝手にオフになることがあったのを直しました","ボタンを続けて押した時に、取りこぼさないようにしました"]],
  ["1.77","2026-11-16",["背景の動く光を戻しました（メモリを使わない描き方に変えています。斜線は動きません）","もしこの背景で途中で終了した場合は、次の起動から自動で止めた背景に戻します"]],
  ["1.76","2026-11-16",["iPhone のアプリで落ちる問題の対策：背景の光と斜線の描き方を、メモリを使わない方法に変えました（見た目はほぼ同じ・動きません）"]],
@@ -9645,6 +9649,7 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
 (function(){
   var L=localStorage,off=false;
   try{
+    if(!L.getItem("dopa:bgcvfix1")){L.setItem("dopa:bgcvfix1","1");L.removeItem("dopa:bgcv")}
     if(L.getItem("dopa:bgcv")==="0")off=true;
     else if((parseInt(L.getItem("dopa:boot")||"0",10)||0)>=2&&L.getItem("dopa:bgcvOn")==="1"){L.setItem("dopa:bgcv","0");off=true;try{crumb("動く光を止めました（前回、途中で終了したため）")}catch(e){}}
   }catch(e){}
