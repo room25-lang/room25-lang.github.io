@@ -2364,6 +2364,9 @@ html.dbg-hv #homeV{display:none!important}
 #bgfx .b1{transform:translate(27.5%,22.5%) scale(1.125)}
 #bgfx .b2{transform:translate(-22.5%,-25%) scale(.925)}
 #bgfx .b3{transform:translateX(92px)}
+
+#bgfx i{display:none!important;animation:none!important;transform:none!important;translate:none!important}
+body.dopa:not(.lite) #bgfx{background:radial-gradient(circle at 40% 35%,color-mix(in srgb,var(--acc,var(--uacc,#d4ff00)) 24%,transparent),transparent 34vh),radial-gradient(circle at 62% 65%,rgba(110,170,255,.17),transparent 26vh),repeating-linear-gradient(115deg,rgba(255,255,255,.045) 0 2px,transparent 2px 46px)}
 </style>
 </head>
 <body class="dopa">
@@ -4830,7 +4833,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.75",VLOG=[
+var VERSION="1.76",VLOG=[
+ ["1.76","2026-11-16",["iPhone のアプリで落ちる問題の対策：背景の光と斜線の描き方を、メモリを使わない方法に変えました（見た目はほぼ同じ・動きません）"]],
  ["1.75","2026-11-16",["不具合の調査用：途中で終了した時、最後に実行していた処理を記録に出すようにしました"]],
  ["1.74","2026-11-16",["不具合の調査用：メモリを使うものの量を記録に出すようにしました"]],
  ["1.73","2026-11-16",["起動の帯の「どぱたん」に「＋」を付けました"]],
