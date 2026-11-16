@@ -4375,7 +4375,7 @@ function musicPrepare(show,th){
   return true;
 }
 /* テストBGM（mp3）：dopa:tbm = auto（午前A・午後C）／A／C／old（これまでの曲） */
-function mood(){try{return localStorage.getItem("dopa:mood")||"soft"}catch(e){return "soft"}}
+function mood(){try{var m=localStorage.getItem("dopa:mood");if(m)return m;if(localStorage.getItem("dopa:tut")){localStorage.setItem("dopa:mood","soft");return "soft"}return "hype"}catch(e){return "hype"}}
 function tbMode(){try{return localStorage.getItem("dopa:tbm")||"auto"}catch(e){return "auto"}}
 function tbSet(){if(mood()==="hype")return "";var m=tbMode();if(m==="old")return "";if(m==="A"||m==="C")return m;var h=new Date().getHours();return (h>=4&&h<12)?"A":"C"}
 var TBB={};
@@ -4765,7 +4765,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.90",VLOG=[
+var VERSION="1.91",VLOG=[
+ ["1.91","2026-11-16",["はじめて遊ぶ人のBGMと掛け声を「ノリノリ」に（設定の「音」→「音楽」でいつでも「寄り添い」に変えられます。今まで遊んでいた人の設定はそのまま）","設定を「全体・音・画面・ヘルプ・データ」の5つに整理しました","音に関わる設定（ステージ音楽・ホームBGM・曲のセット・イコライザー・立体音響・相棒のセリフ）を、すべて「音」タブにまとめ、「音声／音楽／詳細」に分けました","「単語の追加」とバックアップは「データ」タブに移しました"]],
  ["1.90","2026-11-16",["20問連続正解のときに、画面が一瞬真っ赤になるのを直しました（薄い光に戻しました）","全体テスト（ボス戦）で、ボスの全身が問題の奥にずっと映らないように。始まりの登場のあとは、上のアイコンだけになります","「リンクをコピー」「LINE・ほかのアプリで共有」で、URLだけを送るように（Xへの投稿は、これまでどおり文章つき）","設定の「音」タブの、中身のない見出し「音量」を消しました","記録の「ランキング」から、友達ランキング（コードの交換）をなくしました。全国ランキングに出す名前は、そのまま変えられます"]],
  ["1.89","2026-11-16",["iPhone で、ほかのアプリの音楽を流しながら遊べるように戻しました（どぱたん＋の音と重ねて鳴ります）"]],
  ["1.88","2026-11-16",["落ちる原因が分かったので、調べている間に外していたカードのすりガラスの効果を元に戻しました","ホームの曲の切り替えを、元どおりなめらかにしました（先に読み込んでおく曲数を戻しました）","最初の英単語の発音が出ないことがあったのを元に戻しました"]],
@@ -5465,7 +5466,7 @@ var TUT=[
  [ICO("cards",64),"学習タブ（暗記カード）",["単語カードで暗記できます。範囲はステージ・番号・復習から選べます。","英語を自動で発音したり、例文を見たりもできます。","覚えたら、テストで確かめよう。"]],
  [ICO("bolt",64),"テストとポイント ◆",["正解するとポイント◆がたまり、連続正解でド派手な演出が出ます。","全単語のテスト（出題数を絞らない）で得点率90%以上のときだけ、確定演出とキャラ確定入手。","全問のテストで全問正解なら、最初からレベルMAXです。"]],
  [ICO("users",64),"ガチャと編成",["最初の仲間3人は、ランダムで決まります（★1〜★3。一度決まると、やり直しても変わりません）。","◆でガチャを回すと、仲間が増えます（ハズレのときは、ハズレの仲間がハズレ図鑑に記録されます）。","編成した仲間の能力がテストに効いて、掛け声もそのキャラの声になります。","◆で編成枠を、最大6人まで増やせます。"]],
- [ICO("note",64),"音の設定",["右上の設定ボタンで、声の種類や音量を変えられます。イコライザー・立体音響・自分のmp3のBGMなどは、設定の「詳細」タブにあります。","困ったら、設定の中からいつでもこの説明を見られます。"]]
+ [ICO("note",64),"音の設定",["右上の設定ボタンで、声の種類や音量を変えられます。イコライザー・立体音響・自分のmp3のBGMなども、設定の「音」タブにあります（音声・音楽・詳細に分かれています）。","困ったら、設定の中からいつでもこの説明を見られます。"]]
 ];
 var tutI=0,tutIv=0;
 function tutStatus(){
@@ -9511,9 +9512,9 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
   /* チュートリアルの2ページ目で選ぶ */
   TUT.splice(1,0,['<span style="font-size:56px">♪</span>',"BGMと声の雰囲気",["どちらの雰囲気で遊ぶか選んでください。あとから設定の「音」でいつでも変えられます。"]]);
   var _to=tutOpen;tutOpen=function(i,w){var r=_to.apply(this,arguments);try{if(TUT[i]&&TUT[i][1]==="BGMと声の雰囲気"){var cur=mood(),d=document.createElement("div");d.className="mdp";
-    d.innerHTML='<button type="button" data-md="soft"><b>寄り添い</b><small>落ち着いたやわらかい曲。相棒がやさしく声をかけます。テスト中も曲の高さは変わりません。</small></button><button type="button" data-md="hype"><b>ノリノリ</b><small>アップテンポの曲と、にぎやかな掛け声。連続正解で曲がどんどん盛り上がります。</small></button>';
+    d.innerHTML='<button type="button" data-md="hype"><b>ノリノリ</b><small>アップテンポの曲と、にぎやかな掛け声。連続正解で曲がどんどん盛り上がります。</small></button><button type="button" data-md="soft"><b>寄り添い</b><small>落ち着いたやわらかい曲。相棒がやさしく声をかけます。テスト中も曲の高さは変わりません。</small></button>';
     $("tutbody").appendChild(d);Array.prototype.forEach.call(d.querySelectorAll("[data-md]"),function(b){b.classList.toggle("on",b.getAttribute("data-md")===cur);b.onclick=function(){moodSet(b.getAttribute("data-md"))}});
-    try{if(!localStorage.getItem("dopa:mood"))localStorage.setItem("dopa:mood","soft")}catch(e){}}}catch(e){}return r};
+    try{if(!localStorage.getItem("dopa:mood"))localStorage.setItem("dopa:mood",mood())}catch(e){}}}catch(e){}return r};
   /* 設定の「音」 */
   var tb=document.querySelector("#ov .tbsel");
   if(tb){var l=document.createElement("label");l.setAttribute("data-sc","s");l.innerHTML='雰囲気（BGMと掛け声）<select id="moodSel"><option value="soft">寄り添い（やわらかい曲・やさしい声かけ）</option><option value="hype">ノリノリ（アップテンポ・にぎやかな掛け声）</option></select>';
@@ -9580,6 +9581,67 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
   function hide(now){var f=$("bfig");if(!f)return;if(now)f.classList.add("bnow");f.classList.add("bfo")}
   if(typeof bossIntro==="function"){var _bi=bossIntro;bossIntro=function(){BT=Date.now();var r=_bi.apply(this,arguments);setTimeout(function(){if(T&&T.boss)hide(false)},WAIT);return r}}
   if(typeof ask==="function"){var _ask=ask;ask=function(){var r=_ask.apply(this,arguments);try{if(T&&T.boss&&BT&&Date.now()-BT>=WAIT)hide(true)}catch(e){}return r}}
+})();
+
+/* v1.91 No.10・11：設定を「全体・音・画面・ヘルプ・データ」の5つに。「音」の中を「音声／音楽／詳細」に分ける */
+(function(){
+  var sh=document.querySelector("#ov .sheet");if(!sh)return;var nav=sh.querySelector(".stab");if(!nav)return;
+  var st=document.createElement("style");st.textContent=
+    '#ov .ssub{display:flex;gap:6px;margin:4px 0 6px}#ov .ssub button{flex:1;padding:7px 2px;font-size:13px;min-width:0;white-space:nowrap}'+
+    '#ov .ssub button.on{background:color-mix(in srgb,var(--acc) 22%,transparent)!important;border-color:var(--acc)!important;color:inherit!important}'+
+    '#ov .sheet[data-st="s"][data-ss="v"] [data-ss]:not([data-ss="v"]),#ov .sheet[data-st="s"][data-ss="m"] [data-ss]:not([data-ss="m"]),#ov .sheet[data-st="s"][data-ss="x"] [data-ss]:not([data-ss="x"]){display:none!important}'+
+    '#ov .admhid{display:none!important}';
+  document.head.appendChild(st);
+  var kids=Array.prototype.slice.call(sh.children);
+  var H3=function(t){for(var i=0;i<kids.length;i++){var c=kids[i];if(c.tagName==="H3"&&c.textContent.trim().indexOf(t)===0)return i}return -1};
+  var DOP=function(t){for(var i=0;i<kids.length;i++){var c=kids[i];if(c.classList&&c.classList.contains("dop")){var h=c.querySelector("h3");if(h&&h.textContent.trim().indexOf(t)===0)return c}}return null};
+  /* 見出しから次の見出し（H3・DETAILS・.dop）の手前まで */
+  var block=function(t){var i=H3(t);if(i<0)return [];var sc=kids[i].getAttribute("data-sc"),L=[kids[i]];for(var j=i+1;j<kids.length;j++){var c=kids[j],cs=c.getAttribute("data-sc");
+    if(c.tagName==="H3"||c.tagName==="BUTTON"||(c.classList&&c.classList.contains("dop"))||c.id==="clBox"||(c.tagName==="DETAILS"&&cs===sc))break;
+    if(cs&&cs!==sc)continue;L.push(c)}return L};
+  var byId=function(id){var e=document.getElementById(id);if(!e)return null;while(e.parentNode&&e.parentNode!==sh)e=e.parentNode;return e.parentNode===sh?e:null};
+  var after=function(el){var n=el&&el.nextElementSibling;return n&&n.classList.contains("hint")?n:null};
+  /* 部品を集める */
+  var vSpeed=DOP("声の速さ"),vol=DOP("音の設定"),mood=DOP("BGMと掛け声");
+  var moodHint=mood&&mood.nextElementSibling&&mood.nextElementSibling.classList.contains("hint")?mood.nextElementSibling:null;
+  var vox=block("音声合成");var voxDt=null;if(vox.length){var lst=vox[vox.length-1].nextElementSibling;if(lst&&lst.tagName==="DETAILS"&&/^音声について/.test(((lst.querySelector("summary")||{}).textContent||"").trim()))voxDt=lst}
+  var stage=block("ステージ音楽"),home=block("ホームBGM"),words=block("単語の追加");
+  var camt=byId("camtSel"),camtH=after(camt);
+  var eq=document.getElementById("eqBox"),sp=document.getElementById("spBox");
+  home=home.filter(function(e){return e!==camt&&e!==camtH});
+  /* 音の中の並び */
+  var V=[].concat(vSpeed?[vSpeed]:[],camt?[camt]:[],camtH?[camtH]:[],vox,voxDt?[voxDt]:[]);
+  var M=[].concat(vol?[vol]:[],mood?[mood]:[],moodHint?[moodHint]:[],stage,home);
+  var X=[].concat(eq?[eq]:[],sp?[sp]:[]);
+  var anchor=document.getElementById("clBox")||byId("io");if(!anchor)return;
+  var sub=document.createElement("div");sub.className="ssub";sub.setAttribute("data-sc","s");
+  [["v","音声"],["m","音楽"],["x","詳細"]].forEach(function(x){var b=document.createElement("button");b.type="button";b.textContent=x[1];b.setAttribute("data-s2",x[0]);sub.appendChild(b)});
+  sh.insertBefore(sub,anchor);
+  var put=function(L,k){L.forEach(function(e){if(!e)return;e.setAttribute("data-sc","s");e.setAttribute("data-ss",k);
+    Array.prototype.forEach.call(e.querySelectorAll("[data-sc]"),function(x){x.setAttribute("data-sc","s")});sh.insertBefore(e,anchor)})};
+  put(V,"v");put(M,"m");put(X,"x");
+  /* 単語の追加 → データ（進捗の書き出しの後ろ） */
+  var cred=null;for(var i=0;i<sh.children.length;i++){var c=sh.children[i];if(c.tagName==="H3"&&/^クレジット/.test(c.textContent.trim())){cred=c;break}}
+  words.forEach(function(e){e.setAttribute("data-sc","d");sh.insertBefore(e,cred||null)});
+  /* バックアップは「データ」タブだけに（これまで全部のタブに出ていた） */
+  var bk=sh.querySelector(".v5bk");if(bk){bk.setAttribute("data-sc","d");var clb=document.getElementById("clBox");if(clb&&clb.parentNode===sh)sh.insertBefore(bk,clb)}
+  /* 残っている「詳細」をまとめて音へ（取りこぼし対策） */
+  Array.prototype.forEach.call(sh.querySelectorAll('[data-sc="x"]'),function(e){if(e.closest(".ssub"))return;e.setAttribute("data-sc","s");if(!e.getAttribute("data-ss"))e.setAttribute("data-ss","x")});
+  /* 「詳細」タブをなくす */
+  var xb=nav.querySelector('button[data-t="x"]');if(xb)xb.remove();
+  /* 音の中の切り替え */
+  var s2=function(k){sh.setAttribute("data-ss",k);Array.prototype.forEach.call(sub.children,function(b){b.classList.toggle("on",b.getAttribute("data-s2")===k)});try{localStorage.setItem("dopa:stab2",k)}catch(e){}};
+  sub.onclick=function(e){var b=e.target.closest("button");if(b)s2(b.getAttribute("data-s2"))};
+  var k0="v";try{k0=localStorage.getItem("dopa:stab2")||"v"}catch(e){}s2(/^[vmx]$/.test(k0)?k0:"v");
+  if(sh.getAttribute("data-st")==="x"){var sb=nav.querySelector('button[data-t="s"]');if(sb)sb.click()}
+  /* 管理者コマンドは隠す（バージョンの行を7回タップで表示） */
+  var ad=H3("管理者コマンド");
+  if(ad>=0){var A=[kids[ad]];for(var j=ad+1;j<kids.length;j++){var c2=kids[j];if(c2.tagName==="H3")break;A.push(c2)}
+    var show=function(){A.forEach(function(e){e.classList.remove("admhid")})};
+    if(!(typeof DEVON!=="undefined"&&DEVON))A.forEach(function(e){e.classList.add("admhid")});
+    var ver=DOP("バージョン"),vt=ver&&ver.querySelector("h3+div"),n=0,t0=0;
+    if(vt)vt.addEventListener("click",function(){var t=Date.now();if(t-t0>1500)n=0;t0=t;if(++n>=7){n=0;show();try{window.v5toast("管理者コマンドを「データ」タブに表示しました",2200)}catch(e){}}});
+  }
 })();
 
 </script>
