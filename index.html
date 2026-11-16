@@ -4,7 +4,8 @@
 <script>(function(){try{
 var L=localStorage,T0=Date.now(),R=[],last=0;
 var prevN=parseInt(L.getItem("dopa:boot")||"0",10)||0;
-if(prevN>=1&&L.getItem("dopa:crumb"))L.setItem("dopa:crumbPrev",L.getItem("dopa:crumb"));
+if(prevN>=1&&L.getItem("dopa:crumb")){var cp=L.getItem("dopa:crumb");try{var cj=JSON.parse(cp),rn=L.getItem("dopa:run")||"";cj.r.push("★最後に実行中だった処理："+(rn||"なし（タイマー・イベントの外）"));cp=JSON.stringify(cj)}catch(e){}L.setItem("dopa:crumbPrev",cp)}
+try{L.setItem("dopa:run","")}catch(e){}
 var put=function(){try{L.setItem("dopa:crumb",JSON.stringify({v:"",ua:navigator.userAgent,at:new Date(T0).toLocaleString(),r:R}))}catch(e){}};
 var C=window.crumb=function(m){R.push(((Date.now()-T0)/1000).toFixed(1)+" "+m);if(R.length>700)R.splice(0,R.length-700);put()};
 if(!L.getItem("dopa:litefix1")){L.setItem("dopa:litefix1","1");if(L.getItem("dopa:lite")==="1")L.setItem("dopa:lite","0");L.removeItem("dopa:dbg");L.removeItem("dopa:bis");L.removeItem("dopa:autolite")}
@@ -45,7 +46,19 @@ try{var CU=URL.createObjectURL;URL.createObjectURL=function(x){M.url++;return CU
 try{var RA=Response.prototype.arrayBuffer;Response.prototype.arrayBuffer=function(){return RA.apply(this,arguments).then(function(b){M.get+=b.byteLength;return b})}}catch(e){}
 try{var IM=window.Image;window.Image=function(w,h){M.img++;return arguments.length>1?new IM(w,h):arguments.length?new IM(w):new IM()};window.Image.prototype=IM.prototype}catch(e){}
 try{var GC2=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(){M.cv+=this.width*this.height*4;return GC2.apply(this,arguments)}}catch(e){}
-try{var ST=window.setTimeout;window.setTimeout=function(){M.tm++;return ST.apply(window,arguments)}}catch(e){}
+var RC="",RSET=function(v){if(v===RC)return;RC=v;try{L.setItem("dopa:run",v)}catch(e){}};
+var RUN=function(tag,f){if(typeof f!=="function")return f;try{if(f.__w)return f.__w}catch(e){}
+ var src=tag+" "+String(f).replace(/\s+/g," ").slice(0,150);
+ var w=function(){var p=RC;RSET(((Date.now()-T0)/1000).toFixed(1)+" "+src);try{return f.apply(this,arguments)}finally{RSET(p)}};
+ try{Object.defineProperty(f,"__w",{value:w})}catch(e){}return w};
+try{var ST=window.setTimeout;window.setTimeout=function(f){M.tm++;var a=Array.prototype.slice.call(arguments);a[0]=RUN("timeout("+(a[1]||0)+")",f);return ST.apply(window,a)}}catch(e){}
+try{var SI=window.setInterval;window.setInterval=function(f){var a=Array.prototype.slice.call(arguments);a[0]=RUN("interval("+(a[1]||0)+")",f);return SI.apply(window,a)}}catch(e){}
+try{var RF=window.requestAnimationFrame;window.requestAnimationFrame=function(f){return RF.call(window,RUN("raf",f))}}catch(e){}
+try{var AE=EventTarget.prototype.addEventListener,RE=EventTarget.prototype.removeEventListener;
+ EventTarget.prototype.addEventListener=function(t,f,o){return AE.call(this,t,RUN("ev:"+t,f),o)};
+ EventTarget.prototype.removeEventListener=function(t,f,o){var w=f;try{if(f&&f.__w)w=f.__w}catch(e){}return RE.call(this,t,w,o)}}catch(e){}
+try{var PT=Promise.prototype.then;Promise.prototype.then=function(a,b){return PT.call(this,RUN("then",a),RUN("then",b))}}catch(e){}
+[[window.HTMLElement,"onload"],[window.HTMLElement,"onerror"],[window.HTMLElement,"onclick"],[window.AudioScheduledSourceNode,"onended"],[window.IDBRequest,"onsuccess"],[window.IDBTransaction,"oncomplete"],[window.XMLHttpRequest,"onload"],[window.FileReader,"onload"]].forEach(function(x){try{var d=Object.getOwnPropertyDescriptor(x[0].prototype,x[1]);if(!d||!d.set)return;Object.defineProperty(x[0].prototype,x[1],{configurable:true,enumerable:d.enumerable,get:function(){return d.get.call(this)},set:function(f){d.set.call(this,RUN(x[1],f))}})}catch(e){}});
 try{var F32=window.Float32Array;var PX=new Proxy(F32,{construct:function(t,a,nt){var o=Reflect.construct(t,a,nt);if(o.byteLength>65536)M.ab+=o.byteLength;return o}});window.Float32Array=PX}catch(e){}
 var mb=function(n){return Math.round(n/1048576)};
 var HB=0;setInterval(function(){HB++;var a="-";try{if(window.AC)a=AC.state+"/"+AC.currentTime.toFixed(1)}catch(e){}
@@ -4817,7 +4830,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.74",VLOG=[
+var VERSION="1.75",VLOG=[
+ ["1.75","2026-11-16",["不具合の調査用：途中で終了した時、最後に実行していた処理を記録に出すようにしました"]],
  ["1.74","2026-11-16",["不具合の調査用：メモリを使うものの量を記録に出すようにしました"]],
  ["1.73","2026-11-16",["起動の帯の「どぱたん」に「＋」を付けました"]],
  ["1.72","2026-11-15",["落ちた時に自動で入っていた軽量モードを元に戻しました（ホームのキャラの絵が小さく暗くなる・起動の帯が出ない、の原因）。軽量モードは設定でいつでもオンにできます"]],
