@@ -4766,7 +4766,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.94",VLOG=[
+var VERSION="1.95",VLOG=[
+ ["1.95","2026-11-17",["データの「読み込み」に関係ない文字を貼ると、学習の記録が消えてしまう不具合を直しました","壊れたバックアップファイルで復元すると、いまのデータが消えてしまう不具合を直しました（壊れている時は復元をやめます）","読み込み・復元の直前のデータを「復元する前」として1つ残すようにしました（設定→データ から戻せます）","文字列の書き出し・読み込みで、復習の予定も引き継がれるようにしました","習得済みの単語の復習が、一度に翌日へ集中することがあったのを直しました（2週間に分けて出ます）"]],
  ["1.94","2026-11-16",["アプリを開き直すと、ストーリーの「読んだ」記録と絆が消えてしまう不具合を直しました（これからは残ります）"]],
  ["1.93","2026-11-16",["新しいストーリー（1人3話・MAIN）に声をつけました"]],
  ["1.92","2026-11-16",["キャラのレベルの上限をLv3にしました（スキルの強さはこれまでのLv3が最大。今Lv4・5のキャラはLv3になります）。セリフはLv2で7つ、Lv3で11すべて","Lv3のキャラがガチャで重なったら、レア度に応じて◆100〜1200が戻ります","ストーリーを作り直しました：1人3話、どれも1話で完結する短い話です。1話目は仲間になると、2話目と3話目は絆がたまると開きます（読んでもレベルは上がりません。初めて読むと◆30）","MAINストーリー8章の中身を書き直しました（開く条件はそのまま）"]],
@@ -6031,12 +6032,19 @@ $("rst").onclick=function(){
   if(!armed){armed=true;$("rst").textContent="もう一度押すとリセットします";setTimeout(function(){armed=false;$("rst").textContent="進捗をリセット"},4000)}
   else{prog={p:{},l:{},f:{},n:0,dl:{}};save();$("iomsg").textContent="進捗をリセットしました。";if(!T)setup("")}
 };
-$("exp").onclick=function(){$("io").value=JSON.stringify({v:4,p:prog.p,l:prog.l,f:prog.f,n:prog.n,dl:prog.dl,w:CUSTOM,g:G});$("iomsg").textContent="書き出しました。この文字列をメモしておくと復元できます。"};
+$("exp").onclick=function(){$("io").value=JSON.stringify({v:4,p:prog.p,l:prog.l,f:prog.f,n:prog.n,dl:prog.dl,w:CUSTOM,g:G,srs:(function(){try{return JSON.parse(localStorage.getItem("dopa:srs")||"{}")}catch(e){return {}}})()});$("iomsg").textContent="書き出しました。この文字列をメモしておくと復元できます。"};
+function isObj(x){return !!x&&typeof x==="object"&&!Array.isArray(x)}
+function impOk(o){if(!isObj(o))return false;var ks=Object.keys(o);if(!ks.length)return false;
+  if(o.p!==undefined||o.l!==undefined||o.n!==undefined||o.g!==undefined||o.w!==undefined){
+    if(o.p!==undefined&&!isObj(o.p))return false;if(o.l!==undefined&&!isObj(o.l))return false;if(o.f!==undefined&&!isObj(o.f))return false;if(o.g!==undefined&&!isObj(o.g))return false;if(o.w!==undefined&&!Array.isArray(o.w))return false;
+    return isObj(o.p)||isObj(o.g)}
+  return ks.every(function(k){return /^\d+$/.test(k)})}
 $("imp").onclick=function(){
   try{
     var o=JSON.parse($("io").value);
+    if(!impOk(o))throw 0;try{V5.bkKeep()}catch(e){}
     if(Array.isArray(o.w)){WORDS.length=BASE.length;CUSTOM=[];o.w.forEach(addCustomRaw);saveCustom()}
-    prog=fix(o,o.v===4?4:(o.v===3?3:(o.v===2?2:1)));save();if(o.g){G=fixG(o.g);saveG();updStones()}renderLearnSetup("");
+    prog=fix(o,o.v===4?4:(o.v===3?3:(o.v===2?2:1)));save();if(o.g){G=fixG(o.g);saveG();updStones()}try{var S=window.srsData&&srsData();if(S){Object.keys(S).forEach(function(k){delete S[k]});if(isObj(o.srs))Object.keys(o.srs).forEach(function(k){var e=o.srs[k],no=parseInt(k);if(no>=1&&no<=WORDS.length&&Array.isArray(e)&&(prog.p[no]||0)>=2){var st=Math.max(0,Math.min(4,parseInt(e[0])||0)),du=parseInt(e[1]);if(du>0)S[no]=[st,du]}});localStorage.setItem("dopa:srs",JSON.stringify(S))}}catch(eS){}renderLearnSetup("");
     $("iomsg").textContent="読み込みました。";if(!T)setup("");
   }catch(e){$("iomsg").textContent="読み込めませんでした。書き出した文字列をそのまま貼り付けてください。"}
 };
@@ -6981,7 +6989,7 @@ finish=function(){
       var R=G.rvd;if(R.last!==t){R.n=(R.last===t-1)?R.n+1:1;R.last=t;R.best=Math.max(R.best||0,R.n);try{bondAdd([bondPartner()],5)}catch(eB){}var bon=20+10*Math.min(R.n,10);G.stones+=bon;G.total+=bon;notes.push("今日の復習完了！ 連続"+R.n+"日　◆+"+bon)}
     }
   }
-  var nIn=0;for(var i=0;i<nBase();i++){if(passes(i)>=2&&srsInit(i+1))nIn++}
+  var nIn=0,inT={};ids.forEach(function(i){inT[i]=1});for(var i=0;i<nBase();i++){if(passes(i)>=2&&!SRS[i+1]){if(inT[i]){srsInit(i+1);nIn++}else SRS[i+1]=[1,t+1+Math.floor(Math.random()*14)]}}
   srsSave();
   if(B&&B.hp<=0){G.bw[B.id]=1}
   if(perfect)G.pfc=(G.pfc||0)+1;
@@ -7136,16 +7144,25 @@ function bkSave(){
   bkDl(js,name);
 }
 function bkDl(js,name){try{var u=URL.createObjectURL(new Blob([js],{type:"application/json"})),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(u);a.remove()},2000);bkDone()}catch(e){toast("保存できませんでした")}}
+function bkOk(ls){if(!ls||typeof ls!=="object"||Array.isArray(ls))return false;var ks=Object.keys(ls),main=0;
+  for(var i=0;i<ks.length;i++)if(typeof ls[ks[i]]!=="string")return false;
+  var chk=function(k){if(!(k in ls))return true;try{var v=JSON.parse(ls[k]);if(!v||typeof v!=="object"||Array.isArray(v))return false;main++;return true}catch(e){return false}};
+  if(!chk("dopatan:v1")||!chk("dopa:game2"))return false;return main>0}
+function bkKeep(){var js=bkJson(),m=mastered();bkDb(function(db){if(!db)return;try{db.transaction("s","readwrite").objectStore("s").put({d:"復元する前",m:m,js:js},"z-before")}catch(e){}})}
 function bkRestore(o){
   if(!o||o.app!=="dopatan"||!o.ls){toast("どぱたん＋のバックアップファイルではありません");return}
+  if(!bkOk(o.ls)){toast("バックアップの中身が壊れているため、復元をやめました（いまのデータはそのままです）");return}
   if(!confirm("バックアップ（"+String(o.date||"").slice(0,10)+"・習得"+(o.m||0)+"語）で、いまのデータを上書きします。よろしいですか？"))return;
-  try{var ks=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("dopa")===0)ks.push(k)}ks.forEach(function(k){localStorage.removeItem(k)});Object.keys(o.ls).forEach(function(k){if(k.indexOf("dopa")===0)localStorage.setItem(k,o.ls[k])})}catch(e){toast("復元できませんでした（"+e+"）");return}
+  try{bkKeep()}catch(e){}
+  var old=bkSnap();
+  try{var ks=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf("dopa")===0)ks.push(k)}ks.forEach(function(k){localStorage.removeItem(k)});Object.keys(o.ls).forEach(function(k){if(k.indexOf("dopa")===0)localStorage.setItem(k,o.ls[k])})}
+  catch(e){try{Object.keys(o.ls).forEach(function(k){if(k.indexOf("dopa")===0)localStorage.removeItem(k)});Object.keys(old).forEach(function(k){localStorage.setItem(k,old[k])})}catch(e2){}toast("復元できませんでした。いまのデータに戻しました（"+e+"）");return}
   alert("復元しました。アプリを読み込み直します。");location.reload();
 }
 function bkLoadFile(file){var r=new FileReader();r.onload=function(){var txt=String(r.result||"");try{var o=JSON.parse(txt);if(o&&o.app==="dopatan")bkRestore(o);else{$("io").value=txt;$("imp").onclick()}}catch(e){toast("読み込めませんでした")}};r.readAsText(file)}
 /* 自動の控え：1日1回、端末の中に直近3回分 */
 function bkDb(cb){try{var q=indexedDB.open("dopa-bk",1);q.onupgradeneeded=function(){q.result.createObjectStore("s")};q.onsuccess=function(){cb(q.result)};q.onerror=function(){cb(null)}}catch(e){cb(null)}}
-function bkAuto(){bkDb(function(db){if(!db)return;try{var k=dayKey(),tx=db.transaction("s","readwrite"),st=tx.objectStore("s");st.put({d:k,m:mastered(),js:bkJson()},k);var q=st.getAllKeys();q.onsuccess=function(){var ks=q.result.sort();while(ks.length>3)st.delete(ks.shift())}}catch(e){}})}
+function bkAuto(){bkDb(function(db){if(!db)return;try{var k=dayKey(),tx=db.transaction("s","readwrite"),st=tx.objectStore("s");st.put({d:k,m:mastered(),js:bkJson()},k);var q=st.getAllKeys();q.onsuccess=function(){var ks=q.result.filter(function(x){return x!=="z-before"}).sort();while(ks.length>3)st.delete(ks.shift())}}catch(e){}})}
 function bkList(cb){bkDb(function(db){if(!db)return cb([]);try{var q=db.transaction("s").objectStore("s").getAll();q.onsuccess=function(){cb((q.result||[]).sort(function(a,b){return a.d<b.d?1:-1}))};q.onerror=function(){cb([])}}catch(e){cb([])}})}
 function bkUi(){
   var el=$("bkInfo");if(!el)return;
@@ -7241,7 +7258,7 @@ window.inboxAuto=function(){
 /* 学習画面の「確認テストへ」バー */
 (function(){var p=$("lstudy");if(p&&!$("flowBar")){var d=document.createElement("div");d.id="flowBar";d.hidden=true;var hd=p.querySelector(".bar");if(hd)hd.parentNode.insertBefore(d,hd.nextSibling);else p.insertBefore(d,p.firstChild)}})();
 $("lend").addEventListener("click",function(){FLOW=null;flowBar()});
-window.V5={bkJson:bkJson,bkRestore:bkRestore,readAll:ibxReadAll,items:ibxItems,render:ibxRender,dot:ntfDotV,mastered:mastered,nextNew:nextNew,flowStart:flowStart,toast:toast,lsGet:lsGet,lsSet:lsSet,dayN:dayN,dnKey:dnKey,spell:function(){return SPELL},spKey:spKey,spSubmit:spSubmit,spSet:function(v){SPT=v;spDraw()},spAct:function(){return SPACT},achClaim:achClaim};
+window.V5={bkKeep:bkKeep,bkJson:bkJson,bkRestore:bkRestore,readAll:ibxReadAll,items:ibxItems,render:ibxRender,dot:ntfDotV,mastered:mastered,nextNew:nextNew,flowStart:flowStart,toast:toast,lsGet:lsGet,lsSet:lsSet,dayN:dayN,dnKey:dnKey,spell:function(){return SPELL},spKey:spKey,spSubmit:spSubmit,spSet:function(v){SPT=v;spDraw()},spAct:function(){return SPACT},achClaim:achClaim};
 ntfDotV();homeInfo();
 })();
 
