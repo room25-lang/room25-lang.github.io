@@ -2697,7 +2697,7 @@ function speak(text,rate){if(!synth)return;
   try{if(synth.speaking||synth.pending)synth.cancel()}catch(e){}
   var u=new SpeechSynthesisUtterance(text);u.lang="en-US";if(voice)u.voice=voice;u.rate=Math.max(rate||1,1);u.volume=1;
   synth.speak(u)}
-try{if(navigator.audioSession)navigator.audioSession.type="ambient"}catch(e){}
+try{if(navigator.audioSession&&navigator.audioSession.type!=="auto")navigator.audioSession.type="auto"}catch(e){}
 /* アプリに同梱している声（VOICEVOX）。この20種類だけを選べます */
 var PACKV=[["四国めたん",[["ノーマル",2],["ツンツン",6]]],["春日部つむぎ",[["ノーマル",8]]],["雨晴はう",[["ノーマル",10]]],["冥鳴ひまり",[["ノーマル",14]]],["九州そら",[["ノーマル",16]]],["WhiteCUL",[["ノーマル",23]]],["後鬼",[["人間ver.",27]]],["櫻歌ミコ",[["ノーマル",43]]],["小夜/SAYO",[["ノーマル",46]]],["ナースロボ＿タイプＴ",[["ノーマル",47]]],["†聖騎士 紅桜†",[["ノーマル",51]]],["春歌ナナ",[["ノーマル",54]]],["猫使ビィ",[["ノーマル",58]]],["中国うさぎ",[["ノーマル",61]]],["波音リツ",[["クイーン",65]]],["あいえるたん",[["ノーマル",68]]],["琴詠ニア",[["ノーマル",74]]],["東北ずん子",[["ノーマル",107]]],["東北きりたん",[["ノーマル",108]]],["東北イタコ",[["ノーマル",109]]]];
 var PACKIDS={};PACKV.forEach(function(x){x[1].forEach(function(st){PACKIDS[st[1]]=1})});
@@ -3467,7 +3467,7 @@ function ac(){
       if(WAKE){WAKE=false;OUTG.gain.setValueAtTime(0,0);OUTG.gain.setValueAtTime(0,AC.currentTime+0.06);OUTG.gain.linearRampToValueAtTime(1,AC.currentTime+0.5)}
       MASTER.connect(EQN[0]);
       SFX=AC.createGain();SFX.gain.value=2*volS/50;SPAN=AC.createStereoPanner?AC.createStereoPanner():null;if(SPAN){SFX.connect(SPAN);SPAN.connect(MASTER)}else SFX.connect(MASTER);
-      if(window.NOCONV){REVB=AC.createGain();REVB.gain.value=0}else{REVB=AC.createConvolver();REVB.buffer=impulse(1.3);var rg=AC.createGain();rg.gain.value=0.22;REVB.connect(rg);rg.connect(MASTER)}
+      {REVB=AC.createConvolver();REVB.buffer=impulse(1.3);var rg=AC.createGain();rg.gain.value=0.22;REVB.connect(rg);rg.connect(MASTER)}
       var ss=AC.createGain();ss.gain.value=0.35;SFX.connect(ss);ss.connect(REVB);
     }
     if(AC.state==="suspended")AC.resume();
@@ -4846,7 +4846,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.84",VLOG=[
+var VERSION="1.85",VLOG=[
+ ["1.85","2026-11-16",["iPhone のアプリで、ホームを開いてしばらくすると落ちる問題を直しました（原因は、音の種類の指定でした。iPhone に「控えめな音」と伝えていたのをやめ、標準にしました）","残響（エコー）を元に戻しました"]],
  ["1.84","2026-11-16",["iPhone のアプリで落ちる問題の対策：ほかの音などで音が中断された時は、音の仕組みを一時停止にするようにしました（中断のまま動かし続けると、メモリが増え続けていたため）。画面に触れると再開します"]],
  ["1.83","2026-11-16",["iPhone のアプリで、ホームを開いてしばらくすると落ちる問題を直しました（原因は効果音の残響の仕組みでした。iPhone・iPad・Mac の Safari では残響なしで鳴らします）","背景の動く光と斜線を元に戻しました"]],
  ["1.82","2026-11-16",["不具合の調査用：記録の画面で「音すべて」「表情の合成」も止められるようにしました（3回の起動のあいだだけ）"]],
