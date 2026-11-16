@@ -4766,7 +4766,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.93",VLOG=[
+var VERSION="1.94",VLOG=[
+ ["1.94","2026-11-16",["アプリを開き直すと、ストーリーの「読んだ」記録と絆が消えてしまう不具合を直しました（これからは残ります）"]],
  ["1.93","2026-11-16",["新しいストーリー（1人3話・MAIN）に声をつけました"]],
  ["1.92","2026-11-16",["キャラのレベルの上限をLv3にしました（スキルの強さはこれまでのLv3が最大。今Lv4・5のキャラはLv3になります）。セリフはLv2で7つ、Lv3で11すべて","Lv3のキャラがガチャで重なったら、レア度に応じて◆100〜1200が戻ります","ストーリーを作り直しました：1人3話、どれも1話で完結する短い話です。1話目は仲間になると、2話目と3話目は絆がたまると開きます（読んでもレベルは上がりません。初めて読むと◆30）","MAINストーリー8章の中身を書き直しました（開く条件はそのまま）"]],
  ["1.91","2026-11-16",["はじめて遊ぶ人のBGMと掛け声を「ノリノリ」に（設定の「音」→「音楽」でいつでも「寄り添い」に変えられます。今まで遊んでいた人の設定はそのまま）","設定を「全体・音・画面・ヘルプ・データ」の5つに整理しました","音に関わる設定（ステージ音楽・ホームBGM・曲のセット・イコライザー・立体音響・相棒のセリフ）を、すべて「音」タブにまとめ、「音声／音楽／詳細」に分けました","「単語の追加」とバックアップは「データ」タブに移しました"]],
@@ -5639,7 +5640,7 @@ function fixG(g){
   r.login=(g.login&&typeof g.login.last==="string")?{last:g.login.last.slice(0,10),n:Math.max(1,Math.min(9999,parseInt(g.login.n)||1))}:{last:"",n:0};
   HZ.forEach(function(h){var v=parseInt((g.hz||{})[h.id]);if(v>0)r.hz[h.id]=Math.min(v,999999)});
   r.seenPH=g.seenPH?1:0;r.inf=g.inf?1:0;r.sp=Math.max(0,Math.min(9999,parseInt(g.sp)||0));
-  ["unl","ach","bw","awk","rvd","bk","ibx"].forEach(function(k){if(g[k]&&typeof g[k]==="object"&&!Array.isArray(g[k]))r[k]=g[k]});r.spc=Math.max(0,parseInt(g.spc)||0);r.pfc=Math.max(0,parseInt(g.pfc)||0);if(typeof g.title==="string")r.title=g.title.slice(0,12);if(typeof g.end==="string")r.end=g.end.slice(0,10);if(typeof g.fav==="string"&&r.chars[g.fav])r.fav=g.fav;if(g.mailAdm)r.mailAdm=1;if(g.goal&&typeof g.goal==="object"){var gn=parseInt(g.goal.n),gb=parseInt(g.goal.by);if(gn>0&&gb>0){r.goal={n:Math.min(gn,WORDS.length),by:gb,s:parseInt(g.goal.s)||gb-1,m0:Math.max(0,parseInt(g.goal.m0)||0)};if(g.goal.td&&typeof g.goal.td==="object")r.goal.td={d:parseInt(g.goal.td.d)||0,per:Math.max(0,parseInt(g.goal.td.per)||0)}}}
+  ["unl","ach","bw","awk","rvd","bk","ibx","story","bond","gdays","xm"].forEach(function(k){if(g[k]&&typeof g[k]==="object"&&!Array.isArray(g[k]))r[k]=g[k]});if(g.tutPull)r.tutPull=1;if(g.lv3fix)r.lv3fix=1;r.spc=Math.max(0,parseInt(g.spc)||0);r.pfc=Math.max(0,parseInt(g.pfc)||0);if(typeof g.title==="string")r.title=g.title.slice(0,12);if(typeof g.end==="string")r.end=g.end.slice(0,10);if(typeof g.fav==="string"&&r.chars[g.fav])r.fav=g.fav;if(g.mailAdm)r.mailAdm=1;if(g.goal&&typeof g.goal==="object"){var gn=parseInt(g.goal.n),gb=parseInt(g.goal.by);if(gn>0&&gb>0){r.goal={n:Math.min(gn,WORDS.length),by:gb,s:parseInt(g.goal.s)||gb-1,m0:Math.max(0,parseInt(g.goal.m0)||0)};if(g.goal.td&&typeof g.goal.td==="object")r.goal.td={d:parseInt(g.goal.td.d)||0,per:Math.max(0,parseInt(g.goal.td.per)||0)}}}
   return r;
 }
 function saveG(){try{localStorage.setItem("dopa:game2",JSON.stringify(G))}catch(e){}}
