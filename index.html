@@ -2296,8 +2296,6 @@ body.lite #bgcv{display:none}
 
 button,.hdtg,[role=button],a{touch-action:manipulation}
 
-body.dopa .card,.v5cont{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
-body.dopa .card{background:linear-gradient(color-mix(in srgb,var(--c1,#1c1f23) 74%,transparent),color-mix(in srgb,var(--c2,#121417) 80%,transparent))!important}
 </style>
 </head>
 <body class="dopa">
@@ -2767,6 +2765,7 @@ var SIL="data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZ
 function voxUnlock(){
   try{
     if(!VA){VA=new Audio();VA.preload="auto"}
+    if(!window.SUNL&&window.speechSynthesis){window.SUNL=1;try{var uu=new SpeechSynthesisUtterance(" ");uu.volume=0;speechSynthesis.speak(uu)}catch(e){}}
     
     if(VAok||window.VAP)return;
     var now=Date.now();if(now-(window.VAT||0)<3000)return;window.VAT=now;
@@ -4467,7 +4466,7 @@ function loopBuf(buf,xf,gap){
 }
 function chPeek(){var st=bgm.mode==="study",L=st?studyL():homeL(),v=st?-1:parseInt($("chillSel").value);return L[isNaN(v)||v<0?(chillIdx+1)%L.length:v]}
 var DECB={},DECK=[];
-function decPut(k,b){if(!b||DECB[k])return;DECB[k]=b;DECK.push(k);while(DECK.length>(LITE?1:2))delete DECB[DECK.shift()]}
+function decPut(k,b){if(!b||DECB[k])return;DECB[k]=b;DECK.push(k);while(DECK.length>(LITE?1:3))delete DECB[DECK.shift()]}
 function chPlay(C){
   var mode=bgm.mode,ck=chKey(C),cached=DECB[ck];
   (cached?function(C2,cb){cb(true,{arrayBuffer:function(){return Promise.resolve(null)}})}:chEnsure)(C,function(ok,blob){
@@ -4766,7 +4765,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.87",VLOG=[
+var VERSION="1.88",VLOG=[
+ ["1.88","2026-11-16",["落ちる原因が分かったので、調べている間に外していたカードのすりガラスの効果を元に戻しました","ホームの曲の切り替えを、元どおりなめらかにしました（先に読み込んでおく曲数を戻しました）","最初の英単語の発音が出ないことがあったのを元に戻しました"]],
  ["1.87","2026-11-16",["起動のたびに、使わないBGMを裏でまとめて作っていたのをやめました（iPhone のアプリで、起動後にメモリが大きく増える・熱くなる原因でした）","声を再生するたびにメモリが少しずつ増えていたのを直しました","自分の音楽ファイルが二重に鳴ることがあったのを直しました"]],
  ["1.86","2026-11-16",["落ちる原因を調べるために入れていた記録の仕組みを外しました（少し軽くなります）","iPhone のアプリで、起動してから画面に触れるまでメモリが増え続ける問題を直しました（音の準備を、最初に触れた時に始めます）","起動直後に同じBGMを2回読み込んでいたのを1回にし、表情の合成に使った下書きもすぐ片付けるようにしました（起動直後のメモリを減らします）"]],
  ["1.85","2026-11-16",["iPhone のアプリで、ホームを開いてしばらくすると落ちる問題を直しました（原因は、音の種類の指定でした。iPhone に「控えめな音」と伝えていたのをやめ、標準にしました）","残響（エコー）を元に戻しました"]],
