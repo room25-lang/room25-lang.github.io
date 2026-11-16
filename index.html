@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script>(function(){try{
+var chk=function(a){try{if(a&&a.state==="interrupted"&&a.suspend){a.suspend();try{crumb("音が中断→一時停止にしました")}catch(e){}}}catch(e){}};
+["AudioContext","webkitAudioContext"].forEach(function(n){var A=window[n];if(!A)return;var W=function(o){var a=arguments.length?new A(o):new A();try{a.addEventListener("statechange",function(){chk(a)})}catch(e){}(window.ACS=window.ACS||[]).push(a);setTimeout(function(){chk(a)},0);return a};W.prototype=A.prototype;window[n]=W});
+setInterval(function(){(window.ACS||[]).forEach(chk)},500);
+}catch(e){}})();</script>
 <script>(function(){try{var u=navigator.userAgent||"";window.NOCONV=/iP(hone|ad|od)/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1)||(/AppleWebKit/.test(u)&&/Safari/.test(u)&&!/Chrome|Chromium|CriOS|Edg|OPR|Android|Firefox|FxiOS/.test(u))||/CriOS|FxiOS|EdgiOS/.test(u)}catch(e){}})();</script>
 <script>(function(){try{
 var L=localStorage,T0=Date.now(),R=[],last=0;
@@ -4841,7 +4846,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.83",VLOG=[
+var VERSION="1.84",VLOG=[
+ ["1.84","2026-11-16",["iPhone のアプリで落ちる問題の対策：ほかの音などで音が中断された時は、音の仕組みを一時停止にするようにしました（中断のまま動かし続けると、メモリが増え続けていたため）。画面に触れると再開します"]],
  ["1.83","2026-11-16",["iPhone のアプリで、ホームを開いてしばらくすると落ちる問題を直しました（原因は効果音の残響の仕組みでした。iPhone・iPad・Mac の Safari では残響なしで鳴らします）","背景の動く光と斜線を元に戻しました"]],
  ["1.82","2026-11-16",["不具合の調査用：記録の画面で「音すべて」「表情の合成」も止められるようにしました（3回の起動のあいだだけ）"]],
  ["1.81","2026-11-16",["不具合の調査用：自動の切り分けを作り直しました（音・表情の合成・ホーム画面を、それぞれ2回ずつ試します）"]],
