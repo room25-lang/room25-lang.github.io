@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<script>(function(){try{var u=navigator.userAgent||"";window.NOCONV=/iP(hone|ad|od)/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1)||(/AppleWebKit/.test(u)&&/Safari/.test(u)&&!/Chrome|Chromium|CriOS|Edg|OPR|Android|Firefox|FxiOS/.test(u))||/CriOS|FxiOS|EdgiOS/.test(u)}catch(e){}})();</script>
 <script>(function(){try{
 var L=localStorage,T0=Date.now(),R=[],last=0;
 var prevN=parseInt(L.getItem("dopa:boot")||"0",10)||0;
@@ -2364,13 +2365,7 @@ html.dbg-hb .hb2,html.dbg-hb #hb2Card{display:none!important}
 
 html.dbg-hv #homeV{display:none!important}
 
-#bgfx i{animation:none!important}
-#bgfx .b1{transform:translate(27.5%,22.5%) scale(1.125)}
-#bgfx .b2{transform:translate(-22.5%,-25%) scale(.925)}
-#bgfx .b3{transform:translateX(92px)}
 
-#bgfx i{display:none!important;animation:none!important;transform:none!important;translate:none!important}
-body.dopa:not(.lite) #bgfx{background:radial-gradient(circle at 40% 35%,color-mix(in srgb,var(--acc,var(--uacc,#d4ff00)) 24%,transparent),transparent 34vh),radial-gradient(circle at 62% 65%,rgba(110,170,255,.17),transparent 26vh),repeating-linear-gradient(115deg,rgba(255,255,255,.045) 0 2px,transparent 2px 46px)}
 
 #bgcv{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
 html.bgcv body.dopa:not(.lite) #bgfx{background:repeating-linear-gradient(115deg,rgba(255,255,255,.045) 0 2px,transparent 2px 46px)}
@@ -3467,7 +3462,7 @@ function ac(){
       if(WAKE){WAKE=false;OUTG.gain.setValueAtTime(0,0);OUTG.gain.setValueAtTime(0,AC.currentTime+0.06);OUTG.gain.linearRampToValueAtTime(1,AC.currentTime+0.5)}
       MASTER.connect(EQN[0]);
       SFX=AC.createGain();SFX.gain.value=2*volS/50;SPAN=AC.createStereoPanner?AC.createStereoPanner():null;if(SPAN){SFX.connect(SPAN);SPAN.connect(MASTER)}else SFX.connect(MASTER);
-      REVB=AC.createConvolver();REVB.buffer=impulse(1.3);var rg=AC.createGain();rg.gain.value=0.22;REVB.connect(rg);rg.connect(MASTER);
+      if(window.NOCONV){REVB=AC.createGain();REVB.gain.value=0}else{REVB=AC.createConvolver();REVB.buffer=impulse(1.3);var rg=AC.createGain();rg.gain.value=0.22;REVB.connect(rg);rg.connect(MASTER)}
       var ss=AC.createGain();ss.gain.value=0.35;SFX.connect(ss);ss.connect(REVB);
     }
     if(AC.state==="suspended")AC.resume();
@@ -4846,7 +4841,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.82",VLOG=[
+var VERSION="1.83",VLOG=[
+ ["1.83","2026-11-16",["iPhone のアプリで、ホームを開いてしばらくすると落ちる問題を直しました（原因は効果音の残響の仕組みでした。iPhone・iPad・Mac の Safari では残響なしで鳴らします）","背景の動く光と斜線を元に戻しました"]],
  ["1.82","2026-11-16",["不具合の調査用：記録の画面で「音すべて」「表情の合成」も止められるようにしました（3回の起動のあいだだけ）"]],
  ["1.81","2026-11-16",["不具合の調査用：自動の切り分けを作り直しました（音・表情の合成・ホーム画面を、それぞれ2回ずつ試します）"]],
  ["1.80","2026-11-16",["背景の動く光をやめ、止めた背景に戻しました（iPhone のアプリで落ちる原因になっていたため）"]],
