@@ -2297,6 +2297,7 @@ body.lite #bgcv{display:none}
 button,.hdtg,[role=button],a{touch-action:manipulation}
 
 .sybar:not(.sybb){grid-template-columns:repeat(3,1fr)}
+.lkbtn{opacity:.45}
 </style>
 </head>
 <body class="dopa">
@@ -2527,7 +2528,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   </details>
   <h3>管理者コマンド</h3>
   <div class="row2"><input type="password" id="devIn" placeholder="パスワード" autocomplete="off" spellcheck="false" style="flex:1;min-width:0"><button class="sm" id="devGo">認証</button></div>
-  <div id="devPanel" hidden><div class="pair"><button class="sm" data-dv="inf">◆無制限 ON/OFF</button><button class="sm" data-dv="stones">◆+100万</button></div><div class="pair"><button class="sm" data-dv="chars">全キャラ解放</button><button class="sm" data-dv="max">全キャラLv5</button></div><div class="pair"><button class="sm" data-dv="slots">編成枠を6に</button><button class="sm" data-dv="hz">ハズレ図鑑を全部</button></div><div class="pair"><button class="sm" data-dv="unlock">テストのロック解除</button><button class="sm" data-dv="off">管理者モードを終了</button></div></div>
+  <div id="devPanel" hidden><div class="pair"><button class="sm" data-dv="inf">◆無制限 ON/OFF</button><button class="sm" data-dv="stones">◆+100万</button></div><div class="pair"><button class="sm" data-dv="chars">全キャラ解放</button><button class="sm" data-dv="max">全キャラLv3</button></div><div class="pair"><button class="sm" data-dv="slots">編成枠を6に</button><button class="sm" data-dv="hz">ハズレ図鑑を全部</button></div><div class="pair"><button class="sm" data-dv="unlock">テストのロック解除</button><button class="sm" data-dv="off">管理者モードを終了</button></div></div>
   <div class="hint" id="devMsg"></div>
   <h3>ゲームデータの初期化</h3>
   <div class="hint">キャラクター・◆・編成枠を、はじめの状態に戻します（単語の進捗は変わりません）。</div>
@@ -4766,7 +4767,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.95",VLOG=[
+var VERSION="1.96",VLOG=[
+ ["1.96","2026-11-17",["◆の「累計」が、ガチャのあとと開き直したあとで違う数になることがあったのを直しました（ガチャで戻った◆も累計に数えます）","はじめのガイド：「編成」がいつ開くかを案内するようにしました。鍵のついた「編成」を押すと、開く条件が出ます","編成の画面のレベルの表示が「/5」のままだったのを「/3」に直しました"]],
  ["1.95","2026-11-17",["データの「読み込み」に関係ない文字を貼ると、学習の記録が消えてしまう不具合を直しました","壊れたバックアップファイルで復元すると、いまのデータが消えてしまう不具合を直しました（壊れている時は復元をやめます）","読み込み・復元の直前のデータを「復元する前」として1つ残すようにしました（設定→データ から戻せます）","文字列の書き出し・読み込みで、復習の予定も引き継がれるようにしました","習得済みの単語の復習が、一度に翌日へ集中することがあったのを直しました（2週間に分けて出ます）"]],
  ["1.94","2026-11-16",["アプリを開き直すと、ストーリーの「読んだ」記録と絆が消えてしまう不具合を直しました（これからは残ります）"]],
  ["1.93","2026-11-16",["新しいストーリー（1人3話・MAIN）に声をつけました"]],
@@ -5676,7 +5678,7 @@ function effText(){
   return a.join("<br>");
 }
 var P_CHAR=0.10,HAZ_REF=30,MAXREF=300,SPN=100;
-function hzRoll(){var h=HZ[Math.floor(Math.random()*HZ.length)],nw=!G.hz[h.id];G.hz[h.id]=(G.hz[h.id]||0)+1;G.stones+=HAZ_REF;return {h:h,nw:nw,out:"ハズレ"}}
+function hzRoll(){var h=HZ[Math.floor(Math.random()*HZ.length)],nw=!G.hz[h.id];G.hz[h.id]=(G.hz[h.id]||0)+1;G.stones+=HAZ_REF;G.total+=HAZ_REF;return {h:h,nw:nw,out:"ハズレ"}}
 function hzOwn(){return HZ.filter(function(h){return G.hz[h.id]}).length}
 function hzHtml(){return '<div class="stat">ハズレ図鑑 '+hzOwn()+' / '+HZ.length+'</div><div class="hzl">'+HZ.map(function(h){var n=G.hz[h.id]||0;return '<div class="hzc'+(n?'':' lock')+'"><img src="'+IMT(h.id)+'" alt=""><span>'+(n?esc(h.name)+'<br>×'+n:'？？？')+'</span></div>'}).join("")+'</div>'}
 function charProb(E){return Math.min(0.5,P_CHAR*(1+E.haz))}
@@ -5808,12 +5810,12 @@ function giveChar(c){
   var had=lvOf(c.id),out;
   if(!had){G.chars[c.id]=1;if(!G.first)G.first=c.id;out="NEW!";if(G.party.length<PMAX())G.party.push(c.id)}
   else if(had<LVMAX){G.chars[c.id]=had+1;out="Lv"+(had+1)+(had+1>=LVMAX?" MAX!":" UP")}
-  else{var mr=mxRef(c);G.stones+=mr;out="MAX（◆"+mr+"返還）"}
+  else{var mr=mxRef(c);G.stones+=mr;G.total+=mr;out="MAX（◆"+mr+"返還）"}
   return {c:c,out:out};
 }
 function giveMax(c){
   var had=lvOf(c.id),out;
-  if(had>=LVMAX){var mr=mxRef(c);G.stones+=mr;out="MAX（◆"+mr+"返還）"}
+  if(had>=LVMAX){var mr=mxRef(c);G.stones+=mr;G.total+=mr;out="MAX（◆"+mr+"返還）"}
   else{G.chars[c.id]=LVMAX;if(!G.first)G.first=c.id;out=had?"Lv"+LVMAX+" MAX!":"NEW! Lv"+LVMAX+" MAX!";if(!had&&G.party.length<PMAX())G.party.push(c.id)}
   return {c:c,out:out};
 }
@@ -6007,7 +6009,7 @@ function spEx(){
   if((G.sp||0)<SPN){renderG("スカウトPtがあと "+(SPN-(G.sp||0))+" で交換できます（ガチャ1回で1Pt）。");return}
   var pb=$("pullbody");
   pb.innerHTML='<div class="pbig" style="font-size:20px">スカウトPt交換</div><div class="hint" style="text-align:center">'+SPN+'Ptで、好きなキャラを1体（もう持っていればLvアップ）</div><div class="spl">'+
-   CHARS.slice().sort(function(a,b){return b.s-a.s||a.st-b.st}).map(function(c){var lv=lvOf(c.id);return '<button class="spc r'+c.s+'" data-spc="'+c.id+'"'+(lv>=LVMAX?' disabled':'')+'><img src="'+IMT(c.id)+'" alt=""><b>'+esc(c.name)+'</b><em>'+c.star+'　'+(lv?(lv>=5?'MAX':'Lv'+lv+'→'+(lv+1)):'未入手')+'</em></button>'}).join("")+
+   CHARS.slice().sort(function(a,b){return b.s-a.s||a.st-b.st}).map(function(c){var lv=lvOf(c.id);return '<button class="spc r'+c.s+'" data-spc="'+c.id+'"'+(lv>=LVMAX?' disabled':'')+'><img src="'+IMT(c.id)+'" alt=""><b>'+esc(c.name)+'</b><em>'+c.star+'　'+(lv?(lv>=LVMAX?'MAX':'Lv'+lv+'→'+(lv+1)):'未入手')+'</em></button>'}).join("")+
    '</div><button class="main" id="pullok">やめる</button>';
   $("pull").classList.remove("inv");
   $("pullok").onclick=function(){$("pull").classList.add("inv")};
@@ -7042,7 +7044,7 @@ function unlTabs(){var g=$("tG");if(g)g.classList.toggle("lk",!G.unl.g)}
 var _tab=tab;
 tab=function(t){if(t==="G"&&!G.unl.g){toast("テストを1回終えると「キャラ」が開放されます");return}_tab(t);if(t!=="L"){FLOW=null;flowBar()}};
 var _renderG=renderG;
-renderG=function(m){if(!G.unl.p&&gView==="party")gView="pull";_renderG(m);if(!G.unl.p){var b=document.querySelector('#gacha [data-gv="party"]');if(b){b.disabled=true;b.innerHTML=ICO("lock",13)+" 編成";b.title="テストを3回終えると開放"}}};
+renderG=function(m){if(!G.unl.p&&gView==="party")gView="pull";_renderG(m);if(!G.unl.p){var b=document.querySelector('#gacha [data-gv="party"]');if(b){var n3=Math.max(1,3-(prog.n||0)),why="編成は、テストをあと"+n3+"回終えると開放されます";b.disabled=false;b.classList.add("lkbtn");b.setAttribute("aria-disabled","true");b.innerHTML=ICO("lock",13)+" 編成";b.title=why;b.onclick=function(e){e.preventDefault();e.stopPropagation();try{v5toast(why)}catch(x){}}}}};
 unlTabs();
 
 /* ====================================================================
@@ -7562,7 +7564,7 @@ function unlockAll(){
   try{updStones();renderG("")}catch(e){}try{if(!$("homeT").hidden)homeRender()}catch(e){}try{if(!T)setup("")}catch(e){}
 }
 var dg=$("devGo"),og=dg.onclick;
-dg.onclick=function(){og.apply(this,arguments);if(typeof DEVON!=="undefined"&&DEVON){unlockAll();$("devMsg").textContent="認証しました（管理者モード）。すべてのコンテンツ（キャラ・編成・ボス戦・全キャラLv5・編成枠6・ハズレ図鑑・テストのロック）を解放しました。"+(G.inf?"　◆無制限：ON":"")}};
+dg.onclick=function(){og.apply(this,arguments);if(typeof DEVON!=="undefined"&&DEVON){unlockAll();$("devMsg").textContent="認証しました（管理者モード）。すべてのコンテンツ（キャラ・編成・ボス戦・全キャラLv3・編成枠6・ハズレ図鑑・テストのロック）を解放しました。"+(G.inf?"　◆無制限：ON":"")}};
 var p=$("devPanel");if(p){var d=document.createElement("div");d.className="pair";d.innerHTML='<button class="sm" data-dv="all8">すべてのコンテンツを解放</button>';p.insertBefore(d,p.firstChild);
   d.querySelector("button").addEventListener("click",function(e){e.stopPropagation();if(typeof DEVON!=="undefined"&&DEVON){unlockAll();$("devMsg").textContent="すべてのコンテンツを解放しました。"}})}
 })();
@@ -7701,7 +7703,7 @@ function stageHtml(){
   for(var k=1;k<C.length;k++)h+='<i class="psep" data-ps="'+k+'"></i>';
   return '<div class="pstage" id="pstage"><div class="plab">'+(PPRE?'MEMBER <em>PREVIEW</em>':'PARTY <em>'+G.party.length+'</em> / '+PMAX())+'</div>'+h+'<div class="pbub" id="pbub"></div><i class="pcut"></i></div>';
 }
-function lvBar(lv){return '<div class="plv"><span>Lv'+lv+'</span><i><b style="width:'+(lv/5*100)+'%"></b></i><em>/5</em></div>'}
+function lvBar(lv){return '<div class="plv"><span>Lv'+lv+'</span><i><b style="width:'+(Math.min(lv,LVMAX)/LVMAX*100)+'%"></b></i><em>/'+LVMAX+'</em></div>'}
 function infoHtml(){
   var C=cols(),id=PPRE||C[PSI];
   if(!id)return '<div class="pinfo"><div class="ptop"><div class="pnm" style="opacity:.6">空き枠</div><span class="ptag">SLOT 0'+(PSI+1)+'</span></div><p class="psk">この枠にキャラを入れると、能力がテストやガチャに効きます。</p><div class="pbtns"><button class="pb p" data-pa="add">キャラを選ぶ</button></div></div>';
@@ -8342,7 +8344,7 @@ GTS=[
  {pre:function(){if(!G.unl.g){G.unl.g=1;saveG();try{unlTabs()}catch(e){}}},wait:2400,sel:"#tG",tx:"おつかれさま！ テストの得点は ◆ になるよ。「キャラ」を押してみて"},
  {pre:function(){try{gView="pull";renderG("")}catch(e){}},tx:"ここがガチャ。今回だけ、無料で10回引けるよ。仲間が3人、必ず加わるからね",btn:"無料で10回引く",act:function(){gtPull()}},
  {until:function(){var p=$("pull"),op=(p&&!p.classList.contains("inv"))||!!document.querySelector("#gfx:not(.inv)");if(op)GT.sp=1;return GT.sp&&!op},hide:1},
- {pre:function(){try{gView="party";renderG("")}catch(e){}},tx:"仲間は「編成」で3人まで選べるよ。編成した子の能力がテストに効いて、掛け声もその子の声になるの。これで準備はおしまい！",btn:"はじめる",end:1}
+ {pre:function(){try{gView="party";renderG("")}catch(e){}},tx:function(){var n=Math.max(0,3-(prog.n||0));return (G.unl&&G.unl.p)||!n?"仲間は「編成」で3人まで選べるよ。編成した子の能力がテストに効いて、掛け声もその子の声になるの。これで準備はおしまい！":"仲間が増えたね！ 「編成」はテストをあと"+n+"回終えると開くよ。開いたら3人まで選べて、その子の能力がテストに効くの。これで準備はおしまい！"},btn:"はじめる",end:1}
 ];
 
 (function(){
