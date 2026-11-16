@@ -245,8 +245,8 @@ background:linear-gradient(#fff27a,#ff3b3b);-webkit-background-clip:text;backgro
 #banner.big{background:linear-gradient(90deg,#ff3b3b,#ffd400,#39ff14,#25d9ff,#ff3bd4);-webkit-background-clip:text;background-clip:text}
 #banner.show{visibility:visible;animation:pop 1s ease-out forwards}
 #fxflash{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0}
-#fxflash.go{animation:fxfl .6s ease-out}
-@keyframes fxfl{0%{opacity:var(--fo,.4)}100%{opacity:0}}
+#fxflash.go{animation:fxsc .6s ease-out}
+@keyframes fxsc{0%{opacity:var(--fo,.3)}100%{opacity:0}}
 @media (prefers-reduced-motion:reduce){#fxflash{display:none}}
 @keyframes pop{0%{transform:scale(.3) rotate(-6deg);opacity:0}15%{transform:scale(1.25) rotate(2deg);opacity:1}30%{transform:scale(1)}80%{opacity:1}100%{opacity:0;transform:scale(1.1)}}
 #kaku{position:fixed;inset:0;z-index:10;display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#fff;text-align:center;overflow:hidden;background:#000}
@@ -3516,7 +3516,7 @@ function sparkle(t,n,step,F){
   n=Math.min(n,4);for(var q=0;q<n;q++)sBell(2093*Math.pow(2,(q*2)/12),t+q*Math.max(step,0.06),0.18,0.03);
 }
 function flashFx(h,tier){
-  var f=$("fxflash");f.style.background="hsl("+h+",100%,60%)";f.style.setProperty("--fo",Math.min(0.5,0.12+tier*0.07));
+  var f=$("fxflash");f.style.background="hsl("+h+",100%,60%)";f.style.setProperty("--fo",Math.min(0.3,0.12+tier*0.06));
   f.classList.remove("go");void f.offsetWidth;f.classList.add("go");
 }
 function showBanner(text,tier,F){
@@ -4765,7 +4765,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.89",VLOG=[
+var VERSION="1.90",VLOG=[
+ ["1.90","2026-11-16",["20問連続正解のときに、画面が一瞬真っ赤になるのを直しました（薄い光に戻しました）","全体テスト（ボス戦）で、ボスの全身が問題の奥にずっと映らないように。始まりの登場のあとは、上のアイコンだけになります","「リンクをコピー」「LINE・ほかのアプリで共有」で、URLだけを送るように（Xへの投稿は、これまでどおり文章つき）","設定の「音」タブの、中身のない見出し「音量」を消しました","記録の「ランキング」から、友達ランキング（コードの交換）をなくしました。全国ランキングに出す名前は、そのまま変えられます"]],
  ["1.89","2026-11-16",["iPhone で、ほかのアプリの音楽を流しながら遊べるように戻しました（どぱたん＋の音と重ねて鳴ります）"]],
  ["1.88","2026-11-16",["落ちる原因が分かったので、調べている間に外していたカードのすりガラスの効果を元に戻しました","ホームの曲の切り替えを、元どおりなめらかにしました（先に読み込んでおく曲数を戻しました）","最初の英単語の発音が出ないことがあったのを元に戻しました"]],
  ["1.87","2026-11-16",["起動のたびに、使わないBGMを裏でまとめて作っていたのをやめました（iPhone のアプリで、起動後にメモリが大きく増える・熱くなる原因でした）","声を再生するたびにメモリが少しずつ増えていたのを直しました","自分の音楽ファイルが二重に鳴ることがあったのを直しました"]],
@@ -5106,20 +5107,10 @@ function renderR(msg){
   h+='<div class="hint">棒：<span class="lg s1"></span>習得済み<span class="lg s2"></span>仮習得（リーチ）</div>';
   }
   if(recView==='r'){
-  /* ランキング */
-  var list=rankLoad(),me={n:(G.name||"あなた"),t:G.total,me:1};
-  list=list.filter(function(x){return x.n!==me.n}).concat([me]).sort(function(a,b){return b.t-a.t});
-  h+='<div class="stat"><b>ランキング（累計ポイント）</b></div>';
+  /* ランキング（全国ランキングは別の仕組みで、この上に入る） */
+  h+='<div class="stat"><b>ランキングに出す名前</b></div>';
   h+='<div class="row2">名前 <input type="text" id="rkName" maxlength="12" value="'+esc(G.name||"")+'" placeholder="あなた" style="flex:1;min-width:0"></div>';
-  list.forEach(function(x,ix){
-    h+='<div class="rk'+(x.me?' me':'')+'"><span>'+(ix+1)+'位</span><span>'+esc(x.n)+(x.me?'（自分）':'')+'</span><b>'+x.t+'</b>'+(x.me?'<span></span>':'<button class="sm" data-rkdel="'+esc(x.n)+'">✕</button>')+'</div>';
-  });
-  h+='<div class="hint">自分のコード（友達に送ると、友達のランキングに入ります）</div>';
-  h+='<div class="row2"><input type="text" id="rkMy" readonly value="'+myCode()+'" style="flex:1;min-width:0;font-size:11px"><button class="sm" id="rkCopy">コピー</button></div>';
-  h+='<div class="hint">友達のコードを貼り付けて追加</div>';
-  h+='<div class="row2"><input type="text" id="rkIn" placeholder="DP1.…" style="flex:1;min-width:0;font-size:11px"><button class="sm" id="rkAdd">追加</button></div>';
-  h+='<div class="hint" id="rkMsg">'+(msg||"")+'</div>';
-  h+='<div class="hint">サーバーのない仕組みなので、順位は「集めたコード」の中だけで決まり、自己申告です。コードは更新のたびに送り直してください。</div>';
+  h+='<div class="hint">全国ランキングに出る名前です（12文字まで）。本名は使わないでください。</div>';
   }
   h+='</div>';
   $("rec").innerHTML=h;var dsc=$("dsc");if(dsc)dsc.scrollLeft=dsc.scrollWidth;
@@ -5129,16 +5120,6 @@ function renderR(msg){
   Array.prototype.forEach.call($("rec").querySelectorAll("[data-rv]"),function(b){b.onclick=function(){recView=b.getAttribute("data-rv");renderR()}});
   if(recView==="r"){
   $("rkName").onchange=function(){G.name=($("rkName").value||"").trim().slice(0,12);saveG();renderR()};
-  $("rkCopy").onclick=function(){
-    var v=$("rkMy").value,ok=function(){$("rkMsg").textContent="コピーしました。"},ng=function(){$("rkMy").select();$("rkMsg").textContent="選択しました。長押しでコピーしてください。"};
-    try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(v).then(ok,ng);else ng()}catch(e){ng()}
-  };
-  $("rkAdd").onclick=function(){
-    var o=parseCode($("rkIn").value);
-    if(!o){$("rkMsg").textContent="コードを読み取れませんでした。そのまま貼り付けてください。";return}
-    if(o.n===(G.name||"あなた")){$("rkMsg").textContent="自分と同じ名前です。名前を変えてもらってください。";return}
-    var a=rankLoad().filter(function(x){return x.n!==o.n});a.push(o);rankSave(a);renderR(o.n+" さんを追加しました。");
-  };
   }
 }
 
@@ -5302,11 +5283,11 @@ $("shareBtn").onclick=shrOpen;
 $("shrCls").onclick=function(){$("shr").classList.add("inv")};
 $("shrX").onclick=function(){openExt("https://x.com/intent/post?text="+encodeURIComponent(shareText()+" @room_25_dev")+"&url="+encodeURIComponent(APP_URL))};
 $("shrAny").onclick=function(){
-  if(navigator.share){navigator.share({title:"どぱたん＋",text:shareText(),url:APP_URL}).catch(function(){});return}
+  if(navigator.share){navigator.share({url:APP_URL}).catch(function(){});return}
   $("shrCopy").onclick();
 };
 $("shrCopy").onclick=function(){
-  var t=shareText()+" "+APP_URL,ok=function(){$("shrMsg").textContent="コピーしました。貼り付けて送れます。"};
+  var t=APP_URL,ok=function(){$("shrMsg").textContent="リンクをコピーしました。貼り付けて送れます。"};
   try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,function(){$("shrMsg").textContent=t});return}}catch(e){}
   $("shrMsg").textContent=t;
 };
@@ -9171,7 +9152,7 @@ function mount(){
   if(recView!=="r")return;var card=$("rec")&&$("rec").querySelector(".card");if(!card)return;
   var old=card.querySelector(".nrk");if(old)old.remove();
   var st=card.querySelector(".stat");var d=document.createElement("div");d.innerHTML=block();var el=d.firstChild;
-  if(st){st.parentNode.insertBefore(el,st);st.innerHTML="<b>友達ランキング（コードの交換）</b>"}else card.appendChild(el);
+  if(st){st.parentNode.insertBefore(el,st);st.innerHTML="<b>ランキングに出す名前</b>"}else card.appendChild(el);
   var j=$("nrkJoin");if(j)j.onclick=function(){
     if(!nm()){var n=prompt("ランキングに出す名前（12文字まで。本名は使わないでください）","");if(!n||!n.trim())return;G.name=n.trim().slice(0,12);saveG()}
     lset("dopa:rkjoin","1");RK.me=null;mount();submit().then(load).then(mount);
@@ -9582,6 +9563,23 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
     blob((0.85-0.45*e2-bx*0.18)*W,(0.85-0.40*e2-by*0.12)*H,0.5*Math.sqrt(W*W+0.64*H*H)*(1-0.15*e2)*0.62,[110,170,255],0.17);
   };
   draw();setInterval(draw,80);
+})();
+
+/* v1.90 No.4：設定「音」タブの、中身のない見出し「音量」を消す（音量のスライダーは「音の設定」にある） */
+(function(){
+  function rm(){Array.prototype.forEach.call(document.querySelectorAll("#ov .sheet h3"),function(h){
+    if(h.textContent.trim()!=="音量")return;var n=h.nextElementSibling;
+    if(!n||!n.querySelector||!n.querySelector('input[type=range]'))h.remove();
+  })}
+  rm();setTimeout(rm,1500);
+})();
+/* v1.90 No.12：ボス戦の全身の立ち絵は、始まりの登場演出のあと消して、上のアイコンだけにする */
+(function(){
+  var st=document.createElement("style");st.textContent="#test .bfig.bfo{opacity:0!important;transition:opacity .6s ease-out!important}#test .bfig.bfo.bnow{transition:none!important}";document.head.appendChild(st);
+  var BT=0,WAIT=2400;
+  function hide(now){var f=$("bfig");if(!f)return;if(now)f.classList.add("bnow");f.classList.add("bfo")}
+  if(typeof bossIntro==="function"){var _bi=bossIntro;bossIntro=function(){BT=Date.now();var r=_bi.apply(this,arguments);setTimeout(function(){if(T&&T.boss)hide(false)},WAIT);return r}}
+  if(typeof ask==="function"){var _ask=ask;ask=function(){var r=_ask.apply(this,arguments);try{if(T&&T.boss&&BT&&Date.now()-BT>=WAIT)hide(true)}catch(e){}return r}}
 })();
 
 </script>
