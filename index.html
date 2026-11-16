@@ -7,7 +7,7 @@ var chk=function(a){try{if(a&&a.state==="interrupted"&&a.suspend){a.suspend();tr
 setInterval(function(){(window.ACS||[]).forEach(chk)},500);
 }catch(e){}})();</script>
 <script>(function(){try{var u=navigator.userAgent||"";window.NOCONV=/iP(hone|ad|od)/.test(u)||(/Macintosh/.test(u)&&navigator.maxTouchPoints>1)||(/AppleWebKit/.test(u)&&/Safari/.test(u)&&!/Chrome|Chromium|CriOS|Edg|OPR|Android|Firefox|FxiOS/.test(u))||/CriOS|FxiOS|EdgiOS/.test(u)}catch(e){}})();</script>
-<script>window.crumb=function(){};window.UG=!((window.navigator&&navigator.standalone===true)||(window.matchMedia&&matchMedia("(display-mode: standalone)").matches));["touchstart","pointerdown","mousedown","keydown"].forEach(function(ev){document.addEventListener(ev,function(){window.UG=true},{capture:true,passive:true})});try{var L=localStorage;if(!L.getItem("dopa:dbgclean1")){["dopa:crumb","dopa:crumbPrev","dopa:run","dopa:bis","dopa:dbg","dopa:dbgn","dopa:dbgrun","dopa:autolite","dopa:bgcv","dopa:bgcvOn"].forEach(function(k){L.removeItem(k)});L.setItem("dopa:dbgclean1","1")}}catch(e){}</script>
+<script>window.crumb=function(){};(function(){try{var B=window.BaseAudioContext||window.AudioContext||window.webkitAudioContext;if(!B||!B.prototype||!B.prototype.decodeAudioData)return;var D=B.prototype.decodeAudioData;B.prototype.decodeAudioData=function(ab,ok,ng){if(!ok&&!ng)return D.call(this,ab);var n=0,o=function(b){if(n++)return;if(ok)ok(b)},x=function(e){if(n++)return;if(ng)ng(e)},p;try{p=D.call(this,ab,o,x)}catch(e){x(e);return}if(p&&p.then)p.then(o,x)}}catch(e){}})();window.UG=!((window.navigator&&navigator.standalone===true)||(window.matchMedia&&matchMedia("(display-mode: standalone)").matches));["touchstart","pointerdown","mousedown","keydown"].forEach(function(ev){document.addEventListener(ev,function(){window.UG=true},{capture:true,passive:true})});try{var L=localStorage;if(!L.getItem("dopa:dbgclean1")){["dopa:crumb","dopa:crumbPrev","dopa:run","dopa:bis","dopa:dbg","dopa:dbgn","dopa:dbgrun","dopa:autolite","dopa:bgcv","dopa:bgcvOn"].forEach(function(k){L.removeItem(k)});L.setItem("dopa:dbgclean1","1")}}catch(e){}</script>
 <script>(function(){try{var L=localStorage,n=parseInt(L.getItem("dopa:boot")||"0",10)||0;
 
 L.setItem("dopa:boot",String(n+1));
@@ -2810,7 +2810,8 @@ window.addEventListener("blur",function(){LASTVIS=Date.now();softMute(true)});
 window.addEventListener("pagehide",sleepAudio);
 window.addEventListener("pageshow",function(){killZomb();clearTimeout(VISH);VISH=setTimeout(function(){if(document.hidden)return;reviveAudio();try{audTryResume()}catch(e){}},120)});
 window.addEventListener("focus",function(){if(document.hidden)return;softMute(false);if(Date.now()-LASTVIS<800)return;try{if(AC&&AC.state!=="running"&&AC.resume)AC.resume()}catch(e){}});
-var VBUF={},VEND=0,VSIDE=false,VST={};
+var VBUF={},VEND=0,VSIDE=false,VST={},VBK=[];
+function vbCap(u){VBK.push(u);while(VBK.length>24){var o=VBK.shift();delete VBUF[o];Object.keys(VST).forEach(function(k){if(k.lastIndexOf(o+"@",0)===0)delete VST[k]})}}
 /* 高さを変えずに速くする（WSOLA）。再生速度を上げると声の高さまで上がって、キャラらしさが失われるため */
 function stretchBuf(a,buf,key,rate){
   var ck=key+"@"+rate.toFixed(2);if(VST[ck])return VST[ck];
@@ -2851,7 +2852,7 @@ function voxPlayBuf(u,cb,sp){
   try{
     fetch(u).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer()}).then(function(ab){
       return new Promise(function(res,rej){var p=a.decodeAudioData(ab,res,rej);if(p&&p.catch)p.catch(rej)});
-    }).then(function(buf){VBUF[u]=buf;go(buf)}).catch(function(){cb(false)});
+    }).then(function(buf){VBUF[u]=buf;vbCap(u);go(buf)}).catch(function(){cb(false)});
   }catch(e){cb(false)}
 }
 var LASTVIS=0;
@@ -4317,7 +4318,7 @@ function startGen(){
 }
 /* ---- 各ステージのBGMを、最初に端末へ保存（事前生成） ---- */
 var PREH={},PRES={},MP={on:0,i:0,n:0,prio:[]};
-function musicPrio(k){if(k<0||PREH[k])return;if(MP.prio.indexOf(k)<0)MP.prio.push(k);if(!MP.on)musicPrepare(false)}
+function musicPrio(k){}
 try{PRES=JSON.parse(localStorage.getItem("dopa:preS7")||"{}")||{}}catch(e){}
 var LM=[1,1.035,1.07,1.105],LK=[0,0,2,4],LPB=[1,1.02,1.05,1.08];
 function tver(th){return th==="sty"?3:0}
@@ -4355,7 +4356,7 @@ function preStage(k,cb,th,reg){
 }
 function musicPrepare(show,th){
   var OC=window.OfflineAudioContext||window.webkitOfflineAudioContext;
-  if(MP.on||!OC||typeof indexedDB==="undefined")return false;
+  if(!show||MP.on||!OC||typeof indexedDB==="undefined")return false;
   th=th||BST;
   var jobs=[],k;CHL_ALL(th).forEach(function(C){jobs.push(C)});for(k=0;k<STAGES.length;k++)jobs.push(k);
   MP.on=1;MP.n=jobs.length;MP.i=0;MP.th=th;MP.ess=CHL_ALL(th).length+1;if(show)vdlOpen();else vdlRender();
@@ -4513,6 +4514,7 @@ function bgmStart(mode){
   var st=T?T.stage:0;bgm.stage=st;
   if(mode==="study")chillIdx=Math.floor(Math.random()*studyL().length)-1;
   if(mode==="chill"||mode==="study")chillNext();else setTheme(st);
+  (function(ob,of){if(ob||of)setTimeout(function(){try{ob&&ob.disconnect()}catch(e){}try{of&&of.disconnect()}catch(e){}},700)})(bgm.bus,bgm.fg);
   bgm.bus=a.createGain();bgm.rhy=false;
   var fg=a.createGain(),fnow=a.currentTime,fd=(Date.now()-LASTVIS<4000)?0.5:(bgm.started?0.25:0.9);bgm.started=1;fg.gain.setValueAtTime(0,fnow);fg.gain.linearRampToValueAtTime(1,fnow+fd);fg.connect(bgmDest());bgm.bus.connect(fg);bgm.fg=fg;
   if(!LITE){var rs=a.createGain();rs.gain.value=0.15;fg.connect(rs);rs.connect(REVB)}
@@ -4764,7 +4766,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.86",VLOG=[
+var VERSION="1.87",VLOG=[
+ ["1.87","2026-11-16",["起動のたびに、使わないBGMを裏でまとめて作っていたのをやめました（iPhone のアプリで、起動後にメモリが大きく増える・熱くなる原因でした）","声を再生するたびにメモリが少しずつ増えていたのを直しました","自分の音楽ファイルが二重に鳴ることがあったのを直しました"]],
  ["1.86","2026-11-16",["落ちる原因を調べるために入れていた記録の仕組みを外しました（少し軽くなります）","iPhone のアプリで、起動してから画面に触れるまでメモリが増え続ける問題を直しました（音の準備を、最初に触れた時に始めます）","起動直後に同じBGMを2回読み込んでいたのを1回にし、表情の合成に使った下書きもすぐ片付けるようにしました（起動直後のメモリを減らします）"]],
  ["1.85","2026-11-16",["iPhone のアプリで、ホームを開いてしばらくすると落ちる問題を直しました（原因は、音の種類の指定でした。iPhone に「控えめな音」と伝えていたのをやめ、標準にしました）","残響（エコー）を元に戻しました"]],
  ["1.84","2026-11-16",["iPhone のアプリで落ちる問題の対策：ほかの音などで音が中断された時は、音の仕組みを一時停止にするようにしました（中断のまま動かし続けると、メモリが増え続けていたため）。画面に触れると再開します"]],
@@ -9460,7 +9463,7 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
     try{
       fetch(u).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer()}).then(function(ab){
         return new Promise(function(res,rej){var p=a.decodeAudioData(ab,res,rej);if(p&&p.catch)p.catch(rej)});
-      }).then(function(buf){VBUF[u]=buf;go(buf)}).catch(function(){cb(false)});
+      }).then(function(buf){VBUF[u]=buf;vbCap(u);go(buf)}).catch(function(){cb(false)});
     }catch(e){cb(false)}
   };
   /* ストーリーの声も、同じ扱い（前の行を止める・BGMを下げる） */
