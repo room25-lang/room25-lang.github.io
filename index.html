@@ -16,6 +16,7 @@ if(BS&&BS.on){if(BS.cur>=0&&prevN>=1)BS.res[BS.cur]="落ちた";BS.cur++;
   L.setItem("dopa:bis",JSON.stringify(BS));
   if(BS.on)setTimeout(function(){try{var b2=JSON.parse(L.getItem("dopa:bis"));b2.res[b2.cur]="OK";L.setItem("dopa:bis",JSON.stringify(b2));location.reload()}catch(e){}},30000)}
 window.BIS=BS;
+if(!(BS&&BS.on)){var DN=parseInt(L.getItem("dopa:dbgn")||"0",10)||0;if(L.getItem("dopa:dbg")){if(DN<=0)L.setItem("dopa:dbg","");else L.setItem("dopa:dbgn",String(DN-1))}}
 var DB=(L.getItem("dopa:dbg")||"").split(",").filter(Boolean);window.DBG={};DB.forEach(function(k){DBG[k]=1;document.documentElement.classList.add("dbg-"+k)});
 if(DBG.au){try{window.AudioContext=undefined;window.webkitAudioContext=undefined;window.OfflineAudioContext=undefined;window.webkitOfflineAudioContext=undefined;
   HTMLMediaElement.prototype.play=function(){return Promise.reject(new Error("dbg-au"))};
@@ -4845,7 +4846,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.81",VLOG=[
+var VERSION="1.82",VLOG=[
+ ["1.82","2026-11-16",["不具合の調査用：記録の画面で「音すべて」「表情の合成」も止められるようにしました（3回の起動のあいだだけ）"]],
  ["1.81","2026-11-16",["不具合の調査用：自動の切り分けを作り直しました（音・表情の合成・ホーム画面を、それぞれ2回ずつ試します）"]],
  ["1.80","2026-11-16",["背景の動く光をやめ、止めた背景に戻しました（iPhone のアプリで落ちる原因になっていたため）"]],
  ["1.79","2026-11-16",["iPhone のアプリで落ちる問題の対策：カードのすりガラスの効果をやめました（動く光の上で、メモリを使い続けていたため）","背景の動く光を、もう一度オンにしました（もし途中で終了したら、次から自動で止めた背景に戻ります）"]],
@@ -9628,13 +9630,13 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
   var show=function(raw){var o;try{o=JSON.parse(raw)}catch(e){return}
     var txt="どぱたん "+VERSION+" / "+o.at+"\n"+o.ua+"\n"+(o.r||[]).slice(-200).join("\n");
     var d=document.createElement("div");d.id="crumbov";d.style.cssText="position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:16px";
-    d.innerHTML='<div style="background:#fff;color:#222;border-radius:14px;padding:16px;max-width:30em;width:100%;font-size:14px;max-height:92vh;overflow:auto"><b style="font-size:17px">前回、アプリが途中で終了しました</b><p style="margin:8px 0">原因を調べるための記録です。「コピー」を押して、開発者に送ってください。</p><textarea readonly style="width:100%;height:28vh;font-size:11px;font-family:monospace">'+txt.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</textarea><div id="crumbdbg" style="margin-top:10px;font-size:13px;line-height:1.9"><b>次の起動で止めるもの（原因の切り分け用）</b><br><label><input type="checkbox" data-k="bg"> 背景のアニメーション</label><br><label><input type="checkbox" data-k="fx"> 影・ぼかし・切り抜き</label><br><label><input type="checkbox" data-k="an"> 画面の動き（すべてのアニメーション）</label><br><label><input type="checkbox" data-k="hb"> ホームのキャラの絵</label><br><label><input type="checkbox" data-k="vp"> 声の先読み</label></div><button id="crumbbis" class="main" style="width:100%;margin-top:10px">自動で原因を調べる（10回起動・約5分）</button><div style="display:flex;gap:8px;margin-top:10px"><button id="crumbcp" class="main" style="flex:1">コピー</button><button id="crumbx" style="flex:1">閉じる</button></div></div>';
+    d.innerHTML='<div style="background:#fff;color:#222;border-radius:14px;padding:16px;max-width:30em;width:100%;font-size:14px;max-height:92vh;overflow:auto"><b style="font-size:17px">前回、アプリが途中で終了しました</b><p style="margin:8px 0">原因を調べるための記録です。「コピー」を押して、開発者に送ってください。</p><textarea readonly style="width:100%;height:28vh;font-size:11px;font-family:monospace">'+txt.replace(/&/g,"&amp;").replace(/</g,"&lt;")+'</textarea><div id="crumbdbg" style="margin-top:10px;font-size:13px;line-height:1.9"><b>次の起動で止めるもの（原因の切り分け用）</b><br><label><input type="checkbox" data-k="bg"> 背景のアニメーション</label><br><label><input type="checkbox" data-k="fx"> 影・ぼかし・切り抜き</label><br><label><input type="checkbox" data-k="an"> 画面の動き（すべてのアニメーション）</label><br><label><input type="checkbox" data-k="hb"> ホームのキャラの絵</label><br><label><input type="checkbox" data-k="vp"> 声の先読み</label><br><label><input type="checkbox" data-k="au"> 音すべて</label><br><label><input type="checkbox" data-k="sm"> 表情の合成</label><br><small>選んだものは、このあと3回の起動のあいだだけ止まり、そのあと自動で元に戻ります。</small></div><button id="crumbbis" class="main" style="width:100%;margin-top:10px">自動で原因を調べる（10回起動・約5分）</button><div style="display:flex;gap:8px;margin-top:10px"><button id="crumbcp" class="main" style="flex:1">コピー</button><button id="crumbx" style="flex:1">閉じる</button></div></div>';
     document.body.appendChild(d);try{var ta=d.querySelector("textarea");ta.scrollTop=ta.scrollHeight}catch(e){}
     $("crumbcp").onclick=function(){var t=d.querySelector("textarea");try{navigator.clipboard.writeText(txt).then(function(){$("crumbcp").textContent="コピーしました"},function(){t.select();document.execCommand("copy");$("crumbcp").textContent="コピーしました"})}catch(e){t.select();document.execCommand("copy")}};
     var cur=(localStorage.getItem("dopa:dbg")||"").split(",");Array.prototype.forEach.call(d.querySelectorAll("#crumbdbg input"),function(x){x.checked=cur.indexOf(x.getAttribute("data-k"))>=0});
     $("crumbbis").onclick=function(){try{localStorage.setItem("dopa:bis",JSON.stringify({on:1,cur:-1,res:{},dbg0:localStorage.getItem("dopa:dbg")||"",lite0:localStorage.getItem("dopa:lite")||"0"}));localStorage.removeItem("dopa:crumbPrev")}catch(e){}location.reload()};
     $("crumbx").onclick=function(){var ks=[];Array.prototype.forEach.call(d.querySelectorAll("#crumbdbg input"),function(x){if(x.checked)ks.push(x.getAttribute("data-k"))});var nv=ks.join(","),ch=nv!==(localStorage.getItem("dopa:dbg")||"");
-      try{localStorage.setItem("dopa:dbg",nv);localStorage.removeItem("dopa:crumbPrev")}catch(e){}d.remove();if(ch)location.reload()};
+      try{localStorage.setItem("dopa:dbg",nv);localStorage.setItem("dopa:dbgn",nv?"3":"0");localStorage.removeItem("dopa:crumbPrev")}catch(e){}d.remove();if(ch)location.reload()};
   };
   var NM={bg:"背景のアニメ",fx:"影・ぼかし・切り抜き",an:"画面の動き",hb:"ホームのキャラの絵",vp:"声の先読み",hv:"ホーム画面ぜんぶ",au:"音すべて",sm:"表情の合成"},lbl=function(c){return c.length?c.map(function(k){return NM[k]||k}).join("・"):"なし"};
   var B=window.BIS;
