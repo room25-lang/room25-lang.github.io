@@ -46,7 +46,7 @@ try{var CU=URL.createObjectURL;URL.createObjectURL=function(x){M.url++;return CU
 try{var RA=Response.prototype.arrayBuffer;Response.prototype.arrayBuffer=function(){return RA.apply(this,arguments).then(function(b){M.get+=b.byteLength;return b})}}catch(e){}
 try{var IM=window.Image;window.Image=function(w,h){M.img++;return arguments.length>1?new IM(w,h):arguments.length?new IM(w):new IM()};window.Image.prototype=IM.prototype}catch(e){}
 try{var GC2=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(){M.cv+=this.width*this.height*4;return GC2.apply(this,arguments)}}catch(e){}
-var RC="",RSET=function(v){if(v===RC)return;RC=v;try{L.setItem("dopa:run",v)}catch(e){}};
+var RC="",DRN=L.getItem("dopa:dbgrun")==="1",RSET=function(v){if(!DRN||v===RC)return;RC=v;try{L.setItem("dopa:run",v)}catch(e){}};
 var RUN=function(tag,f){if(typeof f!=="function")return f;try{if(f.__w)return f.__w}catch(e){}
  var src=tag+" "+String(f).replace(/\s+/g," ").slice(0,150);
  var w=function(){var p=RC;RSET(((Date.now()-T0)/1000).toFixed(1)+" "+src);try{return f.apply(this,arguments)}finally{RSET(p)}};
@@ -2367,6 +2367,10 @@ html.dbg-hv #homeV{display:none!important}
 
 #bgfx i{display:none!important;animation:none!important;transform:none!important;translate:none!important}
 body.dopa:not(.lite) #bgfx{background:radial-gradient(circle at 40% 35%,color-mix(in srgb,var(--acc,var(--uacc,#d4ff00)) 24%,transparent),transparent 34vh),radial-gradient(circle at 62% 65%,rgba(110,170,255,.17),transparent 26vh),repeating-linear-gradient(115deg,rgba(255,255,255,.045) 0 2px,transparent 2px 46px)}
+
+#bgcv{position:absolute;left:0;top:0;width:100%;height:100%;display:block}
+html.bgcv body.dopa:not(.lite) #bgfx{background:repeating-linear-gradient(115deg,rgba(255,255,255,.045) 0 2px,transparent 2px 46px)}
+body.lite #bgcv{display:none}
 </style>
 </head>
 <body class="dopa">
@@ -4833,7 +4837,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.76",VLOG=[
+var VERSION="1.77",VLOG=[
+ ["1.77","2026-11-16",["背景の動く光を戻しました（メモリを使わない描き方に変えています。斜線は動きません）","もしこの背景で途中で終了した場合は、次の起動から自動で止めた背景に戻します"]],
  ["1.76","2026-11-16",["iPhone のアプリで落ちる問題の対策：背景の光と斜線の描き方を、メモリを使わない方法に変えました（見た目はほぼ同じ・動きません）"]],
  ["1.75","2026-11-16",["不具合の調査用：途中で終了した時、最後に実行していた処理を記録に出すようにしました"]],
  ["1.74","2026-11-16",["不具合の調査用：メモリを使うものの量を記録に出すようにしました"]],
@@ -9631,6 +9636,42 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
       $("bisc").onclick=function(){var t=d.querySelector("textarea");try{navigator.clipboard.writeText(txt).then(function(){$("bisc").textContent="コピーしました"},function(){t.select();document.execCommand("copy")})}catch(e){t.select();document.execCommand("copy")}};
       $("bisx").onclick=function(){d.remove();try{localStorage.removeItem("dopa:bis")}catch(e){}}},800)}
   else{try{var p=localStorage.getItem("dopa:crumbPrev");if(p)setTimeout(function(){show(p)},800)}catch(e){}}
+})();
+
+/* ===================== v1.77 動く光（小さなキャンバス1枚） ===================== */
+(function(){
+  var L=localStorage,off=false;
+  try{
+    if(L.getItem("dopa:bgcv")==="0")off=true;
+    else if((parseInt(L.getItem("dopa:boot")||"0",10)||0)>=2&&L.getItem("dopa:bgcvOn")==="1"){L.setItem("dopa:bgcv","0");off=true;try{crumb("動く光を止めました（前回、途中で終了したため）")}catch(e){}}
+  }catch(e){}
+  if(off)return;
+  var cv=document.createElement("canvas");cv.id="bgcv";var g=null;try{g=cv.getContext("2d")}catch(e){}
+  if(!g)return;
+  try{L.setItem("dopa:bgcvOn","1")}catch(e){}
+  document.documentElement.classList.add("bgcv");
+  var W=0,H=0,T0=Date.now(),accS="",accC=[212,255,0],lastAcc=0;
+  var size=function(){var w=Math.max(40,Math.round(innerWidth/6)),h=Math.max(40,Math.round(innerHeight/6));if(w!==W||h!==H){W=cv.width=w;H=cv.height=h}};
+  var acc=function(){var n=Date.now();if(n-lastAcc<2000)return accC;lastAcc=n;
+    try{var cs=getComputedStyle(document.body),v=(cs.getPropertyValue("--acc")||cs.getPropertyValue("--uacc")||"#d4ff00").trim();
+      if(v!==accS){accS=v;g.fillStyle="#d4ff00";g.fillStyle=v;var h=String(g.fillStyle),m;
+        if(h.charAt(0)==="#"&&h.length===7)accC=[parseInt(h.substr(1,2),16),parseInt(h.substr(3,2),16),parseInt(h.substr(5,2),16)];
+        else if((m=h.match(/(\d+)[ ,]+(\d+)[ ,]+(\d+)/)))accC=[+m[1],+m[2],+m[3]]}}catch(e){}
+    return accC};
+  var ez=function(t,dur){var p=(t/dur)%2;if(p>1)p=2-p;return 0.5-0.5*Math.cos(Math.PI*p)};
+  var blob=function(x,y,r,c,a){var gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,"rgba("+c[0]+","+c[1]+","+c[2]+","+a+")");gr.addColorStop(1,"rgba("+c[0]+","+c[1]+","+c[2]+",0)");g.fillStyle=gr;g.fillRect(0,0,W,H)};
+  var draw=function(){
+    var bf=$("bgfx");if(!bf)return;if(cv.parentNode!==bf)bf.appendChild(cv);
+    var b=document.body;if(document.hidden||b.classList.contains("lite")||!b.classList.contains("dopa"))return;
+    var still=b.classList.contains("noanim");
+    size();var t=still?0:(Date.now()-T0)/1000,tl=b.classList.contains("tilton"),bx=0,by=0;
+    try{bx=parseFloat(bf.style.getPropertyValue("--bx"))||0;by=parseFloat(bf.style.getPropertyValue("--by"))||0}catch(e){}
+    var e1=still?0.5:ez(t,tl?16:46),e2=still?0.5:ez(t,tl?22:62);
+    g.clearRect(0,0,W,H);
+    blob((0.15+0.495*e1+bx*0.22)*W,(0.15+0.405*e1+by*0.16)*H,0.5*Math.sqrt(0.81*W*W+0.81*H*H)*(1+0.25*e1)*0.62,acc(),0.24);
+    blob((0.85-0.45*e2-bx*0.18)*W,(0.85-0.40*e2-by*0.12)*H,0.5*Math.sqrt(W*W+0.64*H*H)*(1-0.15*e2)*0.62,[110,170,255],0.17);
+  };
+  draw();setInterval(draw,80);
 })();
 
 </script>
