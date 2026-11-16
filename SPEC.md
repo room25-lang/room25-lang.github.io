@@ -400,3 +400,4 @@
 - v1.71（patch_d78）：止めた背景を、アニメーションの真ん中の位置に置く（b1：translate(27.5%,22.5%) scale(1.125)、b2：translate(-22.5%,-25%) scale(.925)、b3：translateX(92px)）。傾きの translate（--bx/--by）はそのまま。
 - v1.72（patch_d79）：自動の軽量モード（v1.64、2回続けて落ちたら dopa:lite=1）をやめる。1回だけ（dopa:litefix1）、dopa:lite を 0 に戻し、dopa:dbg・dopa:bis・dopa:autolite を消す（記録のスクリプトの先頭で行う）。軽量モードでは IMF が小さい画像（t_）を使い、noanim になるため、ホームのキャラの絵が下寄り・暗くなり、起動の帯（#bnd）が出ていなかった。
 - v1.73（patch_d80）：起動の帯（#bnd）の「どぱたん」の後ろに、タイトルと同じ形の「＋」（.bnp > .t2p、::before/::after で描く）を足す。5文字目として .56s 遅れで落ちてくる。
+- v1.74（patch_d81）：調査用。window.MEMC に、createBuffer/AudioBuffer の量、65KB 超の Float32Array、オシレーター・バッファ音源・その他ノードの数、Audio 要素、Blob、objectURL、arrayBuffer で受け取った量、Image、キャンバス、setTimeout の回数を数え、0.5秒ごとの「動作中」に AudioContext の状態と一緒に出す。自動の切り分け中も落ちた時の記録（crumbPrev）を消さない。JetsamEvent（2026-11-16 09:55）で com.apple.WebKit.WebContent が per-process-limit（2147MB）で止められていたため。v1.70 の「背景のアニメが原因」は誤りの可能性が高い。

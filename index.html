@@ -12,7 +12,7 @@ var BC=[["bg","fx","an","hb","vp","hv"],["bg","fx","an","hb","vp"],["hv"],["hb"]
 var BS=null;try{BS=JSON.parse(L.getItem("dopa:bis")||"null")}catch(e){}
 if(BS&&BS.on){if(BS.cur>=0&&prevN>=1)BS.res[BS.cur]="落ちた";BS.cur++;
   if(BS.cur>=BC.length){BS.on=0;BS.done=1;L.setItem("dopa:dbg",BS.dbg0||"");L.setItem("dopa:lite",BS.lite0||"0")}else{L.setItem("dopa:dbg",BC[BS.cur].join(","));L.setItem("dopa:lite","0")}
-  L.setItem("dopa:bis",JSON.stringify(BS));L.removeItem("dopa:crumbPrev");
+  L.setItem("dopa:bis",JSON.stringify(BS));
   if(BS.on)setTimeout(function(){try{var b2=JSON.parse(L.getItem("dopa:bis"));b2.res[b2.cur]="OK";L.setItem("dopa:bis",JSON.stringify(b2));location.reload()}catch(e){}},20000)}
 window.BIS=BS;
 var DB=(L.getItem("dopa:dbg")||"").split(",").filter(Boolean);window.DBG={};DB.forEach(function(k){DBG[k]=1;document.documentElement.classList.add("dbg-"+k)});
@@ -31,7 +31,25 @@ var OP=window.OfflineAudioContext&&window.OfflineAudioContext.prototype;
 if(OP&&OP.startRendering){var SR=OP.startRendering;OP.startRendering=function(){C("合成開始 "+this.length);var p=SR.apply(this,arguments);if(p&&p.then)p.then(function(){C("合成完了")},function(){C("合成失敗")});return p}}
 if(window.IDBObjectStore){var P=IDBObjectStore.prototype.put;IDBObjectStore.prototype.put=function(v,k){C("保存 "+this.name+" "+String(k).slice(0,40)+(v&&v.size?" "+Math.round(v.size/1024)+"KB":""));return P.apply(this,arguments)}}
 if(window.speechSynthesis){var SP=speechSynthesis.speak.bind(speechSynthesis);speechSynthesis.speak=function(u){C("端末の声 "+(u&&u.text||"").slice(0,20));return SP(u)}}
-var TP=0;document.addEventListener("pointerdown",function(){TP++;if(TP<=40)C("タップ "+TP)},true);var HB=0;setInterval(function(){HB++;C("動作中 "+HB+" dom="+document.getElementsByTagName("*").length)},500);
+var TP=0;document.addEventListener("pointerdown",function(){TP++;if(TP<=40)C("タップ "+TP)},true);var M=window.MEMC={buf:0,bufN:0,dec:0,node:0,osc:0,src:0,aud:0,blob:0,blobN:0,url:0,get:0,img:0,cv:0,tm:0,ab:0};
+try{var BP2=(window.BaseAudioContext||window.AudioContext||window.webkitAudioContext).prototype;
+ var CB=BP2.createBuffer;BP2.createBuffer=function(c,l,r){M.bufN++;M.buf+=c*l*4;return CB.apply(this,arguments)};
+ ["createGain","createBiquadFilter","createConvolver","createDelay","createWaveShaper","createDynamicsCompressor","createStereoPanner","createAnalyser","createScriptProcessor","createMediaElementSource","createConstantSource","createPanner"].forEach(function(k){var f=BP2[k];if(f)BP2[k]=function(){M.node++;return f.apply(this,arguments)}});
+ var CO=BP2.createOscillator;BP2.createOscillator=function(){M.osc++;return CO.apply(this,arguments)};
+ var CS=BP2.createBufferSource;BP2.createBufferSource=function(){M.src++;return CS.apply(this,arguments)};
+ if(window.AudioBuffer){var AB0=window.AudioBuffer;window.AudioBuffer=function(o){M.bufN++;M.buf+=(o.numberOfChannels||1)*o.length*4;return new AB0(o)};window.AudioBuffer.prototype=AB0.prototype}
+}catch(e){}
+try{var AU=window.Audio;window.Audio=function(x){M.aud++;return arguments.length?new AU(x):new AU()};window.Audio.prototype=AU.prototype}catch(e){}
+try{var BL=window.Blob;window.Blob=function(a,o){var b=arguments.length>1?new BL(a,o):arguments.length?new BL(a):new BL();M.blobN++;M.blob+=b.size;return b};window.Blob.prototype=BL.prototype}catch(e){}
+try{var CU=URL.createObjectURL;URL.createObjectURL=function(x){M.url++;return CU.apply(URL,arguments)}}catch(e){}
+try{var RA=Response.prototype.arrayBuffer;Response.prototype.arrayBuffer=function(){return RA.apply(this,arguments).then(function(b){M.get+=b.byteLength;return b})}}catch(e){}
+try{var IM=window.Image;window.Image=function(w,h){M.img++;return arguments.length>1?new IM(w,h):arguments.length?new IM(w):new IM()};window.Image.prototype=IM.prototype}catch(e){}
+try{var GC2=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(){M.cv+=this.width*this.height*4;return GC2.apply(this,arguments)}}catch(e){}
+try{var ST=window.setTimeout;window.setTimeout=function(){M.tm++;return ST.apply(window,arguments)}}catch(e){}
+try{var F32=window.Float32Array;var PX=new Proxy(F32,{construct:function(t,a,nt){var o=Reflect.construct(t,a,nt);if(o.byteLength>65536)M.ab+=o.byteLength;return o}});window.Float32Array=PX}catch(e){}
+var mb=function(n){return Math.round(n/1048576)};
+var HB=0;setInterval(function(){HB++;var a="-";try{if(window.AC)a=AC.state+"/"+AC.currentTime.toFixed(1)}catch(e){}
+ C("動作中 "+HB+" dom="+document.getElementsByTagName("*").length+" ac="+a+" buf="+mb(M.buf)+"MB/"+M.bufN+" f32="+mb(M.ab)+"MB osc="+M.osc+" src="+M.src+" node="+M.node+" aud="+M.aud+" blob="+mb(M.blob)+"MB/"+M.blobN+" url="+M.url+" get="+mb(M.get)+"MB img="+M.img+" cv="+mb(M.cv)+"MB tm="+M.tm)},500);
 try{var IS=Object.getOwnPropertyDescriptor(HTMLImageElement.prototype,"src");Object.defineProperty(HTMLImageElement.prototype,"src",{configurable:true,enumerable:true,get:function(){return IS.get.call(this)},set:function(v){var u=String(v);C("画像 "+(u.indexOf("data:")===0?"data "+Math.round(u.length/1024)+"KB":u.replace(location.origin,"").slice(0,50)));IS.set.call(this,v)}})}catch(e){}
 try{var SA=Element.prototype.setAttribute;Element.prototype.setAttribute=function(k,v){if((k==="href"||k==="xlink:href")&&this.tagName&&this.tagName.toLowerCase()==="image"){var u=String(v);C("SVG画像 "+(u.indexOf("data:")===0?"data "+Math.round(u.length/1024)+"KB":u.replace(location.origin,"").slice(0,50)))}return SA.apply(this,arguments)}}catch(e){}
 try{var GC=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(k){C("キャンバス "+k+" "+this.width+"x"+this.height);return GC.apply(this,arguments)};
@@ -4799,7 +4817,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="1.73",VLOG=[
+var VERSION="1.74",VLOG=[
+ ["1.74","2026-11-16",["不具合の調査用：メモリを使うものの量を記録に出すようにしました"]],
  ["1.73","2026-11-16",["起動の帯の「どぱたん」に「＋」を付けました"]],
  ["1.72","2026-11-15",["落ちた時に自動で入っていた軽量モードを元に戻しました（ホームのキャラの絵が小さく暗くなる・起動の帯が出ない、の原因）。軽量モードは設定でいつでもオンにできます"]],
  ["1.71","2026-11-15",["止めた背景の位置を、これまで動いていた時と同じあたりに直しました"]],
