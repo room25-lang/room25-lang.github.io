@@ -1049,7 +1049,7 @@ body.noanim .rfray,body.noanim .rfsp{display:none}
 .spdisp.shk{animation:spshk .3s}
 @keyframes spshk{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .spdisp.ok{border-color:#39d353;border-bottom-color:#39d353}.spdisp.ng{border-color:#ff4d4d;border-bottom-color:#ff4d4d;flex-direction:column}
-.spdisp .spty i{font-style:normal}.spdisp .spty i.g{color:#39d353}.spdisp .spty i.x{color:#ff6b6b;text-decoration:underline}
+.spdisp .spty i{font-style:normal}.spdisp .spty i.g{color:#39d353}.spdisp .spty i.x{color:#ff6b6b;text-decoration:underline}.spdisp .spty i.m{color:var(--ink,#fff)}
 .spdisp .spans{font:700 15px sans-serif;color:var(--ink,#fff);letter-spacing:0}.spdisp .spans b{font:800 22px ui-monospace,Menlo,monospace;color:#39d353;margin-left:6px;letter-spacing:.05em}
 .skbd{display:flex;flex-direction:column;gap:6px;flex:0 0 auto;margin-top:8px;user-select:none;-webkit-user-select:none;touch-action:manipulation}
 .skr{display:flex;gap:4px;justify-content:center}
@@ -1849,6 +1849,7 @@ html.xmas body.qmode #test .card{background-image:linear-gradient(180deg,rgba(46
 .zg.lk{background:#3a3c42!important;filter:none}
 /* キャラ画面の切り替え：3つ */
 #gacha .pair.gv3 button{position:relative}
+#gacha .pair.gv3 button[data-gv]{white-space:nowrap;padding-left:4px;padding-right:4px;font-size:min(14px,3.8vw)}
 .sydot{position:absolute;top:5px;right:8px;width:7px;height:7px;border-radius:50%;background:#ff2f6d}
 /* ストーリー一覧 */
 .syw{display:flex;flex-direction:column;gap:10px;color:#fff}
@@ -2298,6 +2299,7 @@ button,.hdtg,[role=button],a{touch-action:manipulation}
 
 .sybar:not(.sybb){grid-template-columns:repeat(3,1fr)}
 .lkbtn{opacity:.45}
+#gt .gtmd{margin:8px 0 2px;gap:8px}#gt .gtmd button{padding:9px 12px}#gt .gtmd button b{font-size:16px}
 </style>
 </head>
 <body class="dopa">
@@ -2523,7 +2525,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <div class="hint">【規約の要約】サイトの利用規約・Q&Aより（利用規約の最終改訂は2018年10月13日。変更される場合があるため、公式の最新版を確認してください）<br>・商用・非商用とも無料。ただし著作権は放棄されていません。<br>・クレジット表記や使用報告は必須ではありませんが、表記する場合はサイト名か作者名を書きます。<br>・縮小・拡大・色変更・トリミング・左右反転・表情や小物の追加などの加工はOK。元の絵からかけ離れる加工は控えるよう案内されています。<br>・素材そのものの再配布・販売、自作発言、法に触れる使い方は禁止です。<br>・作者様の案内（Q&A）に沿って、使用前に用途をお伝えしたうえで利用しています。</div>
   </details>
   <details class="dt"><summary>音声（VOICEVOX）</summary>
-  <div class="hint">音声はVOICEVOXの各キャラクターの声です。使っている声は、上の「音声についての説明・クレジット」に「VOICEVOX:キャラクター名」の形で表示します。</div>
+  <div class="hint">音声はVOICEVOXの各キャラクターの声です。使っている声は、設定の「音」タブにある「音声についての説明・クレジット」に「VOICEVOX:キャラクター名」の形で表示します。</div>
   <div class="hint">【規約の要約】VOICEVOX公式の音声ライブラリ利用規約（2026年11月に確認）より<br>・ソフト本体は商用・非商用とも無料。作った音声には、声（キャラクター）ごとの規約が適用されます。<br>・このアプリで使う27人の声は、いずれも「VOICEVOX:キャラクター名」のクレジットを書けば、商用・非商用で利用できます。<br>・VirVox Projectの声（玄野武宏・白上虎太郎など）は、出力した音声を使って新しい音声モデルを学習させることが禁止されています。<br>・音声は、このアプリの中で使うためだけに収録しています。音声ファイルを取り出して、素材として再配布することはできません。<br>・各キャラクターの詳しい規約：https://voicevox.hiroshiba.jp/ の各キャラクターのページ</div>
   </details>
   <h3>管理者コマンド</h3>
@@ -4767,7 +4769,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="2.03",VLOG=[
+var VERSION="2.04",VLOG=[
+ ["2.04","2026-11-17",["「今日の目標」の達成で、アプリを開き直すと◆30とハンコがもう一度出ていたのを直しました（1日1回だけ）","チュートリアルの最初で、BGMと声の雰囲気（ノリノリ／寄り添い）を選べるようにしました","チュートリアルのあと、暗記の範囲が「1〜10」のまま残っていたのを直しました","チュートリアルの吹き出しが、暗記カードの意味や例文に重ならないようにしました","「今日の続き」の新しい単語の数を、目標で決めた1日の語数にそろえました","まだ単語を覚えていない時に「今日の復習はすべて終わりました」と出ないようにしました","記録のグラフの「1日平均」を、使い始めた日から計算するようにしました","記録の「撃破したボス」「覚醒したキャラ」の分母を、キャラの数（39）にしました","ストーリーのカードの小さな番号を「第1話」にしました","キャラタブの「ストーリー」ボタンが2行に折り返さないようにしました","スペル入力で間違えた時、違う文字を赤で出すようにしました","設定の説明（データタブ）が指す場所を直しました","追加キャラを編成した時、テストで無い音声ファイルを取りに行っていたのを直しました"]],
  ["2.03","2026-11-17",["v2.01 で入れた背景の変更（描き直しを減らす・テスト中は止める）を元に戻しました。動きが重く見えた原因は、アプリではなく測り方の側にあったためです"]],
  ["2.02","2026-11-17",["ノリノリの雰囲気で、最初のステージのテストの曲を新しい曲（試作）にしました"]],
  ["2.01","2026-11-17",["動きを軽くしました：背景の光と斜線の描き直しを減らし、スマホの負担（CPU）を下げました。見た目の動きは同じです","テスト中は背景の光を止めて、問題に集中できるように"]],
@@ -5104,8 +5107,9 @@ function renderR(msg){
   for(i=recDays-1;i>=0;i--){var d=new Date(now.getFullYear(),now.getMonth(),now.getDate()-i);var e=dls[dayKey(d)]||{};days.push({d:d,l:(d.getMonth()+1)+"/"+d.getDate(),m:e.m||0,q:e.q||0,s:e.s||0})}
   if(recMet==="c"){var after=0;for(i=days.length-1;i>=0;i--){days[i].c=Math.max(0,G.total-after);after+=days[i].s}}
   days.forEach(function(x){x.v=x[recMet];if(recMet!=="c")sum+=x.v});
+  var d0=Object.keys(dls).filter(function(k){var e=dls[k];return e&&(e.q||e.m||e.s)}).sort()[0]||"";
   h+='<div style="overflow-x:auto;-webkit-overflow-scrolling:touch;flex:0 0 auto" id="dsc">'+svgBars(days,MET[recMet][2])+'</div>';
-  h+='<div class="hint">'+(recMet==="c"?'現在の累計 <b>'+G.total+'</b>◆（この'+recDays+'日で +'+days.reduce(function(a,x){return a+x.s},0)+'）':'この'+recDays+'日の合計 <b>'+sum+'</b>　1日平均 <b>'+(sum/recDays).toFixed(1)+'</b>')+(recMet==="m"?'（習得＝2回合格した単語）':'')+(recMet==="c"||recMet==="s"?'　※獲得ptの記録は、今回の更新以降の分から入ります':'')+'</div>';
+  h+='<div class="hint">'+(recMet==="c"?'現在の累計 <b>'+G.total+'</b>◆（この'+recDays+'日で +'+days.reduce(function(a,x){return a+x.s},0)+'）':'この'+recDays+'日の合計 <b>'+sum+'</b>　1日平均 <b>'+(sum/Math.max(1,days.filter(function(x){return !d0||dayKey(x.d)>=d0}).length)).toFixed(1)+'</b>')+(recMet==="m"?'（習得＝2回合格した単語）':'')+(recMet==="c"||recMet==="s"?'　※獲得ptの記録は、今回の更新以降の分から入ります':'')+'</div>';
   if(recDays<=7){h+='<div class="stat"><b>一日ごとの記録</b></div>';
   days.slice().reverse().forEach(function(x){h+='<div class="rk"><span>'+x.l+'</span><span>習得 '+x.m+'</span><span>◆'+x.s+'</span><b>解答 '+x.q+'</b></div>'});}
   }
@@ -5650,7 +5654,7 @@ function fixG(g){
   r.login=(g.login&&typeof g.login.last==="string")?{last:g.login.last.slice(0,10),n:Math.max(1,Math.min(9999,parseInt(g.login.n)||1))}:{last:"",n:0};
   HZ.forEach(function(h){var v=parseInt((g.hz||{})[h.id]);if(v>0)r.hz[h.id]=Math.min(v,999999)});
   r.seenPH=g.seenPH?1:0;r.inf=g.inf?1:0;r.sp=Math.max(0,Math.min(9999,parseInt(g.sp)||0));
-  ["unl","ach","bw","awk","rvd","bk","ibx","story","bond","gdays","xm"].forEach(function(k){if(g[k]&&typeof g[k]==="object"&&!Array.isArray(g[k]))r[k]=g[k]});if(g.tutPull)r.tutPull=1;if(g.lv3fix)r.lv3fix=1;r.spc=Math.max(0,parseInt(g.spc)||0);r.pfc=Math.max(0,parseInt(g.pfc)||0);if(typeof g.title==="string")r.title=g.title.slice(0,12);if(typeof g.end==="string")r.end=g.end.slice(0,10);if(typeof g.fav==="string"&&r.chars[g.fav])r.fav=g.fav;if(g.mailAdm)r.mailAdm=1;if(g.goal&&typeof g.goal==="object"){var gn=parseInt(g.goal.n),gb=parseInt(g.goal.by);if(gn>0&&gb>0){r.goal={n:Math.min(gn,WORDS.length),by:gb,s:parseInt(g.goal.s)||gb-1,m0:Math.max(0,parseInt(g.goal.m0)||0)};if(g.goal.td&&typeof g.goal.td==="object")r.goal.td={d:parseInt(g.goal.td.d)||0,per:Math.max(0,parseInt(g.goal.td.per)||0)}}}
+  ["unl","ach","bw","awk","rvd","bk","ibx","story","bond","gdays","xm"].forEach(function(k){if(g[k]&&typeof g[k]==="object"&&!Array.isArray(g[k]))r[k]=g[k]});if(g.tutPull)r.tutPull=1;if(g.lv3fix)r.lv3fix=1;r.spc=Math.max(0,parseInt(g.spc)||0);r.pfc=Math.max(0,parseInt(g.pfc)||0);if(typeof g.title==="string")r.title=g.title.slice(0,12);if(typeof g.end==="string")r.end=g.end.slice(0,10);if(typeof g.fav==="string"&&r.chars[g.fav])r.fav=g.fav;if(g.mailAdm)r.mailAdm=1;if(g.goal&&typeof g.goal==="object"){var gn=parseInt(g.goal.n),gb=parseInt(g.goal.by);if(gn>0&&gb>0){r.goal={n:Math.min(gn,WORDS.length),by:gb,s:parseInt(g.goal.s)||gb-1,m0:Math.max(0,parseInt(g.goal.m0)||0)};if(g.goal.td&&typeof g.goal.td==="object")r.goal.td={d:parseInt(g.goal.td.d)||0,per:Math.max(0,parseInt(g.goal.td.per)||0)};if(typeof g.goal.rw==="string")r.goal.rw=g.goal.rw.slice(0,40)}}
   return r;
 }
 function saveG(){try{localStorage.setItem("dopa:game2",JSON.stringify(G))}catch(e){}}
@@ -6344,7 +6348,7 @@ function skillSnd(id,delay){
   sBell(pf(5),t,0.3,0.09);
 }
 function judge(k){
-  if(T&&!T.skPre){T.skPre=1;try{G.party.forEach(function(id){packLoad(String(cvoice(id)),function(){})})}catch(e){}}
+  if(T&&!T.skPre){T.skPre=1;try{G.party.forEach(function(id){var v=cvoice(id);/* #62 追加キャラ（9000番台）は voices/v9xxx.mp3 が無い。その子の声は s<ID> のパック */if(v>=9000){try{voxWarm(id)}catch(e){}}else packLoad(String(v),function(){})})}catch(e){}}
   if(T.answered)return;
   var i=T.order[T.q],r=k===T.cur.ci,dir=T.lap-1;
   T.answered=true;T.res[i][dir]=r;
@@ -6889,7 +6893,8 @@ renderLearnSetup=function(m){FLOW=null;flowBar();_rls(m);
 function nextNew(n){var a=[],b=[];for(var i=0;i<WORDS.length;i++){var p=passes(i);if(p===1)a.push(i);else if(p===0)b.push(i);if(a.length>=n)break}return a.concat(b).slice(0,n)}
 function todayPlan(){
   var d=srsDue();if(d.length)return {k:"rv",t:"今日の復習 "+d.length+"語",f:function(){flowStart(srsDue(),"srs","今日の復習")}};
-  var nw=nextNew(10);if(nw.length)return {k:"nw",t:"新しい単語 "+nw.length+"語",f:function(){flowStart(nextNew(10),"new","新しい単語")}};
+  var gn=10;try{var g=G.goal;if(g&&g.td&&g.td.per){var dn=((prog.dl||{})[dayKey()]||{}).m||0;gn=Math.max(5,Math.min(30,g.td.per-dn))}}catch(e){}
+  var nw=nextNew(gn);if(nw.length)return {k:"nw",t:"新しい単語 "+nw.length+"語",f:function(){flowStart(nextNew(gn),"new","新しい単語")}};
   return {k:"all",t:"全体テスト",f:function(){closeIbx();tab("T")}};
 }
 window.todayGo=function(){todayPlan().f()};
@@ -6932,7 +6937,9 @@ function spSubmit(){
     G.spc=(G.spc||0)+1;SPW[i+1]=1;lsSet("dopa:spw",SPW);saveG();
     if(T.boss){T.spx=(T.spx||0)+1;if(T.spx%2===0&&T.boss.hp>0)bossHit(true,false)}}
   var typed=SPT,h='';
-  for(var k=0;k<Math.max(typed.length,1);k++){var c=typed[k]||"";h+='<i class="'+(c&&ans[k]&&c.toLowerCase()===ans[k].toLowerCase()?"g":"x")+'">'+esc(c)+'</i>'}
+  /* 間違えた時は、合っている文字も緑にしない（正解と見分けるため）。足りない文字は赤い「_」で出す */
+  for(var k=0;k<Math.max(typed.length,1);k++){var c=typed[k]||"";h+='<i class="'+(c&&ans[k]&&c.toLowerCase()===ans[k].toLowerCase()?(ok?"g":"m"):"x")+'">'+esc(c)+'</i>'}
+  if(!ok&&typed)for(k=typed.length;k<ans.length;k++)h+='<i class="x">_</i>';
   var d2=$("spd");if(d2){d2.className="spdisp "+(ok?"ok":"ng");d2.innerHTML='<span class="spty">'+(typed?h:'<i class="x">（未入力）</i>')+'</span>'+(ok?'':'<span class="spans">正解　<b>'+esc(ans)+'</b></span>')}
   Array.prototype.forEach.call(document.querySelectorAll("#skbd button"),function(b){b.disabled=true});
   try{speak(ans,0.9)}catch(e){}
@@ -7112,7 +7119,7 @@ function zukanHtml(){
   for(var i=0;i<nBase();i++){var k=stgIdx(i);st[k].n++;if(passes(i)>=2)st[k].m++}
   h+='<div class="zgrp">ステージ</div><div class="zmed">'+STAGES.map(function(S,k){var r=st[k].n?st[k].m/st[k].n:0,m=medal(r);return '<div class="zm '+m[0]+'"><i>'+m[1]+'</i><b>STAGE '+(k+1)+'</b><small>'+esc(S.l)+'　'+st[k].m+'/'+st[k].n+'</small><em style="width:'+(r*100).toFixed(1)+'%"></em></div>'}).join("")+'</div>';
   var sp=Object.keys(SPW).length,R=G.rvd;
-  h+='<div class="zgrp">記録</div><div class="zrec"><div><b>'+mastered()+'</b><small>習得</small></div><div><b>'+Object.keys(SRS).length+'</b><small>復習中</small></div><div><b>'+sp+'</b><small>スペルで正解した単語</small></div><div><b>'+(R.n||0)+'<i>日</i></b><small>復習の連続（最高 '+(R.best||0)+'日）</small></div><div><b>'+Object.keys(G.bw).length+'<i>/20</i></b><small>撃破したボス</small></div><div><b>'+Object.keys(G.awk).length+'<i>/20</i></b><small>覚醒したキャラ</small></div></div>';
+  h+='<div class="zgrp">記録</div><div class="zrec"><div><b>'+mastered()+'</b><small>習得</small></div><div><b>'+Object.keys(SRS).length+'</b><small>復習中</small></div><div><b>'+sp+'</b><small>スペルで正解した単語</small></div><div><b>'+(R.n||0)+'<i>日</i></b><small>復習の連続（最高 '+(R.best||0)+'日）</small></div><div><b>'+Object.keys(G.bw).length+'<i>/'+CHARS.length+'</i></b><small>撃破したボス</small></div><div><b>'+Object.keys(G.awk).length+'<i>/'+CHARS.length+'</i></b><small>覚醒したキャラ</small></div></div>';
   var nx=srsNext(),d=srsDue().length;h+='<div class="hint" style="text-align:center">'+(d?"今日の復習が "+d+" 語あります":nx?"次の復習は "+nx+" 日後です":"習得した単語が、ここで復習の予定に入ります")+'</div>';
   if(G.end)h+='<button class="sm" id="zEnd">エンディングをもう一度見る</button>';
   return h;
@@ -7198,11 +7205,12 @@ function bkNeed(){if(!G.starter)return false;var t=dayN();return !G.bk.last||t-G
    A1：受信箱（ログインページ）：今日の復習・ログインボーナス・通知などを、メールのように上から処理
    ==================================================================== */
 (function(){var o=document.createElement("div");o.className="ov inv";o.id="ibx";o.innerHTML='<div class="ibxw"><div class="ibxh"><div><small>INBOX</small><b id="ibxd"></b></div><span id="ibxc"></span></div><div class="ibxg" id="ibxg"></div><div id="ibxl"></div><div class="ibxf"><button id="ibxAll" class="sm">通知をすべて既読にする</button><button class="main" id="ibxx">閉じる</button></div></div>';document.body.appendChild(o)})();
+function srsNone(){try{var S=window.srsData&&srsData();return !S||!Object.keys(S).length}catch(e){return false}}
 function ibxItems(){
   var t=dayKey(),a=[],d=srsDue().length;
   var P=todayPlan();
   a.push({id:"go"+t,ic:"play",cls:"cta",t:"今日の続き",b:P.t+"　（暗記 → 確認テスト）",act:"はじめる",done:false,f:function(){P.f()},keep:1});
-  a.push({id:"rv"+t,ic:"repeat",t:"今日の復習",b:d?d+"語が復習の時期です。覚えたての単語ほど、間を空けて思い出すと定着します。":"今日の復習はすべて終わりました。"+(G.rvd.n?"　連続 "+G.rvd.n+" 日":""),act:d?"復習する":"",done:!d,f:function(){flowStart(srsDue(),"srs","今日の復習")}});
+  a.push({id:"rv"+t,ic:"repeat",t:"今日の復習",b:d?d+"語が復習の時期です。覚えたての単語ほど、間を空けて思い出すと定着します。":(srsNone()?"単語を覚えてテストで合格すると、ここに復習が出ます。":"今日の復習はすべて終わりました。"+(G.rvd.n?"　連続 "+G.rvd.n+" 日":"")),act:d?"復習する":"",done:!d&&!srsNone(),f:function(){flowStart(srsDue(),"srs","今日の復習")}});
   var lb=G.login&&G.login.last===t;
   a.push({id:"lb"+t,ic:"gift",t:"ログインボーナス",b:lb?"今日の分は受け取り済みです（連続"+(G.login.n||1)+"日目）":"今日のログインボーナスが届いています。7日目は★5以上確定！",act:lb?"":"受け取る",done:lb,f:function(){dailyLogin();NTFR["lb"+t]=1;ntfSave();setTimeout(ibxRender,400)}});
   if(bkNeed())a.push({id:"bk"+t,ic:"save",t:"バックアップのおすすめ",b:G.bk.last?"前回から日数・習得数が増えています。ファイルに保存しておきましょう。":"まだバックアップがありません。初回は ◆50 のボーナス！",act:"保存する",done:false,f:bkSave});
@@ -7383,7 +7391,7 @@ function goalGo(){
 /* 毎日のタスクをメールで */
 window.V6goal=function(a){
   var g=G.goal;if(!g)return;var T2=goalToday(),k=dayKey();
-  if(T2.done&&g.rw!==T2.per+":"+k){g.rw=T2.per+":"+k;G.stones+=30;G.total+=30;saveG();updStones();setTimeout(function(){toast("今日のタスク達成！ ◆+30")},300)}
+  if(T2.done&&String(g.rw||"").split(":")[1]!==k){g.rw=T2.per+":"+k;G.stones+=30;G.total+=30;G.gdays=G.gdays||{};G.gdays[k]=1;saveG();updStones();STQ=1;setTimeout(function(){toast("今日のタスク達成！ ◆+30")},300)}
   a.splice(1,0,{id:"gl"+k,ic:"target",cls:T2.done?"":"cta2",t:"今日のタスク（目標 "+g.n+"語・"+V5.dnKey(g.by)+"まで）",b:(T2.due?"復習 "+T2.due+"語 → ":"復習 完了 → ")+"新しく習得 "+Math.min(T2.doneNew,T2.per)+"/"+T2.per+"語"+(T2.done?"　すべて達成！":""),act:T2.done?"":"進める",done:T2.done,f:goalGo,keep:1});
 };
 function goalEdit(){
@@ -8042,6 +8050,10 @@ function gtStart(){
 function gtEnd(){
   GT.on=0;cancelAnimationFrame(GT.raf);clearTimeout(GT.tm);var o=$("gt");if(o)o.classList.remove("on","hid","free");
   try{localStorage.setItem("dopa:tut","1");localStorage.setItem("dopa:gt","1")}catch(e){}
+  /* #50 チュートリアル用の暗記の範囲（1〜10）を元に戻す */
+  try{if(String(LS.from)==="1"&&String(LS.to)==="10"){LS.from=1;LS.to=BASE.length;renderLearnSetup("")}}catch(e){}
+  /* チュートリアルを飛ばした・途中でやめた → 同じ3人をそのまま仲間に */
+  if(G.starter&&!G.tutPull&&!stOwned())setTimeout(function(){stGrant(false)},300);
 }
 function gtAv(e,id){if(!e)return;var x=window.cuFx?cuFx(id):0.5;e.style.backgroundImage='url("'+IMT(id)+'")';e.style.backgroundPosition=(x*100).toFixed(0)+'% 3%'}
 function gtVal(v){return typeof v==="function"?v():v}
@@ -8054,6 +8066,10 @@ function gtStep(){
     o.classList.remove("hid");if(s.hide)o.classList.add("hid");
     var c=o.querySelector(".gtc");c.classList.remove("pop");void c.offsetWidth;c.classList.add("pop");
     o.querySelector(".gtt").textContent=gtVal(s.tx)||"";
+    var md=o.querySelector(".mdp");if(md)md.remove();
+    if(s.mood&&window.moodSet){var cur=mood();md=document.createElement("div");md.className="mdp gtmd";
+      md.innerHTML='<button type="button" data-md="hype"><b>ノリノリ</b><small>アップテンポの曲と、にぎやかな掛け声</small></button><button type="button" data-md="soft"><b>寄り添い</b><small>落ち着いたやわらかい曲と、やさしい声かけ</small></button>';
+      o.querySelector(".gtt").after(md);Array.prototype.forEach.call(md.querySelectorAll("[data-md]"),function(x){x.classList.toggle("on",x.getAttribute("data-md")===cur);x.onclick=function(){moodSet(x.getAttribute("data-md"))}})}
     var real=GTS.filter(function(x){return !x.hide}).length,k=GTS.slice(0,GT.i+1).filter(function(x){return !x.hide}).length;
     o.querySelector(".gtn").textContent=k+" / "+real;
     var b=o.querySelector(".gtgo"),sel=gtVal(s.sel);
@@ -8070,7 +8086,7 @@ function gtLoop(){
   if(!GT.on)return;GT.raf=requestAnimationFrame(gtLoop);
   var s=GTS[GT.i],o=$("gt");if(!s||!o)return;
   if(s.until&&s.until()){gtNext();return}
-  if(T&&T.lap===2&&!GT.lap2&&GT.i>=6){GT.lap2=1;gtToast("2周目は英語→日本語。両方とも正解で「合格」だよ")}
+  if(T&&T.lap===2&&!GT.lap2&&GT.i>=7){GT.lap2=1;gtToast("2周目は英語→日本語。両方とも正解で「合格」だよ")}
   var W=innerWidth,H=innerHeight,el=GT.sel?document.querySelector(GT.sel):null,r=null;
   if(el){r=el.getBoundingClientRect();if(r.width<2||r.height<2)r=null}
   var p=6,box=r?{l:r.left-p,t:r.top-p,r:r.right+p,b:r.bottom+p}:null;
@@ -8083,6 +8099,8 @@ function gtLoop(){
   bs[3].style.cssText="left:"+box.r+"px;top:"+box.t+"px;width:"+Math.max(0,W-box.r)+"px;height:"+(box.b-box.t)+"px";
   ring.style.cssText="display:block;left:"+box.l+"px;top:"+box.t+"px;width:"+(box.r-box.l)+"px;height:"+(box.b-box.t)+"px";
   var ch=c.offsetHeight||120,below=box.b+14,above=box.t-14-ch;
+  /* #37 low：意味・例文に重ならないよう、画面の下に置く（光らせた部品と重なる時は今までどおり） */
+  if(s.low&&H-ch-10>box.b+8){c.style.top=(H-ch-10)+"px";return}
   c.style.top=(below+ch<H-10?below:(above>10?above:Math.max(10,H-ch-10)))+"px";
 }
 function gtToast(t){var o=$("gtst");if(!o){o=document.createElement("div");o.id="gtst";document.body.appendChild(o)}var f=gtFace();o.innerHTML='<i class="gtav"></i><span></span>';gtAv(o.querySelector(".gtav"),f.id);o.querySelector("span").textContent=t;o.classList.remove("on");void o.offsetWidth;o.classList.add("on");clearTimeout(o._t);o._t=setTimeout(function(){o.classList.remove("on")},4200)}
@@ -8160,12 +8178,6 @@ window.V7home=function(){
 
 /* ---------- 目標達成：ハンコ ---------- */
 var STQ=0;
-var _v6=window.V6goal;
-window.V6goal=function(a){
-  var g=G.goal,before=g&&g.rw;
-  _v6(a);
-  if(g&&g.rw&&g.rw!==before){G.gdays=G.gdays||{};G.gdays[dayKey()]=1;saveG();STQ=1}
-};
 setInterval(function(){
   if(!STQ)return;var busy=T||!$("homeV").hidden||document.querySelector("#pull:not(.inv),#gfx.on,#kaku.on,#gt.on,#rdv.on,#stv:not(.inv),#glOv:not(.inv)");
   if(busy)return;STQ=0;stampShow();
@@ -8338,10 +8350,11 @@ function gtPull(){
   G.tutPull=1;saveG();updStones();try{renderG("")}catch(e){}showPull(res,"",gBan);
 }
 GTS=[
+ {mood:1,tx:"はじめに、BGMと声の雰囲気を選んでね。あとから設定の「音」でいつでも変えられるよ",btn:"これではじめる",act:function(){try{if(!localStorage.getItem("dopa:mood"))moodSet(mood())}catch(e){}}},
  {pre:function(){tab("L");try{LS.set={};LS.mode="all";LS.from=1;LS.to=10;renderLearnSetup("")}catch(e){}},
   sel:"#lgo",tx:"ようこそ！ まずは単語を覚えるところから。光っている「暗記スタート」を押してね（最初の10語だけ）"},
  {sel:"#reveal",tx:"英単語が出たら、意味を思い出してみて。思い出せたら「意味を見る」で答え合わせ"},
- {sel:"#say",tx:"ここで発音が聞けるよ。押してみて"},
+ {sel:"#say",low:1,tx:"ここで発音が聞けるよ。押してみて"},
  {sel:"#next",tx:"「次へ」で次の単語。今は1回押せばOK"},
  {tx:"覚えた単語は、テストで確かめると「合格」になっていくよ。次はテストに行ってみよう",btn:"テストへ",act:function(){try{learnShow(false)}catch(e){}tab("T")}},
  {pre:function(){try{var r=$("test").querySelector('input[name=mode][value=new]');if(r){r.checked=true;if(r.onchange)r.onchange()}$("lim").value="10";if($("lim").onchange)$("lim").onchange()}catch(e){}},
@@ -8441,7 +8454,7 @@ function syList(){
     h+='<div class="syc'+(op?'':' lk')+'" data-k="'+k+'" style="--b0:'+t.bg[0]+';--b1:'+t.bg[1]+';--b2:'+t.bg[2]+'">'+
       '<div class="syart">'+bustSVG(c.id,cImg(c.id))+'</div><i class="sysh"></i>'+
       '<div class="synum">'+("0"+(k+1)).slice(-2)+'</div>'+
-      '<div class="syt"><small>STORY 01 · '+esc(op?c.name:'？？？')+'</small><b>'+esc(op?ch[0]:'LOCKED')+'</b>'+
+      '<div class="syt"><small>第1話 · '+esc(op?c.name:'？？？')+'</small><b>'+esc(op?ch[0]:'LOCKED')+'</b>'+
       (op?(r?'<span class="sychip ok">READ</span>':'<span class="sychip nw">NEW</span>'):'<em>ガチャで仲間にすると開きます</em>')+'</div>'+
       (own?'<button type="button" class="sybd" data-bd="'+c.id+'"><span>LV</span><b>'+lvOf(c.id)+'</b><em>話 '+(1+eo)+'/'+(1+eps.length)+'</em>'+(en?'<i></i>':'')+'</button>':'')+
     '</div>';
@@ -8635,11 +8648,12 @@ gtPull=function(){
   G.first=picks[0].id;G.tutPull=1;saveG();updStones();try{renderG("")}catch(e){}showPull(res,"",gBan);
 };
 /* チュートリアルを飛ばした・途中でやめた → 同じ3人をそのまま仲間に */
-(function(){var _e=gtEnd;gtEnd=function(){_e.apply(this,arguments);if(G.starter&&!G.tutPull&&!stOwned())setTimeout(function(){stGrant(false)},300)}})();
+/* （チュートリアルを飛ばした時に3人を渡す処理は、gtEnd 本体に移した） */
 /* ダウンロード画面が終わったら、スロットを待たずにチュートリアルへ */
 frdlEnd=function(){
   if(!FR.on)return;FR.on=0;clearInterval(FR.iv);
-  try{localStorage.setItem("dopa:tut","1")}catch(e){}
+  /* 新しく始めた人の雰囲気はノリノリから（dopa:tut を先に書くと mood() が「前からの人」とみなして寄り添いにしていた） */
+  try{if(!localStorage.getItem("dopa:mood"))localStorage.setItem("dopa:mood","hype");localStorage.setItem("dopa:tut","1")}catch(e){}
   GT.pend=2;setTimeout(function(){$("frdl").classList.add("inv")},120);
   if(ST_SHOW){var f=ST_SHOW;ST_SHOW=null;setTimeout(f,250)}
 };
