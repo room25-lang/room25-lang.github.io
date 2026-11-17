@@ -4785,7 +4785,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="2.05",VLOG=[
+var VERSION="2.06",VLOG=[
+ ["2.06","2026-11-17",["始めた日より前のお知らせが、すでに受信箱に入っていた場合も消えるようにしました", "記録の「撃破したボス」「覚醒したキャラ」の分母を、ボスのいるステージの数（35）にしました", "全体テストのロックの残り時間を1か所だけに出し、1時間未満は「4分」のように書きます。開いている間も自動で減り、外れたら消えます", "ボス戦の結果の「全体系のテスト」という言い方を直しました"]],
  ["2.05","2026-11-17",["テスト・結果・ガチャに「？」を置き、ルールの説明（得点・合格と習得・ガチャで出るもの）をその場から開けるようにしました", "はじめてのテストの最初に、得点のルール（ミスは−5点、0点より下にはならない）を1回だけ出します", "結果画面の説明を行ごとに分け、「合格」と「習得」の違いを一言で書きました", "チュートリアルの暗記は、10語ぜんぶ見てからテストに進むようにしました", "学習タブとテストタブで、最後に選んだステージを共有します", "ガチャの演出が終わるまで、所持◆と図鑑の数を書き換えないようにしました（結果が先に分からないように）", "テストの3択で、まちがいの選択肢を難しさの近い単語から選ぶようにしました", "声をOFFにしている時は、キャラをタップした時のセリフを吹き出しで出します", "おすすめ編成で、相棒が勝手に変わらないようにしました", "全体テストがロック中の時は、その選択肢に鍵と残り時間を出します。開放の条件も具体的に書きました", "「次へ：ON/OFF」を「自動で次へ：ON/OFF」に。ステージの印・PART・覚醒・BGMの音の設定などに説明を足しました", "「★4以上 確定」のガチャの表示を「キャラが出たら★4以上」に。ラインナップの「NEW」は「追加」に", "ホームの数字（受信箱の未読）に封筒の印を付けました。相棒を変えるボタンに「相棒」の文字", "設定の全体タブのクレジットに、すべての声を載せました。「進捗をリセット」はデータタブの一番下だけに", "新しく始めた人には、始めた日より前のお知らせを出さないようにしました", "start／begin、include／involve／contain、like の訳を分け、sophisticate の例文を動詞の文にしました", "楓のストーリー1話目の服装の説明を、立ち絵に合わせました"]],
  ["2.04","2026-11-17",["「今日の目標」の達成で、アプリを開き直すと◆30とハンコがもう一度出ていたのを直しました（1日1回だけ）","チュートリアルの最初で、BGMと声の雰囲気（ノリノリ／寄り添い）を選べるようにしました","チュートリアルのあと、暗記の範囲が「1〜10」のまま残っていたのを直しました","チュートリアルの吹き出しが、暗記カードの意味や例文に重ならないようにしました","「今日の続き」の新しい単語の数を、目標で決めた1日の語数にそろえました","まだ単語を覚えていない時に「今日の復習はすべて終わりました」と出ないようにしました","記録のグラフの「1日平均」を、使い始めた日から計算するようにしました","記録の「撃破したボス」「覚醒したキャラ」の分母を、キャラの数（39）にしました","ストーリーのカードの小さな番号を「第1話」にしました","キャラタブの「ストーリー」ボタンが2行に折り返さないようにしました","スペル入力で間違えた時、違う文字を赤で出すようにしました","設定の説明（データタブ）が指す場所を直しました","追加キャラを編成した時、テストで無い音声ファイルを取りに行っていたのを直しました"]],
  ["2.03","2026-11-17",["v2.01 で入れた背景の変更（描き直しを減らす・テスト中は止める）を元に戻しました。動きが重く見えた原因は、アプリではなく測り方の側にあったためです"]],
@@ -5392,6 +5393,7 @@ var NTF=[],NTFR={};
 try{NTF=JSON.parse(localStorage.getItem("dopa:ntf")||"[]");if(!Array.isArray(NTF))NTF=[];NTFR=JSON.parse(localStorage.getItem("dopa:ntfr")||"{}")||{}}catch(e){NTF=[];NTFR={}}
 function ntfSave(){try{localStorage.setItem("dopa:ntf",JSON.stringify(NTF.slice(0,40)));localStorage.setItem("dopa:ntfr",JSON.stringify(NTFR))}catch(e){}}
 function ntfDot(){var n=NTF.filter(function(x){return !NTFR[x.id]}).length,d=$("ntfDot");if(!d)return;d.hidden=!n;d.textContent=""}
+function hmFmt(min){min=Math.max(0,Math.ceil(min));var h=Math.floor(min/60),m=min%60;return h?h+"時間"+(m?m+"分":""):m+"分"}
 function ntfAdd(id,title,body,url,date){
   if(!id||NTF.some(function(x){return x.id===id}))return;
   NTF.unshift({id:String(id),d:date||dayKey(),t:String(title||"").slice(0,80),b:String(body||"").slice(0,1200),u:url&&/^https:\/\//.test(url)?url:""});
@@ -5411,6 +5413,7 @@ function ntfFetch(){
   try{fetch("news.json",{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
     var a=(j&&Array.isArray(j.news))?j.news:Array.isArray(j)?j:[];
     var d0="";try{d0=localStorage.getItem("dopa:since")||"";if(!d0){var ks=Object.keys((window.prog&&prog.dl)||{}).sort();d0=ks[0]||dayKey();localStorage.setItem("dopa:since",d0)}}catch(e){}
+    if(d0){var n0=NTF.length;NTF=NTF.filter(function(x){return !(/^n:/.test(x.id)&&!/welcome/.test(x.id)&&x.d&&x.d<d0)});if(NTF.length!==n0){ntfSave();ntfDot()}}
     a.slice(0,20).forEach(function(x){if(!x||!x.id)return;var dd=(x.date||"").slice(0,10);if(d0&&dd&&dd<d0&&!/welcome/.test(x.id))return;ntfAdd("n:"+x.id,x.title,x.body,x.url,dd)});
   }).catch(function(){})}catch(e){}
 }
@@ -6157,9 +6160,11 @@ function rangeProg(){
   var ttl=ks.length===1?"STAGE"+(ks[0]+1)+" "+STAGES[ks[0]].l:ks.length>1?"STAGE "+ks.map(function(k){return k+1}).join("・")+"（"+ks.length+"個選択）":(f===1&&t===WORDS.length&&cat==="all"?"全体":f+"〜"+t+(cat!=="all"?"（"+cat+"）":""));
   el.innerHTML='<div class="stat">'+esc(ttl)+'　習得 <b>'+m+'</b> / '+n+'　（'+Math.round(pct(m))+'%）</div>'+
    '<div class="rbar"><i class="s1" style="width:'+pct(m)+'%"></i><i class="s2" style="width:'+pct(h)+'%"></i></div>'+
-   '<div class="hint" style="text-align:left">習得済み '+m+'　仮習得（リーチ） '+h+'　未習得 '+u+(rv?'　要復習 '+rv:'')+(lk?'　<b>全体テストはあと'+Math.floor(lk/60)+'時間'+(lk%60)+'分ロック中</b>':'')+'</div>';
-  try{var ra=$("test").querySelector('input[name=mode][value="all"]'),rl=ra&&ra.closest("label");if(rl){rl.classList.toggle("lkd",!!lk);var q=rl.querySelector(".lkt");if(!q){q=document.createElement("small");q.className="lkt";rl.appendChild(q)}q.innerHTML=lk?ICO("lock",11)+' あと'+Math.floor(lk/60)+'時間'+(lk%60)+'分ロック中':''}}catch(e){}
+   '<div class="hint" style="text-align:left">習得済み '+m+'　仮習得（リーチ） '+h+'　未習得 '+u+(rv?'　要復習 '+rv:'')+''+'</div>';
+  try{var ra=$("test").querySelector('input[name=mode][value="all"]'),rl=ra&&ra.closest("label");if(rl){rl.classList.toggle("lkd",!!lk);var q=rl.querySelector(".lkt");if(!q){q=document.createElement("small");q.className="lkt";rl.appendChild(q)}q.innerHTML=lk?ICO("lock",11)+' あと'+hmFmt(lk)+'ロック中':''}}catch(e){}
 }
+/* #109 テストタブを開いている間は、ロックの残り時間を30秒ごとに書き直す（外れたら消える） */
+setInterval(function(){try{if(!T&&$("test")&&!$("test").hidden&&document.visibilityState==="visible"&&$("test").querySelector(".lkd,.lkt"))rangeProg()}catch(e){}},30000);
 function bindStages(){
   function fill(){
     var ks=setKeys(TS);
@@ -6235,7 +6240,7 @@ function start(){
   var rangeM=tot>0&&tot===mastN;
   if(isFull&&!rangeM&&G.lock[lkey]>Date.now()){
     var rem=Math.ceil((G.lock[lkey]-Date.now())/60000);
-    $("msg").textContent="このテスト（"+(tks.length?"選択した"+tks.length+"ステージ":f+"〜"+t)+"）は、全体を受けたため、あと"+Math.floor(rem/60)+"時間"+(rem%60)+"分ロック中です。学習タブの復習は使えます。";return;
+    $("msg").textContent="このテスト（"+(tks.length?"選択した"+tks.length+"ステージ":f+"〜"+t)+"）は、全体を受けたため、あと"+hmFmt(rem)+"ロック中です。学習タブの復習は使えます。";return;
   }
   if(!ids.length){$("msg").textContent=mode==="review"?"復習する単語がありません。":mode==="allreview"?"全体復習する単語がありません。":"出題できる単語がありません。";return}
   skLast={};
@@ -6565,7 +6570,7 @@ function finish(){
   }
   var partialPerfect=dopa&&rate>=0.9&&!T.full;
   var rhNote=T.rh?"　音ゲー：ジャスト "+T.rh.p+"回・ずれ "+T.rh.m+"回（ポイントのみに反映）。":"";
-  var note=rhNote+(partialPerfect?"（出題数を絞ったテストなので、確定演出とキャラ入手は対象外です。キャラが手に入るのは、ステージの全単語を出すテスト（出題数「全部」）で得点率90%以上の時です）　":"")+(rec?"記録しました。新しく習得済み："+fresh+"語。":"全体系のテストは習得の記録に反映しません。")+"　得点率 "+Math.round(rate*100)+"%（正解 "+correct+" / "+total+"）。";
+  var note=rhNote+(partialPerfect?"（出題数を絞ったテストなので、確定演出とキャラ入手は対象外です。キャラが手に入るのは、ステージの全単語を出すテスト（出題数「全部」）で得点率90%以上の時です）　":"")+(rec?"記録しました。新しく習得済み："+fresh+"語。":"全体テスト（ボス戦）や全体復習は、習得の記録に反映しません。")+"　得点率 "+Math.round(rate*100)+"%（正解 "+correct+" / "+total+"）。";
   var title="";
   if(dopa){
     var E=effects(),bonus=perfect?100+E.perf:0,earn=Math.round((T.score+bonus)*E.stone)+(T.extra||0)+E.best*T.best;
@@ -7158,7 +7163,7 @@ function zukanHtml(){
   for(var i=0;i<nBase();i++){var k=stgIdx(i);st[k].n++;if(passes(i)>=2)st[k].m++}
   h+='<div class="zgrp">ステージ</div><div class="zmed">'+STAGES.map(function(S,k){var r=st[k].n?st[k].m/st[k].n:0,m=medal(r);return '<div class="zm '+m[0]+'"><i>'+m[1]+'</i><b>STAGE '+(k+1)+'</b><small>'+esc(S.l)+'　'+st[k].m+'/'+st[k].n+'</small><em style="width:'+(r*100).toFixed(1)+'%"></em></div>'}).join("")+'</div>';
   var sp=Object.keys(SPW).length,R=G.rvd;
-  h+='<div class="zgrp">記録</div><div class="zrec"><div><b>'+mastered()+'</b><small>習得</small></div><div><b>'+Object.keys(SRS).length+'</b><small>復習中</small></div><div><b>'+sp+'</b><small>スペルで正解した単語</small></div><div><b>'+(R.n||0)+'<i>日</i></b><small>復習の連続（最高 '+(R.best||0)+'日）</small></div><div><b>'+Object.keys(G.bw).length+'<i>/'+CHARS.length+'</i></b><small>撃破したボス</small></div><div><b>'+Object.keys(G.awk).length+'<i>/'+CHARS.length+'</i></b><small>覚醒したキャラ</small></div></div>';
+  h+='<div class="zgrp">記録</div><div class="zrec"><div><b>'+mastered()+'</b><small>習得</small></div><div><b>'+Object.keys(SRS).length+'</b><small>復習中</small></div><div><b>'+sp+'</b><small>スペルで正解した単語</small></div><div><b>'+(R.n||0)+'<i>日</i></b><small>復習の連続（最高 '+(R.best||0)+'日）</small></div><div><b>'+Object.keys(G.bw).length+'<i>/'+STAGES.length+'</i></b><small>撃破したボス</small></div><div><b>'+Object.keys(G.awk).length+'<i>/'+STAGES.length+'</i></b><small>覚醒したキャラ</small></div></div>';
   var nx=srsNext(),d=srsDue().length;h+='<div class="hint" style="text-align:center">'+(d?"今日の復習が "+d+" 語あります":nx?"次の復習は "+nx+" 日後です":"習得した単語が、ここで復習の予定に入ります")+'</div>';
   if(G.end)h+='<button class="sm" id="zEnd">エンディングをもう一度見る</button>';
   return h;
