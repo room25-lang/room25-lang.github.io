@@ -4767,7 +4767,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="2.02",VLOG=[
+var VERSION="2.03",VLOG=[
+ ["2.03","2026-11-17",["v2.01 で入れた背景の変更（描き直しを減らす・テスト中は止める）を元に戻しました。動きが重く見えた原因は、アプリではなく測り方の側にあったためです"]],
  ["2.02","2026-11-17",["ノリノリの雰囲気で、最初のステージのテストの曲を新しい曲（試作）にしました"]],
  ["2.01","2026-11-17",["動きを軽くしました：背景の光と斜線の描き直しを減らし、スマホの負担（CPU）を下げました。見た目の動きは同じです","テスト中は背景の光を止めて、問題に集中できるように"]],
  ["2.00","2026-11-17",["damn と sexy を単語リストから外し、同じ番号に hooray（やったー）と sleepy（眠い）を入れました（ほかの単語の番号や記録は変わりません）","NGSLの2809語の日本語の意味を全部見直しました（paint・course・pitch を直しました）"]],
@@ -8985,7 +8986,7 @@ setInterval(function(){
     if(bf){bf.style.setProperty("--bx",cx.toFixed(3));bf.style.setProperty("--by",cy.toFixed(3))}
     if(Math.abs(tx-cx)>0.002||Math.abs(ty-cy)>0.002)raf=requestAnimationFrame(ap);
   };
-  var set=function(x,y){x=cl(x);y=cl(y);if(Math.abs(x-tx)<0.02&&Math.abs(y-ty)<0.02)return;tx=x;ty=y;if(!raf)raf=requestAnimationFrame(ap)};
+  var set=function(x,y){tx=cl(x);ty=cl(y);if(!raf)raf=requestAnimationFrame(ap)};
   window.addEventListener("deviceorientation",function(e){if(e.gamma==null||!on())return;set(e.gamma/16,(e.beta-45)/16)});
   document.addEventListener("pointermove",function(e){if(!on()||e.pointerType==="touch")return;set(e.clientX/innerWidth*2-1,e.clientY/innerHeight*2-1)},{passive:true});
   var sync=function(){var o=on();document.body.classList.toggle("tilton",o);if(!o&&(tx||ty))set(0,0)};
@@ -9688,20 +9689,6 @@ if(ch){save();try{localStorage.setItem("dopa:srs",JSON.stringify(S||{}))}catch(e
 (function(){try{if(localStorage.getItem("dopa:w2fix"))return;localStorage.setItem("dopa:w2fix","1");var ch=0,S=window.srsData&&srsData();
 [2791,4929].forEach(function(no){["p","l","f"].forEach(function(k){if(prog[k]&&prog[k][no]){delete prog[k][no];ch=1}});if(S&&S[no]){delete S[no];ch=1}});
 if(ch){save();try{localStorage.setItem("dopa:srs",JSON.stringify(S||{}))}catch(e){}}}catch(e){}})();
-/* v2.01 背景の光と斜線は、1秒に6回だけ進める（60回の描き直しをやめて CPU を下げる）。テスト中・裏にある時は止める */
-(function(){
-  var FPS=6,STEP=1000/FPS;
-  var still=function(){if(document.hidden)return true;var t=$("test");return !!(t&&!t.hidden&&t.offsetParent!==null)};
-  setInterval(function(){
-    var bf=$("bgfx");if(!bf)return;var st=still();
-    Array.prototype.forEach.call(bf.children,function(el){
-      if(!el.getAnimations)return;
-      el.getAnimations().forEach(function(a){
-        try{if(a.playState==="running")a.pause();if(!st)a.currentTime=(a.currentTime||0)+STEP}catch(e){}
-      });
-    });
-  },STEP);
-})();
 
 </script>
 </body>
