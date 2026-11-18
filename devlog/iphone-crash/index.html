@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LOG 01 iPhoneのホーム画面アプリだけ10秒で落ちる | Room_25 開発ログ</title>
+<meta name="description" content="PWAがiPhoneのホーム画面から開いた時だけ落ちる。原因は音の仕組み（Web Audio）だった。外れた見立ても含めた調査の記録。">
+<meta name="theme-color" content="#efeee9">
+<meta property="og:title" content="iPhoneのホーム画面アプリだけ10秒で落ちる | Room_25 開発ログ">
+<meta property="og:description" content="メモリが毎秒150MB増えて2GBで強制終了。原因は背景でも画像でもなく、音の仕組みだった。">
+<meta property="og:image" content="https://room25-lang.github.io/og.png">
+<meta property="og:url" content="https://room25-lang.github.io/devlog/iphone-crash/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../article.css"></head><body>
+<main>
+ <a class="back" href="../">← DEVLOG</a>
+
+ <div class="plate">
+  <small>LOG 01 ／ 2026.11.15–16 ／ どぱたん＋</small>
+  <h1>iPhoneのホーム画面<br>アプリだけ<span>10秒で落ちる</span></h1>
+  <p>Safariのタブでは平気なのに、ホーム画面に追加したアプリだと数秒で落ちる。2日かけて原因を探した記録です。外れた見立ても全部残しています。</p>
+  <div class="stats">
+   <div><b>2.1GB</b><span>落ちる直前</span></div>
+   <div><b>約150MB</b><span>増える量/秒</span></div>
+   <div><b>約200MB</b><span>直したあと</span></div>
+  </div>
+ </div>
+
+ <div class="knock">— SYMPTOM</div>
+ <div class="card">
+  <h2><span class="no">01</span>症状</h2>
+  <ul>
+   <li>英単語アプリ「どぱたん＋」（ブラウザで動くPWA）を、iPhoneのホーム画面から開くと、4〜10秒で落ちる</li>
+   <li>入れ直しても同じ。Safariのタブで開くと落ちない。Androidでは起きない</li>
+   <li>iPhoneの解析データ（JetsamEvent）を見ると、ページの処理（WebContent）が<b>約2.1GB</b>を超えて止められていた</li>
+  </ul>
+ </div>
+
+ <div class="knock">— WRONG GUESSES</div>
+ <div class="card">
+  <h2><span class="no">02</span>外れた見立て</h2>
+  <p>「落ちる直前の操作」を記録して推測で直していたら、ほとんど外れました。</p>
+  <table>
+   <tr><th>見立て</th><td>結果</td></tr>
+   <tr><th>動く背景のアニメ</th><td>止めると落ちない…と思ったが、条件がたまたま重なっていただけ</td></tr>
+   <tr><th>大きな背景の層</th><td>1枚にまとめても、しばらくするとまた落ちた</td></tr>
+   <tr><th>カードのすりガラス</th><td>外しても6秒で落ちた</td></tr>
+   <tr><th>残響の部品</th><td>外しても増え続けた</td></tr>
+  </table>
+  <p class="note">8通りの組み合わせで自動起動する「切り分けモード」まで作りましたが、決め手になりませんでした。</p>
+ </div>
+
+ <div class="knock">— HOW I FOUND IT</div>
+ <div class="card">
+  <h2><span class="no">03</span>Webインスペクタで直接はかる</h2>
+  <p>MacのSafariの<b>Webインスペクタ</b>をiPhoneにつなぐと、ホーム画面のアプリの中身も見られます。</p>
+  <ul>
+   <li>ホームに入ると「ページ」のメモリが<b>毎秒約150MB</b>増え続け、2GBで終了</li>
+   <li>JavaScriptと描画のメモリは小さいまま</li>
+   <li>コンソールで1つずつ止めると、<b>音の仕組み（AudioContext）を止めた時だけ</b>増加が止まった</li>
+  </ul>
+ </div>
+
+ <div class="knock">— CAUSE</div>
+ <div class="card">
+  <h2><span class="no">04</span>原因は「音」だった</h2>
+  <p>原因は1つではなく、音のまわりで2つ重なっていました。</p>
+  <ul>
+   <li><b>最初に触れるまでの漏れ</b>：ホーム画面のアプリでは、音の仕組みが「中断」の状態で始まり、画面に触れるまでの間メモリが増え続けた。起動して触らずに待つほど増える</li>
+   <li><b>裏でのBGMの合成</b>：起動のたびに、もう使っていない曲を38曲ぶん裏で合成していた。120秒で合成用の部品が約17万個。ホーム画面のアプリはSafariと保存場所が別なので、毎回最初からやり直していた</li>
+  </ul>
+  <p class="note">ほかのアプリの音楽と混ぜて鳴らす設定（ambient）も一度は原因に見えましたが、上の2つを直したあとは、戻しても増えませんでした。</p>
+ </div>
+
+ <div class="card">
+  <h2><span class="no">05</span>直したこと</h2>
+  <ul>
+   <li>ホーム画面のアプリでは、最初に触れるまで音の仕組みを作らない</li>
+   <li>裏でのBGMの合成をやめ、流す曲だけを作る</li>
+   <li>声のデコード済みデータをためすぎない（新しい24個まで）</li>
+  </ul>
+  <p>直したあとは、iPhoneでの最大メモリが<mark>約150〜200MBで安定</mark>。途中で外していた背景の光・すりガラス・残響・ambientも、1つずつ実機で確かめて全部戻せました。</p>
+ </div>
+
+ <div class="knock">— LESSONS</div>
+ <div class="card">
+  <h2><span class="no">06</span>わかったこと</h2>
+  <ul>
+   <li><b>記録からの推測は外れやすい</b>。実機で直接はかるのがいちばん早い</li>
+   <li>Safariのタブで起きないことは、ホーム画面のアプリでも起きないとは限らない</li>
+   <li>開き直しまで通すテストが要る（同じページの中だけの確認では見つからない不具合がある）</li>
+  </ul>
+  <p class="note">おまけ：そのあと「CPUが50%」に見えた件は、Webインスペクタの「スクリーンショット」の記録をオンにしていたせいでした。はかる道具の負荷にも気をつける。</p>
+ </div>
+
+ <div class="knock">— PLAY</div>
+ <a class="dl" href="../../?ref=devlog">
+  <div><b>どぱたん＋</b><span>ガチャとキャラで覚える英単語・5051語・無料</span></div>
+  <span class="go">遊ぶ</span>
+ </a>
+
+ <footer><a href="../../links/">Room_25 リンク集</a> ／ © Room_25</footer>
+</main>
+<script data-goatcounter="https://room25.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LOG 02 1枚の立ち絵を「Live2D風」に動かす | Room_25 開発ログ</title>
+<meta name="description" content="1枚の立ち絵をAIでパーツに分けて、ブラウザで動かした記録。手順・費用・ハマりどころ。AIに読み込ませる用のガイドつき。">
+<meta name="theme-color" content="#efeee9">
+<meta property="og:title" content="1枚の立ち絵を「Live2D風」に動かす | Room_25 開発ログ">
+<meta property="og:description" content="AIでパーツ分け → ブラウザで動かす。1体あたり素材代＋約150円。AIに読み込ませる用のガイドつき。">
+<meta property="og:image" content="https://room25-lang.github.io/og.png">
+<meta property="og:url" content="https://room25-lang.github.io/devlog/live2d/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../../icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../article.css"></head><body>
+<main>
+ <a class="back" href="../">← DEVLOG</a>
+
+ <div class="plate">
+  <small>LOG 02 ／ 2026.11.17 ／ 次世代どぱたん</small>
+  <h1>1枚の立ち絵を<br>「<span>Live2D風</span>」に動かす</h1>
+  <p>AIで立ち絵をパーツに分けて、ブラウザで動かしました。Live2Dのソフトは使っていません。次世代どぱたんの「動く相棒」の試作です。</p>
+  <div class="stats">
+   <div><b>約8分</b><span>1体のパーツ分け</span></div>
+   <div><b>約150円</b><span>GPU代/回</span></div>
+   <div><b>約25</b><span>パーツ</span></div>
+  </div>
+ </div>
+
+ <div class="video" id="video">
+  <video src="55A.mp4" autoplay muted loop playsinline></video>
+  <video src="55B.mp4" autoplay muted loop playsinline></video>
+ </div>
+
+ <div class="knock">— FOR YOUR AI</div>
+ <a class="dl" href="guide.md" download="Live2D風_立ち絵アニメ化ガイド_AI読み込み用.md">
+  <div><b>AIに読ませる用のガイド</b><span>手順・コマンド・数値・チェックリスト入り（.md）</span></div>
+  <span class="go">DL</span>
+ </a>
+ <p class="note">自分のAI（Claude・ChatGPTなど）にこのファイルを渡して「この手順で自分の立ち絵を動かしたい」と頼むと、環境に合わせて案内してくれます。</p>
+
+ <div class="knock">— FLOW</div>
+ <div class="card">
+  <ol class="flow">
+   <li><b>素材を用意する</b>：背景が透明で、表情差分（目閉じ・口開け・笑顔など）がある立ち絵。<b>Live2D化とAIでの描き足しがOKか、作者に確認</b></li>
+   <li><b>AIでパーツに分ける</b>：<a href="https://github.com/shitagaki-lab/see-through" target="_blank" rel="noopener">See-through</a>（SIGGRAPH 2026・Apache-2.0）で、前髪・後ろ髪・目・腕などに分解。隠れていた部分はAIが描き足す</li>
+   <li><b>手直しする</b>：残った影を消す。拾えなかったパーツは元の絵から作る</li>
+   <li><b>ブラウザで動かす</b>：WebGLで、まばたき・口パク・視線・髪の揺れ・ジャンプ</li>
+   <li><b>見た目を整える</b>：AIっぽさを抑える塗りと質感にする</li>
+  </ol>
+ </div>
+
+ <div class="knock">— LOG</div>
+
+ <div class="card">
+  <h2><span class="no">01</span>素材選びがいちばん大事</h2>
+  <p>立ち絵素材の規約は「商用OK・加筆OK」までしか書いていないことが多いです。Live2D化と、AIでの描き足しは別に確認が必要です。</p>
+  <p>今回の立ち絵素材SHOP（LiL様）にはBOOTHのメッセージで問い合わせて、<mark>どちらも問題ない</mark>と返事をもらってから公開しています。</p>
+ </div>
+
+ <div class="card">
+  <h2><span class="no">02</span>GPUがないので、クラウドで借りた</h2>
+  <p>See-throughはNVIDIAのGPUが必要です。手元は2019年のIntel MacBook Airなので動きません。</p>
+  <ul>
+   <li>東京のクラウドPC（airgpu・NVIDIA L4・1時間 約2.35ドル）を時間借り</li>
+   <li>接続は <b>Moonlight</b>（オープンソース）。Parsecの無料版は非商用のみなので使わない</li>
+   <li>1体 約8分。2体を並行で回して、起動から停止まで約50分</li>
+  </ul>
+  <p class="note">無料で試すなら、KaggleのGPU（週約30時間）という手もあります。</p>
+ </div>
+
+ <div class="card">
+  <h2><span class="no">03</span>地味なハマりどころ</h2>
+  <ul>
+   <li>MacからWindowsのクラウドPCにつなぐと、<code>\</code> <code>|</code> <code>:</code> などの<b>記号が化ける</b> → Windowsのスクリーンキーボードで入力</li>
+   <li>L4は満席で起動に失敗することがある → 時間をおいて再挑戦</li>
+   <li><b>使い終わったら必ず停止</b>。止め忘れると課金が続く</li>
+  </ul>
+ </div>
+
+ <div class="card">
+  <h2><span class="no">04</span>動かし方</h2>
+  <table>
+   <tr><th>まばたき・口パク</th><td>表情差分の顔だけ差し替える。<b>半透明で混ぜない</b>（残像が出る）</td></tr>
+   <tr><th>呼吸・首</th><td>画像を細かいメッシュ（18×44）に分けて少しずつ変形</td></tr>
+   <tr><th>視線</th><td>指の方へ顔を少し回し、黒目はさらに少し動かす</td></tr>
+   <tr><th>髪の揺れ</th><td>前髪・後ろ髪を少し遅れて追従。後ろ髪のほうを遅く大きく</td></tr>
+   <tr><th>腕・脚</th><td>腕は肩を支点に振り子。脚は足を固定して腰を動かす</td></tr>
+   <tr><th>タップ</th><td>体でジャンプ、顔で照れる</td></tr>
+  </table>
+  <p>エンジンは1つにして、キャラごとの違い（肩・首の位置、表情の割り当て）は設定だけで変えられるようにしました。</p>
+ </div>
+
+ <div class="card">
+  <h2><span class="no">05</span>AIの描き足しは手直しが要る</h2>
+  <p>見えている部分は元の絵の画素なので、重ねると元の絵とほぼ同じになります。ただ、顔に髪の影が残ったり、シスター服のベールを拾えなかったりしました。拾えなかったパーツは元の絵から作り直しています。</p>
+ </div>
+
+ <div class="card">
+  <h2><span class="no">06</span>なめらかに動くほど「AIっぽい」</h2>
+  <p>いちばんの発見です。コマ打ち・縁取り・トーン・くすみ色・紙の質感を切り替えて比べて、</p>
+  <p><mark>セル塗り＋トーン＋くすみ色＋紙の質感</mark>に落ち着きました。少しマンガ寄りにすると、印象がかなり変わります。</p>
+ </div>
+
+ <div class="card">
+  <h2><span class="no">07</span>本物のLive2Dとの使い分け</h2>
+  <table>
+   <tr><th></th><td><b>この方式</b></td><td><b>本物のLive2D</b></td></tr>
+   <tr><th>費用</th><td>素材代＋数百円</td><td>依頼で1体5万〜10万円</td></tr>
+   <tr><th>動き</th><td>控えめ</td><td>立体的・細かい</td></tr>
+   <tr><th>向き</th><td>何十人もいるキャラ</td><td>看板の数人</td></tr>
+  </table>
+  <p>次世代どぱたんでは、全キャラはこの方式、看板の数人だけ本物のLive2D、という組み合わせを考えています。</p>
+ </div>
+
+ <div class="knock">— COST</div>
+ <div class="card">
+  <table>
+   <tr><th>立ち絵素材（衣装2種・表情差分つき）</th><td>450円</td></tr>
+   <tr><th>クラウドGPU（2体分）</th><td>約150円</td></tr>
+   <tr><th>See-through・エンジン</th><td>0円</td></tr>
+   <tr><th>合計</th><td><b>約600円</b></td></tr>
+  </table>
+ </div>
+
+ <footer>立ち絵：LiL様（<a href="https://lilai.booth.pm/" target="_blank" rel="noopener">立ち絵素材SHOP</a>）<br>See-through：Jian Lin ほか（SIGGRAPH 2026、Apache-2.0）<br><br><a href="../../links/">Room_25 リンク集</a> ／ © Room_25</footer>
+</main>
+<script>
+/* 動画（55A.mp4・55B.mp4）をこのフォルダに置くと表示される */
+const box=document.getElementById("video");let ok=0;
+box.querySelectorAll("video").forEach(v=>{v.addEventListener("loadeddata",()=>{ok++;box.classList.add("on")});v.addEventListener("error",()=>v.remove())});
+</script>
+<script data-goatcounter="https://room25.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body></html>
