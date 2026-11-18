@@ -2562,7 +2562,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <button id="gRst">キャラ・◆を初期化</button>
   <button id="tutagain">チュートリアルをもう一度見る</button>
   <button id="rst">進捗をリセット</button>
-  <button id="homeBtn">最初の画面に戻る（どぱたん＋／提出版を選び直す）</button>
+  <button id="homeBtn">タイトル画面に戻る</button>
   <button class="main" id="cls">閉じる</button>
 </div></div>
 <div class="ov inv" id="ngc" style="z-index:13"><div class="sheet"><div class="pbig" style="font-size:20px">はじめる前に</div><div class="hint" style="text-align:left;font-size:14px;line-height:1.7">掛け声やキャラクターの声は、アプリに収録しています（VOICEVOX）。最初に、よく使う声だけを、すぐ鳴らせる形に準備します（数秒）。BGMは、全ステージ分を裏で少しずつ作って保存します（その間も遊べます）。<br>・音声は VOICEVOX（各キャラクターの声）を利用しています。クレジットは設定の「全体」タブにあります。</div><div class="hint" style="text-align:left;font-size:13px;line-height:1.6">「すべての声を準備」を選ぶと、全キャラの自己紹介・スキルの声と、全部の掛け声を最初にまとめて準備します（1分ほど）。</div><button class="main" id="ngok">よく使う声だけ準備して始める</button><button id="ngall">すべての声を準備して始める（1分ほど）</button><button id="ngno">やめる</button></div></div>
@@ -4796,7 +4796,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="2.11",VLOG=[
+var VERSION="2.12",VLOG=[
+ ["2.12","2026-11-19",["設定の「最初の画面に戻る」を「タイトル画面に戻る」にしました","プライバシーポリシーと利用規約に、対象年齢（13歳以上）とお問い合わせのメールアドレスを書きました","編成の一覧でキャラを押してすぐ別の画面に移ると、見えない所でエラーが出ていたのを直しました"]],
  ["2.11","2026-11-19",["その日最初にアプリを開いてログインボーナスを受け取ると、ホームの相棒のカードが2枚に増えて見えていたのを直しました"]],
  ["2.10","2026-11-18",["Google Play 版の準備：利用規約のページを作り、設定から利用規約とデータの削除の方法を開けるようにしました","全国ランキングの名前に、人を傷つける言葉・URL・電話番号などを使えないようにしました。不適切な名前を見つけた時の知らせ方も書きました","ページの題名を「どぱたん＋｜推しと覚える英単語アプリ」に、アプリの説明を5051語に直しました"]],
  ["2.09","2026-11-18",["今日の復習は、答えを見る前に思い出せるよう、確認テストから始まるようにしました（先にカードを見たい時は「先にカードで見る」）","メールの並びを、キャラ・ボーナスのメール → 今日の復習・タスク → 更新やお知らせ の順にしました","今日のタスクを終えると、ホームの相棒のあいさつが「おつかれさま」の言葉に変わります。テストの終わりに達成をほめるセリフが出ていなかったのも直しました"]],
@@ -7831,6 +7832,7 @@ function fillPanel(){
   var st=$("pstage");if(!st)return;st.parentNode.querySelector(".pinfo").outerHTML=infoHtml();bindInfo();
 }
 function talk(i){
+  if(!$("pstage"))return; /* 編成を開いてすぐ別の画面へ移ると、0.35秒後のあいさつで落ちていた（v2.12） */
   var id=cols()[i];if(!id)return;
   var L=(CPL[id]||[]).slice(0,cplN(lvOf(id),id));if(!L.length)L=[charLine(id)];
   var k;do{k=Math.floor(Math.random()*L.length)}while(L.length>1&&k===PLINE[id]);PLINE[id]=k;var line=L[k];
