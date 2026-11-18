@@ -2410,10 +2410,6 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <div class="dop"><h3>アニメーション</h3>
   <label class="rad"><input type="checkbox" id="animChk"> 画面の切り替えやボタンなどを動かす</label>
   <div class="hint">オフにすると、画面の動きを止めて軽くします（ガチャやテストの演出はそのままです）。</div></div>
-  <div class="dop" id="iapBox" hidden><h3>全解放パック</h3>
-  <div class="hint">すべてのコンテンツは無料で遊べます。全解放パックを買うと、待たずにすぐ、全39キャラ（Lv3・MAX）・ハズレ図鑑のすべてが解放されます（買い切り・1回だけ）。</div>
-  <div class="pair"><button class="main" id="iapBuy">全解放パックを購入</button><button id="iapRest">購入を復元</button></div>
-  <div class="hint" id="iapMsg"></div></div>
   <div class="dop"><h3>バージョン</h3>
   <div class="hint">どぱたん＋ ver <b id="verno"></b></div>
   <details class="dt"><summary>更新履歴</summary><div id="verlog"></div></details></div>
@@ -4734,74 +4730,20 @@ function applyCustomBg(){
 })();
 var CREDITS=["VOICEVOX:四国めたん","VOICEVOX:春日部つむぎ","VOICEVOX:雨晴はう","VOICEVOX:冥鳴ひまり","VOICEVOX:九州そら","VOICEVOX:WhiteCUL","VOICEVOX:櫻歌ミコ","VOICEVOX:小夜/SAYO","VOICEVOX:ナースロボ＿タイプＴ","VOICEVOX:†聖騎士 紅桜†","VOICEVOX:春歌ナナ","VOICEVOX:猫使ビィ","VOICEVOX:中国うさぎ","VOICEVOX:波音リツ","VOICEVOX:あいえるたん","VOICEVOX:琴詠ニア","VOICEVOX:東北ずん子","VOICEVOX:東北きりたん","VOICEVOX:東北イタコ","VOICEVOX:中部つるぎ"];
 function credHtml(){return '<b>音声</b><br>'+CREDITS.map(esc).join("<br>")+'<br><br><b>単語リスト</b><br>NGSL（New General Service List）1.2　Browne, C., Culligan, B. &amp; Phillips, J.　CC BY-SA 4.0<br>NGSL-GR（New General Service List for Graded Readers）1.0　Browne, C. &amp; Culligan, B.　CC BY-SA 4.0<br><br><b>イラスト</b><br>立ち絵：わたおび（立ち絵素材 わたおきば https://wataokiba.net/）<br><br><b>例文の英語音声</b><br>Kokoro-82M（hexgrad）　Apache License 2.0<br><br>くわしい規約とライセンスは「データ」タブの「クレジット」にあります。'}
-/* ---- 全解放パック（Google Play の買い切り。Google Play版のアプリの中でだけ表示） ---- */
-var IAP_SKU="unlock_all";
-/* 2026-11-18 アオイ決定（A案）：Google Play には無料アプリとして出し、課金は後回し。始める時に true にする */
-var IAP_ON=false;
-var IAP_ACK="";/* 購入の承認をするサーバーのURL（任意）。空のときは、購入をすぐ「消費」して承認の代わりにします */
-var IAP={svc:null,item:null,busy:0};
-var FULL=false;try{FULL=localStorage.getItem("dopa:full")==="1"}catch(e){}
+/* ---- すべて解放（管理者コマンドの「全解放」で使う。2026-11-19 アオイ決定：課金はしない） ---- */
 function fullApply(){
   CHARS.forEach(function(c){var had=lvOf(c.id);G.chars[c.id]=LVMAX;if(!had&&G.party.length<6&&G.party.indexOf(c.id)<0)G.party.push(c.id)});
   G.slots=6;HZ.forEach(function(h){if(!G.hz[h.id])G.hz[h.id]=1});
   if(!G.first)G.first=G.party[0]||"c01";G.starter=1;
   saveG();try{updStones()}catch(e){}
 }
-function fullGrant(){
-  FULL=true;try{localStorage.setItem("dopa:full","1")}catch(e){}
-  fullApply();try{renderG("全解放パックで、すべてのキャラと編成枠を解放しました！")}catch(e){}
-}
-function iapMsg(t){var m=$("iapMsg");if(m)m.textContent=t}
-function iapAck(token){
-  if(!IAP_ACK)return IAP.svc.consume(token).then(function(){return true});
-  return fetch(IAP_ACK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:token,sku:IAP_SKU})}).then(function(r){return r.ok?r.json():{ok:false}}).then(function(j){return !!(j&&j.ok)});
-}
-function iapInit(){
-  if(!("getDigitalGoodsService" in window)||!window.PaymentRequest)return;
-  window.getDigitalGoodsService("https://play.google.com/billing").then(function(svc){
-    if(!svc)return;
-    IAP.svc=svc;var bx=$("iapBox");if(bx)bx.hidden=false;
-    svc.getDetails([IAP_SKU]).then(function(d){
-      IAP.item=d&&d[0];
-      if(IAP.item&&IAP.item.price){var p=IAP.item.price;var fmt;try{fmt=new Intl.NumberFormat("ja-JP",{style:"currency",currency:p.currency}).format(p.value)}catch(e){fmt=p.value+" "+p.currency}$("iapBuy").textContent="全解放パックを購入（"+fmt+"）"}
-    }).catch(function(){});
-    iapRestore(true);
-  }).catch(function(){});
-}
-function iapRestore(quiet){
-  if(!IAP.svc){if(!quiet)iapMsg("Google Play版のアプリの中でだけ使えます。");return}
-  IAP.svc.listPurchases().then(function(list){
-    var p=(list||[]).filter(function(x){return x.itemId===IAP_SKU})[0];
-    if(p){
-      if(!FULL)fullGrant();
-      if(IAP_ACK)iapAck(p.purchaseToken).catch(function(){});
-      iapMsg("全解放パックは購入済みです。");
-    }else if(FULL)iapMsg("全解放パックは購入済みです（この端末に記録されています）。");
-    else if(!quiet)iapMsg("購入の記録が見つかりませんでした。"+(IAP_ACK?"":"（この版では、アプリを入れ直すと購入の記録が引き継がれない場合があります。困ったときはお問い合わせください）"));
-  }).catch(function(){if(!quiet)iapMsg("購入情報を確認できませんでした。通信状況を確認してください。")});
-}
-function iapBuy(){
-  if(FULL){iapMsg("全解放パックは購入済みです。");return}
-  if(!IAP.svc){iapMsg("Google Play版のアプリの中でだけ購入できます。");return}
-  if(IAP.busy)return;IAP.busy=1;
-  var req;
-  try{req=new PaymentRequest([{supportedMethods:"https://play.google.com/billing",data:{sku:IAP_SKU}}],{total:{label:"Total",amount:{currency:"JPY",value:"0"}}})}catch(e){IAP.busy=0;iapMsg("購入画面を開けませんでした。");return}
-  req.show().then(function(res){
-    var token=res.details&&res.details.purchaseToken;
-    if(!token){IAP.busy=0;res.complete("fail");iapMsg("購入を確認できませんでした。");return}
-    return iapAck(token).then(function(ok){
-      IAP.busy=0;
-      if(ok){fullGrant();iapMsg("ありがとうございます！すべて解放しました。");res.complete("success")}
-      else{res.complete("fail");iapMsg("購入の確認に失敗しました。しばらくしてから「購入を復元」を押してください。")}
-    });
-  }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
-}
-var VERSION="2.12",VLOG=[
+var VERSION="2.13",VLOG=[
+ ["2.13","2026-11-19",["どぱたん＋は完全無料です。アプリの中で買えるものの準備をすべて取りやめ、説明からも消しました"]],
  ["2.12","2026-11-19",["設定の「最初の画面に戻る」を「タイトル画面に戻る」にしました","プライバシーポリシーと利用規約に、対象年齢（13歳以上）とお問い合わせのメールアドレスを書きました","編成の一覧でキャラを押してすぐ別の画面に移ると、見えない所でエラーが出ていたのを直しました"]],
  ["2.11","2026-11-19",["その日最初にアプリを開いてログインボーナスを受け取ると、ホームの相棒のカードが2枚に増えて見えていたのを直しました"]],
  ["2.10","2026-11-18",["Google Play 版の準備：利用規約のページを作り、設定から利用規約とデータの削除の方法を開けるようにしました","全国ランキングの名前に、人を傷つける言葉・URL・電話番号などを使えないようにしました。不適切な名前を見つけた時の知らせ方も書きました","ページの題名を「どぱたん＋｜推しと覚える英単語アプリ」に、アプリの説明を5051語に直しました"]],
  ["2.09","2026-11-18",["今日の復習は、答えを見る前に思い出せるよう、確認テストから始まるようにしました（先にカードを見たい時は「先にカードで見る」）","メールの並びを、キャラ・ボーナスのメール → 今日の復習・タスク → 更新やお知らせ の順にしました","今日のタスクを終えると、ホームの相棒のあいさつが「おつかれさま」の言葉に変わります。テストの終わりに達成をほめるセリフが出ていなかったのも直しました"]],
- ["2.08","2026-11-18",["ログインボーナスを受け取ったら、ホームの連続ログイン日数もすぐ変わるようにしました","今日の復習の結果画面に、全体テスト用の説明が出ていたのを、復習用の説明に直しました","ヘルプの「編成は最大6人」を「3人まで（最初から3人とも使える）」に直しました。全解放パックの説明からも「編成枠6つ」を外しました","★2↑・★3↑のガチャの表示を「キャラが出たら★2以上／★3以上」に。ヘルプの表も同じ書き方にしました","ガチャの「確率・ラインナップ」「演出スキップ」のボタンが、細い画面で2行にならないようにしました"]],
+ ["2.08","2026-11-18",["ログインボーナスを受け取ったら、ホームの連続ログイン日数もすぐ変わるようにしました","今日の復習の結果画面に、全体テスト用の説明が出ていたのを、復習用の説明に直しました","ヘルプの「編成は最大6人」を「3人まで（最初から3人とも使える）」に直しました","★2↑・★3↑のガチャの表示を「キャラが出たら★2以上／★3以上」に。ヘルプの表も同じ書き方にしました","ガチャの「確率・ラインナップ」「演出スキップ」のボタンが、細い画面で2行にならないようにしました"]],
  ["2.07","2026-11-18",["はじめてのテストで出る得点のルールの案内を、画面のいちばん上に小さく出すようにしました（問題文に重ならないように）", "ガチャのラインナップの「追加」の印が、キャラの丸い枠にかからないようにしました"]],
  ["2.06","2026-11-17",["始めた日より前のお知らせが、すでに受信箱に入っていた場合も消えるようにしました", "記録の「撃破したボス」「覚醒したキャラ」の分母を、ボスのいるステージの数（35）にしました", "全体テストのロックの残り時間を1か所だけに出し、1時間未満は「4分」のように書きます。開いている間も自動で減り、外れたら消えます", "ボス戦の結果の「全体系のテスト」という言い方を直しました"]],
  ["2.05","2026-11-17",["テスト・結果・ガチャに「？」を置き、ルールの説明（得点・合格と習得・ガチャで出るもの）をその場から開けるようにしました", "はじめてのテストの最初に、得点のルール（ミスは−5点、0点より下にはならない）を1回だけ出します", "結果画面の説明を行ごとに分け、「合格」と「習得」の違いを一言で書きました", "チュートリアルの暗記は、10語ぜんぶ見てからテストに進むようにしました", "学習タブとテストタブで、最後に選んだステージを共有します", "ガチャの演出が終わるまで、所持◆と図鑑の数を書き換えないようにしました（結果が先に分からないように）", "テストの3択で、まちがいの選択肢を難しさの近い単語から選ぶようにしました", "声をOFFにしている時は、キャラをタップした時のセリフを吹き出しで出します", "おすすめ編成で、相棒が勝手に変わらないようにしました", "全体テストがロック中の時は、その選択肢に鍵と残り時間を出します。開放の条件も具体的に書きました", "「次へ：ON/OFF」を「自動で次へ：ON/OFF」に。ステージの印・PART・覚醒・BGMの音の設定などに説明を足しました", "「★4以上 確定」のガチャの表示を「キャラが出たら★4以上」に。ラインナップの「NEW」は「追加」に", "ホームの数字（受信箱の未読）に封筒の印を付けました。相棒を変えるボタンに「相棒」の文字", "設定の全体タブのクレジットに、すべての声を載せました。「進捗をリセット」はデータタブの一番下だけに", "新しく始めた人には、始めた日より前のお知らせを出さないようにしました", "start／begin、include／involve／contain、like の訳を分け、sophisticate の例文を動詞の文にしました", "楓のストーリー1話目の服装の説明を、立ち絵に合わせました"]],
@@ -4906,7 +4848,7 @@ var VERSION="2.12",VLOG=[
  ["1.6","2026-11-11",["テストBGMの速さを3段階に（標準／速い／もっと速い）。はじめは「速い」です（テストの「くわしい設定」で変えられます）","正解・不正解の音を短くして、次の問題へ早く進むように","テストの出題数を、はじめは10問に","ホームの曲を1曲4〜5分と長くし、曲が変わるときは、だんだん小さく→一瞬無音→次の曲、にしました","画面を切り替えても曲が最初からやり直しにならず、続きから流れるように","上のバナーに「お知らせ」（ベル）を追加。更新やログインボーナス、公式のお知らせが見られます","共有ボタンを、わかりやすいアイコンと文字に","ホーム画面とテスト中にも、BGMをすぐON/OFFできるボタンを追加","アプリを開いたとき、閉じている間に更新されていたら、お知らせを表示","最初の画面のロゴを、テーマごとの文字に（スタイリッシュは尖った字、中華はやわらかい字など）","はじめて遊ぶときの流れを「最初の画面→データの準備→チュートリアル→プレイ」に分けました","iPhoneのアプリ版で、上のバナーを上部の表示から少し離しました"]],
  ["1.5.1","2026-11-11",["iPhoneのアプリ版で、画面の下に白い空白が出る問題と、上が白っぽくなる問題を修正（画面全体をアプリの色で埋めるように）","更新した直後に、古い版の画面が出ることがある問題を修正","学習・テスト・ガチャなどを切り替えたとき、曲がすぐ切り替わるように（ホームで曲が変わるときだけ、ゆっくり重ねます）"]],
  ["1.5","2026-11-11",["上のバナーに共有ボタンを追加（Xに投稿・LINEなどで共有・リンクのコピー）","公式X・YouTube・Discordへのボタンを、ホーム画面と共有画面に追加","タイトルのロゴを新しいデザインに（文字をアプリに同梱して、ネットがなくても同じ見た目に）","ガチャの結果を、スクロールしなくてもすぐ閉じられるように（右上の「閉じる」と、下に固定のOK）","ホームの曲の切り替えを、気づかないくらい自然に（5秒かけて重ねる／ホームと暗記の行き来で音を止めない）","スタイリッシュのBGMを、1.2のときの曲に戻しました","iPhoneで上のバナーが白っぽく見える問題を修正","開いたとき、まれに古い色の画面が一瞬出る問題を修正","スタイリッシュに2色目（シアン）を追加して、ガチャ以外の画面もにぎやかに","アプリ版で最初に開いたとき、全データをダウンロードするか選べるように","管理者コマンドを追加（データタブ）"]],
- ["1.4","2026-11-11",["声をアプリに収録しました（ネットから取得しなくなり、すぐ鳴ります）","利用規約に合わせて、2人の声を変更（結衣：東北ずん子、エルナ：東北イタコ）","掛け声の声は、収録した20種類から選ぶ形にしました","スマホのホーム画面に追加して、アプリとして使えるようにしました（オフラインでも動きます）","全解放パック（Google Play版のみ・買い切り）を追加。すべてのコンテンツは今までどおり無料で遊べます","設定の「全体」タブに、クレジットとプライバシーポリシーを追加"]],
+ ["1.4","2026-11-11",["声をアプリに収録しました（ネットから取得しなくなり、すぐ鳴ります）","利用規約に合わせて、2人の声を変更（結衣：東北ずん子、エルナ：東北イタコ）","掛け声の声は、収録した20種類から選ぶ形にしました","スマホのホーム画面に追加して、アプリとして使えるようにしました（オフラインでも動きます）","設定の「全体」タブに、クレジットとプライバシーポリシーを追加"]],
  ["1.3","2026-11-11",["学習モードで「隠す／意味を見る」ボタンが下のボタンと重なる問題を修正（画面が短い端末でも重ならないように）","アプリやブラウザを切り替えて戻ったときに、音が大きく鳴ることがある問題を修正（声が音量設定を通らずに鳴っていたのを止め、戻ったときは音をゆっくり大きくします）","最初の画面に、オープニングのアニメーションを追加","スタイリッシュのBGMを、より尖った音に作り直し（ワブルベース、サイドチェインのうねり、グリッチ）","DLCに「残りをまとめてインストール」を追加"]],
  ["1.2","2026-11-11",["重さの原因を調べて対策：BGM・効果音・声を、プレイ中にその場で作らないようにしました（保存したものを鳴らすだけ）","DLC（追加コンテンツ）画面を追加：BGMパック（テーマ別）・ボイスパックを選んでインストール／削除できます","正解・不正解の色分けを修正（正解はタップした所が色付き、不正解はタップした所が赤・正解が緑。テーマごとの色）","テーマごとのテスト曲を、メロディーとリズムから作り直して、違いをはっきりさせました","軽量モードを追加（全体タブ）","出題範囲などの数字を、数字キーで直接入力できるようにしました","立体音響を見直して正式版に（標準は「マイルド」）","設定のタブと中身の間に空白ができる問題を修正"]],
  ["1.1","2026-11-11",["スタイリッシュ（黒×ライム）を標準のテーマにし、最初の画面もそれに合わせました","テーマごとに新しいBGMを作りました（テスト・ホーム・暗記の曲が、テーマに合わせて変わります）","設定に「全体」タブを追加（テーマ・アニメーション・バージョン）","アニメーションを追加（設定でオフにできます）","数字や選択肢を選ぶ画面を、テーマに合わせたデザインにしました","画面が横にずれないようにしました","ガチャでキャラが出たら、ボタンを押さなくても紹介と自己紹介の声が流れます","最初の仲間3人はランダム（★1〜★3）になり、やり直しても変わりません","立ち絵を高画質にしました","BGMがゆっくり大きくなって始まるようにしました"]],
@@ -5335,9 +5277,7 @@ function dlcDelete(id,b){
 }
 (function(){
   var c=$("credAll");if(c)c.innerHTML=credHtml();
-  if($("iapBuy"))$("iapBuy").onclick=iapBuy;if($("iapRest"))$("iapRest").onclick=function(){iapRestore(false)};
-  if(FULL)setTimeout(function(){try{var ch=false;CHARS.forEach(function(x){if(lvOf(x.id)<LVMAX)ch=true});if(ch||G.slots<6)fullApply()}catch(e){}},0);
-  if(IAP_ON)setTimeout(iapInit,800);
+  try{localStorage.removeItem("dopa:full")}catch(e){} /* 有料の解放は無くなった（v2.13） */
   if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(r){try{r.update()}catch(e){}}).catch(function(){})})}
 })();
 
@@ -6095,7 +6035,7 @@ $("cls").onclick=function(){$("ov").classList.add("inv")};
 var gArm=false;
 $("gRst").onclick=function(){
   if(!gArm){gArm=true;$("gRst").textContent="もう一度押すと初期化します";setTimeout(function(){gArm=false;$("gRst").textContent="キャラ・◆を初期化"},4000)}
-  else{gArm=false;G=fixG(null);if(FULL)fullApply();saveG();updStones();try{renderG("")}catch(e){}$("gRst").textContent="キャラ・◆を初期化";$("iomsg").textContent="キャラ・◆を初期化しました。"}
+  else{gArm=false;G=fixG(null);saveG();updStones();try{renderG("")}catch(e){}$("gRst").textContent="キャラ・◆を初期化";$("iomsg").textContent="キャラ・◆を初期化しました。"}
 };
 $("homeBtn").onclick=goHome;
 var armed=false,armedC=false;
