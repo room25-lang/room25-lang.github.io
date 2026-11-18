@@ -1,5 +1,5 @@
 /* どぱたん Service Worker：アプリ本体はネット優先（更新をすぐ反映）、声・アイコンは保存したものを優先 */
-var V="dopatan-2.0.6";
+var V="dopatan-2.0.7";
 var CORE=["./","index.html","manifest.webmanifest","privacy.html","icons/icon-192.png","icons/icon-512.png","icons/maskable-512.png","icons/apple-touch-icon.png","icons/favicon-48.png","img.json","expp.json","exs.json","voices/v8.mp3","voices/v46.mp3","voices/v47.mp3"];
 self.addEventListener("install",function(e){
   e.waitUntil(caches.open(V).then(function(c){return c.addAll(CORE)}).then(function(){return self.skipWaiting()}));
@@ -15,9 +15,6 @@ self.addEventListener("fetch",function(e){
   /* 提出版（/dopatan/）には関わらない */
   if(u.pathname.indexOf("/dopatan/")===0||u.pathname==="/dopatan")return;
   if(u.pathname.indexOf("/gck2026/")===0||u.pathname==="/gck2026")return;
-  /* リンク集・開発ログ（ふつうのページ。アプリの index.html の保存を上書きしないように） */
-  if(u.pathname.indexOf("/links/")===0||u.pathname==="/links")return;
-  if(u.pathname.indexOf("/devlog/")===0||u.pathname==="/devlog")return;
   if(/news\.json$/.test(u.pathname)){e.respondWith(fetch(u.href,{cache:"no-store"}).catch(function(){return new Response("{\"news\":[]}",{headers:{"Content-Type":"application/json"}})}));return}
   var page=r.mode==="navigate"||/\/(index\.html)?$/.test(u.pathname);
   if(page){

@@ -2314,6 +2314,10 @@ button,.hdtg,[role=button],a{touch-action:manipulation}
 .cvsil .cpbub{display:block!important}.cvsil .hmcard .cpbub{display:block!important}
 /* v2.05 #90 進捗のリセットは押し間違えないよう、赤い枠で離す */
 #ov #rst{margin-top:18px;border:1px solid #e5484d!important;color:#ff7a7a!important;background:transparent!important}
+/* v2.07 #40 テスト中の案内は画面のいちばん上に小さく（問題文に重ねない） */
+body.qmode #v5toast{top:calc(env(safe-area-inset-top,0px) + 4px);font-size:12px;line-height:1.45;padding:6px 10px;max-width:94vw;width:max-content}
+/* v2.07 #79 「追加」の印を丸い枠にかけない（枠の右上の外側へ） */
+.gluc em{position:static!important;order:3;margin-top:1px;font-size:9px}
 </style>
 </head>
 <body class="dopa">
@@ -4785,7 +4789,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="2.06",VLOG=[
+var VERSION="2.07",VLOG=[
+ ["2.07","2026-11-18",["はじめてのテストで出る得点のルールの案内を、画面のいちばん上に小さく出すようにしました（問題文に重ならないように）", "ガチャのラインナップの「追加」の印が、キャラの丸い枠にかからないようにしました"]],
  ["2.06","2026-11-17",["始めた日より前のお知らせが、すでに受信箱に入っていた場合も消えるようにしました", "記録の「撃破したボス」「覚醒したキャラ」の分母を、ボスのいるステージの数（35）にしました", "全体テストのロックの残り時間を1か所だけに出し、1時間未満は「4分」のように書きます。開いている間も自動で減り、外れたら消えます", "ボス戦の結果の「全体系のテスト」という言い方を直しました"]],
  ["2.05","2026-11-17",["テスト・結果・ガチャに「？」を置き、ルールの説明（得点・合格と習得・ガチャで出るもの）をその場から開けるようにしました", "はじめてのテストの最初に、得点のルール（ミスは−5点、0点より下にはならない）を1回だけ出します", "結果画面の説明を行ごとに分け、「合格」と「習得」の違いを一言で書きました", "チュートリアルの暗記は、10語ぜんぶ見てからテストに進むようにしました", "学習タブとテストタブで、最後に選んだステージを共有します", "ガチャの演出が終わるまで、所持◆と図鑑の数を書き換えないようにしました（結果が先に分からないように）", "テストの3択で、まちがいの選択肢を難しさの近い単語から選ぶようにしました", "声をOFFにしている時は、キャラをタップした時のセリフを吹き出しで出します", "おすすめ編成で、相棒が勝手に変わらないようにしました", "全体テストがロック中の時は、その選択肢に鍵と残り時間を出します。開放の条件も具体的に書きました", "「次へ：ON/OFF」を「自動で次へ：ON/OFF」に。ステージの印・PART・覚醒・BGMの音の設定などに説明を足しました", "「★4以上 確定」のガチャの表示を「キャラが出たら★4以上」に。ラインナップの「NEW」は「追加」に", "ホームの数字（受信箱の未読）に封筒の印を付けました。相棒を変えるボタンに「相棒」の文字", "設定の全体タブのクレジットに、すべての声を載せました。「進捗をリセット」はデータタブの一番下だけに", "新しく始めた人には、始めた日より前のお知らせを出さないようにしました", "start／begin、include／involve／contain、like の訳を分け、sophisticate の例文を動詞の文にしました", "楓のストーリー1話目の服装の説明を、立ち絵に合わせました"]],
  ["2.04","2026-11-17",["「今日の目標」の達成で、アプリを開き直すと◆30とハンコがもう一度出ていたのを直しました（1日1回だけ）","チュートリアルの最初で、BGMと声の雰囲気（ノリノリ／寄り添い）を選べるようにしました","チュートリアルのあと、暗記の範囲が「1〜10」のまま残っていたのを直しました","チュートリアルの吹き出しが、暗記カードの意味や例文に重ならないようにしました","「今日の続き」の新しい単語の数を、目標で決めた1日の語数にそろえました","まだ単語を覚えていない時に「今日の復習はすべて終わりました」と出ないようにしました","記録のグラフの「1日平均」を、使い始めた日から計算するようにしました","記録の「撃破したボス」「覚醒したキャラ」の分母を、キャラの数（39）にしました","ストーリーのカードの小さな番号を「第1話」にしました","キャラタブの「ストーリー」ボタンが2行に折り返さないようにしました","スペル入力で間違えた時、違う文字を赤で出すようにしました","設定の説明（データタブ）が指す場所を直しました","追加キャラを編成した時、テストで無い音声ファイルを取りに行っていたのを直しました"]],
@@ -6300,7 +6305,7 @@ function ask(){
   $("nxT").textContent="自動で次へ："+(NXT?"OFF":"ON");
   $("qHelp").onclick=function(){if(window.helpOpen)helpOpen("1問の得点")};
   /* #40 はじめてのテストの最初に、得点のルールを1回だけ */
-  if(SK==="dopa"&&T.q===0&&T.lap===1&&(function(){try{if(localStorage.getItem("dopa:scr1"))return false;localStorage.setItem("dopa:scr1","1");return true}catch(e){return false}})()){setTimeout(function(){if(window.V5)V5.toast("正解で得点（覚えていない単語ほど高い）／ミス・スキップは −5点（0点より下にはならない）。「？」でくわしく",4200)},700)}
+  if(SK==="dopa"&&T.q===0&&T.lap===1&&(function(){try{if(localStorage.getItem("dopa:scr1"))return false;localStorage.setItem("dopa:scr1","1");return true}catch(e){return false}})()){setTimeout(function(){if(window.V5)V5.toast("ミス・スキップは −5点（0点より下にはならない）。くわしくは右上の「？」",3600)},700)}
   $("nxT").onclick=function(){nxtSet(!NXT);$("nxT").textContent="自動で次へ："+(NXT?"OFF":"ON");if(T&&T.answered){$("nx").classList.toggle("inv",!NXT);if(!NXT)autoNext()}};
   $("toL").onclick=function(){if(confirm("テストを中止して、学習画面に戻りますか？（記録は変わりません）")){T=null;tab("L")}};
   try{if(dir===1&&localStorage.getItem("dopa:autosay")==="1"&&!T.autoDone)speak(WORDS[i][0],1)}catch(e){}
