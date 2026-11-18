@@ -2318,6 +2318,8 @@ button,.hdtg,[role=button],a{touch-action:manipulation}
 body.qmode #v5toast{top:calc(env(safe-area-inset-top,0px) + 4px);font-size:12px;line-height:1.45;padding:6px 10px;max-width:94vw;width:max-content}
 /* v2.07 #79 「追加」の印を丸い枠にかけない（枠の右上の外側へ） */
 .gluc em{position:static!important;order:3;margin-top:1px;font-size:9px}
+/* v2.08 #121 ガチャの「確率・ラインナップ」「演出スキップ」を折り返さない */
+#gacha .gctl button{white-space:nowrap;font-size:min(14px,3.6vw);padding-left:6px;padding-right:6px}#gacha .gctl{gap:6px}#gacha .gctl>button{min-width:0}#gacha .gctl .qhelp{flex:0 0 34px!important;width:34px!important;padding:0!important}
 </style>
 </head>
 <body class="dopa">
@@ -2406,7 +2408,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <label class="rad"><input type="checkbox" id="animChk"> 画面の切り替えやボタンなどを動かす</label>
   <div class="hint">オフにすると、画面の動きを止めて軽くします（ガチャやテストの演出はそのままです）。</div></div>
   <div class="dop" id="iapBox" hidden><h3>全解放パック</h3>
-  <div class="hint">すべてのコンテンツは無料で遊べます。全解放パックを買うと、待たずにすぐ、全39キャラ（Lv3・MAX）・編成枠6つ・ハズレ図鑑のすべてが解放されます（買い切り・1回だけ）。</div>
+  <div class="hint">すべてのコンテンツは無料で遊べます。全解放パックを買うと、待たずにすぐ、全39キャラ（Lv3・MAX）・ハズレ図鑑のすべてが解放されます（買い切り・1回だけ）。</div>
   <div class="pair"><button class="main" id="iapBuy">全解放パックを購入</button><button id="iapRest">購入を復元</button></div>
   <div class="hint" id="iapMsg"></div></div>
   <div class="dop"><h3>バージョン</h3>
@@ -2450,7 +2452,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
 <p class="note">テストを最後まで終えると、得点がそのまま◆（ガチャ石）になります。中止したテストは加算されません。</p>
 <h4>ガチャの値段</h4>
 <table><tr><th style="width:40%">回数</th><th>◆</th></tr><tr><td>1回</td><td>300</td></tr><tr><td>10回</td><td>2700（1割引き）</td></tr><tr><td>100回</td><td>27000（1割引き）</td></tr>
-<tr><td>★2以上 確定</td><td>1回 400</td></tr><tr><td>★3以上 確定</td><td>1回 600</td></tr><tr><td>★4以上 確定</td><td>1回 1000</td></tr></table>
+<tr><td>キャラが出たら★2以上</td><td>1回 400</td></tr><tr><td>キャラが出たら★3以上</td><td>1回 600</td></tr><tr><td>キャラが出たら★4以上</td><td>1回 1000</td></tr></table>
 <p class="note">確定ガチャは「当たったときのレア度の最低値」が決まるもので、当たりやすさは通常と同じです。</p>
 <h4>出るもの</h4>
 <span class="hvpc"><i style="width:10%"></i></span><p class="note"><b class="hl2">■</b> キャラ 約10%　／　ハズレ 約90%（1回だけ引いたとき）</p>
@@ -2460,7 +2462,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
 <h4>そのほか</h4>
 <table><tr><th style="width:40%">項目</th><th>内容</th></tr>
 <tr><td>最初の仲間</td><td>チュートリアル最後の無料10連で3人</td></tr><tr><td>ログインボーナス</td><td>7日で1周。1〜6日目は★1〜★4、7日目は★5以上が確定（1日空くと1日目から）</td></tr>
-<tr><td>編成</td><td>最初は3人、◆で最大6人。編成中の能力がテストに効く</td></tr><tr><td>キャラの場所</td><td>STAGE 1〜35に1体ずつ（千歳・ハオ・ユエ・灯真はガチャ限定）</td></tr></table>
+<tr><td>編成</td><td>3人まで（最初から3人とも使える）。編成中の能力がテストに効く</td></tr><tr><td>キャラの場所</td><td>STAGE 1〜35に1体ずつ（千歳・ハオ・ユエ・灯真はガチャ限定）</td></tr></table>
 </div></details>
   </div>
   <h3>ステージ音楽</h3>
@@ -4789,7 +4791,8 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="2.07",VLOG=[
+var VERSION="2.08",VLOG=[
+ ["2.08","2026-11-18",["ログインボーナスを受け取ったら、ホームの連続ログイン日数もすぐ変わるようにしました","今日の復習の結果画面に、全体テスト用の説明が出ていたのを、復習用の説明に直しました","ヘルプの「編成は最大6人」を「3人まで（最初から3人とも使える）」に直しました。全解放パックの説明からも「編成枠6つ」を外しました","★2↑・★3↑のガチャの表示を「キャラが出たら★2以上／★3以上」に。ヘルプの表も同じ書き方にしました","ガチャの「確率・ラインナップ」「演出スキップ」のボタンが、細い画面で2行にならないようにしました"]],
  ["2.07","2026-11-18",["はじめてのテストで出る得点のルールの案内を、画面のいちばん上に小さく出すようにしました（問題文に重ならないように）", "ガチャのラインナップの「追加」の印が、キャラの丸い枠にかからないようにしました"]],
  ["2.06","2026-11-17",["始めた日より前のお知らせが、すでに受信箱に入っていた場合も消えるようにしました", "記録の「撃破したボス」「覚醒したキャラ」の分母を、ボスのいるステージの数（35）にしました", "全体テストのロックの残り時間を1か所だけに出し、1時間未満は「4分」のように書きます。開いている間も自動で減り、外れたら消えます", "ボス戦の結果の「全体系のテスト」という言い方を直しました"]],
  ["2.05","2026-11-17",["テスト・結果・ガチャに「？」を置き、ルールの説明（得点・合格と習得・ガチャで出るもの）をその場から開けるようにしました", "はじめてのテストの最初に、得点のルール（ミスは−5点、0点より下にはならない）を1回だけ出します", "結果画面の説明を行ごとに分け、「合格」と「習得」の違いを一言で書きました", "チュートリアルの暗記は、10語ぜんぶ見てからテストに進むようにしました", "学習タブとテストタブで、最後に選んだステージを共有します", "ガチャの演出が終わるまで、所持◆と図鑑の数を書き換えないようにしました（結果が先に分からないように）", "テストの3択で、まちがいの選択肢を難しさの近い単語から選ぶようにしました", "声をOFFにしている時は、キャラをタップした時のセリフを吹き出しで出します", "おすすめ編成で、相棒が勝手に変わらないようにしました", "全体テストがロック中の時は、その選択肢に鍵と残り時間を出します。開放の条件も具体的に書きました", "「次へ：ON/OFF」を「自動で次へ：ON/OFF」に。ステージの印・PART・覚醒・BGMの音の設定などに説明を足しました", "「★4以上 確定」のガチャの表示を「キャラが出たら★4以上」に。ラインナップの「NEW」は「追加」に", "ホームの数字（受信箱の未読）に封筒の印を付けました。相棒を変えるボタンに「相棒」の文字", "設定の全体タブのクレジットに、すべての声を載せました。「進捗をリセット」はデータタブの一番下だけに", "新しく始めた人には、始めた日より前のお知らせを出さないようにしました", "start／begin、include／involve／contain、like の訳を分け、sophisticate の例文を動詞の文にしました", "楓のストーリー1話目の服装の説明を、立ち絵に合わせました"]],
@@ -5757,7 +5760,7 @@ function renderG(msg){
       '<div class="kvinfo">'+pool.length+'人　出現率 約'+Math.round(pr*100)+'%/回　10回で1人確定</div></div>'+(gHelp?gLineup(pool):'')+odds+
      '<div class="ginfo"><span>所持 <b>◆ '+G.stones+'</b></span><span>図鑑 '+own+'/'+CHARS.length+'　ハズレ '+hzOwn()+'/'+HZ.length+'</span></div>'+
      '<div class="gmsg" id="gmsg">'+esc(msg||"")+'</div>'+
-     '<div class="pair"><button class="sm" data-gh="1">'+(gHelp?'閉じる':'確率・ラインナップ')+'</button><button class="sm'+(GSKIP?' on':'')+'" id="gskb">演出スキップ：'+(GSKIP?'ON':'OFF')+'</button><button type="button" class="sm qhelp" aria-label="ガチャの説明" onclick="helpOpen&&helpOpen(\'出るもの\')">？</button></div>'+
+     '<div class="pair gctl"><button class="sm" data-gh="1">'+(gHelp?'閉じる':'確率・ラインナップ')+'</button><button class="sm'+(GSKIP?' on':'')+'" id="gskb">演出スキップ：'+(GSKIP?'ON':'OFF')+'</button><button type="button" class="sm qhelp" aria-label="ガチャの説明" onclick="helpOpen&&helpOpen(\'出るもの\')">？</button></div>'+
      '<div class="gbtns"><button class="gpb" data-gpull="1"><span>1回<b>◆'+banCost(B,1,E)+'</b></span></button><button class="gpb g10" data-gpull="10"><span>10回<b>◆'+banCost(B,10,E)+'</b></span></button><button class="gpb g100" data-gpull="100"><span>100回<b>◆'+banCost(B,100,E)+'</b></span></button></div>'+
      '<div class="gsp"><span>スカウトPt <b>'+(G.sp||0)+'</b> / '+SPN+'</span><i style="--sp:'+Math.min(100,(G.sp||0)/SPN*100)+'%"></i><button class="sm'+((G.sp||0)>=SPN?' on':'')+'" id="gspx">好きなキャラと交換</button></div></div>';
   }
@@ -5820,8 +5823,8 @@ function roll(min){
 }
 var PMIN={2:400,3:600,4:1000};
 var BAN=[{m:0,k:"std",en:"STANDARD SCOUT",jp:"スタンダード・スカウト",tag:"全キャラ対象",feat:["M08","c20","c01"]},
- {m:2,k:"blu",en:"BLUE SCOUT",jp:"ブルー・スカウト",tag:"★2以上 確定",feat:["c07","M14","c05"]},
- {m:3,k:"vio",en:"VIOLET SCOUT",jp:"バイオレット・スカウト",tag:"★3以上 確定",feat:["c10","M02","c09"]},
+ {m:2,k:"blu",en:"BLUE SCOUT",jp:"ブルー・スカウト",tag:"キャラが出たら★2以上",feat:["c07","M14","c05"]},
+ {m:3,k:"vio",en:"VIOLET SCOUT",jp:"バイオレット・スカウト",tag:"キャラが出たら★3以上",feat:["c10","M02","c09"]},
  {m:4,k:"gld",en:"GOLD SCOUT",jp:"ゴールド・スカウト",tag:"キャラが出たら★4以上",feat:["c19","M10B","c16"]}];
 var gBan=0;try{gBan=Math.max(0,Math.min(3,parseInt(localStorage.getItem("dopa:gban"))||0))}catch(e){}
 var GSKIP=false;try{GSKIP=localStorage.getItem("dopa:gskip")==="1"}catch(e){}
@@ -5877,6 +5880,7 @@ function dailyLogin(){
   L.n=(L.last===dayKey(y))?L.n+1:1;L.last=t;
   var d=((L.n-1)%7)+1,LBS=[1,2,3,3,4,4,5],r=LBS[d-1],gem=50+50*d,c=d===7?roll(5):(function(){var pool=CHARS.filter(function(c){return c.s===r});return pool[Math.floor(Math.random()*pool.length)]})();
   var res=giveChar(c);G.stones+=gem;G.total+=gem;saveG();updStones();
+  try{if(window.homeRender&&!$("homeT").hidden)homeRender();if(window.V7home)V7home()}catch(e){}
   try{ntfAdd("lb"+t,"ログインボーナス（連続"+L.n+"日目）","★"+c.s+"の "+c.name+"（"+res.out+"）と ◆"+gem+" を受け取りました。")}catch(e){}
   showPull([res],"ログインボーナス　連続"+L.n+"日目<br><small>"+(d===7?"7日目：★5以上確定！":"★"+r+"のキャラ")+"　＋◆"+gem+"（7日目は★5以上）</small>");
   return true;
@@ -6575,7 +6579,7 @@ function finish(){
   }
   var partialPerfect=dopa&&rate>=0.9&&!T.full;
   var rhNote=T.rh?"　音ゲー：ジャスト "+T.rh.p+"回・ずれ "+T.rh.m+"回（ポイントのみに反映）。":"";
-  var note=rhNote+(partialPerfect?"（出題数を絞ったテストなので、確定演出とキャラ入手は対象外です。キャラが手に入るのは、ステージの全単語を出すテスト（出題数「全部」）で得点率90%以上の時です）　":"")+(rec?"記録しました。新しく習得済み："+fresh+"語。":"全体テスト（ボス戦）や全体復習は、習得の記録に反映しません。")+"　得点率 "+Math.round(rate*100)+"%（正解 "+correct+" / "+total+"）。";
+  var note=rhNote+(partialPerfect?"（出題数を絞ったテストなので、確定演出とキャラ入手は対象外です。キャラが手に入るのは、ステージの全単語を出すテスト（出題数「全部」）で得点率90%以上の時です）　":"")+(rec?"記録しました。新しく習得済み："+fresh+"語。":T.mode==="srs"?"今日の復習の結果を、次の復習の予定に記録しました（正解は間隔をのばし、まちがいは2段階もどします）。":"全体テスト（ボス戦）や全体復習は、習得の記録に反映しません。")+"　得点率 "+Math.round(rate*100)+"%（正解 "+correct+" / "+total+"）。";
   var title="";
   if(dopa){
     var E=effects(),bonus=perfect?100+E.perf:0,earn=Math.round((T.score+bonus)*E.stone)+(T.extra||0)+E.best*T.best;
