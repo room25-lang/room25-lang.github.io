@@ -18,7 +18,7 @@ document.addEventListener("visibilitychange",function(){if(document.visibilitySt
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>どぱたん＋</title>
+<title>どぱたん＋｜推しと覚える英単語アプリ</title>
 <meta name="theme-color" content="#0b0c0e">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="どぱたん＋">
@@ -2320,6 +2320,9 @@ body.qmode #v5toast{top:calc(env(safe-area-inset-top,0px) + 4px);font-size:12px;
 .gluc em{position:static!important;order:3;margin-top:1px;font-size:9px}
 /* v2.08 #121 ガチャの「確率・ラインナップ」「演出スキップ」を折り返さない */
 #gacha .gctl button{white-space:nowrap;font-size:min(14px,3.6vw);padding-left:6px;padding-right:6px}#gacha .gctl{gap:6px}#gacha .gctl>button{min-width:0}#gacha .gctl .qhelp{flex:0 0 34px!important;width:34px!important;padding:0!important}
+/* v2.09 #114 今日の復習の「先にカードで見る」 */
+.v5rvl{display:block;margin:-4px auto 10px;background:none!important;border:0!important;box-shadow:none!important;text-decoration:underline;opacity:.8}
+.rkhid{opacity:.6;font-style:normal}
 </style>
 </head>
 <body class="dopa">
@@ -2416,7 +2419,7 @@ var st=document.body.style;["--g1","--g2","--g3","--c1","--c2"].forEach(function
   <details class="dt"><summary>更新履歴</summary><div id="verlog"></div></details></div>
   <div class="dop"><h3>このアプリについて（クレジット）</h3>
   <div class="hint" id="credAll"></div>
-  <div class="hint">プライバシーポリシー：<a href="privacy.html" target="_blank" rel="noopener" style="color:var(--acc)">privacy.html</a>（学習の記録などは端末の中に保存します。「クラウド保存」をONにした場合だけ、記録をサーバーに保存します）</div></div>
+  <div class="hint"><a href="terms.html" target="_blank" rel="noopener" style="color:var(--acc)">利用規約</a>／データの削除：<a href="privacy.html#delete" target="_blank" rel="noopener" style="color:var(--acc)">削除の方法</a><br>プライバシーポリシー：<a href="privacy.html" target="_blank" rel="noopener" style="color:var(--acc)">privacy.html</a>（学習の記録などは端末の中に保存します。「クラウド保存」をONにした場合だけ、記録をサーバーに保存します）</div></div>
   <div class="dop"><h3>背景</h3>
   <div class="row2">表示 <select id="bgm"><option value="stage">標準（ステージごとの色）</option><option value="color">好きな色</option><option value="photo">自分の写真</option></select></div>
   <div class="row2" id="bgcw">色 <input type="color" id="bgc" value="#3a0014" style="width:56px;height:36px;padding:0">
@@ -4733,6 +4736,8 @@ var CREDITS=["VOICEVOX:四国めたん","VOICEVOX:春日部つむぎ","VOICEVOX:
 function credHtml(){return '<b>音声</b><br>'+CREDITS.map(esc).join("<br>")+'<br><br><b>単語リスト</b><br>NGSL（New General Service List）1.2　Browne, C., Culligan, B. &amp; Phillips, J.　CC BY-SA 4.0<br>NGSL-GR（New General Service List for Graded Readers）1.0　Browne, C. &amp; Culligan, B.　CC BY-SA 4.0<br><br><b>イラスト</b><br>立ち絵：わたおび（立ち絵素材 わたおきば https://wataokiba.net/）<br><br><b>例文の英語音声</b><br>Kokoro-82M（hexgrad）　Apache License 2.0<br><br>くわしい規約とライセンスは「データ」タブの「クレジット」にあります。'}
 /* ---- 全解放パック（Google Play の買い切り。Google Play版のアプリの中でだけ表示） ---- */
 var IAP_SKU="unlock_all";
+/* 2026-11-18 アオイ決定（A案）：Google Play には無料アプリとして出し、課金は後回し。始める時に true にする */
+var IAP_ON=false;
 var IAP_ACK="";/* 購入の承認をするサーバーのURL（任意）。空のときは、購入をすぐ「消費」して承認の代わりにします */
 var IAP={svc:null,item:null,busy:0};
 var FULL=false;try{FULL=localStorage.getItem("dopa:full")==="1"}catch(e){}
@@ -4791,7 +4796,9 @@ function iapBuy(){
     });
   }).catch(function(e){IAP.busy=0;iapMsg(e&&e.name==="AbortError"?"購入をキャンセルしました。":"購入できませんでした。")});
 }
-var VERSION="2.08",VLOG=[
+var VERSION="2.10",VLOG=[
+ ["2.10","2026-11-18",["Google Play 版の準備：利用規約のページを作り、設定から利用規約とデータの削除の方法を開けるようにしました","全国ランキングの名前に、人を傷つける言葉・URL・電話番号などを使えないようにしました。不適切な名前を見つけた時の知らせ方も書きました","ページの題名を「どぱたん＋｜推しと覚える英単語アプリ」に、アプリの説明を5051語に直しました"]],
+ ["2.09","2026-11-18",["今日の復習は、答えを見る前に思い出せるよう、確認テストから始まるようにしました（先にカードを見たい時は「先にカードで見る」）","メールの並びを、キャラ・ボーナスのメール → 今日の復習・タスク → 更新やお知らせ の順にしました","今日のタスクを終えると、ホームの相棒のあいさつが「おつかれさま」の言葉に変わります。テストの終わりに達成をほめるセリフが出ていなかったのも直しました"]],
  ["2.08","2026-11-18",["ログインボーナスを受け取ったら、ホームの連続ログイン日数もすぐ変わるようにしました","今日の復習の結果画面に、全体テスト用の説明が出ていたのを、復習用の説明に直しました","ヘルプの「編成は最大6人」を「3人まで（最初から3人とも使える）」に直しました。全解放パックの説明からも「編成枠6つ」を外しました","★2↑・★3↑のガチャの表示を「キャラが出たら★2以上／★3以上」に。ヘルプの表も同じ書き方にしました","ガチャの「確率・ラインナップ」「演出スキップ」のボタンが、細い画面で2行にならないようにしました"]],
  ["2.07","2026-11-18",["はじめてのテストで出る得点のルールの案内を、画面のいちばん上に小さく出すようにしました（問題文に重ならないように）", "ガチャのラインナップの「追加」の印が、キャラの丸い枠にかからないようにしました"]],
  ["2.06","2026-11-17",["始めた日より前のお知らせが、すでに受信箱に入っていた場合も消えるようにしました", "記録の「撃破したボス」「覚醒したキャラ」の分母を、ボスのいるステージの数（35）にしました", "全体テストのロックの残り時間を1か所だけに出し、1時間未満は「4分」のように書きます。開いている間も自動で減り、外れたら消えます", "ボス戦の結果の「全体系のテスト」という言い方を直しました"]],
@@ -5118,6 +5125,19 @@ function svgBars(days,unit){
   svg+='<text x="'+(L+(W-L-R)/2)+'" y="'+(H-6)+'" text-anchor="middle" style="fill:var(--sub)">日付（月/日）</text></svg>';
   return svg;
 }
+/* ---- ランキングの名前：不適切な言葉・個人情報らしいものは使えない（Google Play 向け、2026-11-18） ---- */
+var NGW=["しね","死ね","ころす","殺す","ころせ","殺せ","きえろ","消えろ","うざい","きもい","キモい","ガイジ","がいじ","かたわ","めくら","つんぼ","きちがい","キチガイ","気違い","池沼","ちくしょう","ちんこ","ちんぽ","まんこ","おまんこ","うんこ","せっくす","セックス","えっち","エッチ","おっぱい","ぱいぱん","ちくび","乳首","陰茎","性器","射精","中出し","fuck","shit","bitch","cunt","dick","pussy","porn","sex","nigg","fag","rape","whore","slut","nazi","ナチス","ヒトラー","レイプ","強姦","援交","売春","やりもく","しな人","支那","ジャップ","ニガー","クソ","くそ","ばか","バカ","馬鹿","あほ","アホ","ぶす","ブス","でぶ","デブ","ぶさいく","ブサイク","自殺","じさつ"];
+function nameKey(s){s=String(s||"");try{s=s.normalize("NFKC")}catch(e){}s=s.toLowerCase().replace(/[ァ-ヶ]/g,function(c){return String.fromCharCode(c.charCodeAt(0)-0x60)});return s.replace(/[\s　_\-・.。、,!！?？~〜*＊"'`\/\\|()（）「」【】\[\]]/g,"")}
+var NGRAW=["http","www.",".com",".jp",".net","line.me","@"];
+var NGK=null;
+function nameNG(s){if(!s)return "";var k=nameKey(s),raw=String(s);try{raw=raw.normalize("NFKC").toLowerCase()}catch(e){}
+  if(!NGK)NGK=NGW.map(nameKey);
+  for(var i=0;i<NGK.length;i++){if(NGK[i]&&(k.indexOf(NGK[i])>=0||raw.indexOf(NGW[i].toLowerCase())>=0))return "使えない言葉が入っています";}
+  for(var j=0;j<NGRAW.length;j++)if(raw.indexOf(NGRAW[j])>=0)return "URLやアカウント名は使えません";
+  if(/\d[\d\s\-ー−]{8,}\d/.test(raw))return "電話番号のような数字は使えません";
+  return "";}
+window.nameNG=nameNG;
+
 function renderR(msg){
   var h='<div class="card" style="overflow-y:auto;gap:10px;justify-content:flex-start">';
   h+='<div class="pair" style="flex:0 0 auto">'+[['g','グラフ'],['p','進捗'],['z','図鑑'],['a','称号'],['r','ランキング']].map(function(x){return '<button class="sm'+(recView===x[0]?' on':'')+'" data-rv="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div>';
@@ -5156,7 +5176,7 @@ function renderR(msg){
   /* ランキング（全国ランキングは別の仕組みで、この上に入る） */
   h+='<div class="stat"><b>ランキングに出す名前</b></div>';
   h+='<div class="row2">名前 <input type="text" id="rkName" maxlength="12" value="'+esc(G.name||"")+'" placeholder="あなた" style="flex:1;min-width:0"></div>';
-  h+='<div class="hint">全国ランキングに出る名前です（12文字まで）。本名は使わないでください。</div>';
+  h+='<div class="hint">全国ランキングに出る名前です（12文字まで）。本名や、人を傷つける言葉は使わないでください（<a href="terms.html" target="_blank" rel="noopener">利用規約</a>）。</div>';
   }
   h+='</div>';
   $("rec").innerHTML=h;var dsc=$("dsc");if(dsc)dsc.scrollLeft=dsc.scrollWidth;
@@ -5165,7 +5185,7 @@ function renderR(msg){
   Array.prototype.forEach.call($("rec").querySelectorAll("[data-rkdel]"),function(b){b.onclick=function(){var n=b.getAttribute("data-rkdel");rankSave(rankLoad().filter(function(x){return x.n!==n}));renderR("削除しました。")}});
   Array.prototype.forEach.call($("rec").querySelectorAll("[data-rv]"),function(b){b.onclick=function(){recView=b.getAttribute("data-rv");renderR()}});
   if(recView==="r"){
-  $("rkName").onchange=function(){G.name=($("rkName").value||"").trim().slice(0,12);saveG();renderR()};
+  $("rkName").onchange=function(){var v=($("rkName").value||"").trim().slice(0,12),ng=nameNG(v);if(ng){V5.toast(ng+"。別の名前にしてください");$("rkName").value=G.name||"";return}G.name=v;saveG();renderR()};
   }
 }
 
@@ -5315,7 +5335,7 @@ function dlcDelete(id,b){
   var c=$("credAll");if(c)c.innerHTML=credHtml();
   if($("iapBuy"))$("iapBuy").onclick=iapBuy;if($("iapRest"))$("iapRest").onclick=function(){iapRestore(false)};
   if(FULL)setTimeout(function(){try{var ch=false;CHARS.forEach(function(x){if(lvOf(x.id)<LVMAX)ch=true});if(ch||G.slots<6)fullApply()}catch(e){}},0);
-  setTimeout(iapInit,800);
+  if(IAP_ON)setTimeout(iapInit,800);
   if("serviceWorker" in navigator&&/^https?:$/.test(location.protocol)){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(r){try{r.update()}catch(e){}}).catch(function(){})})}
 })();
 
@@ -6920,10 +6940,12 @@ function flowBar(){
   b.innerHTML='<div><b>'+esc(FLOW.label)+'</b><small>カードで確認したら、確認テストへ進みます（'+FLOW.ids.length+'語）</small></div><button class="main" id="flowGo">確認テストへ</button>';
   $("flowGo").onclick=flowTest;
 }
-function flowStart(ids,mode,label){
+/* #114 今日の復習は、答えを見る前に思い出せるよう、確認テストから始める（look=1 の時だけ先にカード） */
+function flowStart(ids,mode,label,look){
   if(!ids.length){toast("対象の単語がありません");return}
   closeIbx();tab("L");
   FLOW={ids:ids.slice(),mode:mode,label:label};
+  if(mode==="srs"&&!look){flowTest();return}
   order=ids.slice();pos=0;shown=false;learnShow(true);render();flowBar();
 }
 window.flowStart=flowStart;
@@ -6940,7 +6962,7 @@ function flowTest(){
 }
 var _rls=renderLearnSetup;
 renderLearnSetup=function(m){FLOW=null;flowBar();_rls(m);
-  try{var d=srsDue().length,box=$("lsetup");if(box&&d){var x=document.createElement("button");x.className="main v5rv";x.innerHTML="今日の復習 <b>"+d+"</b>語<small>暗記 → 確認テスト</small>";x.onclick=function(){flowStart(srsDue(),"srs","今日の復習")};box.insertBefore(x,box.firstChild)}}catch(e){}
+  try{var d=srsDue().length,box=$("lsetup");if(box&&d){var x=document.createElement("button");x.className="main v5rv";x.innerHTML="今日の復習 <b>"+d+"</b>語<small>確認テストから（答えを見る前に思い出す）</small>";x.onclick=function(){flowStart(srsDue(),"srs","今日の復習")};var y=document.createElement("button");y.className="sm v5rvl";y.textContent="先にカードで見る";y.onclick=function(){flowStart(srsDue(),"srs","今日の復習",1)};box.insertBefore(y,box.firstChild);box.insertBefore(x,box.firstChild)}}catch(e){}
 };
 /* 今日の続き：復習 → 新しい単語10語 → 全体テスト の順で、いまやることへ案内 */
 function nextNew(n){var a=[],b=[];for(var i=0;i<WORDS.length;i++){var p=passes(i);if(p===1)a.push(i);else if(p===0)b.push(i);if(a.length>=n)break}return a.concat(b).slice(0,n)}
@@ -7034,7 +7056,7 @@ setup=function(m){
       md.parentNode.insertBefore(l,md.nextSibling);
       $("spChk").onchange=function(){SPELL=$("spChk").checked;lsSet("dopa:spell",SPELL)};
       var d=srsDue().length;
-      if(d){var x=document.createElement("button");x.className="main v5rv";x.innerHTML="今日の復習 <b>"+d+"</b>語<small>暗記 → 確認テスト</small>";x.onclick=function(){flowStart(srsDue(),"srs","今日の復習")};md.parentNode.insertBefore(x,md)}
+      if(d){var x=document.createElement("button");x.className="main v5rv";x.innerHTML="今日の復習 <b>"+d+"</b>語<small>確認テストから（答えを見る前に思い出す）</small>";x.onclick=function(){flowStart(srsDue(),"srs","今日の復習")};var y=document.createElement("button");y.className="sm v5rvl";y.textContent="先にカードで見る";y.onclick=function(){flowStart(srsDue(),"srs","今日の復習",1)};md.parentNode.insertBefore(x,md);md.parentNode.insertBefore(y,md)}
     }
     if(!G.unl.b){var a=$("test").querySelector('input[name=mode][value="all"]');if(a){var lb=a.closest("label");if(lb){lb.style.display="none";var h=document.createElement("div");h.className="hint v5lock";h.innerHTML=ICO("lock",12)+" 全体テスト（ボス戦）は、どれかのステージで、全単語を出すテスト（出題数「全部」）で得点率90%以上を取ると開放されます";lb.parentNode.appendChild(h)}}}
   }catch(e){}
@@ -7262,7 +7284,7 @@ function srsNone(){try{var S=window.srsData&&srsData();return !S||!Object.keys(S
 function ibxItems(){
   var t=dayKey(),a=[],d=srsDue().length;
   var P=todayPlan();
-  a.push({id:"go"+t,ic:"play",cls:"cta",t:"今日の続き",b:P.t+"　（暗記 → 確認テスト）",act:"はじめる",done:false,f:function(){P.f()},keep:1});
+  a.push({id:"go"+t,ic:"play",cls:"cta",t:"今日の続き",b:P.t+(P.k==="rv"?"　（確認テストから）":"　（暗記 → 確認テスト）"),act:"はじめる",done:false,f:function(){P.f()},keep:1});
   a.push({id:"rv"+t,ic:"repeat",t:"今日の復習",b:d?d+"語が復習の時期です。覚えたての単語ほど、間を空けて思い出すと定着します。":(srsNone()?"単語を覚えてテストで合格すると、ここに復習が出ます。":"今日の復習はすべて終わりました。"+(G.rvd.n?"　連続 "+G.rvd.n+" 日":"")),act:d?"復習する":"",done:!d&&!srsNone(),f:function(){flowStart(srsDue(),"srs","今日の復習")}});
   var lb=G.login&&G.login.last===t;
   a.push({id:"lb"+t,ic:"gift",t:"ログインボーナス",b:lb?"今日の分は受け取り済みです（連続"+(G.login.n||1)+"日目）":"今日のログインボーナスが届いています。7日目は★5以上確定！",act:lb?"":"受け取る",done:lb,f:function(){dailyLogin();NTFR["lb"+t]=1;ntfSave();setTimeout(ibxRender,400)}});
@@ -7274,6 +7296,9 @@ function ibxItems(){
   });
   if(window.V6goal)V6goal(a);
   NTF.forEach(function(x){if(/^lb\d/.test(x.id))return;a.push({adm:/^(v|n:)/.test(x.id),id:"n"+x.id,ic:"mail",t:x.t,b:x.b,date:x.d,act:NTFR[x.id]?"":"既読",done:!!NTFR[x.id],ntf:x,f:function(){NTFR[x.id]=1;ntfSave()}})});
+  /* #115 並び：キャラ・ボーナス（ログインボーナス・称号・覚醒・開放）→ 今日の復習・タスク → 業務連絡（更新・お知らせ）。同じ組の中は元の順 */
+  var grp=function(x){return x.ntf?2:/^(lb|ac|u|k)/.test(x.id)?0:1};
+  a=a.map(function(x,i){return [grp(x),i,x]}).sort(function(p,q){return p[0]-q[0]||p[1]-q[1]}).map(function(p){return p[2]});
   if(G.mailAdm)a=a.filter(function(x){return x.adm});
   var RD=lsGet("dopa:mread",null);if(RD&&RD.d===t&&RD.ids)a.forEach(function(x){if(!x.done&&!x.keep&&RD.ids.indexOf(x.id)>=0){x.done=true;x.rd=1}});
   return a;
@@ -7425,6 +7450,7 @@ function goalToday(){
   var doneNew=((prog.dl||{})[k]||{}).m||0,due=srsDue().length;
   return {per:g.td.per,doneNew:doneNew,due:due,done:due===0&&doneNew>=g.td.per};
 }
+window.goalToday=goalToday;
 function goalCard(){
   var b=$("hmGoal");if(!b)return;var g=G.goal;
   if(!g){b.innerHTML='<div class="hmgoal none"><p>「何語を・いつまでに」を決めると、1日の量を提案して、毎日のタスクをメールで届けます。</p><button class="hmbtn" id="glNew">'+ICO("target",14)+' 目標を決める</button></div>';$("glNew").onclick=goalEdit;return}
@@ -9232,11 +9258,12 @@ if(typeof bgBase==="function"){var _bb=bgBase;bgBase=function(){return Math.min(
 var ls=function(k){try{return localStorage.getItem(k)}catch(e){return null}},lset=function(k,v){try{v==null?localStorage.removeItem(k):localStorage.setItem(k,v)}catch(e){}};
 var joined=function(){return ls("dopa:rkjoin")==="1"};
 var RK={list:null,me:null,err:"",t:0,busy:0};
+var RKFORM="https://docs.google.com/forms/d/e/1FAIpQLSe0LceYsRjmr5DVBkgZkE0K4y7St0qbEsWgRmJmmSezFh7W2Q/viewform";
 var C=function(){return window.CLD};
 function pub(path,h){var c=C();var hd={apikey:c.key};Object.keys(h||{}).forEach(function(k){hd[k]=h[k]});return fetch(c.url+path,{headers:hd})}
 function nm(){return (G.name||"").trim().slice(0,12)}
 function submit(){
-  if(!joined()||!C()||G.inf||!nm())return Promise.resolve(false);
+  if(!joined()||!C()||G.inf||!nm()||nameNG(nm()))return Promise.resolve(false);
   return C().tok().then(function(t){var c=C();return c.req("/rest/v1/ranking?on_conflict=user_id",{m:"POST",h:{"Prefer":"resolution=merge-duplicates,return=minimal"},b:{user_id:JSON.parse(ls("dopa:cloud")).uid,name:nm(),total:Math.max(0,Math.floor(G.total||0)),updated_at:new Date().toISOString()}},t)}).then(function(){RK.err="";return true}).catch(function(e){RK.err=String(e.message||e);return false});
 }
 function load(){
@@ -9251,10 +9278,11 @@ function block(){
   var h='<div class="nrk"><div class="stat"><b>全国ランキング（累計ポイント）</b></div>';
   if(!joined())h+='<div class="hint">参加すると、名前と累計ポイントだけがサーバーに送られて、全国の順位が出ます（いつでもやめられます）。</div><button class="main" type="button" id="nrkJoin" style="width:100%">全国ランキングに参加する</button>';
   else h+='<div class="hint">'+(G.inf?'管理者モード中は送信しません。':(RK.me?'あなたは <b>'+RK.me+'位</b>（'+esc(nm())+'・'+(G.total||0)+'）':'順位を確認しています…'))+'</div>';
-  if(RK.list){h+=RK.list.length?RK.list.map(function(x,i){var mine=joined()&&x.name===nm()&&x.total===Math.floor(G.total||0);return '<div class="rk'+(mine?' me':'')+'"><span>'+(i+1)+'位</span><span>'+esc(x.name)+'</span><b>'+x.total+'</b><span></span></div>'}).join(""):'<div class="hint">まだ誰もいません。</div>'}
+  if(RK.list){h+=RK.list.length?RK.list.map(function(x,i){var mine=joined()&&x.name===nm()&&x.total===Math.floor(G.total||0);return '<div class="rk'+(mine?' me':'')+'"><span>'+(i+1)+'位</span><span>'+(nameNG(x.name)?'<i class="rkhid">（非表示の名前）</i>':esc(x.name))+'</span><b>'+x.total+'</b><span></span></div>'}).join(""):'<div class="hint">まだ誰もいません。</div>'}
   else h+='<div class="hint">'+(RK.err?'読み込めませんでした（'+esc(RK.err)+'）':'読み込んでいます…')+'</div>';
   if(joined())h+='<div class="pair"><button type="button" class="sm" id="nrkRe">更新</button><button type="button" class="sm" id="nrkQuit">参加をやめる</button></div>';
   if(RK.err&&RK.list)h+='<div class="hint">（'+esc(RK.err)+'）</div>';
+  h+='<div class="hint rkrep">不適切な名前を見つけたら、<a href="'+RKFORM+'" target="_blank" rel="noopener">お問い合わせフォーム</a>から「何位の、どの名前か」を知らせてください。確認して削除します。</div>';
   return h+'</div>';
 }
 function mount(){
@@ -9263,7 +9291,8 @@ function mount(){
   var st=card.querySelector(".stat");var d=document.createElement("div");d.innerHTML=block();var el=d.firstChild;
   if(st){st.parentNode.insertBefore(el,st);st.innerHTML="<b>ランキングに出す名前</b>"}else card.appendChild(el);
   var j=$("nrkJoin");if(j)j.onclick=function(){
-    if(!nm()){var n=prompt("ランキングに出す名前（12文字まで。本名は使わないでください）","");if(!n||!n.trim())return;G.name=n.trim().slice(0,12);saveG()}
+    if(!nm()){var n=prompt("ランキングに出す名前（12文字まで。本名は使わないでください）","");if(!n||!n.trim())return;var ng=nameNG(n.trim().slice(0,12));if(ng){V5.toast(ng+"。別の名前にしてください");return}G.name=n.trim().slice(0,12);saveG()}
+    if(nameNG(nm())){V5.toast("今の名前は使えません。名前を変えてから参加してください");return}
     lset("dopa:rkjoin","1");RK.me=null;mount();submit().then(load).then(mount);
   };
   var r=$("nrkRe");if(r)r.onclick=function(){submit().then(load).then(mount)};
@@ -9408,7 +9437,11 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
     GREET={id:id,k:k,t:text(id,k),late:pre[0]==="lt1"};
     applyGreet();
   }
-  function applyGreet(){var h=$("homeT");if(!GREET||!h)return;var gr=h.querySelector(".hb2gr");if(gr&&partner()===GREET.id)gr.textContent=GREET.t}
+  /* #116 今日のタスクを終えたあとは、朝のあいさつではなく「おつかれさま」の言葉に（声はテストの終わりに一度出ているので文字だけ） */
+  function doneToday(){try{var g=window.goalToday();return !!(g&&g.done)}catch(e){return false}}
+  function applyGreet(){var h=$("homeT");if(!h)return;var id=partner();
+    if(id&&doneToday()&&!(GREET&&GREET.dn&&GREET.id===id)){var k=pick(["dn1a","dn1b","dn3a","dn3b"]);if(k)GREET={id:id,k:k,t:text(id,k),dn:1,late:true}}
+    if(!GREET)return;var gr=h.querySelector(".hb2gr");if(gr&&id===GREET.id)gr.textContent=GREET.t}
   if(typeof window.V7home==="function"){var _vh=window.V7home;window.V7home=function(){var r=_vh.apply(this,arguments);try{applyGreet()}catch(e){}return r}}
   setTimeout(homeGreet,0);
   /* 声は、最初の操作のあと1回だけ（夜ふかしのあいさつは文字だけ） */
@@ -9479,7 +9512,7 @@ var tm=0;if(typeof saveG==="function"){var _sg=saveG;saveG=function(){var r=_sg.
     var m=V5.mastered(),h=msNext(m);
     setTimeout(function(){
       if(h){lset("dopa:cms",String(h));say([h===50?"m50":h===100?"m100":"m500"],1,{ms:4000});return}
-      var done=false;try{done=goalToday().done}catch(e){}
+      var done=false;try{done=window.goalToday().done}catch(e){}
       if(done)say(["dn1a","dn1b","dn3a","dn3b"],1,{ms:3600});
       else say(["by1","by3"],1,{ms:3000,voice:false});
     },2600);
