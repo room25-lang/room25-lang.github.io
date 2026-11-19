@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://room25-lang.github.io/</loc><lastmod>2026-11-18</lastmod><priority>1.0</priority></url>
+  <url><loc>https://room25-lang.github.io/lp/</loc><lastmod>2026-11-19</lastmod><priority>0.8</priority></url>
   <url><loc>https://room25-lang.github.io/links/</loc><lastmod>2026-11-18</lastmod><priority>0.6</priority></url>
   <url><loc>https://room25-lang.github.io/devlog/</loc><lastmod>2026-11-18</lastmod><priority>0.6</priority></url>
   <url><loc>https://room25-lang.github.io/devlog/iphone-crash/</loc><lastmod>2026-11-18</lastmod><priority>0.5</priority></url>
