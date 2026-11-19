@@ -4402,10 +4402,10 @@ function musicPrepare(show,th){
 /* テストBGM（mp3）：dopa:tbm = auto（午前A・午後C）／A／C／old（これまでの曲） */
 function mood(){try{var m=localStorage.getItem("dopa:mood");if(m)return m;if(localStorage.getItem("dopa:tut")){localStorage.setItem("dopa:mood","soft");return "soft"}return "hype"}catch(e){return "hype"}}
 function tbMode(){try{return localStorage.getItem("dopa:tbm")||"auto"}catch(e){return "auto"}}
-function tbSet(){if(mood()==="hype")return (T&&T.stage===0)?"H":"";var m=tbMode();if(m==="old")return "";if(m==="A"||m==="C")return m;var h=new Date().getHours();return (h>=4&&h<12)?"A":"C"}
+function tbSet(){if(mood()==="hype")return "";var m=tbMode();if(m==="old")return "";if(m==="A"||m==="C")return m;var h=new Date().getHours();return (h>=4&&h<12)?"A":"C"}
 var TBB={};
 function loadTB(k,lap){
-  var set=bgm.tb||tbSet(),u="bgm/t"+set+("0"+(k%35+1)).slice(-2)+".mp3",rate=function(){return tmpf()*(mood()==="hype"&&set!=="H"?LPB[lap||0]:1)};
+  var set=bgm.tb||tbSet(),u="bgm/t"+set+("0"+(k%35+1)).slice(-2)+".mp3",rate=function(){return tmpf()*(mood()==="hype"?LPB[lap||0]:1)};
   var go=function(buf){
     if(!bgm.on||!bgm.pre||!bgm.tb||bgm.stage!==k)return;
     var now=AC.currentTime,tf=rate();
@@ -4737,7 +4737,8 @@ function fullApply(){
   if(!G.first)G.first=G.party[0]||"c01";G.starter=1;
   saveG();try{updStones()}catch(e){}
 }
-var VERSION="2.13",VLOG=[
+var VERSION="2.14",VLOG=[
+ ["2.14","2026-11-19",["ノリノリの雰囲気で、最初のステージのテストだけ試作の曲が流れていたのを、ほかのテストと同じ曲に戻しました"]],
  ["2.13","2026-11-19",["どぱたん＋は完全無料です。アプリの中で買えるものの準備をすべて取りやめ、説明からも消しました"]],
  ["2.12","2026-11-19",["設定の「最初の画面に戻る」を「タイトル画面に戻る」にしました","プライバシーポリシーと利用規約に、対象年齢（13歳以上）とお問い合わせのメールアドレスを書きました","編成の一覧でキャラを押してすぐ別の画面に移ると、見えない所でエラーが出ていたのを直しました"]],
  ["2.11","2026-11-19",["その日最初にアプリを開いてログインボーナスを受け取ると、ホームの相棒のカードが2枚に増えて見えていたのを直しました"]],
