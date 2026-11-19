@@ -15,6 +15,8 @@ self.addEventListener("fetch",function(e){
   /* 提出版（/dopatan/）には関わらない */
   if(u.pathname.indexOf("/dopatan/")===0||u.pathname==="/dopatan")return;
   if(u.pathname.indexOf("/gck2026/")===0||u.pathname==="/gck2026")return;
+  /* 紹介ページ（/lp/）には関わらない（古いデザインが残らないように） */
+  if(u.pathname.indexOf("/lp/")===0||u.pathname==="/lp")return;
   if(/news\.json$/.test(u.pathname)){e.respondWith(fetch(u.href,{cache:"no-store"}).catch(function(){return new Response("{\"news\":[]}",{headers:{"Content-Type":"application/json"}})}));return}
   var page=r.mode==="navigate"||/\/(index\.html)?$/.test(u.pathname);
   if(page){
